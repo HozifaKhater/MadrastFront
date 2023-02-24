@@ -1,0 +1,24 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            التشعيب
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+            <kt-branch_stat-list></kt-branch_stat-list>
+        </div>
+        
+
+            <!--End Departments Data-->

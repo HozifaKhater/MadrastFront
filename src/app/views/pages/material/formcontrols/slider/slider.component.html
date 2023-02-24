@@ -1,0 +1,407 @@
+﻿<!--Users’ data Form-->
+<!--<style>
+    .mat-slider {
+        width: 300px;
+    }
+
+    .example-margin {
+        margin: 15px;
+    }
+
+    .example-container {
+        display: flex;
+        flex-direction: column;
+        max-height: 500px;
+        min-width: 300px;
+        position: relative;
+    }
+
+    .mat-table {
+        overflow: auto;
+        max-height: 500px;
+        width: 1000px;
+    }
+
+    .mat-header-cell.mat-sort-header-sorted {
+        color: black;
+    }
+
+    .example-header {
+        min-height: 64px;
+        padding: 8px 24px 0;
+    }
+
+    .mat-form-field {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .mat-table {
+        overflow: auto;
+        max-height: 500px;
+    }
+
+    .mat-column-select {
+        overflow: initial;
+    }
+
+    .example-header {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        padding-left: 24px;
+        font-size: 20px;
+    }
+
+    .example-table {
+        overflow: auto;
+        min-height: 300px;
+    }
+
+    .example-loading-shade {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 56px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.15);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .example-rate-limit-reached {
+        color: #980000;
+        max-width: 360px;
+        text-align: center;
+    }
+
+    /* Column Widths */
+    .mat-column-number,
+    .mat-column-state {
+        max-width: 64px;
+    }
+
+    .mat-column-created {
+        max-width: 124px;
+    }
+</style>-->
+
+<!--<div class="row">
+
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                            بيانات المستخدم
+                        </h3>
+                    </div>
+                </div>
+            </div>-->
+            <!--begin::Form-->
+            <!--<form class="kt-form" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">
+                                الوظيفة:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+
+                                <mat-form-field>
+                                    <mat-select formControlName="selectedjob" required
+                                                placeholder="الوظيفة"
+                                                [(ngModel)]="selectedjob">
+                                        <mat-option *ngFor="let job of jobs" (onSelectionChange)="job_selection($event)" [value]="job">
+                                            {{ job.job_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                    <mat-error *ngIf="
+        form1.controls.selectedjob.hasError('required') &&
+        (form1.controls.selectedjob.dirty || form1.controls.selectedjob.touched)
+      ">
+                                        من فضلك أختر الوظيفة
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">
+                                الموظف:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select [(ngModel)]="selectedemployee"
+                                                placeholder="أختر الموظف">
+                                        <mat-option *ngFor="let employee of employees" formControlName="selectedemployee" required (onSelectionChange)="emp_selection($event)" [value]="employee">
+                                            {{ employee.emp_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                    <mat-error *ngIf="
+        form1.controls.selectedemployee.hasError('required') &&
+        (form1.controls.selectedemployee.dirty || form1.controls.selectedemployee.touched)
+      ">
+                                        من فضلك أختر الموظف
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <!-- <div class="kt-form__group kt-form__group--last form-group row">
+                    <b class="col-lg-2 col-form-label">الصلاحيات:</b>
+                    <div class="col-lg-6">
+                        <div class="kt-checkbox-list">
+                            <p style="float:right;margin:5px;">
+                                <mat-checkbox [(ngModel)]="in_class_priv" [ngModelOptions]="{standalone: true}" id="side_job_chck" (change)="side_jobclass_chck_change($event)">داخل الصف</mat-checkbox>
+                            </p>
+                            <p style="float:right;margin:5px;">
+                                <mat-checkbox id="dep_work" [(ngModel)]="dep_work" [ngModelOptions]="{standalone: true}" (change)="side_jobwork_chck_change($event)">أعمال القسم</mat-checkbox>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div> -->
+                <!--<mat-selection-list #shoes>
+                    <mat-list-option *ngFor="let shoe of typesOfShoes" >
+                        {{shoe}}
+                    </mat-list-option>
+                </mat-selection-list>-->
+                <!-- <div *ngFor="let privs of newArray; let i=index" class="col-md-2">
+                    <label>
+                        <input type="checkbox" [checked]="(privs.checked)" [value]="privs.priv_id" (change)="onCheckChange($event)">
+                        {{privs.priv_name}}
+                    </label>
+                </div> -->
+                <!-- <div *ngFor="let privs of privs; let i=index; " class="col-md-2">
+                    <label>
+                        <input type="checkbox"   [value]="privs.priv_id" (change)="onCheckChange($event)">
+                        {{privs.priv_name}}
+                    </label>
+                </div> -->
+                <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+                <div class="kt-portlet__body">
+                    <div class="form-group kt-form__group row">
+                        <kt-material-preview [viewItem]="exampleSelection">
+                            <div class="kt-section">
+                                <div class="kt-section__content">
+                                    <div class="example-container mat-elevation-z8">
+                                        <mat-table #table5 [dataSource]="dataSource5">-->
+                <!-- Checkbox Column -->
+                <!--<ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? masterToggle5() : null" [checked]="selection.hasValue() && isAllSelected5()" [indeterminate]="selection.hasValue() && !isAllSelected5()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>-->
+                <!-- Position Column -->
+                <!--<ng-container matColumnDef="position">
+                    <mat-header-cell *matHeaderCellDef> مسلسل </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                </ng-container>-->
+                <!-- Name Column -->
+                <!--<ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef> الأسم </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>-->
+                <!-- Weight Column -->
+                <!--<ng-container matColumnDef="weight">
+                    <mat-header-cell *matHeaderCellDef> الوظيفة </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                </ng-container>-->
+                <!-- Symbol Column -->
+                <!--<ng-container matColumnDef="symbol">
+                                                    <mat-header-cell *matHeaderCellDef> أسم المستخدم </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayedColumns5"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayedColumns5;" (click)="selection.toggle(row)"></mat-row>
+                                            </mat-table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </kt-material-preview>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">أسم المستخدم:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="أدخل اسم المستخدم">
+                                    <mat-hint align="start">من فضلك أدخل اسم المستخدم</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">كلمة المرور:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="كلمة المرور" type="password">
+                                    <mat-hint align="start">من فضلك ادخل كلمة المرور</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <label class="col-lg-2 col-form-label">الصلاحيات:</label>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;margin:5px;">
+                                        <mat-checkbox>داخل الصف</mat-checkbox>
+                                    </p>
+                                    <p style="float:right;margin:5px;">
+                                        <mat-checkbox>أعمال القسم</mat-checkbox>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group kt-form__group row">
+                        <div class="col-lg-6">
+                            <mat-selection-list #shoes>
+                                <mat-list-option *ngFor="let shoe of typesOfShoes">
+                                    {{shoe}}
+                                </mat-list-option>
+                            </mat-selection-list>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__foot kt-portlet__no-border">
+                        <div class="kt-form__actions kt-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-6">
+                                    <button mat-raised-button color="primary">حفظ</button>&nbsp;
+                                    <button mat-raised-button type="reset">حذف</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>-->
+                <!--end::Form-->
+
+                <!--<div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" (click)="add_users_priv()" mat-raised-button color="accent">حفظ</button>&nbsp;
+                                <button id="update_btn" (click)="update_users_priv()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="cancel_btn" (click)="cancel_users_priv()" mat-raised-button color="accent">الغاء</button>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<kt-users_priv-list></kt-users_priv-list>-->
+<!--<kt-customers-list></kt-customers-list>-->
+<!--End Users’ data Form-->
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-caption">
+                            <div class="kt-portlet__head-title">
+                                <span class="kt-portlet__head-icon kt-hide">
+                                    <i class="la la-gear"></i>
+                                </span>
+                                <h3 class="kt-portlet__head-text">
+                                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                                    بيانات المستخدم
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--begin::Form-->
+                    <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                        <div class="kt-portlet__body">
+                            <div class="kt-form__section kt-form__section--first">
+
+                                <div class="form-group kt-form__group text-right">
+    
+                                    <div class="container">
+                                        <div class="row">
+    
+                                            <div class="col-lg-12">
+                                                <div class="form-group kt-form__group row">
+                                                    <label class="col-lg-1 col-form-label">
+                                                        الوظيفة
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-4">
+    
+                                                        <mat-form-field>
+                                                            <mat-select formControlName="selectedjob" required
+                                                                        placeholder="الوظيفة"
+                                                                        [(ngModel)]="selectedjob">
+                                                                <mat-option *ngFor="let job of jobs" (onSelectionChange)="job_selection($event)" [value]="job">
+                                                                    {{ job.job_name }}
+                                                                </mat-option>
+                                                            </mat-select>
+    
+                                                            <mat-error *ngIf="
+            form1.controls.selectedjob.hasError('required') &&
+            (form1.controls.selectedjob.dirty || form1.controls.selectedjob.touched)
+          ">
+                                                                من فضلك أختر الوظيفة
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-1"><!--extra div--></div>
+                                                    <label class="col-lg-1 col-form-label">
+                                                        موظف
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-4">
+                                                        <mat-form-field>
+                                                            <mat-select [(ngModel)]="selectedemployee"
+                                                                        placeholder="أختر الموظف">
+                                                                <mat-option *ngFor="let employee of employees"   required (onSelectionChange)="emp_selection($event)" [value]="employee">
+                                                                    {{ employee.emp_name }}
+                                                                </mat-option>
+                                                            </mat-select>
+    
+                                                            <mat-error *ngIf="
+            form1.controls.selectedemployee.hasError('required') &&
+            (form1.controls.selectedemployee.dirty || form1.controls.selectedemployee.touched)
+          ">
+                                                                من فضلك أختر الموظف
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+        </div>
+        <kt-users_priv-list></kt-users_priv-list>

@@ -1,0 +1,116 @@
+﻿<div class="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v1" id="kt_login">
+	<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
+			
+	<!--begin::Aside-->
+		<div class="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside" style="background-color: white;">
+			<div class="kt-grid__item">
+				<a href="javascript:;" class="kt-login__logo">
+					<img src="./assets/media/logos/madresti logo_page-0001.jpg" style="width: 180px;height: 180px;" alt="">
+				</a>
+			</div>
+			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+				<div class="kt-grid__item kt-grid__item--middle">
+
+					<div class="box" style="height: 30rem; border-left: none; border-right:3px solid #01718d;">
+						<p class="box-title">أخبار عامة</p>
+						<marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:20rem;" onmouseout="this.start();">
+							<div class="mat-table__wrapper">
+
+								<mat-table class="lmat-elevation-z8"
+										   #table
+										   [dataSource]="dataSource"
+										   matSort
+										   #sort1="matSort"
+										   matSortActive="id"
+										   matSortDirection="asc"
+										   matSortDisableClear>
+									
+									<ng-container matColumnDef="news">
+										<mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+										<mat-cell *matCellDef="let new">{{new.body}}</mat-cell>
+									</ng-container>
+					
+									<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+					
+									<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+								</mat-table>
+							</div>
+							
+						</marquee>
+					</div>
+
+					<!--<marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();">
+
+						<div class="ticker-heading">أخبار عامة</div>
+						<br />
+						<ul class="ticker" id="ticker01">
+
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+							<li><a href="#"> يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي </a> <span> الخط الأميري </span> </li>
+						</ul>
+
+					</marquee>-->
+				</div>
+			</div>
+
+			<div class="btm-sticky" style="background-color:white;">
+				<a href="#">
+				<div class="container">
+				  
+				
+					 <img src="./assets/media/logos/ads.png" class="responsive big">
+					 <!--<img src="http://www.casademonte.in/assets/images/casa-icon.svg" class="responsive small">-->
+				
+					 
+				<!--<div class="pull-center">
+				  <p>Get an Exclusive Invite</p>
+				</div>-->
+					
+				<!--<div class="pull-right">
+				  <img src="http://www.luxuryabode.com/images/casa-sticky.png"  class="responsive">
+				</div>-->
+			  
+				</div>
+				  
+				<!--<div class="price">
+				   <p><i class="i-rupee"></i> 3.5 Cr onwards</p>
+				</div>-->
+				  
+				</a>
+			  </div>
+</div>
+		<!--begin::Aside-->
+
+		<!--begin::Content-->
+		<div class="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1 kt-login__wrapper" style="margin-bottom: 60px;">
+			<router-outlet></router-outlet>
+		</div>
+		<!--end::Content-->
+
+</div>
+</div>
+
+
+
+
+

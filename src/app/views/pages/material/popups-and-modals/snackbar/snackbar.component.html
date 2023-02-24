@@ -1,0 +1,150 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">معلومات السنه الدراسيه</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  (click)="openModal(content, $event)" id="modalOpener">اضافة معلومات السنه الدراسيه</button>
+        <br /><br /><br />
+                    <kt-school_year_data-list></kt-school_year_data-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة معلومات السنه الدراسيه
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                     بدايه العام:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field (click)="pickera.open()">
+                                                        <input [(ngModel)]="year_date_from" required formControlName="year_date_from" matInput [matDatepicker]="pickera" placeholder="تاريخ بداية العام الدراسي">
+                                                        <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
+                                                        <mat-datepicker #pickera></mat-datepicker>
+                                                        <mat-error *ngIf="
+                                    form1.controls.year_date_from.hasError('required') &&
+                                    (form1.controls.year_date_from.dirty || form1.controls.year_date_from.touched)
+                                  ">
+                                                           من فضلك أختر تاريخ بدايه العام الدراسى
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+
+
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                     نهايه العام:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field (click)="pickerb.open()">
+                                                        <input [(ngModel)]="year_date_to" required formControlName="year_date_to" matInput [matDatepicker]="pickerb" placeholder="تاريخ نهايه العام الدراسي">
+                                                        <mat-datepicker-toggle matSuffix [for]="pickerb"></mat-datepicker-toggle>
+                                                        <mat-datepicker #pickerb></mat-datepicker>
+                                                        <mat-error *ngIf="
+                                    form1.controls.year_date_to.hasError('required') &&
+                                    (form1.controls.year_date_to.dirty || form1.controls.year_date_to.touched)
+                                  ">
+                                                           من فضلك أختر تاريخ نهايه العام الدراسى
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div *ngFor="let field of fieldArray; let i = index">
+
+                                                <div class="input-group-prepend">
+                                                    <div (click)="deleteFieldValue(i)" class="input-group-text">
+                                                        <i class="mdi mdi-close mdi-18px"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group kt-form__group row">
+                                                    <label class="col-lg-1 col-form-label">بدايه الترم:</label>
+                                                    <div class="col-lg-4">
+
+
+
+
+                                                        <mat-form-field (click)="i.open()">
+                                                            <input [(ngModel)]="field.name"
+                                                                   name="{{field.name}}"
+                                                                   matInput [matDatepicker]="i"
+                                                                   placeholder="أختر تاريخ بدايه الترم"
+                                                                   [ngModelOptions]="{standalone: true}">
+                                                            <mat-datepicker-toggle matSuffix [for]="i"></mat-datepicker-toggle>
+                                                            <mat-datepicker #i></mat-datepicker>
+                                                        </mat-form-field>
+
+
+                                                    </div>
+                                                    <div class="col-1"><!--extra div--></div>
+                                                    <label class="col-lg-1 col-form-label">نهايه الترم:</label>
+                                                    <div class="col-lg-4">
+
+                                                        <mat-form-field (click)="x.open()">
+                                                            <input [(ngModel)]="field.name1"
+                                                                   name="{{field.name1}}"
+                                                                   matInput [matDatepicker]="x"
+                                                                   placeholder="أختر تاريخ نهايه الترم"
+                                                                   [ngModelOptions]="{standalone: true}">
+                                                            <mat-datepicker-toggle matSuffix [for]="x"></mat-datepicker-toggle>
+                                                            <mat-datepicker #x></mat-datepicker>
+                                                        </mat-form-field>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+
+                       
+                                                <div class="col-lg-3">
+                                                    <button (click)="addFieldValue(field)" mat-fab color="primary"><span style="font-size:30px;">+</span></button>&nbsp;
+                                                    <b>أضافه ترم</b>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+
+                                            </div>
+
+                                        </div>
+
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+               
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+                <button type="button" style="border-radius: 20px;" (click)="update_year()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_year()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

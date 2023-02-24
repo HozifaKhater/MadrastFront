@@ -1,0 +1,135 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">توزيع المشرفين</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary" id="modalOpener"  (click)="openModal(content, $event)">اضافة</button>
+        <br /><br /><br />
+                    <kt-Corridorsupervision-list></kt-Corridorsupervision-list>
+    </div>
+</div>
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة 
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الجناح:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                       
+                                                        <input required 
+                                                            type="text"
+                                                            matInput
+                                                            [(ngModel)]="selectedcorridor"
+                                                            placeholder="أختر الجناح"
+                                                            [formControl]="myControlCorr"
+                                                            (ngModelChange)="change_Corr()"
+                                                            [matAutocomplete]="autoCorr"
+                                                            forceSelection="corr_name"
+                                                            formControlName="selectedcorridor">
+                                                 <mat-autocomplete autoActiveFirstOption #autoCorr="matAutocomplete" [displayWith]="displayFnCorr">
+                                                     <mat-option *ngFor="let corr of filteredOptionCorr  | async" [value]="corr">
+                                                         {{ corr.corridor_name }}
+                                                     </mat-option>
+                                                 </mat-autocomplete>
+
+                                                       
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    القسم:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                       
+                                                        <input required 
+                                                            type="text"
+                                                            matInput
+                                                            [(ngModel)]="selecteddepartment"
+                                                            placeholder="أختر القسم"
+                                                            [formControl]="myControlDept"
+                                                            (ngModelChange)="change_dept($event)"
+                                                            [matAutocomplete]="autoDept"
+                                                            forceSelection="dep_name"
+                                                            formControlName="selecteddepartment">
+                                                 <mat-autocomplete autoActiveFirstOption #autoDept="matAutocomplete" [displayWith]="displayFnDept">
+                                                     <mat-option *ngFor="let dept of filteredOptionDept  | async" [value]="dept">
+                                                         {{ dept.dep_name }}
+                                                     </mat-option>
+                                                 </mat-autocomplete>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الأسم:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input required name="emp"
+                                                               type="text"
+                                                               matInput
+                                                               [(ngModel)]="selectedemployee"
+                                                               placeholder="أختر الموظف"
+                                                               id="empsdropdown"
+                                                               [formControl]="myControl"
+                                                               [matAutocomplete]="auto"
+                                                               forceSelection="emp_name"
+                                                               formControlName="selectedemployee">
+                                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                                                            <mat-option *ngFor="let emp of filteredOptions  | async" [value]="emp">
+                                                                {{ emp.emp_name }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                    data-dismiss="modal">
+                    إغلاق
+                </button>
+                <button type="button" style="border-radius: 20px;" (click)="update_corridor_supervision()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_corridor_supervision()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

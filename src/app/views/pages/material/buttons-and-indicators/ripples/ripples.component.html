@@ -1,0 +1,101 @@
+﻿
+
+<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+	<div class="card-header">
+		<h3 style="display:flex;">المراحل</h3>
+	</div>
+	<div class="card-body">
+		<button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة مرحلة</button>
+		<br />
+
+	</div>
+</div>
+
+<ng-template #content let-modal>
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-tasks" style="margin:5px;"></i>
+					اضافة مرحلة
+				</h3>
+				
+			</div>
+
+			<div class="modal-body">
+				<form dir="rtl" class="kt-form" [formGroup]="form1">
+					<div dir="rtl" class="kt-portlet__body">
+						<div class="kt-form__section kt-form__section--first">
+
+							<div class="form-group kt-form__group text-right">
+
+								<div class="container">
+									<div class="row">
+
+										<div class="col-lg-12">
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													اسم المرحلة:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="mr7la_name" formControlName="mr7la_name"
+															   required type="text" matInput placeholder="اسم المرحلة">
+														<mat-error *ngIf="
+        form1.controls.mr7la_name.hasError('required') &&
+        (form1.controls.mr7la_name.dirty || form1.controls.mr7la_name.touched)
+      ">
+															من فضلك ادخل اسم المرحلة
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">كود المرحلة:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="mr7la_code" formControlName="mr7la_code" required type="number" matInput placeholder="كود المرحلة">
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">ملاحظات:</label>
+												<div class="col-lg-10">
+													<mat-form-field>
+														<textarea [(ngModel)]="mr7la_desc" formControlName="mr7la_desc"
+																  type="text" matInput placeholder="ملاحظات/وصف">
+</textarea>
+
+
+													</mat-form-field>
+												</div>
+									
+											</div>
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="direction:ltr;">
+				
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+				<button type="button" style="border-radius: 20px;" (click)="update_mra7l()" class="btn btn-primary">تعديل</button>
+				<button type="button" style="border-radius: 20px;" (click)="add_mra7l()" class="btn btn-primary">اضافة</button>
+
+
+			</div>
+		</ng-template>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+	<kt-mra7l-list></kt-mra7l-list>
+</div>

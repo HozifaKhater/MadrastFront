@@ -1,0 +1,177 @@
+﻿<div class="card" dir="rtl"
+     *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">مقترحات</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة مقترحات 
+        </button>
+        <br />
+    </div>
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-sugges-list></kt-sugges-list>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">
+            <i class="fas fa-tasks" style="margin:5px;"></i>
+            اضافة مقترحات
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                             
+                                        <ckeditor [editor]="Editor" [data]="data" [(ngModel)]="sugg_body" required formControlName="sugg_body" (change)="onChange($event)">
+                                            <mat-error *ngIf="
+        form1.controls.sugg_body.hasError('required') &&
+        (form1.controls.sugg_body.dirty || form1.controls.sugg_body.touched)
+      ">
+                                                من فضلك ادخل موضوع الاقتراح
+                                            </mat-error>
+                                        </ckeditor>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+<!--
+                                            <mat-form-field>
+                                                <mat-label>نوع الاقتراح</mat-label>
+                                                
+                                                <mat-select [(ngModel)]="selectedsuggtype"
+                                                            required formControlName="sugg_type"
+                                                            id="studentdropdown"
+                                                            placeholder="">
+
+                                                    <mat-option *ngFor="let sugg of sugg" [value]="sugg">
+                                                        {{ sugg.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+
+                                            </mat-form-field>
+                                        -->
+                                            <mat-form-field>
+                                                <mat-label>نوع الاقتراح</mat-label>
+
+                                                <input name="type"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedsuggtype"
+                                                       placeholder=""
+                                                       [formControl]="myControlType"
+                                                       [matAutocomplete]="autoType"
+                                                       forceSelection="def_name">
+                                                <mat-autocomplete autoActiveFirstOption #autoType="matAutocomplete" [displayWith]="displayFnType">
+                                                    <mat-option *ngFor="let def of filteredOptionsTypes  | async" [value]="def">
+                                                        {{ def.def_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>العنوان</mat-label>
+                                                <input [(ngModel)]="sugg_title" required formControlName="sugg_title" matInput placeholder="" type="text">
+
+                                                <mat-error *ngIf="
+        form1.controls.sugg_title.hasError('required') &&
+        (form1.controls.sugg_title.dirty || form1.controls.sugg_title.touched)
+      ">
+                                                    من فضلك ادخل العنوان
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.sugg_title.hasError('pattern') &&
+        (form1.controls.sugg_title.dirty || form1.controls.sugg_title.touched)
+      ">
+                                                    من فضلك ادخل العنوان
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الملف</mat-label>
+                                                <input [(ngModel)]="sugg_file" required formControlName="sugg_file" matInput placeholder="" type="email">
+
+                                                <mat-error *ngIf="
+        form1.controls.sugg_file.hasError('required') &&
+        (form1.controls.sugg_file.dirty || form1.controls.sugg_file.touched)
+      ">
+                                                    من فضلك ادخل الملف
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.sugg_file.hasError('pattern') &&
+        (form1.controls.sugg_file.dirty || form1.controls.sugg_file.touched)
+      ">
+                                                    من فضلك ادخل الملف
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">أختر الملف</mat-label>
+                                        <div class="col-lg-4">
+
+                                            <input [(ngModel)]="sugg_upload" required formControlName="sugg_upload" type="file">
+                                            <mat-error *ngIf="
+        form1.controls.sugg_upload.hasError('required') &&
+        (form1.controls.sugg_upload.dirty || form1.controls.sugg_upload.touched)
+      ">
+                                                من فضلك اختر الملف
+                                            </mat-error>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button type="button" style="border-radius: 20px;" (click)="update_sugg()"
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button type="button" style="border-radius: 20px;" (click)="add_sugg()"
+                class="btn btn-primary">
+            اضافة
+        </button>
+    </div>
+
+</ng-template>

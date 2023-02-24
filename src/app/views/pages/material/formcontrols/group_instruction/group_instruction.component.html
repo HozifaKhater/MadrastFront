@@ -1,0 +1,138 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">الارشاد الجماعي</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة ارشاد جماعي</button>
+        <br />
+
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة ارشاد جماعي
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">المسلسل:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input matInput  placeholder="المسلسل" disabled>
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">عدد الأفراد:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="group_number" type="number" required max="999999999999" formControlName="group_number" matInput placeholder="عدد افراد المجموعه">
+
+                                                        <mat-error *ngIf="
+  form1.controls.group_number.hasError('required') &&
+  (form1.controls.group_number.dirty || form1.controls.group_number.touched)
+">
+                                                            من فضلك ادخل عدد الافراد
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">عدد الجلسات:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="sessions_number" type="number" required max="999999999999" formControlName="sessions_number" matInput placeholder="عدد الجلسات">
+
+                                                        <mat-error *ngIf="
+  form1.controls.sessions_number.hasError('required') &&
+  (form1.controls.sessions_number.dirty || form1.controls.sessions_number.touched)
+">
+                                                            من فضلك ادخل عدد الجلسات
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">موضوع الجلسه:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <textarea pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                                                  required [(ngModel)]="topic" formControlName="topic" matInput placeholder="موضوع الجلسه"></textarea>
+
+                                                        <mat-error *ngIf="
+  form1.controls.topic.hasError('required') &&
+  (form1.controls.topic.dirty || form1.controls.topic.touched)
+">
+                                                            من فضلك ادخل الموضوع
+                                                        </mat-error>
+                                                        <mat-error *ngIf="
+  form1.controls.topic.hasError('pattern') &&
+  (form1.controls.topic.dirty || form1.controls.topic.touched)
+">
+                                                            من فضلك ادخل الموضوع
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">ملاحظات:</label>
+                                                <div class="col-lg-10">
+                                                    <mat-form-field>
+                                                        <textarea pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                                                  [(ngModel)]="notes" formControlName="notes" matInput placeholder="ملاحظات/وصف"></textarea>
+                                                    
+
+                                                        <mat-error *ngIf="
+  form1.controls.notes.hasError('pattern') &&
+  (form1.controls.notes.dirty || form1.controls.notes.touched)
+">
+                                                            من فضلك ادخل ملاحظات
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                          
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+               
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+                <button type="button" style="border-radius: 20px;" (click)="update_department()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_activity()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+    <kt-instructions-list></kt-instructions-list>
+</div>

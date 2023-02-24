@@ -1,0 +1,211 @@
+﻿<div class="card" dir="rtl"
+     *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">كتابة التحضير</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة كتابة التحضير
+        </button>
+        <br />
+    </div>
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-ta7deirs-list></kt-ta7deirs-list>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">
+            <i class="fas fa-tasks" style="margin:5px;"></i>
+            اضافة كتابة التحضير
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                               
+                                                <mat-select placeholder="المادة" name="subjects" required formControlName="selectedsubject" [(ngModel)]="selectedsubject">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">
+                                                        {{ subjects.subject_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                                <mat-error *ngIf="
+        form1.controls.selectedsubject.hasError('required') &&
+        (form1.controls.selectedsubject.dirty || form1.controls.selectedsubject.touched)
+      ">
+                                                    من فضلك أختر المادة
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="picker.open()">
+                                                <!--<mat-label>التاريخ</mat-label>-->
+                                                <input [(ngModel)]="ta7dier_date" formControlName="selecteddate" matInput [matDatepicker]="picker" placeholder="التاريخ">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker disabled="false" #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <!--<mat-label>الأسبوع</mat-label>-->
+                                                <mat-select placeholder="الأسبوع" [(ngModel)]="selectedweek" [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let weeks of weeks" [value]="weeks">
+                                                        {{ weeks.viewValue }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <!--<mat-label>اليوم</mat-label>-->
+                                                <mat-select placeholder="اليوم" [(ngModel)]="selectedday" [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let days of days" [value]="days">
+                                                        {{ days.viewValue }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <!--<mat-label>
+                    الصف
+                </mat-label>
+                                                <mat-select placeholder="أختر الصف" [(ngModel)]="selectedlevel" required formControlName="selectedlevel">
+                                                    <mat-option *ngFor="let level of levels" [value]="level">
+                                                        {{ level.lev_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                                <mat-error *ngIf="
+        form1.controls.selectedlevel.hasError('required') &&
+        (form1.controls.selectedlevel.dirty || form1.controls.selectedlevel.touched)
+      ">
+                                                    من فضلك أختر الصف
+                                                </mat-error>
+                                            -->
+                                            <input name="level"
+                                                               type="text"
+                                                               matInput
+                                                               [(ngModel)]="selectedlevel"
+                                                               
+                                                               placeholder="أختر الصف"
+                                                               [formControl]="myControllev"
+                                                               [matAutocomplete]="autolevel"
+                                                               forceSelection="lev_name">
+                                                        <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                            <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                                {{ level.lev_name }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <!--<mat-label>عنوان الدرس</mat-label>-->
+                                                <input [(ngModel)]="ta7dier_name" [ngModelOptions]="{standalone: true}" matInput placeholder="عنوان الدرس" type="email">
+
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <mat-label class="col-1 col-form-label">الحالة:</mat-label>
+                                        <div class="col-2">
+
+                                            <mat-checkbox>تم الشرح</mat-checkbox>
+                                        </div>
+                                        <div class="col-2">
+                                            <mat-checkbox>متأخر</mat-checkbox>
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                    
+                                        <div class="col-2">
+
+                                            <mat-checkbox id="side_dep_chck" name="side_dep_chck" (change)="side_dep_chck_change($event)" [checked]="dep_check">رفع التحضير</mat-checkbox>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <input type="file" [disabled]="!disable" (change)="handleFileSelect($event)" mat-raised-button color="primary">
+                                        </div>
+                                    </div>
+
+                                    <ckeditor [editor]="Editor" [disabled]="disable" [data]="data" [(ngModel)]="data" (change)="onChange($event)" [ngModelOptions]="{standalone: true}"></ckeditor>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    
+
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button id="cancel_btn" type="button" *ngIf="true === false" (click)="cancel_ta7dier_master()" style="border-radius: 20px;"
+                class="btn btn-primary">
+            الغاء
+        </button>
+        <button id="update_btn" type="button" *ngIf="is_edit" style="border-radius: 20px;" (click)="udpate_ta7dier_master()"
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button id="save_btn" type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_ta7dier_master()"
+                class="btn btn-primary">
+            اضافة
+        </button>
+    </div>
+
+</ng-template>

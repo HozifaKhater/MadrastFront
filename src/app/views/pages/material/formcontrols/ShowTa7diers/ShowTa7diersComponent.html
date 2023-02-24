@@ -1,0 +1,75 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                             جدول التحضيرات
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+                <div class="kt-portlet__body">
+                    <div class="form-group kt-form__group row">
+                        <b class="col-lg-2 col-form-label">القسم :</b>
+                        <div class="col-lg-6">
+                            <mat-form-field >
+                                <input name="dept"
+                                       type="text"
+                                       matInput
+                                       [(ngModel)]="selectedDept"
+                                       (ngModelChange)="Change_Dept($event)"
+                                       placeholder="أختر القسم"
+                                       [formControl]="myControlDept"
+                                       [matAutocomplete]="autoDept"
+                                       forceSelection="dept_name">
+                                <mat-autocomplete autoActiveFirstOption #autoDept="matAutocomplete" [displayWith]="displayFnDept">
+                                    <mat-option *ngFor="let dept of filteredOptionsDept  | async" [value]="dept">
+                                        {{ dept.dep_name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group kt-form__group row">
+                        <b class="col-lg-2 col-form-label">المادة :</b>
+                        <div class="col-lg-6">
+                            <mat-form-field >
+                                <input name="subj"
+                                       type="text"
+                                       matInput
+                                       [(ngModel)]="selectedSubject"
+                                       (ngModelChange)="Change_Subj()"
+                                       placeholder="أختر المادة"
+                                       [formControl]="myControlSubj"
+                                       [matAutocomplete]="autoSubj"
+                                       forceSelection="subj">
+                                <mat-autocomplete autoActiveFirstOption #autoSubj="matAutocomplete" [displayWith]="displayFnSubj">
+                                    <mat-option *ngFor="let subj of filteredOptionsSubj  | async" [value]="subj">
+                                        {{ subj.subject_name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+
+<kt-Ta7dierTable-list></kt-Ta7dierTable-list>
+
+<!--End Activity Data-->

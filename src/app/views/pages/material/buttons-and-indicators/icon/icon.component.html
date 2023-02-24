@@ -1,0 +1,219 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+	<div class="card-header">
+		<h3 style="display:flex;">نشره داخلية\خارجية</h3>
+	</div>
+	<div class="card-body">
+		<button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة نشره</button>
+		<br /><br /><br />
+					<kt-nchra-list></kt-nchra-list>
+	</div>
+</div>
+
+<ng-template #content let-modal>
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-tasks" style="margin:5px;"></i>
+					اضافة نشره
+				</h3>
+			</div>
+
+			<div class="modal-body">
+				<form dir="rtl" class="kt-form" [formGroup]="form1">
+					<div dir="rtl" class="kt-portlet__body">
+						<div class="kt-form__section kt-form__section--first">
+
+							<div class="form-group kt-form__group text-right">
+
+								<div class="container">
+									<div class="row">
+
+										<div class="col-lg-12">
+											<div class="form-group kt-form__group row">
+
+												<label class="col-lg-1 col-form-label">
+													المرسل:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<mat-select required name="emp"
+																	formControlName="employeedepartmentsender"
+																	[(ngModel)]="employeedepartmentsender"
+																	id="empsdropdown"
+																	placeholder="أختر المرسل"
+																	[(value)]="employeeName">
+
+															<mat-option *ngFor="let emp of Employees1" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-select>
+
+														<mat-error *ngIf="
+  form1.controls.employeedepartmentsender.hasError('required') &&
+  (form1.controls.employeedepartmentsender.dirty || form1.controls.employeedepartmentsender.touched)
+">
+															من فضلك أختر المرسل
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+
+												<div class="col-1"><!--extra div--></div>
+
+												<label class="col-lg-1 col-form-label"> الصفحات:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="nchra_pages_num" type="number" [ngModelOptions]="{standalone: true}" matInput placeholder="عدد صفحات النشرة">
+
+
+
+													</mat-form-field>
+												</div>
+
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">العنوان:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="nchra_topic" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="عنوان النشرة ">
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+
+												<label class="col-lg-1 col-form-label">التاريخ:</label>
+												<div class="col-lg-4">
+													<mat-form-field (click)="dp3.open()">
+														<input [(ngModel)]="nchra_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="dp3" placeholder="التاريخ">
+														<mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+														<mat-datepicker #dp3 disabled="false"></mat-datepicker>
+
+													</mat-form-field>
+												</div>
+
+											
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<div class="col-lg-2">
+
+													<input type="radio" id="department"
+														   name="employee" checked (change)="handleChange($event)" value="department">
+													<label for="department" style="margin:5px;">
+													الأقسام:
+														<span class="text-danger">*</span>
+													</label>
+
+												</div>
+
+												<div class="col-lg-9">
+
+
+													<mat-form-field>
+														<mat-select [(ngModel)]="selecteddepartment"
+																	formControlName="selecteddepartment" required
+																	id="departmentsdropdown"
+																	[disabled]="disabled"
+																	placeholder="أختر الاقسام" multiple>
+
+															<mat-option *ngFor="let department of Departments" [value]="department">
+																{{ department.dep_name }}
+															</mat-option>
+														</mat-select>
+
+
+														<mat-error *ngIf="
+  form1.controls.selecteddepartment.hasError('required') &&
+  (form1.controls.selecteddepartment.dirty || form1.controls.selecteddepartment.touched)
+">
+															من فضلك أختر القسم
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+											</div>
+
+
+
+											<div class="form-group kt-form__group row">
+												<div class="col-lg-2">
+
+													<input type="radio" id="employee" [checked]="!is_dep" (change)="handleChange($event)" name="employee" value="employee">
+													<label for="employee" style="margin:5px;">الموظف:
+														<span class="text-danger">*</span>
+													</label>
+
+												</div>
+
+												<div class="col-lg-9">
+													<mat-form-field>
+														<mat-select required name="emp"
+																	formControlName="employeedepartment"
+																	[disabled]="disabled_emp"
+																	[(ngModel)]="employeedepartment"
+																	id="empsdropdown"
+																	placeholder="أختر اسم الموظف"
+																	multiple>
+
+															<mat-option *ngFor="let emp of Employees" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-select>
+
+														<mat-error *ngIf="
+  form1.controls.employeedepartment.hasError('required') &&
+  (form1.controls.employeedepartment.dirty || form1.controls.employeedepartment.touched)
+">
+															من فضلك أختر اسم الموظف
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+											</div>
+
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">الملف:</label>
+												<div class="col-lg-4">
+
+
+													<input type="file" (change)="handleFileSelect($event)" mat-raised-button color="primary">
+
+												</div>
+												<div class="col-1"><!--extra div--></div>
+
+											</div>
+
+											<div class="form-group kt-form__group row">
+											
+												<div class="col-lg-12">
+													<ckeditor [editor]="Editor" (ready)="onReady($event)" [data]="data" [(ngModel)]="nchra_text" [ngModelOptions]="{standalone: true}"></ckeditor>
+												</div>
+											
+
+											</div>
+
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="direction:ltr;">
+				
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+				<button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_nchra()" class="btn btn-primary">تعديل</button>
+				<button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_nchra()" class="btn btn-primary">اضافة</button>
+
+
+			</div>
+		</ng-template>

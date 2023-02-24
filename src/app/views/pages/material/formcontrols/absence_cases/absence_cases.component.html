@@ -1,0 +1,278 @@
+﻿<div class="card" dir="rtl"
+     *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">حالات الغياب</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة حالات الغياب
+        </button>
+        <br />
+    </div>
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+    <kt-absencecases-list></kt-absencecases-list>
+</div>
+
+
+<ng-template #content let-modal>
+
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            حالات الغياب
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الصف</mat-label>
+                                                <input name="level"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedlevel"
+                                                       (ngModelChange)="change_level($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControllev"
+                                                       [matAutocomplete]="autolevel"
+                                                       forceSelection="lev_name"
+                                                       [(value)]="levelValue">
+                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                        {{ level.lev_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1"></div>
+
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفصل</mat-label>
+                                                <input name="class"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedclass"
+                                                       (ngModelChange)="change_class($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControlclass"
+                                                       [matAutocomplete]="autoclass"
+                                                       forceSelection="class_name"
+                                                       [(value)]="classValue">
+                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                        {{ class.class_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>الطالب</mat-label>
+                                                <input name="student"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedStudent"
+                                                       (ngModelChange)="Change_Student()"
+                                                       placeholder=""
+                                                       [formControl]="myControlStudent"
+                                                       [matAutocomplete]="autoStudent"
+                                                       forceSelection="student">
+                                                <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                                    <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                                        {{ student.student_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>الجنسية</mat-label>
+                                                <input matInput
+                                                       placeholder=""
+                                                       [(ngModel)]="nationality"
+                                                       formControlName="nationality"
+                                                       name="nationality"
+                                                       [(value)]="nationality">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    رقم الهاتف
+                                                </mat-label>
+                                                <input [(ngModel)]="phone_no" required formControlName="phone_no" type="tel" matInput placeholder="">
+                                                <mat-error *ngIf="
+        form1.controls.phone_no.hasError('required') &&
+        (form1.controls.phone_no.dirty || form1.controls.phone_no.touched)
+      ">
+                                                    من فضلك أدخل رقم الهاتف
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="dp3.open()">
+                                                <mat-label>
+                                                    تاريخ الميلاد
+
+                                                </mat-label>
+                                                <input [(ngModel)]="date_of_birth"
+                                                       [ngModelOptions]="{standalone: true}" matInput
+                                                       [matDatepicker]="dp3"
+                                                       placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="picker1.open()">
+                                                <mat-label>تاريخ بدء العمل معه</mat-label>
+                                                <input [(ngModel)]="work_start_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>ملاحظات حول شخصية الطالب وسلوكه</mat-label>
+                                                <textarea [(ngModel)]="behavioral_notes" [ngModelOptions]="{standalone: true}" matInput placeholder=""></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الأسباب الذاتية والبيئية</mat-label>
+                                                <textarea [(ngModel)]="self_reasons" [ngModelOptions]="{standalone: true}" matInput placeholder=""></textarea>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                   
+                                    </div>
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            الجهود المهنية المبذولة
+                                        </h3>
+                                    </div>
+                                    <div class="form-group kt-form__group row">
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>مواقف أخري</mat-label>
+                                                <textarea [(ngModel)]="other_situations" [ngModelOptions]="{standalone: true}" matInput placeholder=""></textarea>
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-1"></div>
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field (click)="picker2.open()">
+                                                <mat-label>التاريخ</mat-label>
+                                                <input [(ngModel)]="date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker2" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker2></mat-datepicker>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                     
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الجهود المهنية المبذولة ونتائجها</mat-label>
+                                                <textarea [(ngModel)]="effort_results" [ngModelOptions]="{standalone: true}" matInput placeholder=""></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>الموقف نهاية العام والتوصيات</mat-label>
+                                                <textarea [(ngModel)]="end_year_state" [ngModelOptions]="{standalone: true}" matInput placeholder=""></textarea>
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button type="button" style="border-radius: 20px;" (click)="update_absence_cases()"
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button type="button" style="border-radius: 20px;" (click)="add_absence_cases()"
+                class="btn btn-primary">
+            اضافة
+        </button>
+    </div>
+
+</ng-template>

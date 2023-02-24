@@ -1,0 +1,101 @@
+﻿<div class="col-lg-12">
+
+	<div class="kt-portlet__head">
+		<div class="kt-portlet__head-caption">
+			<div class="kt-portlet__head-title" style="float:right;">
+
+				<h3 class="kt-portlet__head-text">
+					<i class="fas fa-tasks" style="margin:5px;"></i>
+					استعارة كتاب
+				</h3>
+			</div>
+		</div>
+	</div>
+
+</div>
+<br />
+<br />
+<br />
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+<kt-borrow_book-list></kt-borrow_book-list>
+
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="kt-portlet">
+
+			<!--begin::Form-->
+			<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+				<div class="kt-portlet__body">
+
+
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">
+							اسم المستعير
+							<span class="text-danger">*</span>
+						</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<mat-select  name="emp"
+											required formControlName="borr_name"
+											[disabled]="disabled_emp"
+											[(ngModel)]="employeedepartment"
+											id="empsdropdown"
+											placeholder="أختر اسم المستعير">
+									<mat-option *ngFor="let emp of Employees" [value]="emp">
+										{{ emp.emp_name }}
+									</mat-option>
+								</mat-select>
+
+								<mat-error *ngIf="
+        form1.controls.borr_name.hasError('required') &&
+        (form1.controls.borr_name.dirty || form1.controls.borr_name.touched)
+      ">
+								من فضلك أختر اسم المستعير
+								</mat-error>
+
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="form-group kt-form__group row">
+						<b class="col-lg-2 col-form-label"> التاريخ الاصدار:</b>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<input [(ngModel)]="borr_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="dp3" placeholder="التاريخ الاصدار" disabled>
+								<mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+								<mat-datepicker #dp3 disabled="false"></mat-datepicker>
+							</mat-form-field>
+						</div>
+					</div>
+
+
+
+
+
+
+				</div>
+				<div class="kt-portlet__foot">
+					<div class="kt-form__actions kt-form__actions">
+						<div class="row">
+
+							<div class="col-lg-6">
+								<button id="save_btn" type="button" (click)="add_borrow()" mat-raised-button color="accent">استعارة</button>&nbsp;
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+	</div>
+</div>
+</div>
+
+<!--End Activity Data-->

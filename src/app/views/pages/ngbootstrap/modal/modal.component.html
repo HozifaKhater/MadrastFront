@@ -1,0 +1,274 @@
+﻿
+<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">الاجتماعات</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة اجتماع</button>
+        <br /><br /><br />
+                    <kt-group_meeting-list></kt-group_meeting-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة اجتماع
+                </h3>
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+
+
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    نوع الاجتماع
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select required name="department"
+                                                                    #refCountry="ngModel"
+                                                                    [(ngModel)]="selected_meeting_type"
+                                                                    placeholder="Please select Value"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    (ngModelChange)="meeting_types_selection($event)"
+                                                                    [(value)]=meetingValue>
+                                                            <mat-option *ngFor="let meeting_type of meeting_type" [value]="meeting_type">
+                                                                {{ meeting_type.meeting_type_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                       
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_group_name === 1">
+                                                        {{group_name_label}}
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-4" *ngIf="is_group_name === 1">
+                                                        <mat-form-field>
+                                                            <mat-select [(ngModel)]="selectedSlide"
+                                                                        placeholder="أختر الجماعة"
+                                                                        formControlName="group_name"
+                                                                        [(value)]="selectedSlide">
+
+                                                                <mat-option *ngFor="let slide of slides" [value]="slide">
+                                                                    {{ slide.name }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                          
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                            
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_meeting_date === 1">  {{meeting_date_label}} </label>
+                                                    <div class="col-lg-4" *ngIf="is_meeting_date === 1">
+                                                        <mat-form-field (click)="dp4.open()">
+                                                            <input type="text"
+                                                                   id="date_of_birth"
+                                                                   [(ngModel)]="dateValue"
+                                                                   name="dateValue"
+                                                                  
+                                                                   matInput
+                                                                   [matDatepicker]="dp4"
+                                                                   [ngModelOptions]="{standalone: true}" >
+                                                            <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                                                            <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </div>
+                                            
+                                                <div class="col-1"><!--extra div--></div>
+                                               
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_start_time === 1">{{start_time_label}}</label>
+
+                                                    <div class="col-lg-4" *ngIf="is_start_time === 1">
+                                                        <mat-form-field>
+                                                            <input class="floating-input" [(ngModel)]="start_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
+
+                                                        </mat-form-field>
+                                                    </div>
+                                            
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                            
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_end_time === 1">{{end_time_label}}</label>
+                                                    <div class="col-lg-4" *ngIf="is_end_time === 1">
+                                                        <mat-form-field>
+                                                            <input class="floating-input" [(ngModel)]="end_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
+
+                                                        </mat-form-field>
+                                                    </div>
+                                              
+                                                <div class="col-1"><!--extra div--></div>
+                                            
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_group_number === 1">{{group_number_label}}</label>
+
+                                                    <div class="col-lg-4" *ngIf="is_group_number === 1">
+                                                        <mat-form-field>
+                                                            <input placeholder="رقم الاجتماع" matInput [(ngModel)]="meeting_no" [ngModelOptions]="{standalone: true}" type="number">
+                                                        </mat-form-field>
+                                                    </div>
+                                           
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_dep === 1">{{dep_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_dep === 1">
+                                                    <mat-form-field>
+                                                        <mat-select required name="department"
+                                                                    #refCountry="ngModel"
+                                                                    [(ngModel)]="selecteddepartment"
+                                                                    (change)="selected()"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    placeholder="Please select Value">
+                                                            <mat-option *ngFor="let department of departments" [value]="department">
+                                                                {{ department.dep_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+
+                                                <div class="col-1"><!--extra div--></div>
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_meeting_mem_no === 1">
+                                                    {{meeting_mem_no_label}}
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4" *ngIf="is_meeting_mem_no === 1">
+                                                    <mat-form-field>
+                                                        <input matInput [(ngModel)]="meeting_mem_no" [ngModelOptions]="{standalone: true}" type="number">
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_work_plan === 1"> {{work_plan_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_work_plan === 1">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="bus_table" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="جدول الاعمال">
+</textarea>
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_name === 1">
+                                                    {{meeting_loc_label}}
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4" *ngIf="is_name === 1">
+                                                    <mat-form-field>
+                                                        <input matInput [(ngModel)]="meeting_loc" pattern="^[أ-ي-a-zA-Z-_. ]{0,200}" [ngModelOptions]="{standalone: true}" type="text">
+                                                    </mat-form-field>
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_recommendation === 1">{{recommendation_label}}</label>
+                                                    <div class="col-lg-4" *ngIf="is_recommendation === 1">
+                                                        <mat-form-field>
+                                                            <textarea [(ngModel)]="impor_recomm" [ngModelOptions]="{standalone: true}" type="text" matInput>
+</textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                              
+                                                <div class="col-1"><!--extra div--></div>
+                                         
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_content === 1">{{content_label}}</label>
+                                                    <div class="col-lg-4" *ngIf="is_content === 1">
+                                                        <mat-form-field>
+                                                            <textarea [(ngModel)]="content_meeting" [ngModelOptions]="{standalone: true}" type="text" matInput>
+</textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                             
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+
+                                      
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_subject === 1">{{subject_label}}</label>
+                                                    <div class="col-lg-4" *ngIf="is_subject === 1">
+                                                        <mat-form-field>
+                                                            <mat-select required name="department"
+                                                                        #refCountry="ngModel"
+                                                                        [(ngModel)]="selecteddepartment"
+                                                                        (change)="selected()"
+                                                                        [ngModelOptions]="{standalone: true}"
+                                                                        placeholder="Please select Value"
+                                                                        [(value)]="deptValue">
+                                                                <mat-option *ngFor="let department of departments" [value]="department">
+                                                                    {{ department.dep_name }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                             
+                                                <div class="col-1"><!--extra div--></div>
+                                    
+                                                    <label class="col-lg-1 col-form-label" *ngIf="is_course === 1">{{course_label}}</label>
+                                                    <div class="col-lg-4" *ngIf="is_course === 1">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="course" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </div>
+                                               
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+               
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_meeting()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_meeting()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

@@ -1,0 +1,107 @@
+﻿<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                            توزيع الطلاب علي الفصول
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+                <div class="kt-portlet__body">
+                    <div class="form-group kt-form__group row">
+                        <!--<mat-label>
+                            الصف-->
+                            <!--<span class="text-danger">*</span>-->
+                        <!--</mat-label>-->
+                        <div class="col-lg-4">
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="selectedlevel"
+                                            [ngModelOptions]="{standalone: true}"
+                                            id="levelsdropdown"
+                                            placeholder="أختر الصف"
+                                            (ngModelChange)="departmentemp($event)">
+
+                                    <mat-option *ngFor="let level of levels" [value]="level">
+                                        {{ level.lev_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group kt-form__group row">
+            <b class="col-lg-2 col-form-label">الفصل:</b>
+            <div class="col-lg-6">
+                <mat-form-field >
+                    <mat-select [(ngModel)]="selectedclass"
+                                [ngModelOptions]="{standalone: true}"
+                                id="classdropdown"
+                                placeholder="أختر الفصل">
+
+                        <mat-option *ngFor="let class of classes" [value]="class">
+                            {{ class.class_name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>-->
+                    <!--<div class="form-group kt-form__group row">
+            <b class="col-lg-2 col-form-label">اسم الطالب:</b>
+            <div class="col-lg-6">
+                <mat-form-field >
+                    <mat-select required name="student"
+                                #refCountry="ngModel"
+                                [(ngModel)]="selectedstudent"
+                                id="studentdropdown"
+                                placeholder="أختر اسم الطالب"
+                                multiple>
+
+                        <mat-option *ngFor="let student of students" [value]="student">
+                            {{ student.student_name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>-->
+
+
+                </div>
+<!-- 
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" (click)="add_twze3()" mat-raised-button color="accent">اضافة</button>&nbsp;
+                                <button id="update_btn" (click)="update_twze3()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="cancel_btn" (click)="cancel_twze3()" mat-raised-button color="accent">الغاء</button>&nbsp;
+
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+
+<kt-twze3_students-list></kt-twze3_students-list>
+</div>
+<!--End Activity Data-->

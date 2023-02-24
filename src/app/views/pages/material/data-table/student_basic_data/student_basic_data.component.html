@@ -1,0 +1,1408 @@
+﻿<!--<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
+                            <span class="kt-portlet__head-icon kt-hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="kt-portlet__head-text">
+                                البيانات الاوليه للطالب
+                            </h3>
+                        </div>
+                    </div>
+                </div>-->
+                <!--begin::Form-->
+                <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                    <div class="kt-portlet__body">
+
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">الصف:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input name="level"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="selectedlevel"
+                                           placeholder="أختر الصف"
+                                           [formControl]="myControllev"
+                                           [matAutocomplete]="autolevel"
+                                           forceSelection="lev_name"
+                                           [(value)]="levelValue">
+                                    <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                        <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                            {{ level.lev_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">الفصل:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input name="class"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="selectedclass"
+                                           placeholder="أختر الفصل"
+                                           [formControl]="myControlclass"
+                                           [matAutocomplete]="autoclass"
+                                           forceSelection="class_name"
+                                           [(value)]="classValue">
+                                    <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                        <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                            {{ class.class_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">اسم الطالب :</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input name="student"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="selectedStudent"
+                                           placeholder="أختر الطالب"
+                                           [formControl]="myControlStudent"
+                                           [matAutocomplete]="autoStudent"
+                                           forceSelection="student"
+                                           [(value)]="studentValue">
+                                    <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                        <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                            {{ student.student_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+
+
+                                </mat-form-field>
+                            </div>
+                        </div>-->
+                        <!--
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-2 col-form-label">الجنسية : </label>
+                                                <div class="col-lg-6">
+                                                    <mat-form-field >
+                                                        <input
+                                                            matInput
+                                                            placeholder=""
+                                                            [(ngModel)]="nationality"
+                                                            formControlName="fail_nation"
+                                                            name="nationality"
+                                                            [(value)]="nationality">
+                                                    </mat-form-field>
+
+                                                </div>
+                                            </div>
+                                          -->
+                        <!--<div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الجنسية : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input matInput
+                                           placeholder=""
+                                           [(ngModel)]="nationality"
+                                           formControlName="fail_nation"
+                                           name="nationality"
+                                           [(value)]="nationality">
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">رقم الهاتف:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input type="text"
+                                           matInput
+                                           placeholder=""
+                                           [(ngModel)]="phone"
+                                           formControlName="fail_mob"
+                                           name="phone"
+                                           [(value)]="phone">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">تاريخ الميلاد : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input type="datetime"
+                                           id="date_of_birth"
+                                           [(ngModel)]="student_dob"
+                                           name="student_dob"
+                                           formControlName="fail_birth"
+                                           matInput
+                                           [matDatepicker]="dp3"
+                                           [(value)]="student_dob">
+                                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>-->
+
+                        <!--
+                                            <div class="form-group kt-form__group row">
+                                                <b class="col-lg-2 col-form-label">تاريخ الميلاد:</b>
+                                                <div class="col-lg-6">
+                                                    <mat-form-field >
+                                                        <input [(ngModel)]="fail_birth" required formControlName="fail_birth" matInput [matDatepicker]="dp3" placeholder="التاريخ" disabled>
+                                                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+
+                                                        <mat-error *ngIf="
+                                form1.controls.fail_birth.hasError('required') &&
+                                (form1.controls.fail_birth.dirty || form1.controls.fail_birth.touched)
+                              ">
+                                                            ادخل تاريخ الميلاد
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+
+                                          -->
+                        <!--<div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">تاريخ بدء العمل معه:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="fail_date" required formControlName="fail_date" matInput [matDatepicker]="dp4" placeholder="التاريخ" disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+
+                                    <mat-error *ngIf="
+        form1.controls.fail_date.hasError('required') &&
+        (form1.controls.fail_date.dirty || form1.controls.fail_date.touched)
+      ">
+                                        ادخل بدء العمل
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>-->
+                        <!--
+                                        <div class="form-group kt-form__group row">
+                                          <b class="col-lg-2 col-form-label">رقم الهاتف:</b>
+                                          <div class="col-lg-6">
+                                              <mat-form-field >
+                                                  <input type="text"
+                                                      matInput
+                                                      placeholder=""
+                                                      [(ngModel)]="phone"
+                                                      formControlName="fail_mob"
+                                                      name="phone"
+                                                      [(value)]="phoneValue">
+                                              </mat-form-field>
+                                              <mat-error *ngIf="
+                          form1.controls.exc_stu_mob.hasError('required') &&
+                          (form1.controls.exc_stu_mob.dirty || form1.controls.exc_stu_mob.touched)
+                        ">
+                                                      ادخل رقم الهاتف
+                                                  </mat-error>
+                                          </div>
+                                      </div>-->
+
+                        <!--<div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">المدرسه القادم منها:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="previous_school"
+                                           formControlName="previous_school"
+                                           pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                           required
+                                           matInput
+                                           type="text">
+
+                                    <mat-error *ngIf="
+        form1.controls.previous_school.hasError('required') &&
+        (form1.controls.previous_school.dirty ||  form1.controls.previous_school.touched)
+      ">
+                                        ادخل اسم المدرسه المكون من حروف فقط
+                                    </mat-error>
+                                    <mat-error *ngIf="
+        form1.controls.previous_school.hasError('pattern') &&
+        (form1.controls.previous_school.dirty || form1.controls.previous_school.touched)
+      ">
+                                        ادخل اسم المدرسه المكون من حروف فقط
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">العنوان:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="address" formControlName="address"
+                                           pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                           required matInput placeholder="العنوان" type="text">
+
+                                    <mat-error *ngIf="
+        form1.controls.address.hasError('required') &&
+        (form1.controls.address.dirty || form1.controls.address.touched)
+      ">
+                                        ادخل العنوان المكون من حروف فقط
+                                    </mat-error>
+                                    <mat-error *ngIf="
+        form1.controls.address.hasError('pattern') &&
+        (form1.controls.address.dirty || form1.controls.address.touched)
+      ">
+                                        ادخل العنوان المكون من حروف فقط
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <b class="col-2 col-form-label">السن عند دخول مرحله الابتدائيه:</b>
+                        <div class="form-group kt-form__group row">
+
+                            <div class="col-3">
+                                <mat-form-field>
+                                    <input [(ngModel)]="emp_age_day" [ngModelOptions]="{standalone: true}" matInput value="6" placeholder="يوم" type="number">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <mat-form-field>
+                                    <input [(ngModel)]="emp_age_month" [ngModelOptions]="{standalone: true}" matInput value="12" placeholder="شهر" type="number">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <mat-form-field>
+                                    <input [(ngModel)]="emp_age_year" [ngModelOptions]="{standalone: true}" matInput value="1999" placeholder="سنة" type="number">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الانتقال بين عده مدارس:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="transition_between_schools" formControlName="transition_between_schools" pattern="^[أ-ي-a-zA-Z-_. ]{1,200}"
+                                           required matInput placeholder="" type="text">
+
+                                    <mat-error *ngIf="
+        form1.controls.transition_between_schools.hasError('required') &&
+        (form1.controls.transition_between_schools.dirty || form1.controls.transition_between_schools.touched)
+      ">
+                                        ادخل اسم المدرسه المكون من حروف فقط
+                                    </mat-error>
+                                    <mat-error *ngIf="
+        form1.controls.transition_between_schools.hasError('pattern') &&
+        (form1.controls.transition_between_schools.dirty || form1.controls.transition_between_schools.touched)
+      ">
+                                        ادخل اسم المدرسه المكون من حروف فقط
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الدراسه فى مدارس خاصه او جارج الكويت:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="foreign_schools" formControlName="foreign_schools" pattern="^[أ-ي-a-zA-Z-_. ]{1,200}"
+                                           required matInput placeholder="" type="text">
+
+                                    <mat-error *ngIf="
+        form1.controls.foreign_schools.hasError('required') &&
+        (form1.controls.foreign_schools.dirty || form1.controls.foreign_schools.touched)
+      ">
+                                        ادخل العنوان المكون من حروف فقط
+                                    </mat-error>
+                                    <mat-error *ngIf="
+        form1.controls.foreign_schools.hasError('pattern') &&
+        (form1.controls.foreign_schools.dirty || form1.controls.foreign_schools.touched)
+      ">
+                                        ادخل العنوان المكون من حروف فقط
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">ملاحظات عن التاريخ الدراسى للطالب:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <textarea [(ngModel)]="student_history_notes" formControlName="student_history_notes" pattern="^[أ-ي-a-zA-Z-_. ]{1,200}"
+                                              required matInput></textarea>
+                                    <mat-hint align="start">من فضلك ادخل اسم الماده</mat-hint>
+                                    <mat-error *ngIf="
+        form1.controls.student_history_notes.hasError('required') &&
+        (form1.controls.student_history_notes.dirty || form1.controls.student_history_notes.touched)
+      ">
+                                        ادخل اسم الماده المكون من حروف فقط
+                                    </mat-error>
+                                    <mat-error *ngIf="
+        form1.controls.student_history_notes.hasError('pattern') &&
+        (form1.controls.student_history_notes.dirty || form1.controls.student_history_notes.touched)
+      ">
+                                        ادخل اسم الماده المكون من حروف فقط
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">الحاله الصحيه:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <textarea [(ngModel)]="health_status" formControlName="fail_desc" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                              required matInput placeholder="ملاحظات" type="text"></textarea>
+
+                                    <mat-error *ngIf="
+        form1.controls.fail_desc.hasError('required') &&
+        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+      ">
+                                        ادخل الملاحظات
+                                    </mat-error>
+                                    <mat-error *ngIf="
+        form1.controls.fail_desc.hasError('pattern') &&
+        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+      ">
+                                        ادخل الملاحظات
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">الحاله الصحيه:</b>
+                            <div class="col-lg-6">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" style="text-align:center">السنوات التى قضاها لكل صف</th>
+                                            <th style="text-align:center">مواد الضعف</th>
+                                            <th style="text-align:center">مواد القوه</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center">الابتدائيه 1:</td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <input [(ngModel)]="transition_between_schools1" matInput type="number" />
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject1">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject2">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">الابتدائيه 2:</td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <input [(ngModel)]="transition_between_schools2" matInput type="number" />
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject3">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject4">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">الابتدائيه 3:</td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <input [(ngModel)]="transition_between_schools3" matInput type="number" />
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject5">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject6">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">الابتدائيه4   :</td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <input [(ngModel)]="transition_between_schools4" matInput type="number" />
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject7">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject8">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">الابتدائيه 5:</td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <input [(ngModel)]="transition_between_schools5" matInput type="number" />
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject9">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="المواد" [(ngModel)]="selectedsubject10">
+                                                        <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+
+                                        </tr>
+                                    <td colspan="4">
+                                        <hr>
+                                    </td>
+                                    <tr>
+                                        <td style="text-align:center">المتوسطه 6:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools6" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject11">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject12">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">المتوسطه 7:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools7" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject13">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject14">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+                                        <td style="text-align:center">المتوسطه 8:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools8" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject15">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject16">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">المتوسطه 9:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools9" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject17">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject18">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+                                    <td colspan="4">
+                                        <hr>
+                                    </td>
+                                    <tr>
+                                        <td style="text-align:center">الثانويه 10:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools10" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject19">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject20">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">الثانويه 11:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools11" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject21">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject22">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">الثانويه 12:</td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <input [(ngModel)]="transition_between_schools12" matInput type="number" />
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject23">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <mat-form-field>
+                                                <mat-select placeholder="المواد" [(ngModel)]="selectedsubject24">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="kt-portlet__foot kt-portlet__no-border">
+                        <div class="kt-form__actions kt-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-6">
+                                    <button id="save_btn" type="button" (click)="add_failure()" mat-raised-button color="primary">اضافة</button>&nbsp;
+                                    <button id="update_btn" type="button" (click)="update_failure()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                    <button id="cancel_btn" type="button" (click)="cancel_failure()" mat-raised-button color="primary">الغاء</button>&nbsp;
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>-->
+                <!--end::Form-->
+            <!--</div>
+        </div>
+    </div>
+</div>--><!--End Activity Data-->
+<!--<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-student_basic_data-list></kt-student_basic_data-list>
+</div>-->
+
+<div class="card" dir="rtl"
+     *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">البيانات الاوليه للطالب</h3>
+    </div>
+    <div class="card-body">
+        <!-- <button type="button" style="display:block;" class="btn btn-primary" data-toggle="modal" id="modalOpener"
+            data-target="#formModalAct">اضافة نشاط</button> -->
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة البيانات الاوليه للطالب
+        </button>
+        <br />
+        <!-- <kt-activities-list></kt-activities-list> -->
+    </div>
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-student_basic_data-list></kt-student_basic_data-list>
+</div>
+
+
+<ng-template #content let-modal>
+  
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            البيانات الاوليه للطالب
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>الصف</mat-label>-->
+                                                <input name="level"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedlevel"
+                                                       placeholder="أختر الصف"
+                                                       [formControl]="myControllev"
+                                                       [matAutocomplete]="autolevel"
+                                                       forceSelection="lev_name"
+                                                       [(value)]="levelValue">
+                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                        {{ level.lev_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>الفصل</mat-label>-->
+                                                <input name="class"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedclass"
+                                                       placeholder="أختر الفصل"
+                                                       [formControl]="myControlclass"
+                                                       [matAutocomplete]="autoclass"
+                                                       forceSelection="class_name"
+                                                       [(value)]="classValue">
+                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                        {{ class.class_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>الطالب</mat-label>-->
+                                                <input name="student"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedStudent"
+                                                       placeholder="أختر الطالب"
+                                                       [formControl]="myControlStudent"
+                                                       [matAutocomplete]="autoStudent"
+                                                       forceSelection="student"
+                                                       [(value)]="studentValue">
+                                                <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                                    <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                                        {{ student.student_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>الجنسية</mat-label>-->
+                                                <input matInput
+                                                       placeholder="الجنسية"
+                                                       [(ngModel)]="nationality"
+                                                       formControlName="fail_nation"
+                                                       name="nationality"
+                                                       [(value)]="nationality">
+                                            </mat-form-field>
+
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>رقم الهاتف</mat-label>-->
+                                                <input type="text"
+                                                       matInput
+                                                       placeholder="رقم الهاتف"
+                                                       [(ngModel)]="phone"
+                                                       formControlName="fail_mob"
+                                                       name="phone"
+                                                       [(value)]="phone">
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field (click)="dp3.open()">
+                                                <!--<mat-label>تاريخ الميلاد</mat-label>-->
+                                                <input type="datetime"
+                                                       id="date_of_birth"
+                                                       placeholder="تاريخ الميلاد"
+                                                       [(ngModel)]="student_dob"
+                                                       name="student_dob"
+                                                       formControlName="fail_birth"
+                                                       matInput
+                                                       [matDatepicker]="dp3"
+                                                       [(value)]="student_dob">
+                                                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field (click)="dp4.open()">
+                                                <!--<mat-label>تاريخ بدء العمل معه</mat-label>-->
+                                                <input [(ngModel)]="fail_date" required formControlName="fail_date" matInput [matDatepicker]="dp4" placeholder="تاريخ بدء العمل معه">
+                                                <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_date.hasError('required') &&
+        (form1.controls.fail_date.dirty || form1.controls.fail_date.touched)
+      ">
+                                                    من فضلك اختر تاريخ بدء العمل
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>المدرسه القادم منها</mat-label>-->
+                                                <input [(ngModel)]="previous_school"
+                                                       formControlName="previous_school"
+                                                       placeholder="المدرسه القادم منها"
+                                                       pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                       required
+                                                       matInput
+                                                       type="text">
+
+                                                <mat-error *ngIf="
+        form1.controls.previous_school.hasError('required') &&
+        (form1.controls.previous_school.dirty ||  form1.controls.previous_school.touched)
+      ">
+                                                    من فضلك أدخل اسم المدرسة القادم منها
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.previous_school.hasError('pattern') &&
+        (form1.controls.previous_school.dirty || form1.controls.previous_school.touched)
+      ">
+                                                    من فضلك أدخل اسم المدرسة القادم منها
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>العنوان</mat-label>-->
+                                                <input [(ngModel)]="address" formControlName="address"
+                                                       pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                       required matInput placeholder="العنوان" type="text">
+
+                                                <mat-error *ngIf="
+        form1.controls.address.hasError('required') &&
+        (form1.controls.address.dirty || form1.controls.address.touched)
+      ">
+                                                    من فضلك ادخل العنوان
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.address.hasError('pattern') &&
+        (form1.controls.address.dirty || form1.controls.address.touched)
+      ">
+                                                    من فضلك ادخل العنوان
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    السن عند دخول مرحله الابتدائيه
+                                                </mat-label>
+                                                <input [(ngModel)]="emp_age_day" [ngModelOptions]="{standalone: true}" matInput value="6" placeholder="يوم" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+
+                                                <input [(ngModel)]="emp_age_month" [ngModelOptions]="{standalone: true}" matInput value="12" placeholder="شهر" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+
+                                                <input [(ngModel)]="emp_age_year" [ngModelOptions]="{standalone: true}" matInput value="1999" placeholder="سنة" type="number">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>الانتقال بين عده مدارس</mat-label>-->
+                                                <input [(ngModel)]="transition_between_schools" formControlName="transition_between_schools" pattern="^[أ-ي-a-zA-Z-_. ]{1,200}"
+                                                       required matInput placeholder="الانتقال بين عده مدارس" type="text">
+
+                                                <mat-error *ngIf="
+        form1.controls.transition_between_schools.hasError('required') &&
+        (form1.controls.transition_between_schools.dirty || form1.controls.transition_between_schools.touched)
+      ">
+                                                    من فضلك ادخل اسم المدرسة
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.transition_between_schools.hasError('pattern') &&
+        (form1.controls.transition_between_schools.dirty || form1.controls.transition_between_schools.touched)
+      ">
+                                                    من فضلك ادخل اسم المدرسة
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>الدراسه فى مدارس خاصه او خارج الكويت</mat-label>-->
+                                                <input [(ngModel)]="foreign_schools" formControlName="foreign_schools" pattern="^[أ-ي-a-zA-Z-_. ]{1,200}"
+                                                       required matInput placeholder="الدراسه فى مدارس خاصه او خارج الكويت" type="text">
+
+                                                <mat-error *ngIf="
+        form1.controls.foreign_schools.hasError('required') &&
+        (form1.controls.foreign_schools.dirty || form1.controls.foreign_schools.touched)
+      ">
+                                                    من فضلك ادخل الدراسه فى مدارس خاصه او خارج الكويت
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.foreign_schools.hasError('pattern') &&
+        (form1.controls.foreign_schools.dirty || form1.controls.foreign_schools.touched)
+      ">
+                                                    من فضلك ادخل الدراسه فى مدارس خاصه او خارج الكويت
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <!--<mat-label>ملاحظات عن التاريخ الدراسى للطالب</mat-label>-->
+                                                <textarea [(ngModel)]="student_history_notes" formControlName="student_history_notes" pattern="^[أ-ي-a-zA-Z-_. ]{1,200}"
+                                                          required placeholder="ملاحظات عن التاريخ الدراسى للطالب" matInput></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.student_history_notes.hasError('required') &&
+        (form1.controls.student_history_notes.dirty || form1.controls.student_history_notes.touched)
+      ">
+                                                    من فضلك ادخل ملاحظات عن التاريخ الدراسى للطالب
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.student_history_notes.hasError('pattern') &&
+        (form1.controls.student_history_notes.dirty || form1.controls.student_history_notes.touched)
+      ">
+                                                    من فضلك ادخل ملاحظات عن التاريخ الدراسى للطالب
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-9">
+                                            <mat-form-field>
+                                                <mat-label>الحاله الصحيه</mat-label>
+                                                <textarea [(ngModel)]="health_status" formControlName="fail_desc" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                          required matInput placeholder="الحاله الصحيه" type="text"></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_desc.hasError('required') &&
+        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+      ">
+                                                    من فضلك ادخل الحاله الصحيه
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_desc.hasError('pattern') &&
+        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+      ">
+                                                    من فضلك ادخل الحاله الصحيه
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            المراحل
+                                        </h3>
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الابتدائيه1</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools1" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject1">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject2">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الابتدائيه2</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools2" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject3">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject4">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الابتدائيه3</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools3" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject5">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject6">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الابتدائيه4</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools4" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject7">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject8">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الابتدائيه5</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools5" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject9">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject10">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">المتوسطه6</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools6" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject11">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject12">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">المتوسطه7</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools7" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject13">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject14">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">المتوسطه8</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools8" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject15">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject16">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">المتوسطه9</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools9" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject17">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject18">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الثانويه10</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools10" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject19">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject20">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الثانويه11</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools11" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject21">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject22">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <mat-label class="col-lg-1 col-form-label">الثانويه12</mat-label>
+
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <input placeholder="السنوات التى قضاها لكل صف" [(ngModel)]="transition_between_schools12" matInput type="number" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد الضعف" [(ngModel)]="selectedsubject23">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-3">
+                                            <mat-form-field>
+                                                <mat-select placeholder="مواد القوه" [(ngModel)]="selectedsubject24">
+                                                    <mat-option *ngFor="let subjects of subjects" [value]="subjects">{{ subjects.subject_name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+        </form>
+    </div>
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button type="button" style="border-radius: 20px;" (click)="update_failure()"
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button type="button" style="border-radius: 20px;" (click)="add_failure()"
+                class="btn btn-primary">
+            اضافة
+        </button>
+    </div>
+
+</ng-template>

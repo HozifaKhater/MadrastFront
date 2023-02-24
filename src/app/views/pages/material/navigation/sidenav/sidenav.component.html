@@ -1,0 +1,244 @@
+﻿<!--Departments Data-->
+<!--<style>
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+</style>-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            تقييم فرق الخطة الاستراتيجية
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+                        <!--<div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">جهه التقييم:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <mat-select placeholder="أختر جهه التقييم">
+                                        <mat-option *ngFor="let geha of gehat" [value]="geha.value">
+                                            {{ geha.viewValue }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>-->
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">جهه التقييم:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <mat-select [(ngModel)]="selectedghat"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="def_change($event)"
+                                                id="teamdropdown"
+                                                placeholder="اختر جهه التقييم">
+                                        <mat-option *ngFor="let ghat of ghat" [value]="ghat">
+                                            {{ ghat.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row" *ngIf="show===1">
+                            <b class="col-lg-2 col-form-label"> اسم القسم:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <mat-select [(ngModel)]="selecteddepartment"
+                                                [ngModelOptions]="{standalone: true}"
+                                                id="teamdropdown"
+                                                placeholder="اختر الفسم">
+                                        <mat-option *ngFor="let department of department" [value]="department">
+                                            {{ department.dep_name  }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row" *ngIf="show==2">
+                            <b class="col-lg-2 col-form-label"> اسم المعلم:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <mat-select [(ngModel)]="selectedemp"
+                                                [ngModelOptions]="{standalone: true}"
+                                                id="teamdropdown"
+                                                placeholder="اختر المعلم">
+                                        <mat-option *ngFor="let emp of emp" [value]="emp">
+                                            {{ emp.emp_name  }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row" *ngIf="show==3">
+                            <b class="col-lg-2 col-form-label"> اسم الفريق:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <mat-select [(ngModel)]="selectedteam"
+                                                [ngModelOptions]="{standalone: true}"
+                                                id="teamdropdown"
+                                                placeholder="اختر الفريق">
+                                        <mat-option *ngFor="let teams of teams" [value]="teams">
+                                            {{ teams.name  }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">التاريخ:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input [(ngModel)]="evaluation_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)"> -->
+                        <kt-Takeem_master-teams-list></kt-Takeem_master-teams-list>
+                        <!-- </div> -->
+                        <!--<div class="form-group kt-form__group row">
+                            <div class="col-lg-6">
+                                <div class="tableFixHead">
+                                    <table>
+                                        <tr>
+                                            <th>بنود التقييم</th>
+                                            <th>الدرجة</th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <b>تحقيق الأهداف التربويه</b>&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <mat-form-field >
+                                                    <input matInput placeholder="الدرجة" type="number">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <b>التمكن من المادة العلمية</b>&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <mat-form-field >
+                                                    <input matInput placeholder="الدرجة" type="number">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <b>عرض المفاهيم والمعلومات</b>&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <mat-form-field >
+                                                    <input matInput placeholder="الدرجة" type="number">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <b>تنمية المهارات المتنوعة</b>&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <mat-form-field >
+                                                    <input matInput placeholder="الدرجة" type="number">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <b>قوة الشخصيه وثباتها</b>&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <mat-form-field >
+                                                    <input matInput placeholder="الدرجة" type="number">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <b>شرح المعني الاجمالي للدرس</b>&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <mat-form-field >
+                                                    <input matInput placeholder="الدرجة" type="number">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">المجموع الكلي:</b>
+                            <div class="col-lg-6">
+
+                                <mat-form-field style="margin-right:10px;">
+                                    <input matInput value="100" placeholder="المجموع" type="number">
+                                </mat-form-field>
+
+                                <mat-form-field style="margin-right:10px;">
+                                    <input matInput value="50" placeholder="النسبة المئوية" type="number">
+                                </mat-form-field>
+                                <b>%</b>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+             
+
+                </div>
+                <!-- <div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)"> -->
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" *ngIf="is_edit" (click)="add_takeem_master()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" *ngIf="!is_edit" (click)="update_takeem_master()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="cancel_btn" (click)="cancel_takeem_master()" mat-raised-button color="primary">الغاء</button>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+                       
+<kt-Takeem_master-list></kt-Takeem_master-list>
+</div>
+<!--End Departments Data-->

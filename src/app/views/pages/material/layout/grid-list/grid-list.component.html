@@ -1,0 +1,112 @@
+﻿<!--Departments Data-->
+<router-outlet></router-outlet>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            غيابات/استئذانات المعلمين
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+                        <!--<div class="form-group kt-form__group row">
+                            <b class="col-lg-2 col-form-label">أسم القسم:</b>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <mat-select placeholder="المعلم">
+                                        <mat-option *ngFor="let Employee of Employee" [value]="Employee" (onSelectionChange)="bind_ezons($event)">
+                                            {{ Employee.emp_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>-->
+                        <div class="form-group kt-form__group row">
+
+                           
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>الموظف</mat-label>
+                                    <input required name="emp"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="employeedepartment"
+                                           placeholder=""
+                                           id="empsdropdown"
+                                           [formControl]="myControl"
+                                           [matAutocomplete]="auto"
+                                           forceSelection="emp_name"
+                                           (ngModelChange)="change_emp($event)">
+                                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                                        <mat-option *ngFor="let emp of filteredOptions  | async" [value]="emp">
+                                            {{ emp.emp_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                           
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>الرقم المدني</mat-label>
+                                    <input matInput placeholder="" [ngModelOptions]="{standalone: true}" [(ngModel)]="civil_id">
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>رقم الملف</mat-label>
+                                    <input matInput placeholder="" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="file_id">
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+<!--<kt-customers-list></kt-customers-list>-->
+<div class="kt-portlet__foot">
+    <div class="kt-form__actions kt-form__actions">
+        <div class="row">
+
+            <div class="col-lg-6">
+                <!--<button mat-raised-button color="primary">اضافه</button>&nbsp;
+                <button mat-raised-button type="reset">اعتماد</button>&nbsp;
+                <button mat-raised-button type="reset">طباعة</button>&nbsp;
+                <button mat-raised-button type="reset">تراجع</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-ezons-list-edit-state></kt-ezons-list-edit-state>
+</div>
+<!--End Departments Data-->
+

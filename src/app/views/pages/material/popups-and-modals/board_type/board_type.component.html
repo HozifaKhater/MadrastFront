@@ -1,0 +1,224 @@
+﻿<!--Departments Data-->
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            تعريف الجلسه
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">مسلسل:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="board_type_id" name="board_type_id" disabled="disabled">
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">أسم نوع المجلس:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input [(ngModel)]="board_type_name"  [ngModelOptions]="{standalone: true}" matInput>
+                                    <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <label class="col-lg-2 col-form-label">
+
+                            </label>
+                            <p style="float:right;">
+                                <mat-checkbox id="is_student" (change)="is_student_change($event)" [checked]="is_student_check">
+                                    <mat-form-field >
+                                        <input [(ngModel)]="label_student" id="is_student_id"  [ngModelOptions]="{standalone: true}" matInput>
+                                        <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                    </mat-form-field>
+                                </mat-checkbox>
+
+                            </p>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;">
+                                        <mat-checkbox id="is_rank" (change)="is_rank_change($event)" [checked]="is_rank_check">
+                                            <mat-form-field >
+                                                <input [(ngModel)]="label_rank" id="is_rank_id"  [ngModelOptions]="{standalone: true}" matInput>
+                                                <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                            </mat-form-field>
+                                        </mat-checkbox>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <label class="col-lg-2 col-form-label">
+
+                            </label>
+                            <p style="float:right;">
+                                <mat-checkbox id="is_parent_name" (change)="is_parent_name_change($event)" [checked]="is_parent_name_check">
+                                    <mat-form-field >
+                                        <input [(ngModel)]="label_parent_name" id="is_parent_name_id"   [ngModelOptions]="{standalone: true}" matInput>
+                                        <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                    </mat-form-field>
+                                </mat-checkbox>
+
+                            </p>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;">
+                                        <mat-checkbox id="is_parent_job" (change)="is_parent_job_change($event)" [checked]="is_parent_job_check">
+                                            <mat-form-field >
+                                                <input [(ngModel)]="label_parent_job" id="is_parent_job_id"   [ngModelOptions]="{standalone: true}" matInput>
+                                                <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                            </mat-form-field>
+                                        </mat-checkbox>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <label class="col-lg-2 col-form-label">
+
+                            </label>
+                            <p style="float:right;">
+                                <mat-checkbox id="is_address" (change)="is_address_change($event)" [checked]="is_address_check">
+                                    <mat-form-field >
+                                        <input [(ngModel)]="label_address" id="is_address_id"  [ngModelOptions]="{standalone: true}" matInput>
+                                        <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                    </mat-form-field>
+                                </mat-checkbox>
+
+                            </p>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;">
+                                        <mat-checkbox id="is_mobile" (change)="is_mobile_change($event)" [checked]="is_mobile_check">
+                                            <mat-form-field >
+                                                <input [(ngModel)]="label_mobile" id="is_mobile_id"  [ngModelOptions]="{standalone: true}" matInput>
+                                                <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                            </mat-form-field>
+                                        </mat-checkbox>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <label class="col-lg-2 col-form-label">
+
+                            </label>
+                            <p style="float:right;">
+                                <mat-checkbox id="is_mobile2" (change)="is_mobile2_change($event)" [checked]="is_mobile2_check">
+                                    <mat-form-field >
+                                        <input [(ngModel)]="label_mobile2" id="is_mobile2_id"  [ngModelOptions]="{standalone: true}" matInput>
+                                        <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                    </mat-form-field>
+                                </mat-checkbox>
+
+                            </p>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;">
+                                        <mat-checkbox id="is_job" (change)="is_job_change($event)" [checked]="is_job_check">
+                                            <mat-form-field >
+                                                <input [(ngModel)]="job_label"  id="is_job_id"   [ngModelOptions]="{standalone: true}" matInput>
+                                                <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                            </mat-form-field>
+                                        </mat-checkbox>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <label class="col-lg-2 col-form-label">
+
+                            </label>
+                            <p style="float:right;">
+                                <mat-checkbox id="is_emp" (change)="is_emp_change($event)" [checked]="is_emp_check">
+                                    <mat-form-field >
+                                        <input [(ngModel)]="label_emp"  id="is_emp_id"   [ngModelOptions]="{standalone: true}" matInput>
+                                        <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                    </mat-form-field>
+                                </mat-checkbox>
+
+                            </p>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;">
+                                        <mat-checkbox id="is_dep" (change)="is_dep_change($event)" [checked]="is_dep_check">
+                                            <mat-form-field >
+                                                <input [(ngModel)]="dep_label" id="is_dep_id"  [ngModelOptions]="{standalone: true}" matInput>
+                                                <!--<mat-hint align="start">من فضلك ادخل القسم</mat-hint>-->
+                                            </mat-form-field>
+                                        </mat-checkbox>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    
+
+
+
+                    </div>
+
+
+
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" (click)="add()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" (click)="update()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="cancel_btn" (click)="cancel()" mat-raised-button color="primary">الغاء</button>&nbsp;
+                                <!--<button mat-raised-button type="reset">حذف</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+
+</div>
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+<kt-board_type-list></kt-board_type-list>
+</div>

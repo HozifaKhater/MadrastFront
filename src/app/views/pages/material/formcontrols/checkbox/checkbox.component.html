@@ -1,0 +1,147 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">بيانات القسم</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة قسم</button>
+        <br /><br /><br />
+                    <kt-customers-list></kt-customers-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة قسم
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">المسلسل:</label>
+                                                <div class="col-lg-4 example-container">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="مسلسل القسم" name="dep_id" disabled >
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    القسم:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4 example-container">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="dep_name" name="dep_name" [ngModelOptions]="{standalone: true}"
+                                                               required placeholder="اسم القسم" matInput>
+
+                                                       
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">النوع:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="side_dep_chck" name="side_dep_chck" (change)="side_dep_chck_change($event)" [checked]="dep_check">قسم فرعي</mat-checkbox>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">القسم الرئيسي:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select name="department"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="selecteddepartment"
+                                                                    placeholder="القسم الرئيسي"
+                                                                    id="departmentsdropdown"
+                                                                    [disabled]="butDisabled">
+
+                                                            <mat-option *ngFor="let department of departments" [value]="department">
+                                                                {{ department.dep_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    المشرف
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4 example-container">
+                                                    <mat-form-field>
+                                                        <mat-select  [(ngModel)]="employeedepartment"  [formControl]="myControl">
+                                                            <mat-option *ngFor="let emp of filteredEmployees" [value]="emp">
+                                                                {{ emp.emp_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <!-- <input name="emp"
+                                                               type="text"
+                                                               matInput
+                                                               [(ngModel)]="employeedepartment"
+                                                               placeholder="مشرف القسم"
+                                                               id="empsdropdown"
+                                                               [formControl]="myControl"
+                                                               [matAutocomplete]="auto"
+                                                               forceSelection="emp_name">
+                                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                                                            <mat-option *ngFor="let emp of filteredOptions  | async" [value]="emp">
+                                                                {{ emp.emp_name }}
+                                                            </mat-option>
+                                                        </mat-autocomplete> -->
+
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">وصف:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="dep_desc" name="dep_desc" [ngModelOptions]="{standalone: true}"
+                                                                  matInput placeholder="وصف\ملاحظات" type="text"></textarea>
+
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+                إغلاق
+            </button>
+                <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_department()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_department()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

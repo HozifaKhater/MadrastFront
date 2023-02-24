@@ -1,0 +1,207 @@
+<!-- Start Catch Reciept -->
+
+<div class="row" id="printdiv">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            {{title}}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">مسلسل:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="serial_number" formControlName="serial_number" name="serial_number">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الادارة العامة لمنطقة:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="region" formControlName="region" name="region">
+                                </mat-form-field>
+                            </div>
+                            <label class="col-lg-2 col-form-label">التعليمية</label>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">مدرسة :</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="school_name" formControlName="school_name" name="school_name" >
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">رقم مركز المعمل :</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="center_number" formControlName="center_number" name="center_number">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">التاريخ : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input id="date_of_reciept" name="date_of_reciept" formControlName="date_of_reciept" matInput  [matDatepicker]="dp3">
+                                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-caption">
+                                <div class="kt-portlet__head-title">
+                                    <span class="kt-portlet__head-icon kt-hide">
+                                        <i class="la la-gear"></i>
+                                    </span>
+                                    <h3 class="kt-portlet__head-text">
+                                        سند صرف
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-form-label" style="margin-right: 100px;">دينار</label>
+                            <mat-form-field >
+                                <input style="width: 100px; margin-right: 20px;" matInput placeholder="" [(ngModel)]="dinar_value" formControlName="dinar_value" name="dinar_value">
+                            </mat-form-field>
+                            
+
+                            <label class="col-form-label" style="margin-right: 50px;">فلس</label>
+                            <mat-form-field >
+                                <input style="width: 100px; margin-right: 20px;" matInput placeholder="" [(ngModel)]="fels_value" formControlName="fels_value" name="fels_value">
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">تسلمنا من السيد :</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="client_name" formControlName="client_name" name="client_name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">مبلغ وقدره :</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="total_in_arabic" formControlName="total_in_arabic" name="total_in_arabic">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">بموجب نقدا / شيك رقم : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="cash_or_check" formControlName="cash_or_check" name="cash_or_check">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">مسحوب علي بنك : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="bank_name" formControlName="bank_name" name="bank_name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label"> وذلك عن : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="details" formControlName="details" name="details">
+                                </mat-form-field>
+                            </div>
+                        </div> 
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">استلمت المبلغ الموضح بعاليه : </label>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الاسم : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="client_name" formControlName="client_name" name="client_name">
+                                </mat-form-field>
+                            </div>
+                        </div>  
+                        
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label"> نوع ورقم الهوية : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" [(ngModel)]="identity_number" formControlName="identity_number" name="identity_number">
+                                </mat-form-field>
+                            </div>
+                        </div> 
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label"> التوقيع : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder=""  name="segnature">
+                                </mat-form-field>
+                            </div>
+                        </div> 
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label"> يعتمد ،، ناظر المدرسة  </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder=""  name="segnature2">
+                                </mat-form-field>
+                            </div>
+                        </div> 
+
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <button id="save_btn" type="button" (click)="AddPaymentReciept()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" type="button" (click)="UpdatePaymentReciept()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
+                                <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
+                                <button type="button"  (click)="print()" mat-raised-button color="primary">اطبع</button>&nbsp;
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+
+</div>
+
+<kt-PaymentReciept-list></kt-PaymentReciept-list>
+<!--End Catch Reciept -->

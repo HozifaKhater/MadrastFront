@@ -1,0 +1,154 @@
+﻿
+<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">الغيابات والاستئذانات</h3>
+    </div>
+    <div class="card-body">
+        
+        <button type="button" style="display:block;" class="btn btn-primary" (click)="openModal(content, $event)">اضافة اذن وغياب</button>
+
+        <br /><br /><br />
+        <kt-ezons-list></kt-ezons-list>
+    </div>
+</div>
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة اذن وغياب
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                              
+                                                <label class="col-lg-1 col-form-label">
+                                                    القسم:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+														<input name="level"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selecteddepartment"
+															   (ngModelChange)="change_dept($event)"
+															   placeholder="أختر القسم"
+															   [formControl]="myControlDept"
+															   [matAutocomplete]="autodept"
+															   forceSelection="dep_name">
+														<mat-autocomplete autoActiveFirstOption #autodept="matAutocomplete" [displayWith]="displayFnDep">
+															<mat-option *ngFor="let dept of filteredOptionsDep  | async" [value]="dept">
+																{{ dept.dep_name }}
+															</mat-option>
+														</mat-autocomplete>
+
+													</mat-form-field>
+                                                  
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الأسم:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+														<input name="class"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedEmp"
+															   (ngModelChange)="change_Emp($event)"
+															   placeholder="أختر أسم الموظف"
+															   [formControl]="myControlEmp"
+															   [matAutocomplete]="autoEmp"
+															   forceSelection="emp_name">
+														<mat-autocomplete autoActiveFirstOption #autoEmp="matAutocomplete" [displayWith]="displayFnEmp">
+															<mat-option *ngFor="let emp of filteredOptionsEmp  | async" [value]="emp">
+																{{ emp.emp_name}}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    تاريخ:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field (click)="dp3.open()">
+                                                        <input [(ngModel)]="ezn_date"  [ngModelOptions]="{standalone: true}"  matInput required [matDatepicker]="dp3" placeholder="تاريخ الغياب/الأستئذان">
+                                                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                                       
+                                                    </mat-form-field>
+
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    السبب:
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="ezn_reason" [ngModelOptions]="{standalone: true}" matInput placeholder="أدخل السبب"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    من ساعه:
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input class="floating-input" matInput type="time" [(ngModel)]="time_from" [ngModelOptions]="{standalone: true}" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الى ساعه:
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input class="floating-input" matInput type="time" [(ngModel)]="time_to" [ngModelOptions]="{standalone: true}" />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                                                         
+                                        </div>
+
+                              
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="cancel_ezon()" class="btn btn-secondary" data-dismiss="modal">
+                    إغلاق
+                </button>
+                <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_ezon()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="!is_edit"  (click)="add_ezon()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>
+<!--End Departments Data-->

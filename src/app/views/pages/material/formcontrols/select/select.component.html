@@ -1,0 +1,1985 @@
+﻿<!--Students Form-->
+<!--<div class="row">
+    <div class="col-lg-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                            بيانات أساسية
+                        </h3>
+                    </div>
+                </div>
+            </div>-->
+            <!--begin::Form-->
+            <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الرقم المدني:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="student_civilian_id" required max="99999999999" formControlName="student_civilian_id" matInput placeholder="الرقم المدني">
+
+                                    <mat-error *ngIf="
+        form1.controls.student_civilian_id.hasError('required') &&
+        (form1.controls.student_civilian_id.dirty || form1.controls.student_civilian_id.touched)
+      ">
+                                        من فضلك ادخل الرقم المدني
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الجنسية:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الجنسيه"
+                                                [(ngModel)]="selectednat"
+                                                required formControlName="selectednat">
+                                        <mat-option *ngFor="let nat of nat" [value]="nat">
+                                            {{ nat.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectednat.hasError('required') &&
+        (form1.controls.selectednat.dirty || form1.controls.selectednat.touched)
+      ">
+                                        من فضلك اختر الجنسيه
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الجنس:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الجنس"
+                                                [(ngModel)]="selectedsex"
+                                                required formControlName="selectedsex">
+                                        <mat-option *ngFor="let sex of sex" [value]="sex">
+                                            {{ sex.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedsex.hasError('required') &&
+        (form1.controls.selectedsex.dirty || form1.controls.selectedsex.touched)
+      ">
+                                        من فضلك اختر الجنس
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                أسم الطالب:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="student_name" formControlName="student_name" matInput placeholder="أدخل اسم الطالب">
+                                    <mat-error *ngIf="
+        form1.controls.student_name.hasError('required') &&
+        (form1.controls.student_name.dirty || form1.controls.student_name.touched)
+      ">
+                                        من فضلك ادخل أسم الطالب
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                تاريخ الميلاد:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="student_dob" (ngModelChange)="updateCalcs($event)" formControlName="student_dob" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                    <mat-error *ngIf="
+        form1.controls.student_dob.hasError('required') &&
+        (form1.controls.student_dob.dirty || form1.controls.student_dob.touched)
+      ">
+                                        من فضلك أختر تاريخ الميلاد
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">العمر فى بداية العام الدراسي:</label>
+
+
+                            <div class="kt-section">
+                                <div class="kt-section__content">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <mat-form-field style="margin-right:5px;">
+                                                <input [(ngModel)]="student_age_day" [ngModelOptions]="{standalone: true}" matInput value="6" placeholder="يوم" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <mat-form-field style="margin-right:5px;">
+                                                <input [(ngModel)]="student_age_month" [ngModelOptions]="{standalone: true}" matInput value="12" placeholder="شهر" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <mat-form-field style="margin-right:5px;">
+                                                <input [(ngModel)]="student_age_year" [ngModelOptions]="{standalone: true}" matInput value="1999" placeholder="سنة" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                سبب القبول:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+
+                                    <mat-select placeholder="سبب القبول"
+                                                [(ngModel)]="selectedreason"
+                                                [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let reasons of reasons" [value]="reasons">
+                                            {{ reasons.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الديانة:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الديانة"
+                                                [(ngModel)]="selectedrel"
+                                                required formControlName="selectedrel">
+                                        <mat-option *ngFor="let religion of religion" [value]="religion">
+                                            {{ religion.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedrel.hasError('required') &&
+        (form1.controls.selectedrel.dirty || form1.controls.selectedrel.touched)
+      ">
+                                        من فضلك اختر الديانة
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المنطقة:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المنطقة"
+                                                [(ngModel)]="selectedregion"
+                                                [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let region of region" [value]="region">
+                                            {{ region.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المدرسة:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المدرسه"
+                                                [(ngModel)]="selectedschool"
+                                                required formControlName="selectedschool">
+                                        <mat-option *ngFor="let school of school" [value]="school">
+                                            {{ school.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedschool.hasError('required') &&
+        (form1.controls.selectedschool.dirty || form1.controls.selectedschool.touched)
+      ">
+                                        من فضلك اختر المدرسه
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المرحلة:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المرحلة"
+                                                [(ngModel)]="selectedmra7l"
+                                                required formControlName="selectedmra7l">
+                                        <mat-option *ngFor="let mra7l of mra7l" [value]="mra7l">
+                                            {{ mra7l.mr7la_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedmra7l.hasError('required') &&
+        (form1.controls.selectedmra7l.dirty || form1.controls.selectedmra7l.touched)
+      ">
+                                        من فضلك اختر المرحلة
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الصف:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الصف"
+                                                [(ngModel)]="selectedlevels"
+                                                required formControlName="selectedlevels">
+                                        <mat-option *ngFor="let levels of levels" [value]="levels">
+                                            {{ levels.lev_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedlevels.hasError('required') &&
+        (form1.controls.selectedlevels.dirty || form1.controls.selectedlevels.touched)
+      ">
+                                        من فضلك اختر الصف
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الفصل:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الفصل"
+                                                [(ngModel)]="selectedclass"
+                                                required formControlName="selectedclass">
+                                        <mat-option *ngFor="let class of class" [value]="class">
+                                            {{ class.class_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedclass.hasError('required') &&
+        (form1.controls.selectedclass.dirty || form1.controls.selectedclass.touched)
+      ">
+                                        من فضلك اختر الفصل
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الشعبة:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الشعبة"
+                                                [(ngModel)]="selectedbranch"
+                                                required formControlName="selectedbranch">
+                                        <mat-option *ngFor="let branch of branch" [value]="branch">
+                                            {{ branch.def_name }}
+                                        </mat-option>
+
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedbranch.hasError('required') &&
+        (form1.controls.selectedbranch.dirty || form1.controls.selectedbranch.touched)
+      ">
+                                        من فضلك اختر الشعبة
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">التسلسل:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="student_file_ser" [ngModelOptions]="{standalone: true}" matInput placeholder="أدخل تسلسل الطالب" type="number">
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الحالة الدراسية:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="الحالة الدراسية"
+                                                [(ngModel)]="selectedstudy_status"
+                                                [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let study_status of study_status" [value]="study_status">
+                                            {{ study_status.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">عدد سنوات الرسوب في الصف الحالي:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="student_failure_years" [ngModelOptions]="{standalone: true}" matInput placeholder="أدخل عدد السنوات" type="number">
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                حالة الطالب:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="حالة الطالب"
+                                                [(ngModel)]="selectedstudent_study_status"
+                                                [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let study_status of study_status" [value]="study_status">
+                                            {{ study_status.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            بيانات عامة
+                        </h3>
+                    </div>
+                </div>
+            </div>-->
+            <!--begin::Form-->
+            <!--<form class="kt-form" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                رقم شهادة الميلاد:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="birth_cert_no" formControlName="birth_cert_no" matInput placeholder="أدخل رقم شهادة الميلاد">
+                                    <mat-error *ngIf="
+        form1.controls.birth_cert_no.hasError('required') &&
+        (form1.controls.birth_cert_no.dirty || form1.controls.birth_cert_no.touched)
+      ">
+                                        ادخل رقم شهادة الميلاد
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                مصدرها:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المصدر"
+                                                [(ngModel)]="selectedsource"
+                                                required formControlName="selectedsource">
+                                        <mat-option *ngFor="let cert_source of cert_source" [value]="cert_source">
+                                            {{ cert_source.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedsource.hasError('required') &&
+        (form1.controls.selectedsource.dirty || form1.controls.selectedsource.touched)
+      ">
+                                        من فضلك اختر المصدر
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">تاريخها:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="birth_cert_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1" placeholder="أختر التاريخ">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                مكان الميلاد:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="مكان الميلاد"
+                                                [(ngModel)]="selectedlocation"
+                                                required formControlName="selectedlocation">
+                                        <mat-option *ngFor="let birth_loc of birth_loc" [value]="birth_loc">
+                                            {{ birth_loc.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedlocation.hasError('required') &&
+        (form1.controls.selectedlocation.dirty || form1.controls.selectedlocation.touched)
+      ">
+                                        من فضلك اختر مكان الميلاد
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المحافظه:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المحافظه"
+                                                [(ngModel)]="selectedgov"
+                                                required formControlName="selectedgov">
+                                        <mat-option *ngFor="let government of government" [value]="government">
+                                            {{ government.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedgov.hasError('required') &&
+        (form1.controls.selectedgov.dirty || form1.controls.selectedgov.touched)
+      ">
+                                        من فضلك اختر المحافظه
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المدينة:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المدينة"
+                                                [(ngModel)]="selectedcity"
+                                                [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let city of city" [value]="city">
+                                            {{ city.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                القطعة:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="elkt3a" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل القطعة">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الشارع:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="street" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="أدخل الشارع">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الجادة:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="elgada" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل الجادة">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المبني:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="building" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل المبني">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الدور:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="build_level" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل الدور">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الشقة:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="apart_no" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل الشقة">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الهاتف:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="أدخل الهاتف">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الاسم الانجليزي:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="name_in_english" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="أدخل الاسم الانجليزي">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            بيانات ولي الأمر
+                        </h3>
+                    </div>
+                </div>
+            </div>-->
+            <!--begin::Form-->
+            <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                علاقته بالطالب:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="علاقته بالطالب"
+                                                [(ngModel)]="selectedguardrelation"
+                                                [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let relation of relation" [value]="relation">
+                                            {{ relation.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الرقم المدني:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guardian_civilian_id" required max="99999999999" formControlName="guardian_civilian_id" matInput placeholder="الرقم المدني">
+
+                                    <mat-error *ngIf="
+        form1.controls.guardian_civilian_id.hasError('required') &&
+        (form1.controls.guardian_civilian_id.dirty || form1.controls.guardian_civilian_id.touched)
+      ">
+                                        من فضلك ادخل الرقم المدني
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                النقال:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guard_mobile" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="أدخل النقال">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                أسم ولي الأمر:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guardian_name" formControlName="guardian_name" matInput placeholder="أسم ولي الأمر">
+
+                                    <mat-error *ngIf="
+        form1.controls.guardian_name.hasError('required') &&
+        (form1.controls.guardian_name.dirty || form1.controls.guardian_name.touched)
+      ">
+                                        من فضلك ادخل أسم ولي الأمر
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                هاتف العمل:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="work_phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="أدخل هاتف العمل">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                العمل:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="work_name" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="أدخل العمل">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الوظيفة:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="job_name" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="أدخل الوظيفة">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                بريد الكتروني:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" type="email" matInput placeholder="أدخل البريد الألكتروني">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المحافظه:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المحافظه"
+                                                [(ngModel)]="selectedguardgov"
+                                                required formControlName="selectedguardgov">
+                                        <mat-option *ngFor="let government of government" [value]="government">
+                                            {{ government.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedguardgov.hasError('required') &&
+        (form1.controls.selectedguardgov.dirty || form1.controls.selectedguardgov.touched)
+      ">
+                                        من فضلك اختر المحافظه
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المدينة:
+
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="المدينة"
+                                                [(ngModel)]="selectedguardcity"
+                                                required formControlName="selectedguardcity">
+                                        <mat-option *ngFor="let city of city" [value]="city">
+                                            {{ city.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                القطعة:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guard_kt3a" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل القطعة">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الشارع:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guard_street" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="أدخل الشارع">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                المبني:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guard_build" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل المبني">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الدور:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guard_build_level" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="أدخل الدور">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الهاتف:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="guard_phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="أدخل الهاتف">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            بيانات الأم
+                        </h3>
+                    </div>
+                </div>
+            </div>-->
+            <!--begin::Form-->
+            <!--<form class="kt-form" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                اسم الأم:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="mother_name" formControlName="mother_name" matInput placeholder="اسم الأم">
+
+                                    <mat-error *ngIf="
+        form1.controls.mother_name.hasError('required') &&
+        (form1.controls.mother_name.dirty || form1.controls.mother_name.touched)
+      ">
+                                        من فضلك ادخل الأسم
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الرقم المدني:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="mother_civilian_id" required max="99999999999" formControlName="mother_civilian_id" matInput placeholder="الرقم المدني">
+
+                                    <mat-error *ngIf="
+        form1.controls.mother_civilian_id.hasError('required') &&
+        (form1.controls.mother_civilian_id.dirty || form1.controls.mother_civilian_id.touched)
+      ">
+                                        من فضلك ادخل الرقم المدني
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                جنسية الأم:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="جنسية الأم"
+                                                [(ngModel)]="selectedmothernat"
+                                                required formControlName="selectedmothernat">
+                                        <mat-option *ngFor="let nat of nat" [value]="nat">
+                                            {{ nat.def_name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+        form1.controls.selectedmothernat.hasError('required') &&
+        (form1.controls.selectedmothernat.dirty || form1.controls.selectedmothernat.touched)
+      ">
+                                        من فضلك اختر الجنسية
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                الهاتف:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="mother_phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="أدخل الهاتف">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                النقال:
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="mother_mobile" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="أدخل النقال">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" type="button" (click)="add_student()" mat-raised-button color="accent">حفظ</button>&nbsp;
+                                <button id="update_btn" type="button" (click)="update_student()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="cancel_btn" type="button" (click)="cancel_student()" mat-raised-button color="primary">الغاء</button>&nbsp;
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>-->
+            <!--end::Form-->
+        <!--</div>
+    </div>
+</div>
+
+
+
+
+<kt-student-list></kt-student-list>-->
+<!--End Students Form-->
+
+<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">بيانات الطالب</h3>
+    </div>
+    <div class="card-body">
+        <!-- <button type="button" style="display:block;" class="btn btn-primary" data-toggle="modal" id="modalOpener"
+            data-target="#formModalAct">اضافة نشاط</button> -->
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة بيانات طالب
+        </button>
+        <br />
+        <!-- <kt-activities-list></kt-activities-list> -->
+    </div>
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+<kt-student-list></kt-student-list>
+</div>
+
+<ng-template #content let-modal>
+
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            بيانات أساسية
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الرقم المدني
+                                                </mat-label>
+                                                <input [(ngModel)]="student_civilian_id" required max="99999999999" formControlName="student_civilian_id" matInput placeholder="">
+
+                                                <mat-error *ngIf="
+        form1.controls.student_civilian_id.hasError('required') &&
+        (form1.controls.student_civilian_id.dirty || form1.controls.student_civilian_id.touched)
+      ">
+                                                    من فضلك ادخل الرقم المدني
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الجنسية
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectednat"
+                                                            required formControlName="selectednat">
+                                                    <mat-option *ngFor="let nat of nat" [value]="nat">
+                                                        {{ nat.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectednat.hasError('required') &&
+        (form1.controls.selectednat.dirty || form1.controls.selectednat.touched)
+      ">
+                                                    من فضلك اختر الجنسيه
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الجنس
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedsex"
+                                                            required formControlName="selectedsex">
+                                                    <mat-option *ngFor="let sex of sex" [value]="sex">
+                                                        {{ sex.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedsex.hasError('required') &&
+        (form1.controls.selectedsex.dirty || form1.controls.selectedsex.touched)
+      ">
+                                                    من فضلك اختر الجنس
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الطالب
+                                                </mat-label>
+                                                <input [(ngModel)]="student_name" formControlName="student_name" matInput placeholder="">
+                                                <mat-error *ngIf="
+        form1.controls.student_name.hasError('required') &&
+        (form1.controls.student_name.dirty || form1.controls.student_name.touched)
+      ">
+                                                    من فضلك ادخل أسم الطالب
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field (click)="picker.open()">
+                                                <mat-label>
+                                                    تاريخ الميلاد
+                                                </mat-label>
+                                                <input [(ngModel)]="student_dob" (ngModelChange)="updateCalcs($event)" formControlName="student_dob" matInput [matDatepicker]="picker" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                                <mat-error *ngIf="
+        form1.controls.student_dob.hasError('required') &&
+        (form1.controls.student_dob.dirty || form1.controls.student_dob.touched)
+      ">
+                                                    من فضلك أختر تاريخ الميلاد
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    سبب القبول
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedreason"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let reasons of reasons" [value]="reasons">
+                                                        {{ reasons.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    يوم
+                                                </mat-label>
+                                                <input [(ngModel)]="student_age_day" [ngModelOptions]="{standalone: true}" matInput value="6" placeholder="" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    شهر
+                                                </mat-label>
+                                                <input [(ngModel)]="student_age_month" [ngModelOptions]="{standalone: true}" matInput value="12" placeholder="" type="number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    سنة
+                                                </mat-label>
+                                                <input [(ngModel)]="student_age_year" [ngModelOptions]="{standalone: true}" matInput value="1999" placeholder="" type="number">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الديانة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedrel"
+                                                            required formControlName="selectedrel">
+                                                    <mat-option *ngFor="let religion of religion" [value]="religion">
+                                                        {{ religion.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedrel.hasError('required') &&
+        (form1.controls.selectedrel.dirty || form1.controls.selectedrel.touched)
+      ">
+                                                    من فضلك اختر الديانة
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المنطقة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedregion"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let region of region" [value]="region">
+                                                        {{ region.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المدرسة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedschool"
+                                                            required formControlName="selectedschool">
+                                                    <mat-option *ngFor="let school of school" [value]="school">
+                                                        {{ school.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedschool.hasError('required') &&
+        (form1.controls.selectedschool.dirty || form1.controls.selectedschool.touched)
+      ">
+                                                    من فضلك اختر المدرسه
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المرحلة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedmra7l"
+                                                            required formControlName="selectedmra7l">
+                                                    <mat-option *ngFor="let mra7l of mra7l" [value]="mra7l">
+                                                        {{ mra7l.mr7la_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedmra7l.hasError('required') &&
+        (form1.controls.selectedmra7l.dirty || form1.controls.selectedmra7l.touched)
+      ">
+                                                    من فضلك اختر المرحلة
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الصف
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedlevels"
+                                                            required formControlName="selectedlevels">
+                                                    <mat-option *ngFor="let levels of levels" [value]="levels">
+                                                        {{ levels.lev_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedlevels.hasError('required') &&
+        (form1.controls.selectedlevels.dirty || form1.controls.selectedlevels.touched)
+      ">
+                                                    من فضلك اختر الصف
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الفصل
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedclass"
+                                                            required formControlName="selectedclass">
+                                                    <mat-option *ngFor="let class of class" [value]="class">
+                                                        {{ class.class_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedclass.hasError('required') &&
+        (form1.controls.selectedclass.dirty || form1.controls.selectedclass.touched)
+      ">
+                                                    من فضلك اختر الفصل
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الشعبة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedbranch"
+                                                            required formControlName="selectedbranch">
+                                                    <mat-option *ngFor="let branch of branch" [value]="branch">
+                                                        {{ branch.def_name }}
+                                                    </mat-option>
+
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedbranch.hasError('required') &&
+        (form1.controls.selectedbranch.dirty || form1.controls.selectedbranch.touched)
+      ">
+                                                    من فضلك اختر الشعبة
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>التسلسل</mat-label>
+                                                <input [(ngModel)]="student_file_ser" [ngModelOptions]="{standalone: true}" matInput placeholder="" type="number">
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الحالة الدراسية
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedstudy_status"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let study_status of study_status" [value]="study_status">
+                                                        {{ study_status.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>عدد سنوات الرسوب في الصف الحالي</mat-label>
+                                                <input [(ngModel)]="student_failure_years" [ngModelOptions]="{standalone: true}" matInput placeholder="" type="number">
+
+                                            </mat-form-field>
+                                        </div>
+
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    حالة الطالب
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedstudent_study_status"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let study_status of study_status" [value]="study_status">
+                                                        {{ study_status.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            بيانات عامة
+                                        </h3>
+                                    </div>
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    رقم شهادة الميلاد
+                                                </mat-label>
+                                                <input [(ngModel)]="birth_cert_no" formControlName="birth_cert_no" matInput placeholder="">
+                                                <mat-error *ngIf="
+        form1.controls.birth_cert_no.hasError('required') &&
+        (form1.controls.birth_cert_no.dirty || form1.controls.birth_cert_no.touched)
+      ">
+                                                    من فضلك ادخل رقم شهادة الميلاد
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    مصدرها
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedsource"
+                                                            required formControlName="selectedsource">
+                                                    <mat-option *ngFor="let cert_source of cert_source" [value]="cert_source">
+                                                        {{ cert_source.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedsource.hasError('required') &&
+        (form1.controls.selectedsource.dirty || form1.controls.selectedsource.touched)
+      ">
+                                                    من فضلك اختر المصدر
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field (click)="picker1.open()">
+                                                <mat-label>تاريخها</mat-label>
+                                                <input [(ngModel)]="birth_cert_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    مكان الميلاد
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedlocation"
+                                                            required formControlName="selectedlocation">
+                                                    <mat-option *ngFor="let birth_loc of birth_loc" [value]="birth_loc">
+                                                        {{ birth_loc.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedlocation.hasError('required') &&
+        (form1.controls.selectedlocation.dirty || form1.controls.selectedlocation.touched)
+      ">
+                                                    من فضلك اختر مكان الميلاد
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المحافظه
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedgov"
+                                                            required formControlName="selectedgov">
+                                                    <mat-option *ngFor="let government of government" [value]="government">
+                                                        {{ government.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedgov.hasError('required') &&
+        (form1.controls.selectedgov.dirty || form1.controls.selectedgov.touched)
+      ">
+                                                    من فضلك اختر المحافظه
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المدينة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedcity"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let city of city" [value]="city">
+                                                        {{ city.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+
+                                                <mat-label>
+                                                    القطعة
+                                                </mat-label>
+                                                <input [(ngModel)]="elkt3a" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الشارع
+                                                </mat-label>
+                                                <input [(ngModel)]="street" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الجادة
+                                                </mat-label>
+                                                <input [(ngModel)]="elgada" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+
+                                                <mat-label>
+                                                    المبني
+                                                </mat-label>
+                                                <input [(ngModel)]="building" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الدور
+                                                </mat-label>
+                                                <input [(ngModel)]="build_level" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الشقة
+                                                </mat-label>
+                                                <input [(ngModel)]="apart_no" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الهاتف
+                                                </mat-label>
+                                                <input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الاسم الانجليزي
+                                                </mat-label>
+                                                <input [(ngModel)]="name_in_english" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            بيانات ولي الأمر
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    علاقته بالطالب
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedguardrelation"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                    <mat-option *ngFor="let relation of relation" [value]="relation">
+                                                        {{ relation.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الرقم المدني
+                                                </mat-label>
+                                                <input [(ngModel)]="guardian_civilian_id" required max="99999999999" formControlName="guardian_civilian_id" matInput placeholder="">
+
+                                                <mat-error *ngIf="
+        form1.controls.guardian_civilian_id.hasError('required') &&
+        (form1.controls.guardian_civilian_id.dirty || form1.controls.guardian_civilian_id.touched)
+      ">
+                                                    من فضلك ادخل الرقم المدني
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    النقال
+                                                </mat-label>
+                                                <input [(ngModel)]="guard_mobile" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    أسم ولي الأمر
+                                                </mat-label>
+                                                <input [(ngModel)]="guardian_name" formControlName="guardian_name" matInput placeholder="">
+
+                                                <mat-error *ngIf="
+        form1.controls.guardian_name.hasError('required') &&
+        (form1.controls.guardian_name.dirty || form1.controls.guardian_name.touched)
+      ">
+                                                    من فضلك ادخل أسم ولي الأمر
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    هاتف العمل
+                                                </mat-label>
+                                                <input [(ngModel)]="work_phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    العمل
+                                                </mat-label>
+                                                <input [(ngModel)]="work_name" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الوظيفة
+                                                </mat-label>
+                                                <input [(ngModel)]="job_name" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+
+                                                <mat-label>
+                                                    بريد الكتروني
+                                                </mat-label>
+                                                <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" type="email" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المحافظه
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedguardgov"
+                                                            required formControlName="selectedguardgov">
+                                                    <mat-option *ngFor="let government of government" [value]="government">
+                                                        {{ government.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedguardgov.hasError('required') &&
+        (form1.controls.selectedguardgov.dirty || form1.controls.selectedguardgov.touched)
+      ">
+                                                    من فضلك اختر المحافظه
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المدينة
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedguardcity"
+                                                            required formControlName="selectedguardcity">
+                                                    <mat-option *ngFor="let city of city" [value]="city">
+                                                        {{ city.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    القطعة
+                                                </mat-label>
+                                                <input [(ngModel)]="guard_kt3a" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الشارع
+                                                </mat-label>
+                                                <input [(ngModel)]="guard_street" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المبني
+                                                </mat-label>
+                                                <input [(ngModel)]="guard_build" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الدور
+                                                </mat-label>
+                                                <input [(ngModel)]="guard_build_level" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الهاتف
+                                                </mat-label>
+                                                <input [(ngModel)]="guard_phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            بيانات الأم
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    اسم الأم
+                                                </mat-label>
+                                                <input [(ngModel)]="mother_name" formControlName="mother_name" matInput placeholder="">
+
+                                                <mat-error *ngIf="
+        form1.controls.mother_name.hasError('required') &&
+        (form1.controls.mother_name.dirty || form1.controls.mother_name.touched)
+      ">
+                                                    من فضلك ادخل الأسم
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الرقم المدني
+                                                </mat-label>
+                                                <input [(ngModel)]="mother_civilian_id" required max="99999999999" formControlName="mother_civilian_id" matInput placeholder="">
+
+                                                <mat-error *ngIf="
+        form1.controls.mother_civilian_id.hasError('required') &&
+        (form1.controls.mother_civilian_id.dirty || form1.controls.mother_civilian_id.touched)
+      ">
+                                                    من فضلك ادخل الرقم المدني
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    جنسية الأم
+                                                </mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectedmothernat"
+                                                            required formControlName="selectedmothernat">
+                                                    <mat-option *ngFor="let nat of nat" [value]="nat">
+                                                        {{ nat.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectedmothernat.hasError('required') &&
+        (form1.controls.selectedmothernat.dirty || form1.controls.selectedmothernat.touched)
+      ">
+                                                    من فضلك اختر الجنسية
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+
+                                                <mat-label>
+                                                    الهاتف
+                                                </mat-label>
+                                                <input [(ngModel)]="mother_phone" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+                                  
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    النقال
+                                                </mat-label>
+                                                <input [(ngModel)]="mother_mobile" [ngModelOptions]="{standalone: true}" type="tel" matInput placeholder="">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_student()"
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_student()"
+                class="btn btn-primary">
+            اضافة
+        </button>
+    </div>
+
+</ng-template>

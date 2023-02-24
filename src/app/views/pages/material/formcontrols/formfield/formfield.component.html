@@ -1,0 +1,283 @@
+﻿<!--JOBS-->
+<style>
+    /* width */
+    #checklist::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    #checklist::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    #checklist::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+        /* Handle on hover */
+        #checklist::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    .checkboxs {
+        width: 16px;
+        height:16px;
+    }
+</style>
+
+<!--<div class="row">
+
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                            بيانات الوظائف
+                        </h3>
+                    </div>
+                </div>
+            </div>-->
+            <!--begin::Form-->
+            <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+                        <div class="form-group kt-form__group row">
+
+
+                            <label class="col-lg-3 col-form-label">مسلسل:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="job_id" formControlName="job_id" matInput placeholder="المسلسل">
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">
+                                أسم الوظيفة:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <input [(ngModel)]="job_name"
+                                           required matInput formControlName="job_name" placeholder="أدخل اسم الوظيفة">
+                                    <mat-error *ngIf="
+        form1.controls.job_name.hasError('required') &&
+        (form1.controls.job_name.dirty || form1.controls.job_name.touched)
+      ">
+                                        من فضلك أدخل اسم الوظيفة
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+
+                            <label class="col-lg-3 col-form-label">وصف\ملاحظات:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <textarea [(ngModel)]="job_desc" [ngModelOptions]="{standalone: true}"
+                                              matInput placeholder="أدخل الوصف" type="text"></textarea>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-3 col-form-label">الصلاحيات:</label>
+                            <div class="col-lg-6">
+                                <div class="kt-checkbox-list">
+                                    <p style="float:right;margin:5px;">
+                                        <mat-checkbox [(ngModel)]="in_class_priv" [ngModelOptions]="{standalone: true}" id="side_job_chck" (change)="side_jobclass_chck_change($event)">داخل الصف</mat-checkbox>
+                                    </p>
+                                    <p style="float:right;margin:5px;">
+                                        <mat-checkbox id="dep_work" [(ngModel)]="dep_work" [ngModelOptions]="{standalone: true}" (change)="side_jobwork_chck_change($event)">أعمال القسم</mat-checkbox>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="kt-form__group kt-form__group--last form-group row">
+                            <div class="col-lg-4 col-form-label" id="checklist" style="height:250px;overflow-y:scroll;">
+
+
+                                <div *ngFor="let privs of newArray; let i=index" class="kt-checkbox-list" style="display:table;">
+                                    <label>
+                                        <input [checked]="(privs.checked)" type="checkbox" [value]="privs.menu_id" (change)="onCheckChange($event)">
+                                        {{privs.user_menu_name}}
+
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" type="button" (click)="add_jobs()" mat-raised-button color="accent">حفظ</button>&nbsp;
+                                <button id="update_btn" type="button" (click)="update_jobs()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="cancel_btn" type="button" (click)="cancel_jobs()" mat-raised-button color="accent">الغاء</button>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<kt-master_jobs-list></kt-master_jobs-list>-->
+<!--End Jobs Form-->
+
+<div class="card" dir="rtl">
+    <div class="card-header">
+        <h3 style="display:flex;">بيانات الوظائف</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة وظيفة</button>
+        <br /><br /><br />
+                    <kt-master_jobs-list></kt-master_jobs-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة وظيفة
+                </h3>
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+
+
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">المسلسل:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="job_id" formControlName="job_id" matInput placeholder="المسلسل">
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الوظيفة
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="job_name"
+                                                               required matInput formControlName="job_name" placeholder="أدخل اسم الوظيفة">
+                                                        <mat-error *ngIf="
+        form1.controls.job_name.hasError('required') &&
+        (form1.controls.job_name.dirty || form1.controls.job_name.touched)
+      ">
+                                                            من فضلك أدخل اسم الوظيفة
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">ملاحظات:</label>
+                                                <div class="col-lg-10">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="job_desc" [ngModelOptions]="{standalone: true}"
+                                                                  matInput placeholder="وصف\ملاحظات" type="text"></textarea>
+
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">الصلاحيات:</label>
+                                                <div class="col-lg-4">
+                                                    <div class="kt-checkbox-list">
+                                                        <p style="float:right;margin:5px;">
+                                                            <mat-checkbox [(ngModel)]="in_class_priv" [ngModelOptions]="{standalone: true}" id="side_job_chck" (change)="side_jobclass_chck_change($event)">داخل الصف</mat-checkbox>
+                                                        </p>
+                                                        <p style="float:right;margin:5px;">
+                                                            <mat-checkbox id="dep_work" [(ngModel)]="dep_work" [ngModelOptions]="{standalone: true}" (change)="side_jobwork_chck_change($event)">أعمال القسم</mat-checkbox>
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <div class="col-lg-6" id="checklist" style="height:250px;overflow-y:scroll;">
+
+
+                                                    <div *ngFor="let privs of newArray; let i=index" class="kt-checkbox-list" style="display:table;">
+                                                        <label>
+                                                            <input class="checkboxs" [checked]="(privs.checked)" type="checkbox" [value]="privs.menu_id" (change)="onCheckChange($event)">
+                                                            {{privs.user_menu_name}}
+
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                    data-dismiss="modal">
+                    إغلاق
+                </button>
+                <button type="button" style="border-radius: 20px;" (click)="update_jobs()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_jobs()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

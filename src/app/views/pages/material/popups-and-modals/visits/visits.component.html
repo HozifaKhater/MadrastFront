@@ -1,0 +1,311 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">الزيارات</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary" (click)="openModal(content, $event)" id="modalOpener">اضافة زيارة</button>
+        <br /><br /><br />
+                    <div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+                        <kt-visits-list></kt-visits-list>
+                    </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة زيارة
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    النوع
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select required name="department"
+                                                                  
+                                                                    [(ngModel)]="selected_visit_type"
+                                                                    placeholder="نوع الزيارة"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    (ngModelChange)="visit_types_selection($event)"
+                                                                    [(value)]=visitValue>
+                                                            <mat-option *ngFor="let visit_types of visit_types" [value]="visit_types">
+                                                                {{ visit_types.visit_type_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_visit_date === 1">{{visit_date}}</label>
+                                                <div class="col-lg-4" *ngIf="is_visit_date === 1">
+                                                    <mat-form-field (click)="pickera.open()">
+                                                        <input [(ngModel)]="visit_date2" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="pickera" placeholder="أختر التاريخ">
+                                                        <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
+                                                        <mat-datepicker #pickera></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <label class="col-lg-1 col-form-label">{{vpic_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_vpic === 1">
+                                                    <input type="file" (change)="onFileChanged($event);">
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_start_time === 1">{{start_time_label}}</label>
+
+                                                <div class="col-lg-4" *ngIf="is_start_time === 1">
+                                                    <mat-form-field>
+                                                        <input class="floating-input" [(ngModel)]="start_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
+
+                                                    </mat-form-field>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_name === 1">{{name_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_name === 1">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" matInput placeholder="أسم الزائر">
+
+                                                    </mat-form-field>
+                                                </div>
+
+                                          
+                                                <div class="col-1"><!--extra div--></div>
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_job === 1">{{job_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_job === 1">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="job" [ngModelOptions]="{standalone: true}" matInput placeholder="أسم الوظيفة">
+
+                                                    </mat-form-field>
+                                                </div>
+
+                                       
+
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_dep === 1">{{dep_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_dep === 1">
+                                                    <mat-form-field>
+                                                        <mat-select required name="department"
+                                                                   
+                                                                    [(ngModel)]="selecteddepartment"
+                                                                    (change)="selected()"
+                                                                    placeholder="Please select Value">
+                                                            <mat-option *ngFor="let department of departments" [value]="department">
+                                                                {{ department.dep_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+
+                                                <div class="col-1"><!--extra div--></div>
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_phone === 1">{{phone_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_phone === 1">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" matInput placeholder="رقم الهاتف">
+
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_end_time === 1">{{end_time_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_end_time === 1">
+                                                    <mat-form-field>
+                                                        <input class="floating-input" [(ngModel)]="end_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_topic === 1">{{topic_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_topic === 1">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="topic" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="موضوع">
+                            </textarea>
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+
+                                                <div class="col-1"><!--extra div--></div>
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_instructions === 1">{{instructions_label}}</label>
+                                                <div class="col-lg-4" *ngIf="is_instructions === 1">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="instructions" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="شروط">
+                            </textarea>
+                                                    </mat-form-field>
+                                                </div>
+
+
+
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+
+
+                                                <label class="col-lg-1 col-form-label" *ngIf="is_notes === 1">{{notes_label}}</label>
+                                                <div class="col-lg-10" *ngIf="is_notes === 1">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="notes" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="ملاحظات/وصف">
+                            </textarea>
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+
+                                                <div class="col-lg-12">
+                                                    <ckeditor [editor]="Editor" *ngIf="is_vpic === 1" [data]="data" [(ngModel)]="vnote" (change)="onChange($event)" [ngModelOptions]="{standalone: true}"></ckeditor>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group kt-form__group row">
+                                                <div *ngIf="is_emp_from === 1">
+                                                <label class="col-lg-1 col-form-label" >{{emp_from_label}}</label>
+                                                <div class="col-lg-4" >
+                                                    <mat-form-field>
+                                                        <mat-select  name="emp_from"
+                                                                   
+                                                                    [(ngModel)]="selectedemp_from"
+                                                                 
+                                                                    placeholder="Please select Value">
+                                                            <mat-option *ngFor="let emps of emp_from" [value]="emps">
+                                                                {{ emps.emp_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                                <div class="col-1"><!--extra div--></div>
+                                            <div *ngIf="is_emp_from === 1">
+                                                <label class="col-lg-1 col-form-label" >{{emp_to_label}}</label>
+                                                <div class="col-lg-4" >
+                                                    <mat-form-field>
+                                                        <mat-select  name="emp_from"
+                                                                   
+                                                                    [(ngModel)]="selectedemp_from"
+                                                                 
+                                                                    placeholder="Please select Value">
+                                                            <mat-option *ngFor="let emps of emp_from" [value]="emps">
+                                                                {{ emps.emp_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+
+                                            </div>
+                                           
+                                            <div class="form-group kt-form__group row" *ngIf="is_takeem === 1">
+                                                <div class="form-group kt-form__group row">
+                                                    <label class="col-lg-1 col-form-label">التاريخ:</label>
+                                                    <div class="col-lg-4">
+                                                        <mat-form-field (click)="picker.open()">
+                                                            <input [(ngModel)]="evaluation_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
+                                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                            <mat-datepicker #picker></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-1"><!--extra div--></div>
+    
+                                                </div>
+    
+                                                <div class="form-group kt-form__group row">
+    
+                                                    <label class="col-lg-1 col-form-label" >المعلم:</label>
+                                                    <div class="col-lg-4" >
+                                                        <mat-form-field>
+                                                            <mat-select [(ngModel)]="selectedemp"
+                                                                        [ngModelOptions]="{standalone: true}"
+                                                                        id="teamdropdown"
+                                                                        placeholder="اختر المعلم">
+                                                                <mat-option *ngFor="let emp of emp" [value]="emp">
+                                                                    {{ emp.emp_name  }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-1"><!--extra div--></div>
+                                                </div>
+    
+                                                <div class="form-group kt-form__group row">
+    
+                                                    <div class="col-lg-12">
+                                                        <kt-Takeem_master-details-list></kt-Takeem_master-details-list>
+                                                    </div>
+    
+    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+                إغلاق
+            </button>
+                <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_year()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_year()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

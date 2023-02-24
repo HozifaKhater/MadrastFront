@@ -1,0 +1,123 @@
+﻿<!--Departments Data-->
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
+
+                            <h3 class="kt-portlet__head-text">
+                                <i class="fas fa-tasks" style="margin:5px;"></i>
+                                لوحة إعلانات المدرسة 
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                    <div class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">العنوان :</label>
+                                <div class="col-lg-6 example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <input [(ngModel)]="title"
+                                                  [ngModelOptions]="{standalone: true}"
+                                                  matInput
+                                                  placeholder="العنوان "
+                                                  [(value)]="title">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">الحتوى :</label>
+                                <div class="col-lg-6 example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <textarea [(ngModel)]="body"
+                                                  [ngModelOptions]="{standalone: true}"
+                                                  matInput
+                                                  placeholder="الحتوى"
+                                                  [(value)]="body"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
+
+                            <h3 class="kt-portlet__head-text">
+                                استكمال  لوحة إعلانات المدرسة 
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="kt-form" [formGroup]="form1">
+                    <div class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">شهر :</label>
+                                <div class="col-lg-6 example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <input [(ngModel)]="month"
+                                                  [ngModelOptions]="{standalone: true}"
+                                                  matInput
+                                                  placeholder="شهر "
+                                                  [(value)]="month">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">سنه :</label>
+                                <div class="col-lg-6 example-container">
+                                    <mat-form-field class="example-full-width">
+                                        <input [(ngModel)]="year"
+                                                  [ngModelOptions]="{standalone: true}"
+                                                  matInput
+                                                  placeholder="سنه "
+                                                  [(value)]="year">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions kt-form__actions">
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <button id="save_btn" type="button" (click)="add_department()" mat-raised-button color="accent">حفظ</button>&nbsp;
+                                    <button id="update_btn" type="button" (click)="update_department()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                    <button id="cancel_btn" type="button" (click)="cancel_department()" mat-raised-button color="accent">الغاء</button>&nbsp;
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+<kt-swot-list></kt-swot-list>
+</div>
+
+<!--End Departments Data-->

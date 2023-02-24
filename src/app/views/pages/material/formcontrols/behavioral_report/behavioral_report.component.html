@@ -1,0 +1,128 @@
+﻿<!--Activity Data-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                              تقرير حالة سلوكية
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+
+                        <div class="form-group kt-form__group row">
+              
+
+                    
+
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <!--<mat-label>
+                                        الصف
+                                    </mat-label>-->
+                                    <input name="level"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="selectedlevel"
+                                           (ngModelChange)="change_level($event)"
+                                           placeholder="أختر الصف"
+                                           [formControl]="myControllev"
+                                           [matAutocomplete]="autolevel"
+                                           forceSelection="lev_name">
+                                    <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                        <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                            {{ level.lev_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+                                </mat-form-field>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+              
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <!--<mat-label>
+                                        الفصل
+
+                                    </mat-label>-->
+                                    <input name="class"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="selectedclass"
+                                           (ngModelChange)="change_class($event)"
+                                           placeholder="أختر الفصل"
+                                           [formControl]="myControlclass"
+                                           [matAutocomplete]="autoclass"
+                                           forceSelection="class_name">
+                                    <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                        <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                            {{ class.class_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                     
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <!--<mat-label>
+                                        الطالب
+                                    </mat-label>-->
+                                    <input name="student"
+                                           type="text"
+                                           matInput
+                                           [(ngModel)]="selectedstudent"
+                                           placeholder="أختر الطالب"
+                                           [formControl]="myControlstudent"
+                                           [matAutocomplete]="autostudent"
+                                           forceSelection="student_name">
+                                    <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnstudent">
+                                        <mat-option *ngFor="let student of filteredOptionsstudent  | async" [value]="student">
+                                            {{ student.student_name }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+  </div>
+                <!--<div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <button id="save_btn" type="button" mat-raised-button color="accent">ارسال لولي الأمر</button>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+<kt-absence-list></kt-absence-list>
+
+<kt-viol-list></kt-viol-list>
+
+<!--End Activity Data-->

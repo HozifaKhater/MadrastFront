@@ -1,0 +1,293 @@
+﻿
+<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+	<div class="card-header">
+		<h3 style="display:flex;">رحلة جديدة</h3>
+	</div>
+	<div class="card-body">
+		<button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة رحلة</button>
+		<br /><br /><br />
+					<kt-trips-master-list></kt-trips-master-list>
+	</div>
+</div>
+
+<ng-template #content let-modal>
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-tasks" style="margin:5px;"></i>
+					اضافة رحلة
+				</h3>
+			</div>
+
+			<div class="modal-body">
+				<form dir="rtl" class="kt-form" [formGroup]="form1">
+					<div dir="rtl" class="kt-portlet__body">
+						<div class="kt-form__section kt-form__section--first">
+
+							<div class="form-group kt-form__group text-right">
+
+								<div class="container">
+									<div class="row">
+
+										<div class="col-lg-12">
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													القسم المسؤول
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<mat-select [(ngModel)]="selecteddepartment"
+																	required formControlName="selecteddepartment"
+																	id="departmentsdropdown"
+																	placeholder="أختر القسم">
+
+															<mat-option *ngFor="let department of Departments" [value]="department">
+																{{ department.dep_name }}
+															</mat-option>
+														</mat-select>
+
+														<mat-error *ngIf="
+								form1.controls.selecteddepartment.hasError('required') &&
+								(form1.controls.selecteddepartment.dirty || form1.controls.selecteddepartment.touched)
+							  ">
+															من فضلك اختر القسم
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">
+													المشرف الأول
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<mat-select required name="emp"
+																	[disabled]="disabled_emp"
+																	[(ngModel)]="employeedepartment"
+																	id="empsdropdown"
+																	placeholder="أختر المشرف"
+																	formControlName="employeedepartment">
+
+															<mat-option *ngFor="let emp of Employees" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-select>
+
+														<mat-error *ngIf="
+								form1.controls.employeedepartment.hasError('required') &&
+								(form1.controls.employeedepartment.dirty || form1.controls.employeedepartment.touched)
+							  ">
+															من فضلك اختر المشرف
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-2 col-form-label">
+													<input type="radio" id="programming" name="trip_type" value="1" [checked]="prog_check"
+														   (change)="change_trip($event)">
+													<b for="programming" style="margin:5px;">مبرمجة</b>
+												</label>
+
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-2 col-form-label">
+													<input type="radio" (change)="change_trip($event)" id="non-programming" [checked]="non-prog_check" name="trip_type" value="2">
+													<b for="non-programming" style="margin:5px;">غير مبرمجة</b>
+												</label>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													مكان الزيارة
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="trip_loc" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="مكان الزيارة">
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">
+													عدد الطلاب
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="student_number" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="عدد الطلاب">
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													الصف
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="level"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedlevel"
+															   (ngModelChange)="change_level($event)"
+															   placeholder="أختر الصف"
+															   [formControl]="myControllev"
+															   [matAutocomplete]="autolevel"
+															   forceSelection="lev_name">
+														<mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+															<mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+																{{ level.lev_name }}
+															</mat-option>
+														</mat-autocomplete>
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">
+													الفصل
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="class"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedclass"
+															   (ngModelChange)="change_class($event)"
+															   placeholder="أختر الفصل"
+															   [formControl]="myControlclass"
+															   [matAutocomplete]="autoclass"
+															   forceSelection="class_name">
+														<mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+															<mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+																{{ class.class_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													الطلاب
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<mat-select required name="student"
+																	formControlName="selectedstudent"
+																	[(ngModel)]="selectedstudent"
+																	id="empsdropdown"
+																	placeholder="أختر الطالب"
+																	multiple>
+
+															<mat-option *ngFor="let student of students" [value]="student">
+																{{ student.student_name }}
+															</mat-option>
+														</mat-select>
+
+														<mat-error *ngIf="
+								form1.controls.selectedstudent.hasError('required') &&
+								(form1.controls.selectedstudent.dirty || form1.controls.selectedstudent.touched)
+							  ">
+															من فضلك اختر الطالب
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">
+													تاريخ الزيارة
+
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field (click)="dp3.open()">
+														<input [(ngModel)]="trip_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="dp3" placeholder="التاريخ">
+														<mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+														<mat-datepicker #dp3 disabled="false"></mat-datepicker>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													وقت الزيارة
+
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input class="floating-input" [(ngModel)]="trip_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الزيارة">
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">
+													مده الزيارة
+
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field class="example-full-width">
+														<input [(ngModel)]="trip_duration" [ngModelOptions]="{standalone: true}" type="number" matInput placeholder="مده الزيارة">
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+
+												<label class="col-lg-2 col-form-label">
+													<input type="radio" id="department" name="bus" (change)="change_trans($event)" value="1" [checked]="bus_check">
+													<b for="department" style="margin:5px;">باص</b>
+												</label>
+
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-2 col-form-label">
+													<input type="radio" id="department" name="bus" (change)="change_trans($event)" [checked]="other_check" value="2">
+													<b for="department" style="margin:5px;">أخري</b>
+												</label>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">اهداف الزيارة:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<textarea [(ngModel)]="trip_goals" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="اهداف الزيارة">
+</textarea>
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">ملاحظات:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<textarea [(ngModel)]="trip_notes" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="ملاحظات/وصف">
+</textarea>
+													</mat-form-field>
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="direction:ltr;">
+				<button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+				data-dismiss="modal">
+				إغلاق
+			</button>
+				<button type="button" style="border-radius: 20px;" (click)="update_trip()" class="btn btn-primary">تعديل</button>
+				<button type="button" style="border-radius: 20px;" (click)="add_trip()" class="btn btn-primary">اضافة</button>
+
+
+			</div>
+
+		</ng-template>

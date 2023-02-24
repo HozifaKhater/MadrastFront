@@ -1,0 +1,190 @@
+﻿<!--Subjects Form-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <span class="kt-portlet__head-icon kt-hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-text">
+                            بيانات المادة 
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">مسلسل:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input matInput placeholder="" formControlName="id" [(ngModel)]="id" name="id" readonly="readonly">
+
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الاسم:</label>
+                            <div class="col-lg-2">
+
+                                <mat-form-field >
+                           
+                                    <input type="text"
+                                           placeholder="الاسم"
+                                 
+                                           matInput
+                                           [(ngModel)]="emp"
+                                           (ngModelChange)="emp_chage($event)"
+                                           [formControl]="myControl"
+                                           [matAutocomplete]="auto"
+                                         
+                                           required 
+                                           >
+                                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                                        <mat-option *ngFor="let employee of filteredOptions  | async" [value]="employee">
+                                            {{employee.emp_name}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <!-- <mat-error *ngIf="
+        form1.controls.emp.hasError('required') &&
+         form1.controls.emp.touched
+      ">
+                                        اختر بلد المؤهل
+                                    </mat-error> -->
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">رقم الملف:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                           required [(ngModel)]="file_number" formControlName="file_number" matInput placeholder="أدخل رقم الملف"  >
+                                  
+                                    <mat-error *ngIf="
+        form1.controls.file_number.hasError('required') &&
+        (form1.controls.file_number.dirty || form1.controls.file_number.touched)
+      ">
+                                        ادخل رقم الملف
+                                    </mat-error>
+                                   
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">المؤهل العلمى:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                           required [(ngModel)]="qualification" formControlName="qualification" matInput placeholder="أدخل المؤهل العلمى"  />
+                                    <mat-hint align="start">من فضلك ادخل المؤهل العلمى</mat-hint>
+                                    <mat-error *ngIf="
+        form1.controls.qualification.hasError('required') &&
+        (form1.controls.qualification.dirty || form1.controls.qualification.touched)
+      ">
+                                        ادخل وصف المؤهل العلمى
+                                    </mat-error>
+                                   </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">رقم الهويه الموحده:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                           required [(ngModel)]="identity_number" formControlName="identity_number" matInput placeholder="أدخل رقم الهويه الموحده"  />
+                                    <mat-hint align="start">من فضلك ادخل رقم الهويه الموحده</mat-hint>
+                                    <mat-error *ngIf="
+        form1.controls.identity_number.hasError('required') &&
+        (form1.controls.identity_number.dirty || form1.controls.identity_number.touched)
+      ">
+                                        ادخل وصف رقم الهويه الموحده
+                                    </mat-error>
+                    
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">الرقم المدنى:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                           required [(ngModel)]="civil_number" formControlName="civil_number" matInput placeholder="أدخل الرقم المدنى" />
+                                    <mat-hint align="start">من فضلك ادخل الرقم المدنى</mat-hint>
+                                    <mat-error *ngIf="
+        form1.controls.civil_number.hasError('required') &&
+        (form1.controls.civil_number.dirty || form1.controls.civil_number.touched)
+      ">
+                                        ادخل وصف الماده
+                                    </mat-error>
+                              
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">سنوات الخبرة:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{1,200}"
+                                           required [(ngModel)]="exp_years" formControlName="exp_years" matInput placeholder="أدخل سنوات الخبرة"  />
+                                    <mat-hint align="start">من فضلك ادخل سنوات الخبرة</mat-hint>
+                                    <mat-error *ngIf="
+        form1.controls.exp_years.hasError('required') &&
+        (form1.controls.exp_years.dirty || form1.controls.exp_years.touched)
+      ">
+                                        ادخل سنوات الخبرة
+                                    </mat-error>
+                                   
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">تاريخ التعين:</label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input [(ngModel)]="register_date" required formControlName="register_date" matInput [matDatepicker]="dp5" placeholder="تاريخ التعين" disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+                                    <mat-error *ngIf="
+        form1.controls.register_date.hasError('required') &&
+        (form1.controls.register_date.dirty || form1.controls.register_date.touched)
+      ">
+                                        اختر تاريخ التعين
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+                          
+                            <div class="col-lg-6">
+                                <button id="save_btn" (click)="add_subject()" type="button" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" (click)="update_subject()"  type="button" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="cancel_btn" (click)="cancel_subject()" type="button" mat-raised-button color="primary">الغاء</button>&nbsp;
+                                <button mat-raised-button type="reset">حذف</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+<kt-div_emp-list></kt-div_emp-list>
+<kt-training_emp-list></kt-training_emp-list>
+<kt-basic_data-list></kt-basic_data-list>
+<!--End Subjects Form-->

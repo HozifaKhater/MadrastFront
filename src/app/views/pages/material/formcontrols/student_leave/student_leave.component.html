@@ -1,0 +1,208 @@
+﻿<div class="card" dir="rtl"  *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">ترك طالب</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة ترك طالب</button>
+        <br /><br /><br />
+                    <kt-studentleave-list></kt-studentleave-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة ترك طالب
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الصف:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input name="level"
+                                                               type="text"
+                                                               matInput
+                                                               [(ngModel)]="selectedlevel"
+                                                               (ngModelChange)="change_level($event)"
+                                                               placeholder="أختر الصف"
+                                                               [formControl]="myControllev"
+                                                               [matAutocomplete]="autolevel"
+                                                               forceSelection="lev_name">
+                                                        <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                            <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                                {{ level.lev_name }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+
+                                                    </mat-form-field>
+
+                                                </div>
+
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الفصل:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input name="class"
+                                                               type="text"
+                                                               matInput
+                                                               [(ngModel)]="selectedclass"
+                                                               (ngModelChange)="change_class($event)"
+                                                               placeholder="أختر الفصل"
+                                                               [formControl]="myControlclass"
+                                                               [matAutocomplete]="autoclass"
+                                                               forceSelection="class_name">
+                                                        <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                                            <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                                {{ class.class_name }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الطالب:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input name="student"
+                                                               type="text"
+                                                               matInput
+                                                               [(ngModel)]="selectedstudent"
+                                                               placeholder="أختر الطالب"
+                                                               [formControl]="myControlstudent"
+                                                               [matAutocomplete]="autostudent"
+                                                               forceSelection="student_name">
+                                                        <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnstudent">
+                                                            <mat-option *ngFor="let student of filteredOptionsstudent  | async" [value]="student">
+                                                                {{ student.student_name }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الرقم المدني:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="student_civilian_id" required max="99999999999" formControlName="student_civilian_id" matInput placeholder="الرقم المدني">
+
+                                                        <mat-error *ngIf="
+    form1.controls.student_civilian_id.hasError('required') &&
+    (form1.controls.student_civilian_id.dirty || form1.controls.student_civilian_id.touched)
+  ">
+                                                           من فضلك ادخل الرقم المدني
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الشعبة:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="الشعبة"
+                                                                    [(ngModel)]="selectedbranch"
+                                                                    required formControlName="selectedbranch">
+
+                                                            <mat-option *ngFor="let branch of branch" [value]="branch">
+                                                                {{ branch.def_name }}
+                                                            </mat-option>
+
+                                                        </mat-select>
+                                                        <mat-error *ngIf="
+    form1.controls.selectedbranch.hasError('required') &&
+    (form1.controls.selectedbranch.dirty || form1.controls.selectedbranch.touched)
+  ">
+                                                            من فضلك اختر الشعبة
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                   السبب:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="سبب الترك"
+                                                                    [(ngModel)]="selectedreason"
+                                                                    required formControlName="selectedreason">
+                                                            <mat-option *ngFor="let leavereason of leavereason" [value]="leavereason">
+                                                                {{ leavereason.def_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="
+  form1.controls.selectedreason.hasError('required') &&
+  (form1.controls.selectedreason.dirty || form1.controls.selectedreason.touched)
+">
+                                                           من فضلك اختر سبب الترك
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">التاريخ:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field (click)="picker.open()">
+                                                        <input [(ngModel)]="leave_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="تاريخ الترك">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker></mat-datepicker>
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                             
+                                            </div>
+                                     
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                    data-dismiss="modal">
+                    إغلاق
+                </button>
+                <button type="button" style="border-radius: 20px;" (click)="update_student_leave()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_student_leave()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

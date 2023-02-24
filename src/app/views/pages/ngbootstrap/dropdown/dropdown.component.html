@@ -1,0 +1,179 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">تشكيل فرق الخطة الأستراتيجية</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافه فريق</button>
+        <br /><br /><br />
+                    <kt-teams-list></kt-teams-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافه فريق
+                </h3>
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">الفريق:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="الفريق"
+                                                                    [(ngModel)]="selectedteam"
+                                                                    [ngModelOptions]="{standalone: true}">
+                                                            <mat-option *ngFor="let teams_type of teams_type" [value]="teams_type">
+                                                                {{ teams_type.def_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    القسم
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select required name="department"
+                                                                    formControlName="selecteddepartment"
+                                                                    [(ngModel)]="selecteddepartment"
+                                                                    placeholder="أختر القسم">
+                                                            <mat-option *ngFor="let department of departments" [value]="department">
+                                                                {{ department.dep_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+
+                                                        <mat-error *ngIf="
+                                form1.controls.selecteddepartment.hasError('required') &&
+                                (form1.controls.selecteddepartment.dirty || form1.controls.selecteddepartment.touched)
+                              ">
+                                                            من فضلك اختر القسم
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    أسم الفريق
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="name" required formControlName="name" matInput placeholder="أسم الفريق" type="text">
+                                                        <mat-error *ngIf="
+                                form1.controls.name.hasError('required') &&
+                                (form1.controls.name.dirty || form1.controls.name.touched)
+                              ">
+                                                            من فضلك أدخل أسم الفريق
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    موظف
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select required name="emp"
+                                                                    formControlName="employeedepartment"
+                                                                    [disabled]="disabled_emp"
+                                                                    [(ngModel)]="employeedepartment"
+                                                                    id="empsdropdown"
+                                                                    placeholder="أختر اسم الموظف">
+                                                            <mat-option *ngFor="let emp of Employees" [value]="emp">
+                                                                {{ emp.emp_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="
+                                form1.controls.employeedepartment.hasError('required') &&
+                                (form1.controls.employeedepartment.dirty || form1.controls.employeedepartment.touched)
+                              ">
+                                                            من فضلك أختر الموظف
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الاعضاء
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select required
+                                                                    [disabled]="disabled_emp"
+                                                                    [(ngModel)]="employeedepartment1"
+                                                                    formControlName="employeedepartment1"
+                                                                    multiple
+                                                                    placeholder="أختر الاعضاء">
+                                                            <mat-option *ngFor="let emp of Employees1" [value]="emp">
+                                                                {{ emp.emp_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="
+                                form1.controls.employeedepartment1.hasError('required') &&
+                                (form1.controls.employeedepartment1.dirty || form1.controls.employeedepartment1.touched)
+                              ">
+                                                            من فضلك أختر الاعضاء
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    اهداف الفريق
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <textarea [(ngModel)]="goals" [ngModelOptions]="{standalone: true}" matInput placeholder="اهداف الفريق">
+</textarea>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+                إغلاق
+            </button>
+
+                <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_team()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_team()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

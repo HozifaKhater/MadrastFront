@@ -1,0 +1,78 @@
+<!-- Start Guilt -->
+
+<div class="row" id="printdiv">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right" [formGroup]="form1">
+                <div class="kt-portlet__body">
+                    <div class="kt-form__section kt-form__section--first">
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">التهمة : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input 
+                                        matInput
+                                        placeholder="" 
+                                        formControlName="guilt"
+                                        [(ngModel)]="guilt" 
+                                        name="guilt" 
+                                        [(value)]="guilt"/>  
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">تاريخ حدوثها : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input 
+                                        matInput
+                                        placeholder="" 
+                                        formControlName="date_of_guilt"
+                                        [(ngModel)]="date_of_guilt" 
+                                        name="date_of_guilt" 
+                                        [(value)]="date_of_guilt"/>  
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <label class="col-lg-2 col-form-label">ما تم بشأنها : </label>
+                            <div class="col-lg-6">
+                                <mat-form-field >
+                                    <input 
+                                        matInput
+                                        placeholder="" 
+                                        formControlName="details_of_guilt"
+                                        [(ngModel)]="details_of_guilt" 
+                                        name="details_of_guilt" 
+                                        [(value)]="details_of_guilt"/>  
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <button id="save_btn" type="button" (click)="AddGuilt()" mat-raised-button color="primary">اضافة تهمة</button>&nbsp;
+                                <button id="update_btn" type="button" (click)="UpdateGuilt()" mat-raised-button color="primary"> تعديل التهمة</button>&nbsp;
+                                <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
+                                <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+
+</div>
+
+
+<!--End Guilt -->

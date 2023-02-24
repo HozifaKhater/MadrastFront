@@ -1,0 +1,250 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+	<div class="card-header">
+		<h3 style="display:flex;">بيانات المدرسة</h3>
+	</div>
+	<div class="card-body">
+		<button type="button" style="display:block;" class="btn btn-primary" id="modalOpener"  (click)="openModal(content, $event)">اضافة بيانات المدرسة</button>
+		<br />
+
+	</div>
+</div>
+
+<ng-template #content let-modal>
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-tasks" style="margin:5px;"></i>
+					اضافة بيانات المدرسة
+				</h3>
+			</div>
+
+			<div class="modal-body">
+				<form dir="rtl" class="kt-form" [formGroup]="form1">
+					<div dir="rtl" class="kt-portlet__body">
+						<div class="kt-form__section kt-form__section--first">
+
+							<div class="form-group kt-form__group text-right">
+
+								<div class="container">
+									<div class="row">
+
+										<div class="col-lg-12">
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">اسم المدرسه
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="school_name"
+															   required
+															   formControlName="school_name"
+															   type="text"
+															   matInput
+															   placeholder="اسم المدرسه">
+
+														<mat-error *ngIf="
+									form1.controls.school_name.hasError('required') &&
+									(form1.controls.school_name.dirty ||
+									form1.controls.school_name.touched)">
+															من فضلك ادخل اسم المدرسه
+														</mat-error>
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">مدير المدرسة:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="emp"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedManager"
+															   placeholder="مدير المدرسة"
+															   [formControl]="myControlManager"
+															   [matAutocomplete]="autoManager"
+															   forceSelection="school_man"
+															   [(value)]="managerValue">
+														<mat-autocomplete autoActiveFirstOption #autoManager="matAutocomplete" [displayWith]="displayFnManager">
+															<mat-option *ngFor="let emp of filteredOptionsManager  | async" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">مساعد المدير:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="emp"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedAss1"
+															   placeholder="مساعد مدير المدرسة"
+															   [formControl]="myControlAss1"
+															   [matAutocomplete]="autoAss1"
+															   forceSelection="school_assis1"
+															   [(value)]="Ass1Value">
+														<mat-autocomplete autoActiveFirstOption #autoAss1="matAutocomplete" [displayWith]="displayFnAss1">
+															<mat-option *ngFor="let emp of filteredOptionsAs1  | async" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">مساعد المدير:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="emp"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedAss2"
+															   placeholder="مساعد مدير المدرسة"
+															   [formControl]="myControlAss2"
+															   [matAutocomplete]="autoAss2"
+															   forceSelection="school_assis2"
+															   [(value)]="Ass2Value">
+														<mat-autocomplete autoActiveFirstOption #autoAss2="matAutocomplete" [displayWith]="displayFnAss2">
+															<mat-option *ngFor="let emp of filteredOptionsAss2  | async" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">مساعد المدير:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="emp"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedAss3"
+															   placeholder="مساعد مدير المدرسة"
+															   [formControl]="myControlAss3"
+															   [matAutocomplete]="autoAss3"
+															   forceSelection="school_assis3"
+															   [(value)]="Ass3Value">
+														<mat-autocomplete autoActiveFirstOption #autoAss3="matAutocomplete" [displayWith]="displayFnAss3">
+															<mat-option *ngFor="let emp of filteredOptionsAss3  | async" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">مساعد المدير:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input name="emp"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selectedAss4"
+															   placeholder="مساعد مدير المدرسة"
+															   [formControl]="myControlAss4"
+															   [matAutocomplete]="autoAss4"
+															   forceSelection="school_assis4"
+															   [(value)]="Ass4Value">
+														<mat-autocomplete autoActiveFirstOption #autoAss4="matAutocomplete" [displayWith]="displayFnAss4">
+															<mat-option *ngFor="let emp of filteredOptionsAss4  | async" [value]="emp">
+																{{ emp.emp_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">البدالة:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="school_bdala" formControlName="school_bdala" type="text" matInput placeholder="البدالة">
+														<mat-error *ngIf="
+									form1.controls.school_bdala.hasError('required') &&
+									(form1.controls.school_bdala.dirty ||
+									form1.controls.school_bdala.touched)">
+															من فضلك أدخل البدالة
+														</mat-error>
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">فاكس:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="school_faks" formControlName="school_faks" type="text" matInput placeholder="فاكس">
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">عنوان:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="school_addr" required formControlName="school_addr" type="text" matInput placeholder="عنوان">
+														<mat-error *ngIf="
+									form1.controls.school_addr.hasError('required') &&
+									(form1.controls.school_addr.dirty ||
+									form1.controls.school_addr.touched)">
+															من فضلك ادخل عنوان
+														</mat-error>
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">موجه فني:</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="school_dir" formControlName="school_dir" type="text" matInput placeholder="موجه فني">
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">شعار المدرسه:</label>
+												<div class="col-lg-4">
+
+													<!--<input type="file" [(ngModel)]="school_logo" [ngModelOptions]="{standalone: true}" class="file-upload" id="ImageBinary" (change)=”onFileChanged($event)” />-->
+													<input type="file" (change)="onFileChanged($event);">
+
+													<img [src]="imageSource" alt="Image Source">
+													<!--<img [src]="imgURL" *ngIf="imgURL">-->
+
+
+												</div>
+												<div class="col-1"><!--extra div--></div>
+										
+											</div>
+
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="direction:ltr;">
+				<button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+				data-dismiss="modal">
+				إغلاق
+			</button>
+				<button type="button" style="border-radius: 20px;" (click)="update_school()" class="btn btn-primary">تعديل</button>
+				<button type="button" style="border-radius: 20px;" (click)="add_school()" class="btn btn-primary">اضافة</button>
+
+
+			</div>
+		</ng-template>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+	<kt-school_data-list></kt-school_data-list>
+</div>

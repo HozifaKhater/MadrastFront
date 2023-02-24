@@ -1,0 +1,202 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">احصائية الغياب اليومية</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة احصائية غياب يومية</button>
+        <br /><br /><br />
+                    <kt-dailystat-list></kt-dailystat-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة احصائية غياب يومية للمتعلمين
+                </h3>
+
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+                                                    الصف:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="الصف"
+                                                                    [(ngModel)]="selectedlevels"
+                                                                    required formControlName="selectedlevels">
+                                                            <mat-option *ngFor="let Levels of Levels" [value]="Levels">
+                                                                {{ Levels.lev_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="
+        form1.controls.selectedlevels.hasError('required') &&
+        (form1.controls.selectedlevels.dirty || form1.controls.selectedlevels.touched)
+      ">
+                                                            من فضلك أختر الصف
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الشعبة:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="الشعبة"
+                                                                    [(ngModel)]="selectedbranch"
+                                                                    required formControlName="selectedbranch">
+                                                            <mat-option *ngFor="let branch of branch" [value]="branch">
+                                                                {{ branch.def_name }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="
+        form1.controls.selectedbranch.hasError('required') &&
+        (form1.controls.selectedbranch.dirty || form1.controls.selectedbranch.touched)
+      ">
+                                                            من فضلك أختر الشعبة
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">العدد الكلي:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="total_num" [ngModelOptions]="{standalone: true}" matInput placeholder="العدد الكلي" type="number">
+
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الغياب:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="absence_num" required formControlName="absence_num" matInput placeholder="الغياب" type="number">
+
+                                                        <mat-error *ngIf="
+        form1.controls.absence_num.hasError('required') &&
+        (form1.controls.absence_num.dirty || form1.controls.absence_num.touched)
+      ">
+                                                            من فضلك أدخل الغياب
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">الحضور:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="attendance_num" [ngModelOptions]="{standalone: true}" matInput placeholder="الحضور" type="number">
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">نسبة الحضور:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="stu_att_score" [ngModelOptions]="{standalone: true}" matInput placeholder="نسبة الحضور" type="number">
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="exampleModalLabel">
+                                                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                                                    اضافة احصائية غياب يومية للهيئة التعليمية
+                                                </h3>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">العدد الكلي:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="teach_total_num" [ngModelOptions]="{standalone: true}" matInput placeholder="العدد الكلي" type="number">
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">
+                                                    الغياب:
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="teach_absence" required formControlName="teach_absence" matInput placeholder="الغياب" type="number">
+
+                                                        <mat-error *ngIf="
+        form1.controls.teach_absence.hasError('required') &&
+        (form1.controls.teach_absence.dirty || form1.controls.teach_absence.touched)
+      ">
+                                                           من فضلك ادخل الغياب
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">الحضور:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="teach_attend" [ngModelOptions]="{standalone: true}" matInput placeholder="الحضور" type="number">
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">نسبة الحضور:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input [(ngModel)]="teach_att_score" [ngModelOptions]="{standalone: true}" matInput placeholder="نسبة الحضور" type="number">
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+               
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+
+                <button type="button" style="border-radius: 20px;" (click)="update_dailystat()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_dailystat()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>

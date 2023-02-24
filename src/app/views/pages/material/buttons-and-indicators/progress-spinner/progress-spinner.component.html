@@ -1,0 +1,135 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+	<div class="card-header">
+		<h3 style="display:flex;">الفصول</h3>
+	</div>
+	<div class="card-body">
+		<button type="button" style="display:block;" class="btn btn-primary" id="modalOpener"  (click)="openModal(content, $event)">اضافة فصل</button>
+		<br />
+
+	</div>
+</div>
+
+<ng-template #content let-modal>
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-tasks" style="margin:5px;"></i>
+					اضافة فصل
+				</h3>
+				<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>-->
+			</div>
+
+			<div class="modal-body">
+				<form dir="rtl" class="kt-form" [formGroup]="form1">
+					<div dir="rtl" class="kt-portlet__body">
+						<div class="kt-form__section kt-form__section--first">
+
+							<div class="form-group kt-form__group text-right">
+
+								<div class="container">
+									<div class="row">
+
+										<div class="col-lg-12">
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													اسم الفصل:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input [(ngModel)]="class_name" formControlName="class_name" required type="text" matInput placeholder="اسم الفصل ">
+
+														<mat-error *ngIf="
+        form1.controls.class_name.hasError('required') &&
+        (form1.controls.class_name.dirty || form1.controls.class_name.touched)
+      ">
+															من فضلك ادخل اسم الفصل
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+												<label class="col-lg-1 col-form-label">
+													الصف:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<input required name="level"
+															   type="text"
+															   matInput
+															   [(ngModel)]="selected_levels"
+															   formControlName="selected_levels"
+															   placeholder="أختر الصف"
+															   [formControl]="myControllev"
+															   [matAutocomplete]="autolevel"
+															   forceSelection="lev_name"
+															   [(value)] = "levelNameValue">
+														<mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+															<mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+																{{ level.lev_name }}
+															</mat-option>
+														</mat-autocomplete>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="form-group kt-form__group row">
+												<label class="col-lg-1 col-form-label">
+													الجناح:
+													<span class="text-danger">*</span>
+												</label>
+												<div class="col-lg-4">
+													<mat-form-field>
+														<mat-select [(ngModel)]="selectedcorridor"
+																	required formControlName="selectedcorridor"
+																	id="corridorsdropdown"
+																	placeholder="أختر الجناح"
+																	[(value)] = "corrValue">
+
+															<mat-option *ngFor="let corridor of corridors" [value]="corridor">
+																{{ corridor.corridor_name }}
+															</mat-option>
+														</mat-select>
+
+														<mat-error *ngIf="
+        form1.controls.selectedcorridor.hasError('required') &&
+        (form1.controls.selectedcorridor.dirty || form1.controls.selectedcorridor.touched)
+      ">
+															من فضلك اختر الجناح
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+												<div class="col-1"><!--extra div--></div>
+								
+											</div>
+
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="direction:ltr;">
+				
+  <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+  data-dismiss="modal">
+  إغلاق
+</button>
+				<button type="button" style="border-radius: 20px;" (click)="update_class()" class="btn btn-primary">تعديل</button>
+				<button type="button" style="border-radius: 20px;" (click)="add_class()" class="btn btn-primary">اضافة</button>
+
+
+			</div>
+		</ng-template>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+	<kt-classes-list></kt-classes-list>
+</div>

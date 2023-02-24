@@ -1,0 +1,608 @@
+﻿<head>
+    <base href="./../../../../../src/">
+    <meta charset="utf-8" />
+    <title>Metronic | Basic Calendar</title>
+    <meta name="description" content="Basic calendar examples">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--begin::Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+
+    <!--end::Fonts -->
+    <!--begin::Page Vendors Styles(used by this page) -->
+    <!--end::Page Vendors Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <!--begin:: Vendor Plugins -->
+    <link href="./../../../../assets/plugins/general/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/tether/dist/css/tether.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/select2/dist/css/select2.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/nouislider/distribute/nouislider.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/owl.carousel/dist/assets/owl.carousel.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/owl.carousel/dist/assets/owl.theme.default.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/quill/dist/quill.snow.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/summernote/dist/summernote.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/animate.css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/dual-listbox/dist/dual-listbox.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/morris.js/morris.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/sweetalert2/dist/sweetalert2.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/socicon/css/socicon.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/plugins/line-awesome/css/line-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/plugins/flaticon/flaticon.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/plugins/flaticon2/flaticon.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/general/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+
+    <!--end:: Vendor Plugins -->
+    <link href="./../../../../assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+
+    <!--begin:: Vendor Plugins for custom pages -->
+    <link href="./../../../../assets/plugins/custom/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/@fullcalendar/core/main.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/@fullcalendar/daygrid/main.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/@fullcalendar/list/main.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/@fullcalendar/timegrid/main.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/jstree/dist/themes/default/style.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/jqvmap/dist/jqvmap.css" rel="stylesheet" type="text/css" />
+    <link href="./../../../../assets/plugins/custom/uppy/dist/uppy.min.css" rel="stylesheet" type="text/css" />
+
+    <!--end:: Vendor Plugins for custom pages -->
+    <!--end::Global Theme Styles -->
+    <!--begin::Layout Skins(used by all pages) -->
+    <!--end::Layout Skins -->
+    <link rel="shortcut icon" href="./../../../../assets/media/logos/favicon.ico" />
+</head>
+
+<!--  لوحة رئيس القسم -->
+<div *ngIf="pos_id===38 || pos_id===35">
+
+    <kt-ta7deirs-list></kt-ta7deirs-list>
+    <kt-show-ezons-list></kt-show-ezons-list>
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
+
+    <br />
+    <!--الخطة اليومية-->
+
+    <kt-show-visits-list></kt-show-visits-list>
+    <kt-show-group_meeting-list></kt-show-group_meeting-list>
+    <kt-show-matters-list></kt-show-matters-list>
+    <kt-show-new_work-list></kt-show-new_work-list>
+
+    <br />
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">المتعلمين</h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الفصول : {{number_of_classes}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الغياب : {{number_of_absence}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الحضور : {{number_of_attendance}}
+        </label>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">احصائيات</h3>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد المتفوقين : {{number_of_good_students}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد المتعثرين : {{number_of_bad_students}}
+        </label>
+
+    </div>
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">الاعياد</h3>
+    </div>
+    <app-calendar></app-calendar>
+
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- لوحة أمين المكتبة -->
+<div *ngIf="test===1 || pos_id===35">
+
+    <!-- <kt-borrowed-books-list></kt-borrowed-books-list> -->
+    <app-calendar></app-calendar>
+    <br />
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+              
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                  
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- لوحة الاخصائي الاجتماعي والنفسي -->
+<div *ngIf="test===1 || pos_id===35">
+    <app-calendar></app-calendar>
+    <br />
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+    <kt-calling_parents-list></kt-calling_parents-list>
+
+</div>
+
+<!--لوحة المدير/ المدراء المساعدين -->
+<div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+
+    <br />
+    <!--المتعلمين-->
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">المتعلمين</h3>
+    </div>
+    <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
+    <div class="form-group kt-form__group row">
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الغياب : {{number_of_absence}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الحضور : {{number_of_attendance}}
+        </label>
+    </div>
+
+    <!--المعلمين-->
+    <kt-show-delays-list></kt-show-delays-list>
+    <kt-show-ezons-list></kt-show-ezons-list>
+
+    <!--الخطة اليومية-->
+    <kt-show-visits-list></kt-show-visits-list>
+    <kt-show-group_meeting-list></kt-show-group_meeting-list>
+    <kt-show-matters-list></kt-show-matters-list>
+    <kt-show-new_work-list></kt-show-new_work-list>
+
+    <kt-show-users_priv-list></kt-show-users_priv-list>
+    <app-calendar></app-calendar>
+
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<!--  المعلم -->
+<div *ngIf="pos_id===37 || pos_id===35">
+   
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+             خطة المنهج
+        </h3>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <!-- <kt-ta7deirs-list></kt-ta7deirs-list> -->
+        <kt-week-ta7deirs-list></kt-week-ta7deirs-list>
+        <kt-actual_weekTa7diers-list></kt-actual_weekTa7diers-list>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    
+    <div class="form-group kt-form__group row">
+        <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
+    </div>
+    
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;" >المتعلمين</h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الفصول : {{number_of_classes}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الغياب : {{number_of_absence}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الحضور : {{number_of_attendance}}
+        </label>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">احصائيات</h3>
+    </div>
+    
+    <div class="form-group kt-form__group row">
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد المتفوقين : {{number_of_good_students}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد المتعثرين : {{number_of_bad_students}}
+        </label>
+        
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            رزنامة المدرسة 
+        </h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <app-calendar></app-calendar>
+    </div>
+    
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            لوحة اعلانات المدرسة 
+        </h3>
+    </div>
+        
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                   
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                    <!-- <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3> -->
+                    <!-- 
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3> -->
+                
+                </marquee>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            قيمة الشهر التربوية 
+        </h3>
+        <br>
+        <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+    </div>
+
+
+</div>
+<!-- شئون الطلبة -->
+<div *ngIf="test===1  || pos_id===35">
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;" >المتعلمين</h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الفصول : {{number_of_classes}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الغياب : {{number_of_absence}}
+        </label>
+        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+            اعداد الحضور : {{number_of_attendance}}
+        </label>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            رزنامة المدرسة 
+        </h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <app-calendar></app-calendar>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            لوحة اعلانات المدرسة 
+        </h3>
+    </div>
+    
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            استدعاء اولياء الامور  
+        </h3>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <kt-calling_parents-list></kt-calling_parents-list>
+    </div>
+
+</div>
+
+<!-- المقصف المدرسي -->
+<div *ngIf="test===1  || pos_id===35">
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            رزنامة المدرسة 
+        </h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <app-calendar></app-calendar>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            لوحة اعلانات المدرسة 
+        </h3>
+    </div>
+        
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!--  الخطة الاستراتيجية -->
+<div *ngIf="test===1  || pos_id===35">
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            رزنامة المدرسة 
+        </h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <app-calendar></app-calendar>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            لوحة اعلانات المدرسة 
+        </h3>
+    </div>
+    
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- حارس المدرسة -->
+<div *ngIf="test===1  || pos_id===35">
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            استدعاء اولياء الامور  
+        </h3>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <kt-calling_parents-list></kt-calling_parents-list>
+    </div>
+
+</div>
+
+<!-- السكرتارية -->
+<div *ngIf="test===1  || pos_id===35">
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            رزنامة المدرسة 
+        </h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <app-calendar></app-calendar>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            لوحة اعلانات المدرسة 
+        </h3>
+    </div>
+        
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- امين المخزن-->
+<div *ngIf="test===1  || pos_id===35">
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            رزنامة المدرسة 
+        </h3>
+    </div>
+    <div class="form-group kt-form__group row">
+        <app-calendar></app-calendar>
+    </div>
+
+    <div class="form-group kt-form__group row">
+        <h3 style="margin-right: 100px;">
+            لوحة اعلانات المدرسة 
+        </h3>
+    </div>
+    
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+        <div class="kt-grid__item kt-grid__item--middle">
+
+            <div class="box" style="height:33rem;">
+                <p class="box-title">أخبار عامة</p>
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                </marquee>
+                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
+                </marquee> -->
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+

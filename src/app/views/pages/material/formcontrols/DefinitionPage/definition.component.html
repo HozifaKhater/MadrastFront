@@ -1,0 +1,108 @@
+﻿<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">التعريفات</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة تعريف</button>
+        <br />
+
+    </div>
+</div>
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة تعريف
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+                                        
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">المسلسل:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="المسلسل" [(ngModel)]="def_id" formControlName="def_id" name="def_id" disabled>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                                <label class="col-lg-1 col-form-label">أسم التعريف:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+
+                                                        <input [(ngModel)]="def_name" name="def_name" formControlName="def_name_f" pattern="^[أ-ي-a-zA-Z-0-9-_. ]{0,200}"
+                                                               required placeholder="اسم التعريف" matInput>
+
+                                                        <mat-error *ngIf="form1.controls.def_name_f.hasError('required') &&
+                                               (form1.controls.def_name_f.dirty || form1.controls.def_name_f.touched)">
+                                                            من فضلك أدخل اسم التعريف
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">نوع التعريف:</label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+
+                                                        <mat-select required name="s_code_arabic"
+                                                                    [(ngModel)]="selectedCode"
+                                                                    placeholder="نوع التعريف"
+                                                                    id="definitionsDropdown"
+                                                                    formControlName="s_code_arabic"
+                                                                    [(value)]="selected">
+
+                                                            <mat-option *ngFor="let definition of scodes" [value]="definition.s_code_arabic">
+                                                                {{ definition.s_code_arabic }}
+                                                            </mat-option>
+                                                        </mat-select>
+
+                                                        <mat-error *ngIf="form1.controls.s_code_arabic.hasError('required') &&
+                                                (form1.controls.s_code_arabic.dirty || form1.controls.s_code_arabic.touched)">
+                                                            من فضلك اختر نوع التعريف
+                                                        </mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-1"><!--extra div--></div>
+                                  
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="direction:ltr;">
+                <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+                إغلاق
+            </button>
+                <button type="button" style="border-radius: 20px;" (click)="update_definition()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_definition()" class="btn btn-primary">اضافة</button>
+
+
+            </div>
+        </ng-template>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+    <kt-Definition-list></kt-Definition-list>
+</div>

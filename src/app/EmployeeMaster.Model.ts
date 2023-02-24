@@ -1,0 +1,52 @@
+﻿export class EmployeeMaster {
+	public emp_id: string;
+    public Name: string;
+}
+export class Employee {
+	emp_id: string = "";
+	emp_civilian_id: string = "";
+	emp_sex: string = "";
+	emp_sex_id: string = "";
+	emp_name: string = "";
+	emp_nationality: string = "";
+	emp_nationality_id: string = "";
+	emp_marital_status: string = "";
+	emp_marital_status_id: string = "";
+	emp_file_ser: string = "";
+	emp_dob: string = "";
+	emp_age_year: string = "";
+	emp_age_month: string = "";
+	emp_age_day: string = "";
+	emp_pos_type: string = "";
+	emp_pos_type_id: string = "";
+	emp_pos: string = "";
+	emp_pos_id: string = "";
+	emp_dep: string = "";
+	emp_dep_id: string = "";
+	emp_subject: string = "";
+	emp_subject_id: string = "";
+	emp_div: string = "";
+	emp_div_id: string = "";
+	emp_contract: string = "";
+	emp_contract_id: string = "";
+	emp_employment_date: string = "";
+	emp_educationa_qualification: string = "";
+	emp_educationa_qualification_id: string = "";
+	emp_educationa_qualification_date: string = "";
+	emp_educationa_qualification_country: string = "";
+	emp_educationa_qualification_country_id: string = "";
+	emp_exp_out_country: string = "";
+	emp_exp_in_country_same_grade: string = "";
+	emp_exp_in_country_another_grade: string = "";
+	emp_exp_in_country_same_school: string = "";
+	emp_address: string = "";
+	emp_email: string = "";
+	emp_mob: string = "";
+	emp_mob1: string = "";
+	emp_tel: string = "";
+	emp_username: string = "";
+	emp_password: string = "";
+	in_class_priv: string = "";
+	dep_work: string = "";
+	emp_dep_parent:string="";
+}

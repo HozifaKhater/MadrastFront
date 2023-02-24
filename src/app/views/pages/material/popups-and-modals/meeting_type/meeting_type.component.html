@@ -1,0 +1,312 @@
+﻿
+<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">تعريف الاجتماع</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"  id="modalOpener"  (click)="openModal(content, $event)">اضافة تعريف</button>
+        <br /><br /><br />
+                    <kt-meeting_type-list></kt-meeting_type-list>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-tasks" style="margin:5px;"></i>
+                    اضافة تعريف
+                </h3>
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                <form dir="rtl" class="kt-form" [formGroup]="form1">
+                    <div dir="rtl" class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group text-right">
+
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label"></label>
+                                                <!--
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="المسلسل" [(ngModel)]="meeting_type_id" formcontroNa name="meeting_type_id" disabled>
+
+                                                    </mat-form-field>
+                                                </div>
+                                            -->
+                                                <div class="col-1"><!--extra div--></div>
+
+                                                <label class="col-lg-1 col-form-label"></label>
+                                                <div class="col-lg-4">
+                                                    <mat-form-field>
+                                                        <input placeholder="نوع الاجتماع" [(ngModel)]="meeting_type_name" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_meeting_date" (change)="is_meeting_date_change($event)" [checked]="is_meeting_date_date_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="meeting_date" id="meeting_date" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                    <mat-checkbox id="is_group_name" (change)="is_group_name_chck_change($event)" [checked]="is_group_name_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="group_name" id="group_name" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_start_time" (change)="is_start_time_change($event)" [checked]="is_start_time_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="start_time_label" id="is_start_time_id" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                    <!--extra div-->
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                    <mat-checkbox id="is_end_time" (change)="is_end_time_change($event)" [checked]="is_end_time_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="end_time_label" id="is_end_time_id" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_group_number" (change)="is_group_number_change($event)" [checked]="is_group_number_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="group_number_label" id="group_number_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                    <!--extra div-->
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                    <mat-checkbox id="is_meeting_mem_no" (change)="is_meeting_mem_no_change($event)" [checked]="is_meeting_mem_no_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="meeting_mem_no_label" id="meeting_mem_no_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_meeting_loc" (change)="is_meeting_loc_change($event)" [checked]="is_meeting_loc_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="meeting_loc_label" id="meeting_loc_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                    <!--extra div-->
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                    <mat-checkbox id="is_work_plan" (change)="is_work_plan_change($event)" [checked]="is_work_plan_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="work_plan_label" id="work_plan_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_recommendation" (change)="is_recommendation_change($event)" [checked]="is_recommendation_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="recommendation_label" id="recommendation_label" [ngModelOptions]="{standalone: true}" matInput>
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                    <!--extra div-->
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                    <mat-checkbox id="is_dep" (change)="is_dep_change($event)" [checked]="is_dep_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="dep_label" id="is_dep_id" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_subject" (change)="is_subject_change($event)" [checked]="is_subject_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="subject_label" id="subject_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                    <!--extra div-->
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                    <mat-checkbox id="is_abscence" (change)="is_abscence_chck_change($event)" [checked]="is_abscence_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="abscence_label" id="abscence_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group kt-form__group row">
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+                                                    <mat-checkbox id="is_course" (change)="is_course_change($event)" [checked]="is_course_check">
+                                                        <mat-form-field>
+                                                            <input [(ngModel)]="course_label" id="course_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                        </mat-form-field>
+                                                    </mat-checkbox>
+
+                                                </div>
+                                                <div class="col-1">
+                                                    <!--extra div-->
+                                                </div>
+                                                <label class="col-lg-1 col-form-label">
+
+                                                </label>
+                                                <div class="col-lg-4">
+
+                                                                <mat-checkbox id="is_content" (change)="is_content_change($event)" [checked]="is_content_check">
+                                                                    <mat-form-field>
+                                                                        <input [(ngModel)]="content_label" id="content_label" [ngModelOptions]="{standalone: true}" matInput>
+
+                                                                    </mat-form-field>
+                                                                </mat-checkbox>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                   
+                                    </form>
+                                </div>
+                                <div class="modal-footer" style="direction:ltr;">
+                                    <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                                    data-dismiss="modal">
+                                    إغلاق
+                                </button>
+                                    <button type="button" style="border-radius: 20px;" (click)="update()" class="btn btn-primary">تعديل</button>
+                                    <button type="button" style="border-radius: 20px;" (click)="add()" class="btn btn-primary">اضافة</button>
+
+
+                                </div>
+                            </ng-template>

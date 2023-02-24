@@ -1,0 +1,189 @@
+<kt-portlet>
+
+    <kt-portlet-body>
+        <!-- start::FILTERS & GROUP ACTIONS -->
+        <div class="kt-form kt-margin-b-30">
+            <!-- start::FILTERS -->
+            <div class="kt-form__filtration">
+                <div class="row align-items-center">
+
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                        <!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->
+                        <div class="kt-form__control">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <mat-select [(value)]="filterStatus" >
+                                    <mat-option value="">كل</mat-option>
+                                    <mat-option value="0">Suspended</mat-option>
+                                    <mat-option value="1">Active</mat-option>
+                                    <mat-option value="Pending">Pending</mat-option>
+                                </mat-select>
+                                <mat-hint align="start">
+                                    <strong>تصنيف</strong> بالصف
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                        <div class="kt-form__control">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <mat-select [(value)]="filterType" >
+                                    <mat-option value="">كل</mat-option>
+                                    <mat-option value="0">Business</mat-option>
+                                    <mat-option value="1">Individual</mat-option>
+                                </mat-select>
+                                <mat-hint align="start">
+                                    <strong>تصنيف</strong> بالحالة
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                        <mat-form-field class="mat-form-field-fluid">
+                            <input matInput placeholder="Search reciept" #searchInput placeholder="بحث">
+                            <mat-hint align="start">
+                                <strong>بحث</strong> في كل الخانات
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end::FILTERS -->
+            <!-- start::GROUP ACTIONS -->
+            <!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->
+            <!-- Group actions are shared for all LISTS | See '../../_shared' folder -->
+            <div class="row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20"
+                [ngClass]="{'show' : selection.selected.length > 0}">
+                <!-- We show 'Group Actions' div if smth are selected -->
+                <div class="col-xl-12">
+                    <div class="kt-form__group kt-form__group--inline">
+                        <div class="kt-form__label kt-form__label-no-wrap">
+                            <label class="kt--font-bold kt-font-danger-">
+                                <span translate="ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT"></span> {{ selection.selected.length }}
+                            </label>
+                            <!-- selectedCountsTitle => function from codeBehind (customer-list.component.ts file) -->
+                            <!-- selectedCountsTitle => just returns title of selected items count -->
+                            <!-- for example: Selected records count: 4 -->
+                        </div>
+                        <div class="kt-form__control kt-form__group--inline">
+                            <div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+                                <button (click)="deleteCustomers()"
+                                        mat-raised-button
+                                        color="accent"
+                                        matTooltip="Delete selected customers"
+                                        class="mat-button-mt-4">
+                                    <mat-icon>delete</mat-icon>
+                                    Delete All
+                                </button>&nbsp;<!-- Call 'delete-entity-dialog' from _shared folder -->
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end::GROUP ACTIONS -->
+        </div>
+        <!-- end::FILTERS & GROUP ACTIONS -->
+        <!-- MATERIAL TABLE | Binded to datasources -->
+        <!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
+        <div class="mat-table__wrapper">
+            <mat-table class="lmat-elevation-z8"
+                       #table
+                       [dataSource]="dataSource"
+                       matSort
+                       #sort1="matSort"
+                       matSortActive="id"
+                       matSortDirection="asc"
+                       matSortDisableClear>
+                <!-- Checkbox Column -->
+                <!-- Table with selection -->
+                <!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+                <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                                      [checked]="selection.hasValue() && isAllSelected()"
+                                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                      [color]="'primary'">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                                      (change)="$event ? selection.toggle(row) : null"
+                                      [checked]="selection.isSelected(row)"
+                                      [color]="'primary'">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="id">
+                    <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>مسلسل</mat-header-cell>
+                    <mat-cell *matCellDef="let individualCase">{{individualCase.id}}</mat-cell>
+
+                </ng-container>
+                <ng-container matColumnDef="civil_id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>رقم المدنى للطالب </mat-header-cell>
+                    <mat-cell *matCellDef="let individualCase"> {{individualCase.civil_id}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="student_name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>اسم الطالب</mat-header-cell>
+                    <mat-cell *matCellDef="let individualCase">{{individualCase.student_name}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="s_code">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> شريحة المتابعة</mat-header-cell>
+                    <mat-cell *matCellDef="let individualCase">{{individualCase.s_code}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="date_of_file_opening">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>تاريخ فتح الملف  </mat-header-cell>
+                    <mat-cell *matCellDef="let individualCase">{{individualCase.date_of_file_opening}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>تفاعلات</mat-header-cell>
+                    <mat-cell *matCellDef="let individualCase">
+                        <div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+                            <button mat-icon-button color="primary" matTooltip="Edit Case" 
+                            (click)="EditIndividualCase(individualCase)">
+                                <mat-icon>create</mat-icon>
+                            </button>&nbsp;
+                        </div>
+
+                        <div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+                            <button mat-icon-button
+                                    color="warn"
+                                    matTooltip="Delete Case"
+                                    type="button"
+                                    (click)="DeleteIndividualCase(individualCase)">
+                                <mat-icon>delete</mat-icon>
+                            </button>&nbsp;
+                        </div>
+
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            </mat-table>
+            <!-- Message for empty data  -->
+            <div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
+            <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">Please wait....</div>
+        </div>
+
+        <!-- start: BOTTOM -->
+        <div class="mat-table__bottom">
+            <!-- MATERIAL SPINNER | Url: 'https://material.angular.io/components/progress-spinner/overview' -->
+            <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+            <!-- MATERIAL PAGINATOR | Binded to dasources -->
+            <!-- See off.documentations 'https://material.angular.io/components/paginator/overview' -->
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+        </div>
+        <!-- end: BOTTOM -->
+    </kt-portlet-body>
+    <!-- end::Body -->
+
+</kt-portlet>
