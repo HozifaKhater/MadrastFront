@@ -46,22 +46,14 @@ export class CustomersListComponent implements OnInit, OnDestroy {
     displayedColumns = ['select', 'dep_id', 'dep_name', 'dep_supervisor_name', 'parent_id', 'actions'];
 
 	ELEMENT_DATA: Element[];
-        //= [{ "dep_id": 1, "dep_name": "main dep", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{"dep_id": 2, "dep_name": "asdasd","dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null},
-        //{ "dep_id": 3, "dep_name": "asd", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{ "dep_id": 4, "dep_name": "main dep2", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{ "dep_id": 5, "dep_name": "Master Department", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null }]
-/*	dataSource: [{ "dep_id": 1, "dep_name": "main dep", "dep_desc": "asdasd", "dep_supervisor_id": 0, "dep_supervisor_name": "1", "parent_id": 1 }];*/
-	/*dataSource = new MatTableDataSource(this.ELEMENT_DATA)*/
+        
     @ViewChild(MatSort, { static: true }) sort: MatSort; 
 	dataSource: any;
-    	//this.dataSource.push(model);  //add the new model object to the dataSource
-		//this.dataSource = [...this.dataSource];  //refresh the dataSource
+    	
 	departments: DepartmentMaster[];
-	//dataSource = new MatTableDataSource<OrdersDetailsDataSource>(null);
 	
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-	//@ViewChild('sort1', { static: true }) sort: MatSort;
+
 	// Filter fields
 	@ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 	filterStatus: string = '';

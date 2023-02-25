@@ -9,7 +9,6 @@ import { HttpClient } from "@angular/common/http";
     providedIn: 'root'
 })
 export class Absence_casesDataService {
-    
     readonly APIUrl = "https://localhost:44337/api";
     private actionUrl: string;
     public absence_cases_id: number;
@@ -42,6 +41,9 @@ export class Absence_casesDataService {
     }
     GetAllAbsenceCases_with_id(val: any): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/Absence_cases/get_absence_cases_with_id?id=' + val);
+    }
+    get_absence_cases_details_with_absence_cases_id(val: any): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + '/Absence_cases/get_absence_cases_details_with_absence_cases_id?id=' + val);
     }
     addAbsenceCases(val: any) {
         return this.http.post(this.APIUrl + '/Absence_cases/save_in_absence_cases', val);

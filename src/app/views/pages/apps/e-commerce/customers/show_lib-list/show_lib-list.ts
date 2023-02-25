@@ -20,54 +20,39 @@ import { CustomerEditDialogComponent } from '../customer-edit/customer-edit.dial
 import { Add_libDataService } from '../../../../../../Services/Add_libDataService';
 
 import { Add_libMaster, Add_lib } from '../../../../../../Add_libMaster.Model';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../../Services/user_privDataService ';
 
-// Table with EDIT item in MODAL
-// ARTICLE for table with sort/filter/paginator
-// https://blog.angular-university.io/angular-material-data-table/
-// https://v5.material.angular.io/compgetItemCssClassByStatusonents/table/overview
-// https://v5.material.angular.io/components/sort/overview
-// https://v5.material.angular.io/components/table/overview#sorting
-// https://www.youtube.com/watch?v=NSt9CI3BXv4
+
 @Component({
-	// tslint:disable-next-line:component-selector
 	selector: 'kt-show_lib-list',
 	templateUrl: './show_lib-list.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 	
-	/*,providers: [DepartmentDataService]*/
 })
 export class Show_libListComponent implements OnInit, OnDestroy {
-	// Table fields
-
-
-    Element1: [{ id: "1" },
-        { id: "2" }];
-	displayedColumns = ['lib_id', 'lib_rec_no', 'lib_book_name', 'lib_author_name', 'lib_date', 'lib_page_no','actions'];
+	
+	displayedColumns = ['lib_id', 'lib_rec_no', 'lib_book_name', 'lib_author_name', 'lib_date', 'lib_page_no'];
 
 	ELEMENT_DATA: Element[];
-        //= [{ "dep_id": 1, "dep_name": "main dep", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{"dep_id": 2, "dep_name": "asdasd","dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null},
-        //{ "dep_id": 3, "dep_name": "asd", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{ "dep_id": 4, "dep_name": "main dep2", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{ "dep_id": 5, "dep_name": "Master Department", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null }]
-/*	dataSource: [{ "dep_id": 1, "dep_name": "main dep", "dep_desc": "asdasd", "dep_supervisor_id": 0, "dep_supervisor_name": "1", "parent_id": 1 }];*/
-	/*dataSource = new MatTableDataSource(this.ELEMENT_DATA)*/
+       
     @ViewChild(MatSort, { static: true }) sort: MatSort; 
 	dataSource: any;
-    	//this.dataSource.push(model);  //add the new model object to the dataSource
-		//this.dataSource = [...this.dataSource];  //refresh the dataSource
+    	
 	Add_libMaster: Add_libMaster[];
-	//dataSource = new MatTableDataSource<OrdersDetailsDataSource>(null);
+
 	
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-	//@ViewChild('sort1', { static: true }) sort: MatSort;
+
 	// Filter fields
 	@ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 	filterStatus: string = '';
 	filterType: string = '';
+	
 	// Selection
 	selection = new SelectionModel<CustomerModel>(true, []);
 	customersResult: CustomerModel[] = [];
+	
 	// Subscriptions
 	private subscriptions: Subscription[] = [];
 	
@@ -81,6 +66,7 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 	 * @param store: Store<AppState>
 	 */
 	constructor(
+		private router: Router, private user_privDataService: user_privDataService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
 		private layoutUtilsService: LayoutUtilsService,
@@ -94,30 +80,27 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 	get_add_lib() {
 
 		this.Add_libDataService.GetAllAdd_lib().subscribe(data => this.ELEMENT_DATA = data,
-			error => console.log(error),
-			() => this.dataSource.data = this.ELEMENT_DATA); }
-	/**
-	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-	 */
-
-	/**
-	 * On init
-	 */
+			error => console.log(),
+			() => this.dataSource.data = this.ELEMENT_DATA);
+	 }
+	
 
 	ngAfterViewInit() {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	priv_info:any=[];
 	ngOnInit() {
+		
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
+			error => console.log()); 
+
 		this.Add_libDataService.bClickedEvent
 			.subscribe((data: string) => {
 				this.get_add_lib();
 			});
-		this.get_add_lib()
 
-		let model: any = [{ 'id': 1, 'assetID': 2, 'severity': 3, 'riskIndex': 4, 'riskValue': 5, 'ticketOpened': true, 'lastModifiedDate': "2018 - 12 - 10", 'eventType': 'Add' }];  //get the model from the form
-		//this.dataSource.push(model);  //add the new model object to the dataSource
-		//this.dataSource = [...this.dataSource];  //refresh the dataSource
+		this.get_add_lib()
 
 		// If the user changes the sort order, reset back to the first page.
 		const sortSubscription = this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
@@ -146,15 +129,7 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 			.subscribe();
 		this.subscriptions.push(searchSubscription);
 
-		// Init DataSource
-	/*	this.dataSource = new CustomersDataSource(this.store);*/
-		//const entitiesSubscription = this.dataSource.entitySubject.pipe(
-		//	skip(1),
-		//	distinctUntilChanged()
-		//).subscribe(res => {
-		//	this.customersResult = res;
-		//});
-		/*this.subscriptions.push(entitiesSubscription);*/
+		
 		// First load
 		of(undefined).pipe(take(1), delay(1000)).subscribe(() => { // Remove this line, just loading imitation
 			this.loadCustomersList();
@@ -187,7 +162,6 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 		// Call request from server
 		this.store.dispatch(new CustomersPageRequested({ page: queryParams }));
 		this.selection.clear();
-        console.log("yyyy",this.ELEMENT_DATA);
 	}
 
 	/**
@@ -216,38 +190,7 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 		return filter;
 	}
 
-	/** ACTIONS */
-	/**
-	 * Delete customer
-	 *
-	 * @param _item: CustomerModel
-	 */
-
-
-	/**
-	 * Delete selected customers
-	 */
-	deleteCustomers() {
-		const _title: string = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.TITLE');
-		const _description: string = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.DESCRIPTION');
-		const _waitDesciption: string = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.WAIT_DESCRIPTION');
-		const _deleteMessage = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.MESSAGE');
-
-		const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-		dialogRef.afterClosed().subscribe(res => {
-			if (!res) {
-				return;
-			}
-
-			const idsForDeletion: number[] = [];
-			for (let i = 0; i < this.selection.selected.length; i++) {
-				idsForDeletion.push(this.selection.selected[i].dep_id);
-			}
-			this.store.dispatch(new ManyCustomersDeleted({ ids: idsForDeletion }));
-			this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-			this.selection.clear();
-		});
-	}
+	
 
 	/**
 	 * Fetch selected customers
@@ -310,56 +253,7 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 		/*this.editCustomer(newCustomer);*/
 	}
 
-	/**
-	 * Show Edit customer dialog and save after success close result
-	 * @param customer: CustomerModel
-	 */
-	public activeFilters: string[];
-	Add_lib_info: any [];
-	editCustomer(customer: Add_lib, Add_libDataService: Add_libDataService ) {
-
-		//this.DepartmentService.data = Number(customer.dep_id)
-		//console.log('CUSTOMER ID', Number(customer.dep_id));
-		console.log('CUSTOMER ID', customer);
-		this.Add_libDataService.GetAllAdd_lib_with_id(customer.lib_id).subscribe(data => this.Add_lib_info = data,
-			error => console.log("errorrrrrrrrrrr"),
-			() => {
-				for (let item of this.Add_lib_info) {
-					console.log(item.lib_id)
-					this.Add_libDataService.lib_id = Number(item.lib_id);
-					console.log('testdepname', item.mr7la_name);
-					
-					this.Add_libDataService.lib_book = item.lib_book;
-					this.Add_libDataService.lib_ref = item.lib_ref;
-					this.Add_libDataService.lib_book_name = item.lib_book_name;
-
-					this.Add_libDataService.lib_author_name = item.lib_author_name;
-					this.Add_libDataService.lib_date = item.lib_date;
-					this.Add_libDataService.lib_page_no = item.lib_page_no;
-					this.Add_libDataService.lib_rec_no = item.lib_rec_no;
-					this.Add_libDataService.lib_classification = item.lib_classification;
-				
-			
-
-		
-				};
-				console.log('Component A is clicked!!', this.Add_libDataService.lib_id);
-				this.Add_libDataService.AClicked('Component A is clicked!!');
-			}
-		);
-		
-
-	}
-	deleteCustomer(customer: Add_lib, Add_libDataService: Add_libDataService) {
 	
-		console.log('CUSTOMER ID', customer.lib_id);
-		this.Add_libDataService.deleteAdd_lib(Number(customer.lib_id)).subscribe(res => {
-			this.get_add_lib();
-			alert(res.toString());
-		
-		})
-		
-	}
 	
 	/**
 	 * Check all rows are selected
@@ -369,86 +263,6 @@ export class Show_libListComponent implements OnInit, OnDestroy {
 		const numRows = this.customersResult.length;
 		return numSelected === numRows;
 	}
-
-	/**
-	 * Toggle all selections
-	 */
-	masterToggle() {
-		if (this.selection.selected.length === this.customersResult.length) {
-			this.selection.clear();
-		} else {
-			this.customersResult.forEach(row => this.selection.select(row));
-		}
-	}
-
-	/** UI */
-	/**
-	 * Retursn CSS Class Name by status
-	 *
-	 * @param status: number
-	 */
-	getItemCssClassByStatus(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'danger';
-			case 1:
-				return 'success';
-			case 2:
-				return 'metal';
-		}
-		return '';
-	}
-
-	/**
-	 * Returns Item Status in string
-	 * @param status: number
-	 */
-	getItemStatusString(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'تم الشرح';
-			case 1:
-				return 'Active';
-			case 2:
-				return 'Pending';
-		}
-		return '';
-	}
-
-	/**
-	 * Returns CSS Class Name by type
-	 * @param status: number
-	 */
-	getItemCssClassByType(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'accent';
-			case 1:
-				return 'primary';
-			case 2:
-				return '';
-		}
-		return '';
-	}
-
-	/**
-	 * Returns Item Type in string
-	 * @param status: number
-	 */
-	getItemTypeString(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'Business';
-			case 1:
-				return 'مثال7';
-		}
-		return '';
-    }
-   public test()
-    {
-    return 0;
-};
-  
  
 
 }

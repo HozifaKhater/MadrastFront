@@ -1,5 +1,5 @@
 ﻿<!--Activity Data-->
-<!--<div class="row">
+<div class="row" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
     <div class="col-lg-6">
         <div class="kt-portlet">
             <div class="kt-portlet__head">
@@ -102,7 +102,7 @@
                         <div class="form-group kt-form__group row">
                             <label class="col-lg-3 col-form-label">التاريخ:</label>
                             <div class="col-lg-6">
-                                <mat-form-field>
+                                <mat-form-field >
                                     <input [(ngModel)]="behave_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
@@ -140,7 +140,7 @@
                         <div class="form-group kt-form__group row">
                             <label class="col-lg-3 col-form-label">تقرير حالة سلوك الطالب:</label>
                             <div class="col-lg-6 example-container">
-                                <mat-form-field>
+                                <mat-form-field >
                                     <textarea [(ngModel)]="behave_stat_rep" [ngModelOptions]="{standalone: true}" matInput placeholder="أدخل التقرير"></textarea>
                                 </mat-form-field>
                             </div>
@@ -170,174 +170,5 @@
         <!--</div>
     </div>
 </div>
-<kt-behavioral-list></kt-behavioral-list>-->
-<!--End Activity Data-->
-
-<div class="card" dir="rtl">
-    <div class="card-header">
-        <h3 style="display:flex;">استدعاء ولى الامر</h3>
-    </div>
-    <div class="card-body">
-
-        <button type="button" style="display:block;" class="btn btn-primary"
-                (click)="openModal(content1, $event)"
-                id="modalOpener">
-            اضافة استدعاء ولى الامر
-        </button>
-
-
-
-    </div>
-    <br />
-</div>
-
-
-
-
 <kt-behavioral-list></kt-behavioral-list>
-
-<ng-template #content1 let-modal>
-    <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">
-            <i class="fas fa-tasks" style="margin:5px;"></i>
-            اضافة استدعاء ولى الامر
-        </h3>
-    </div>
-
-    <div class="modal-body">
-        <form dir="rtl" class="kt-form" [formGroup]="form1">
-            <div dir="rtl" class="kt-portlet__body">
-                <div class="kt-form__section kt-form__section--first">
-
-                    <div class="form-group kt-form__group text-right">
-
-                        <div class="container">
-                            <div class="row">
-
-                                <div class="col-lg-12">
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4">
-                                            <mat-form-field>
-                                                <mat-label>
-                                                    الصف
-                                                </mat-label>
-                                                <input name="level"
-                                                       type="text"
-                                                       matInput
-                                                       [(ngModel)]="selectedlevel"
-                                                       (ngModelChange)="change_level($event)"
-                                                       placeholder=""
-                                                       [formControl]="myControllev"
-                                                       [matAutocomplete]="autolevel"
-                                                       forceSelection="lev_name">
-                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
-                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
-                                                        {{ level.lev_name }}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-
-                                        <div class="col-lg-4">
-
-                                            <mat-form-field>
-                                                <mat-label>
-                                                    الفصل
-                                                </mat-label>
-                                                <input name="class"
-                                                       type="text"
-                                                       matInput
-                                                       [(ngModel)]="selectedclass"
-                                                       (ngModelChange)="change_class($event)"
-                                                       placeholder=""
-                                                       [formControl]="myControlclass"
-                                                       [matAutocomplete]="autoclass"
-                                                       forceSelection="class_name">
-                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
-                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
-                                                        {{ class.class_name }}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-                                        <div class="col-lg-4">
-                                            <mat-form-field>
-                                                <mat-label>
-                                                    الطالب
-                                                </mat-label>
-                                                <input name="student"
-                                                       type="text"
-                                                       matInput
-                                                       [(ngModel)]="selectedstudent"
-                                                       placeholder=""
-                                                       [formControl]="myControlstudent"
-                                                       [matAutocomplete]="autostudent"
-                                                       forceSelection="student_name">
-                                                <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnstudent">
-                                                    <mat-option *ngFor="let student of filteredOptionsstudent  | async" [value]="student">
-                                                        {{ student.student_name }}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-                                            </mat-form-field>
-
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-
-                                        <div class="col-lg-4">
-                                            <mat-form-field (click)="picker.open()">
-                                                <mat-label>التاريخ</mat-label>
-                                                <input [(ngModel)]="behave_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="">
-                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker></mat-datepicker>
-
-                                            </mat-form-field>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-                                        <div class="col-lg-9">
-
-                                            <mat-form-field>
-                                                <mat-label>تقرير حالة سلوك الطالب</mat-label>
-                                                <textarea [(ngModel)]="behave_stat_rep" [ngModelOptions]="{standalone: true}" matInput placeholder=""></textarea>
-                                            </mat-form-field>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="modal-footer" style="direction:ltr;">
-        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
-                data-dismiss="modal">
-            إغلاق
-        </button>
-        <button id="update_btn" type="button" style="border-radius: 20px;" (click)="update_behav()" class="btn btn-primary">تعديل</button>
-        <button id="save_btn" type="button" style="border-radius: 20px;" (click)="add_behav()"
-                class="btn btn-primary">
-            حفظ
-        </button>
-    </div>
-
-</ng-template>
+<!--End Activity Data-->

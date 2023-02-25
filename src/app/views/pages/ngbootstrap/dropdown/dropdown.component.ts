@@ -34,7 +34,6 @@ export class DropdownComponent implements OnInit {
 	exampleButtonGroupsAndSplitButtons;
 	exampleGlobalConfigurationOfDropdowns;
     Employees: Employee[];
-	Employees1: Employee[];
 	form1: FormGroup;
 	teams_type:def.teams[];
     constructor(
@@ -62,9 +61,6 @@ export class DropdownComponent implements OnInit {
 
         this.EmployeeService.GetAllEmployee().subscribe(data => this.Employees = data,
             error => console.log());
-			
-			this.EmployeeService.GetAllEmployee().subscribe(data => this.Employees1 = data,
-				error => console.log());
 
 			this.EmployeeService.Getdefinations_with_scode("teams_type").subscribe(data => this.teams_type = data,
 				error => console.log());
@@ -75,7 +71,7 @@ export class DropdownComponent implements OnInit {
         this.modalService.open(content,{backdrop:true,size:"xl",});
     }
 
-	employeedepartment1:any[]=[];
+	employeedepartment1:any;
 	selectedteam:any;
 
 	add_team() {
@@ -187,9 +183,6 @@ export class DropdownComponent implements OnInit {
 
 
 	priv_info:any=[];
-	team_members:any[]=[];
-	is_edit:boolean=false;
-
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -201,7 +194,7 @@ export class DropdownComponent implements OnInit {
 
 		this.teams_and_groupsDataService.aClickedEvent
 			.subscribe((data: string) => {
-				this.is_edit=true;
+
 				this.id = Number(this.teams_and_groupsDataService.id);
 				this.type_id = this.teams_and_groupsDataService.type_id;
 				this.type_name = this.teams_and_groupsDataService.type_name;
@@ -222,21 +215,11 @@ export class DropdownComponent implements OnInit {
                 this.selectedteam = this.teams_type[this.teams_type.findIndex(function (el) {
                     return String(el.def_id) == selected_type
 				})];
-				this.teams_and_groupsDataService.get_teams_members_with_team_id(this.teams_and_groupsDataService.id)
-				.subscribe(data =>this.team_members = data,
-					error => console.log(),
-					() => {
-						this.employeedepartment1 = this.Employees1.filter((employee) =>
-  this.team_members.some((member) => member.emp_id === employee.emp_id)
-);
-						//this.employeedepartment1= this.Employees1.filter((item, i) => i % 2 === 0);
-						this.cdRef.detectChanges();
-						var ele = document.getElementById('modalOpener');
-						if (ele) { ele.click() }
-		
-					});
+
 				// open modal
-			
+				var ele = document.getElementById('modalOpener');
+				if (ele) { ele.click() }
+
 			});
 	
 	}

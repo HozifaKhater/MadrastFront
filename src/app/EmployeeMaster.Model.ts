@@ -48,5 +48,6 @@ export class Employee {
 	emp_password: string = "";
 	in_class_priv: string = "";
 	dep_work: string = "";
-	emp_dep_parent:string="";
+	relgion_id : number;
+	religion_name: string="";
 }

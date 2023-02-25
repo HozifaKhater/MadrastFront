@@ -275,7 +275,6 @@ export class student_parent_meetingComponent implements OnInit {
     anotherLevelArray: Levels[];
  
 	priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -300,7 +299,6 @@ export class student_parent_meetingComponent implements OnInit {
 		this.student_parent_meetingDataService.aClickedEvent
 			.subscribe((data: string) => {
 				
-this.is_edit=true;
                 this.id = this.student_parent_meetingDataService.id.toString();
 				this.level_id = this.student_parent_meetingDataService.level_id;
 				this.level_name = this.student_parent_meetingDataService.level_name;

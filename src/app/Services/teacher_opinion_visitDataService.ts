@@ -18,12 +18,6 @@ export class teacher_opinion_visitDataService {
     notes:string;
     constructor(private http: HttpClient) { }
 
-    //public GetAlldepartment = (): Observable<any> =>  
-    //{
-
-    //    return this.http1.get(this.actionUrl).map((response: Response) => <any>response.json());
-
-    //}
     get_teacher_opinion_visit(): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/teacher_opinion_visit/get_teacher_opinion_visit/');
     }
@@ -31,11 +25,10 @@ export class teacher_opinion_visitDataService {
         return this.http.get<any>(this.APIUrl + '/teacher_opinion_visit/get_teacher_opinion_visit_with_id?id=' + val);
     }
     save_in_teacher_opinion_visit(val: any) {
-        console.log("ttt")
         return this.http.post(this.APIUrl + '/teacher_opinion_visit/save_in_teacher_opinion_visit', val);
     }
     update_teacher_opinion_visit(val: any) {
-        return this.http.put(this.APIUrl + '/teacher_opinion_visit/update_teacher_opinion_visit', val);
+        return this.http.put(this.APIUrl + '/update_teacher_opinion_visit/update_teacher_opinion_visit', val);
     }
     delete_from_teacher_opinion_visit(id: any) {
         return this.http.delete(this.APIUrl + '/teacher_opinion_visit/delete_from_teacher_opinion_visit/' + id);

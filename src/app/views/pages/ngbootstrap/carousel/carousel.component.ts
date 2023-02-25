@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef,OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../Services/user_privDataService ';
 
 const carousel = {
 	beforeCodeTitle: 'Carousel',
@@ -195,7 +197,10 @@ export class CarouselComponent implements OnInit {
 	showNavigationIndicators = false;
 	thirdImages: Array<string>;
 
-	constructor(private _http: HttpClient, config: NgbCarouselConfig) {
+	constructor(private _http: HttpClient, config: NgbCarouselConfig,
+    private cdRef: ChangeDetectorRef,
+		private router: Router,
+    private user_privDataService: user_privDataService,) {
 		// customize default values of carousels used by this component tree
 		config.interval = 10000;
 		config.wrap = false;
@@ -206,7 +211,15 @@ export class CarouselComponent implements OnInit {
 		config.showNavigationIndicators = true;
 	}
 
+  priv_info:any=[];
 	ngOnInit() {
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});
+
 		this.exampleCarousel = carousel;
 		this.exampleGlobalConfigurationOfCarousels = globalConfigurationOfCarousels;
 		this.exampleNavigationArrowsAndIndicatorsCarousel = navigationArrowsAndIndicatorsCarousel;

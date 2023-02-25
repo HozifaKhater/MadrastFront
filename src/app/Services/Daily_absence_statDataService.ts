@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
     providedIn: 'root'
 })
 export class Daily_absence_statDataService {
-    readonly APIUrl = "https://localhost:44337/api";
+    readonly APIUrl = "https://astores.azurewebsites.net/api";
     private actionUrl: string; 
     public absence_stat_id: number;
     public lev_id: number;
