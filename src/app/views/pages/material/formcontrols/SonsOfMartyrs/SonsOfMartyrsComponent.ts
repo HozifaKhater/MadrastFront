@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,7 @@ import { Student } from '../../../../../StudentMaster.Model';
 import { Definition } from '../../../../../Definitions.Model';
 import { DefinitionDataService } from '../../../../../Services/Definition';
 import { SonsOfMartyrsService } from '../../../../../Services/SonsOfMartyrsService';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'kt-SonsOfMartyrs',
@@ -64,7 +64,8 @@ export class SonsOfMartyrsComponent implements OnInit, AfterViewInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-    constructor(public _fb: FormBuilder,
+    constructor(private modalService: NgbModal,
+        private cdRef: ChangeDetectorRef, public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
         private StudentDataService: StudentDataService,
         private LevelsDataService: LevelsDataService, 
@@ -274,9 +275,9 @@ export class SonsOfMartyrsComponent implements OnInit, AfterViewInit {
     ngOnInit() {
 
         this.butDisabled = true;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
+        //(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
             error => console.log(error),
@@ -296,11 +297,11 @@ export class SonsOfMartyrsComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+            //(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
+            //(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
+            //(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
+            //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+            //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
     
             this.id = this.SonsOfMartyrsService.id;
             this.level_name = this.SonsOfMartyrsService.level_name;
@@ -342,8 +343,22 @@ export class SonsOfMartyrsComponent implements OnInit, AfterViewInit {
             this.selectedclass = this.updatedClass; 
 
                 */
-    
+            // open modal
+            var ele = document.getElementById('modalOpener');
+            if (ele) { ele.click() }
         });
 
+    }
+    display = "";
+    openModal(content: any, event: any) {
+
+        this.modalService.open(content, { backdrop: true, size: "xl", });
+    }
+    openModal1() {
+        this.display = "show";
+        this.cdRef.detectChanges();
+    }
+    onCloseHandled() {
+        this.display = "";
     }
 }

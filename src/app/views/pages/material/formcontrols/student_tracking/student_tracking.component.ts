@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +24,9 @@ import { EmployeeDataService } from '../../../../../Services/EmployeeDataService
 import { Employee } from '../../../../../EmployeeMaster.Model';
 
 import { gdwel_7ssDataService } from '../../../../../Services/gdwel_7ssDataService';
-import { gdwel_7ss,gdwel_7ssMaster } from '../../../../../gdwel_7ssMaster.Model';
+import { gdwel_7ss, gdwel_7ssMaster } from '../../../../../gdwel_7ssMaster.Model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
     selector: 'kt-student_tracking',
     templateUrl: './student_tracking.component.html',
@@ -43,7 +45,10 @@ export class student_trackingComponent implements OnInit, AfterViewInit {
     class_id_from_gdwel:any;
     decoded:any;
     form1: FormGroup;
-    constructor(
+
+    butDisabled: boolean;
+    constructor(private modalService: NgbModal,
+        private cdRef: ChangeDetectorRef,
         private student_trackingDataService: student_trackingDataService,
       private EmployeeDataService:EmployeeDataService,
       private School_year_dataDataService:School_year_dataDataService, 
@@ -146,8 +151,41 @@ console.log("this.student_trackingDataService",this.student_trackingDataService)
 
     ngOnInit() {
 
+        this.butDisabled = true;
+        //(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
 
+        this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
+            error => console.log(error),
+            () => {
+                console.log("levels dropdown", this.level);
+                this.filteredOptionslev = this.myControllev.valueChanges
+                    .pipe(
+                        startWith(''),
+                        map(value => typeof value === 'string' ? value : value.lev_name),
+                        map(lev_name => lev_name ? this._filterlev(lev_name) : this.level.slice())
+                    );
+
+                // open modal
+                var ele = document.getElementById('modalOpener');
+                if (ele) { ele.click() }
+
+            });
 
     
+    }
+
+    display = "";
+    openModal(content: any, event: any) {
+
+        this.modalService.open(content, { backdrop: true, size: "xl", });
+    }
+    openModal1() {
+        this.display = "show";
+        this.cdRef.detectChanges();
+    }
+    onCloseHandled() {
+        this.display = "";
     }
 }

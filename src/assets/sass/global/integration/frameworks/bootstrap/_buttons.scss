@@ -15,6 +15,13 @@
 	}
 }
 
+button.btn.btn-link.ng-star-inserted {
+	float: right !important;
+	background-color: #f7f8fa !important;
+	text-decoration: none !important;
+	color: unset !important;
+}
+
 // Tags
 label.btn,
 input.btn,
@@ -392,13 +399,17 @@ a.btn.btn-label,
 button.btn.btn-label,
 input.btn.btn-label {
 	cursor: pointer !important;
+	float: right !important;
+	background-color: #f7f8fa !important;
+	text-decoration: none !important;
+	color: unset !important;
 
 	&:focus,
 	&:hover,
 	&.active {
-	    background-color: kt-brand-color();
-	    color: kt-brand-color(inverse);
-	}	
+		background-color: kt-brand-color();
+		color: kt-brand-color(inverse);
+	}
 }
 
 // Label button states

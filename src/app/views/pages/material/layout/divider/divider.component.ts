@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { Good_bad_students_cardDataService } from '../../../../../Services/Good_bad_students_cardDataService';
 import { SubjectDataService } from '../../../../../Services/SubjectDataService';
 
@@ -15,6 +15,9 @@ import { StudentDataService } from '../../../../../Services/StudentDataService';
 import { ActivityDataService } from '../../../../../Services/ActivityDataService';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
 	selector: 'kt-divider',
 	templateUrl: './divider.component.html',
@@ -83,7 +86,8 @@ export class DividerComponent implements OnInit {
     subjects: Subjects[];
 
     form1: FormGroup;
-    constructor(
+	constructor(private modalService: NgbModal,
+		private cdRef: ChangeDetectorRef,
 		private router: Router, private user_privDataService: user_privDataService,
 		private StudentDataService: StudentDataService,
 		private ActivityDataService: ActivityDataService,
@@ -309,7 +313,6 @@ export class DividerComponent implements OnInit {
 
 
 	priv_info:any;
-	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -356,7 +359,10 @@ export class DividerComponent implements OnInit {
 		this.Good_bad_students_cardService.aClickedEvent
 			.subscribe((data: string) => {
 				console.log("edited");
-				this.is_edit=true;
+				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
+				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
+				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
+				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 
 				this.student_card_id = Number(this.Good_bad_students_cardService.student_card_id);
 				this.good_card_id = this.Good_bad_students_cardService.good_card_id;
@@ -407,10 +413,28 @@ export class DividerComponent implements OnInit {
                 })];
 				console.log("edited")
 
+				// open modal
+				var ele = document.getElementById('modalOpener');
+				if (ele) { ele.click() }
+
 		});
 
 		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
 		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
 		
+	}
+
+	display = "";
+	openModal(content: any, event: any) {
+
+		this.modalService.open(content, { backdrop: true, size: "xl", });
+	}
+	openModal1() {
+		this.display = "show";
+		console.log("clicked")
+		this.cdRef.detectChanges();
+	}
+	onCloseHandled() {
+		this.display = "";
 	}
 }

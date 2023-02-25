@@ -17,7 +17,6 @@ import { CollapseComponent } from './collapse/collapse.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ModalComponent, NgbdModalContentComponent } from './modal/modal.component';
-import { ModalComponent_not } from './modal_not/modal_not.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PopoverComponent } from './popover/popover.component';
 import { ProgressbarComponent } from './progressbar/progressbar.component';
@@ -85,47 +84,43 @@ const routes: Routes = [
         component: NgbootstrapComponent,
         children: [
             {
-                path: 'accordion',
+                path: 'book_data',
                 component: AccordionComponent
             },
             {
-                path: 'alert',
+                path: 'borrow_book',
                 component: AlertComponent
             },
             {
-                path: 'buttons',
+                path: 'return_book',
                 component: ButtonsComponent
             },
             {
-                path: 'carousel',
+                path: 'show_books',
                 component: CarouselComponent
             },
             {
-                path: 'collapse',
+                path: 'trips',
                 component: CollapseComponent
             },
             {
-                path: 'datepicker',
+                path: 'performance_improvement_formation',
                 component: DatepickerComponent
             },
             {
-                path: 'dropdown',
+                path: 'strategic_plan_teams_formation',
                 component: DropdownComponent
             },
             {
-                path: 'modal',
+                path: 'meetings',
                 component: ModalComponent
             },
             {
-                path: 'modal_not/:id',
-                component: ModalComponent_not
-            },
-            {
-                path: 'pagination',
+                path: 'observers_distribution_table',
                 component: PaginationComponent
             },
             {
-                path: 'popover',
+                path: 'corridor_supervisors_meeting',
                 component: PopoverComponent
             },
             {
@@ -215,7 +210,6 @@ const routes: Routes = [
     exports: [RouterModule,
         MaterialModule],
     declarations: [
-        ModalComponent_not,
         NgbootstrapComponent,
         AlertComponent,
         AccordionComponent,

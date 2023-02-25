@@ -9,7 +9,7 @@
 	}
 
     .mat-table {
-        min-width: 1000px;
+        // min-width: 1000px;
 
         .mat-cell, 
         .mat-footer-cell, 
@@ -20,7 +20,7 @@
         .mat-cell:last-child, 
         .mat-footer-cell:last-child, 
         .mat-header-cell:last-child {
-            padding-right: 0;
+            padding-right: 10px;
         }
             
         .mat-row {
@@ -71,7 +71,7 @@
 }
 
 .mat-table__wrapper .mat-table {
-	min-width: 1000px;
+	// min-width: 1000px;
 	width: 100%;
 }
 

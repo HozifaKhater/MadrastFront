@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="kt-portlet">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-caption">
@@ -10,7 +10,7 @@
                         </span>
                         <h3 class="kt-portlet__head-text">
                             <i class="fas fa-tasks" style="margin:5px;"></i>
-                            تسلسل الطلبة في الفصل
+                            متابعة الطلاب
                         </h3>
                     </div>
                 </div>
@@ -21,13 +21,14 @@
                     <div class="kt-form__section kt-form__section--first">
 
                         <div class="form-group kt-form__group row">
-                            <label class="col-lg-3 col-form-label">
-                                الماده:
 
-                            </label>
-                            <div class="col-lg-6">
-                                <mat-form-field >
-                                    <mat-select placeholder="أختر المادة"
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>
+                                        الماده
+
+                                    </mat-label>
+                                    <mat-select placeholder=""
                                                 (ngModelChange)="change_subject($event)"
                                                 [(ngModel)]="selectedsubject"
                                                 [ngModelOptions]="{ standalone: true }"
@@ -39,21 +40,21 @@
 
                                 </mat-form-field>
                             </div>
-                        </div>
 
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-3 col-form-label">
-                                الصف:
+                            <div class="col-1"></div>
 
-                            </label>
-                            <div class="col-lg-6">
-                                <mat-form-field >
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>
+                                        الصف
+
+                                    </mat-label>
                                     <input name="level"
                                            type="text"
                                            matInput
                                            [(ngModel)]="selectedlevel"
                                            (ngModelChange)="change_level($event)"
-                                           placeholder="أختر الصف"
+                                           placeholder=""
                                            [formControl]="myControllev"
                                            [matAutocomplete]="autolevel"
                                            forceSelection="lev_name">
@@ -67,19 +68,22 @@
                             </div>
                         </div>
 
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-3 col-form-label">
-                                الفصل:
 
-                            </label>
-                            <div class="col-lg-6">
-                                <mat-form-field >
+
+                        <div class="form-group kt-form__group row">
+
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>
+                                        الفصل
+
+                                    </mat-label>
                                     <input name="class"
                                            type="text"
                                            matInput
                                            [(ngModel)]="selectedclass"
                                            (ngModelChange)="change_class($event)"
-                                           placeholder="أختر الفصل"
+                                           placeholder=""
                                            [formControl]="myControlclass"
                                            [matAutocomplete]="autoclass"
                                            forceSelection="class_name">
@@ -90,39 +94,14 @@
                                     </mat-autocomplete>
                                 </mat-form-field>
                             </div>
-                        </div>
 
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-caption">
-                    <div class="kt-portlet__head-title">
-                        <span class="kt-portlet__head-icon kt-hide">
-                            <i class="la la-gear"></i>
-                        </span>
-                        <h3 class="kt-portlet__head-text">
-                            استكمال تسلسل الطلبة في الفصل
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <!--begin::Form-->
-            <form class="kt-form" [formGroup]="form1">
-                <div class="kt-portlet__body">
-                    <div class="kt-form__section kt-form__section--first">
-                
+                            <div class="col-1"></div>
 
-                        <div class="form-group kt-form__group row">
 
-                            <label class="col-lg-3 col-form-label">الفتره:</label>
-                            <div class="col-lg-6">
-                                <mat-form-field >
-                                    <mat-select placeholder="أختر الفتره"
+                            <div class="col-lg-4">
+                                <mat-form-field>
+                                    <mat-label>الفتره</mat-label>
+                                    <mat-select placeholder=""
                                                 [(ngModel)]="selectedterm"
                                                 [ngModelOptions]="{ standalone: true }"
                                                 required>
@@ -133,25 +112,33 @@
 
                                 </mat-form-field>
                             </div>
+
                         </div>
 
                         <div class="form-group kt-form__group row">
-                            <label class="col-lg-3 col-form-label">تاريخ:</label>
-                            <div class="col-lg-6">
-                                <mat-form-field >
-                                    <input [(ngModel)]="date" required (dateChange)="date_Change($event)" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
+
+                            <div class="col-lg-4">
+                                <mat-form-field (click)="picker.open()">
+                                    <mat-label>
+                                        تاريخ
+
+                                    </mat-label>
+                                    <input [(ngModel)]="date" required (dateChange)="date_Change($event)" matInput [matDatepicker]="picker" placeholder="">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
-
                                 </mat-form-field>
                             </div>
+
+                            <div class="col-1"></div>
+
                         </div>
+
                     </div>
-                    </div>
+                </div>
             </form>
-            <!--end::Form-->
         </div>
     </div>
+
 </div>
 <kt-student_tracking-list></kt-student_tracking-list>
 <!--End Activity Data-->

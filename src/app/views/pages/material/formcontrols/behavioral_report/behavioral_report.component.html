@@ -28,15 +28,15 @@
 
                             <div class="col-lg-4">
                                 <mat-form-field>
-                                    <!--<mat-label>
+                                    <mat-label>
                                         الصف
-                                    </mat-label>-->
+                                    </mat-label>
                                     <input name="level"
                                            type="text"
                                            matInput
                                            [(ngModel)]="selectedlevel"
                                            (ngModelChange)="change_level($event)"
-                                           placeholder="أختر الصف"
+                                           placeholder=""
                                            [formControl]="myControllev"
                                            [matAutocomplete]="autolevel"
                                            forceSelection="lev_name">
@@ -57,16 +57,16 @@
               
                             <div class="col-lg-4">
                                 <mat-form-field>
-                                    <!--<mat-label>
+                                    <mat-label>
                                         الفصل
 
-                                    </mat-label>-->
+                                    </mat-label>
                                     <input name="class"
                                            type="text"
                                            matInput
                                            [(ngModel)]="selectedclass"
                                            (ngModelChange)="change_class($event)"
-                                           placeholder="أختر الفصل"
+                                           placeholder=""
                                            [formControl]="myControlclass"
                                            [matAutocomplete]="autoclass"
                                            forceSelection="class_name">
@@ -83,14 +83,14 @@
                      
                             <div class="col-lg-4">
                                 <mat-form-field>
-                                    <!--<mat-label>
+                                    <mat-label>
                                         الطالب
-                                    </mat-label>-->
+                                    </mat-label>
                                     <input name="student"
                                            type="text"
                                            matInput
                                            [(ngModel)]="selectedstudent"
-                                           placeholder="أختر الطالب"
+                                           placeholder=""
                                            [formControl]="myControlstudent"
                                            [matAutocomplete]="autostudent"
                                            forceSelection="student_name">
