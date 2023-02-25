@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
     providedIn: 'root'
 })
 export class Student_leaveDataService {
-    readonly APIUrl = "https://localhost:44337/api";
+    readonly APIUrl = "https://astores.azurewebsites.net/api";
     private actionUrl: string;
     public leav_stu_id: number;
     public lev_id: number;

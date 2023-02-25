@@ -128,7 +128,7 @@
                                                                     formControlName="employeedepartment1"
                                                                     multiple
                                                                     placeholder="أختر الاعضاء">
-                                                            <mat-option *ngFor="let emp of Employees1" [value]="emp">
+                                                            <mat-option *ngFor="let emp of Employees" [value]="emp">
                                                                 {{ emp.emp_name }}
                                                             </mat-option>
                                                         </mat-select>
@@ -171,8 +171,8 @@
                 إغلاق
             </button>
 
-                <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_team()" class="btn btn-primary">تعديل</button>
-                <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_team()" class="btn btn-primary">اضافة</button>
+                <button type="button" style="border-radius: 20px;" (click)="update_team()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;" (click)="add_team()" class="btn btn-primary">اضافة</button>
 
 
             </div>

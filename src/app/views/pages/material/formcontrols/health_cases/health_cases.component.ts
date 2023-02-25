@@ -343,7 +343,10 @@ export class Health_casesComponent implements OnInit {
     anotherStuArray:Student[];
     anotherClassArray:Classes[];
     anotherLevelArray: Levels[];
- 
+   
+    health: any[];
+
+
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -370,7 +373,7 @@ export class Health_casesComponent implements OnInit {
         this.Health_casesDataService.aClickedEvent
 			.subscribe((data: string) => {
 				
-                this.health_id = this.health_id;
+                this.health_id = this.Health_casesDataService.health_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality = this.Health_casesDataService.nationality;
                 this.phone_no = this.Health_casesDataService.phone_no;
@@ -428,7 +431,17 @@ export class Health_casesComponent implements OnInit {
 						
 											return String(el.lev_id) == level_id;
 										})];
-									});
+                                        this.Health_casesDataService.get_health_cases_details_with_health_id(this.health_id)
+                                        .subscribe(data => this.health = data,
+                                            error => console.log(),
+                                            () => {
+                                                this.other_situations = this.health['data'][0].other_situations;
+                                                this.date = this.health['data'][0].date;
+                                                this.effort_results = this.health['data'][0].effort_results;
+                                                this.end_year_state	= this.health['data'][0].end_year_state;
+
+                                            });
+                                    });
 							});
 
 							

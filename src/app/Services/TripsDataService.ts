@@ -29,13 +29,7 @@ export class TripsDataService
     public	class_id	:	string;
     public	level_id	:	string;
     constructor(private http: HttpClient){}
-  
-    //public GetAlldepartment = (): Observable<any> =>  
-    //{
-      
-    //    return this.http1.get(this.actionUrl).map((response: Response) => <any>response.json());
-     
-    //}
+
     GetAlltrips(): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/trips');
     }
@@ -52,7 +46,7 @@ export class TripsDataService
         return this.http.delete(this.APIUrl + '/trips/' + id);
     }
     deletetrips_details(val: any) {
-        return this.http.post(this.APIUrl + '/trips/delete_details_with_trip_id', val);
+        return this.http.post(this.APIUrl + '/trips/delete_details_with_trip_id/', val);
     }
     addtrips_details(val: any) {
         return this.http.post(this.APIUrl + '/trips/details', val);

@@ -1,5 +1,5 @@
 ﻿<!--Activity Data-->
-<div class="row">
+<div class="row" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
     <div class="col-lg-6">
         <div class="kt-portlet">
             <div class="kt-portlet__head">
@@ -105,7 +105,7 @@
                             <label class="col-lg-3 col-form-label">التاريخ:</label>
                             <div class="col-lg-6">
                                 <mat-form-field >
-                                    <input [(ngModel)]="behave_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
+                                    <input [(ngModel)]="meeting_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
 
@@ -143,7 +143,7 @@
                             <label class="col-lg-3 col-form-label">تقرير حالة سلوك الطالب:</label>
                             <div class="col-lg-6 example-container">
                                 <mat-form-field >
-                                    <textarea [(ngModel)]="behave_stat_rep" [ngModelOptions]="{standalone: true}" matInput placeholder="أدخل التقرير"></textarea>
+                                    <textarea [(ngModel)]="meeting_side_name" [ngModelOptions]="{standalone: true}" matInput placeholder="أدخل التقرير"></textarea>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -158,8 +158,8 @@
 
                             <div class="col-lg-6">
                                 <button id="save_btn" type="button" (click)="add_behav()" mat-raised-button color="accent">حفظ</button>&nbsp;
-                                <button id="update_btn" type="button" *ngIf="is_edit" (click)="update_behav()" mat-raised-button color="accent">تعديل</button>&nbsp;
-                                <button id="cancel_btn" type="button" *ngIf="!is_edit" (click)="cancel_behav()" mat-raised-button color="accent">الغاء</button>&nbsp;
+                                <button id="update_btn" type="button" (click)="update_behav()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="cancel_btn" type="button" (click)="cancel_behav()" mat-raised-button color="accent">الغاء</button>&nbsp;
                                 <button mat-raised-button type="reset">حذف</button>
 
 
@@ -172,5 +172,8 @@
         </div>
     </div>
 </div>
-<kt-behavioral-list></kt-behavioral-list>
+<div  *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <kt-calling_parents-list></kt-calling_parents-list>
+</div>
+
 <!--End Activity Data-->

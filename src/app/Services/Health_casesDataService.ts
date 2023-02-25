@@ -41,6 +41,9 @@ export class Health_casesDataService {
     GetAllHealthCases_with_id(val: any): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/Health_cases/get_health_cases_with_id?id=' + val);
     }
+    get_health_cases_details_with_health_id(val: any): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + '/Health_cases/get_health_cases_details_with_health_id?id=' + val);
+    }
     addHealthCases(val: any) {
         return this.http.post(this.APIUrl + '/Health_cases/save_in_health_cases', val);
     }

@@ -26,12 +26,6 @@ export class calling_parentsDataService {
     
     constructor(private http: HttpClient) { }
 
-    //public GetAlldepartment = (): Observable<any> =>  
-    //{
-
-    //    return this.http1.get(this.actionUrl).map((response: Response) => <any>response.json());
-
-    //}
     get_calling_parents(): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/calling_parents/get_calling_parents/');
     }
@@ -39,11 +33,10 @@ export class calling_parentsDataService {
         return this.http.get<any>(this.APIUrl + '/calling_parents/get_calling_parents_with_id?id=' + val);
     }
     save_in_calling_parents(val: any) {
-        console.log("ttt")
         return this.http.post(this.APIUrl + '/calling_parents/save_in_calling_parents', val);
     }
     update_calling_parents(val: any) {
-        return this.http.put(this.APIUrl + '/update_calling_parents/update_calling_parents', val);
+        return this.http.put(this.APIUrl + '/calling_parents/update_calling_parents', val);
     }
     delete_from_calling_parents(id: any) {
         return this.http.delete(this.APIUrl + '/calling_parents/delete_from_calling_parents/' + id);

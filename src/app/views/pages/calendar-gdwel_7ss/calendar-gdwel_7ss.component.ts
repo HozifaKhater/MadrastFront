@@ -91,7 +91,11 @@ export class gdwel_7ssComponent implements OnInit {
     public _fb: FormBuilder, private LevelsDataService: LevelsDataService, private ClassesDataService: ClassesDataService,
     private modalService: NgbModal, private formBuilder: FormBuilder
     , private gdwel_7ssDataService: gdwel_7ssDataService, private SubjectDataService: SubjectDataService, private EmployeeService: EmployeeDataService) {
-
+      
+      this.form1 = this._fb.group({
+				
+	
+			});
 
   }
 
@@ -101,27 +105,23 @@ export class gdwel_7ssComponent implements OnInit {
     if(this.selectedclass){
       class_id = this.selectedclass.class_id
       this.SubjectDataService.GetAllSubjectWithClassId(class_id,this.startTime).subscribe(data => this.subjects = data,
-        error => console.log(error),
-        () => { console.log("subjects dropdown", this.subjects) });
+        error => console.log());
     }else{
       this.SubjectDataService.GetAllSubject().subscribe(data => this.subjects = data,
-        error => console.log(error),
-        () => { console.log("subjects dropdown", this.subjects) });
+        error => console.log());
     }
    
   }
 
   getEmployeess() {
     this.EmployeeService.GetAllEmployee().subscribe(data => this.Employees = data,
-      error => console.log(error),
-      () => console.log("emp dropdown", this.Employees));
+      error => console.log());
   }
 
   getLevels() {
     this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-      error => console.log(error),
+      error => console.log(),
       () => {
-        console.log("emp dropdown", this.level);
         this.filteredOptionslev = this.myControllev.valueChanges
           .pipe(
             startWith(''),
@@ -158,14 +158,15 @@ export class gdwel_7ssComponent implements OnInit {
     return selectedoption ? selectedoption.class_name : undefined;
   }
   change_level(event) {
+    if(event !== null && event !== undefined && event.length !== 0){
+
     let valu = 0;
     if (event.lev_id) {
       valu = event.lev_id
     }
     this.ClassesDataService.GetAllClasses_with_level_id(valu).subscribe(data => this.class = data,
-      error => console.log(error),
+      error => console.log(),
       () => {
-        console.log("emp dropdown", this.class);
         this.filteredOptionsclass = this.myControlclass.valueChanges
           .pipe(
             startWith(''),
@@ -173,6 +174,7 @@ export class gdwel_7ssComponent implements OnInit {
             map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
           );
       });
+    }
   }
 
   filteredEmps : any[] = [];
@@ -181,9 +183,11 @@ export class gdwel_7ssComponent implements OnInit {
   }
 
   change_subject(event) {
+    if(event !== null && event !== undefined && event.length !== 0){
+
     this.EmployeeService.get_emp_def_with_subject_id_with_validation(event.subject_id, this.startTime).subscribe(data => this.emps = data,
-      error => console.log(error),
-      () => console.log("emp dropdown", this.emps));
+      error => console.log());
+    }
   }
 
   ngOnInit() {
@@ -251,14 +255,12 @@ export class gdwel_7ssComponent implements OnInit {
    * @param event calendar event
    */
   onEventDrop(editcontent: any, event: any) {
-    console.log("at7rkt?", event)
     this.formEditData = this.formBuilder.group({
       editTitle: event.event.title,
       editCategory: event.event.classNames[event.event.classNames.length - 1],
     });
     // tslint:disable-next-line: max-line-length
     this.editEvent = { id: event.event.id, title: event.event.title, start: event.event.start, classNames: event.event.classNames[event.event.classNames.length - 1] };
-    console.log("got it", this.editEvent, editcontent)
     var val = {
       id: Number(event.event.id),
       title: event.event.title,
@@ -267,7 +269,6 @@ export class gdwel_7ssComponent implements OnInit {
       className: event.event.classNames[event.event.classNames.length - 1]
 
     };
-    console.log("asd", val)
     this.gdwel_7ssDataService.updategdwel_7ss(val).subscribe(res => {
       alert(res.toString());
     })
@@ -276,9 +277,8 @@ export class gdwel_7ssComponent implements OnInit {
   gdwel_info: any;
   openEditModal(editcontent: any, event: any) {
     this.gdwel_7ssDataService.GetAllgdwel_7ss_with_id(event.event.id).subscribe(data => { this.gdwel_info = data },
-      error => console.log(error),
+      error => console.log(),
       () => {
-        console.log("year_details", this.gdwel_info);
         var selected_subject = String(this.gdwel_info.subject_id);
         this.selectedsubjects1 = this.subjects[this.subjects.findIndex(function (el) {
           return String(el.subject_id) == selected_subject;
@@ -327,7 +327,6 @@ export class gdwel_7ssComponent implements OnInit {
       editTitle: '',
       editCategory: '',
     });
-    console.log("fen!", this.calendarEvents[editId])
     var val = {
       id: this.calendarEvents[editId].id,
       title: this.selectedsubjects1.subject_name,
@@ -341,7 +340,6 @@ export class gdwel_7ssComponent implements OnInit {
       level_id: this.selectedlevel.lev_id
 
     };
-    console.log("asd", val)
     this.gdwel_7ssDataService.updategdwel_7ss(val).subscribe(res => {
       this._fetchData();
       alert(res.toString());
@@ -457,11 +455,11 @@ export class gdwel_7ssComponent implements OnInit {
   }
   Employee: Employee[];
   change_class(event) {
-
+    if(event !== null && event !== undefined && event.length !== 0){
 
     this.gdwel_7ssDataService.get_gdwel_7ss_with_class_id(event.class_id).subscribe(data => this.calendarEvents = data,
-      error => console.log(error),
-      () => console.log("emp dropdown", this.calendarEvents));
+      error => console.log());
+    }
   }
   yourEventResizeFunction(event) { }
   public minTime: any = "09:00:00";
@@ -469,7 +467,6 @@ export class gdwel_7ssComponent implements OnInit {
   public duration: any = "00:00";
   _fetchData() {
     this._7esa_defDataService.get_7esa_def().subscribe((data: any) => {
-      console.log("_7esa_defDataService", data.data)
       this.duration = data.data[0].duration
 
       //  this.minTime = data.data.reduce((earliest, current) => {
@@ -479,7 +476,6 @@ export class gdwel_7ssComponent implements OnInit {
       // this.maxTime = data.data.reduce((latest, current) => {
       //   return (latest > current.end_time) ? latest : current.end_time;
       // }, data.data[0].end_time);
-      console.log("startendtime", this.minTime, this.maxTime)
     })
     // Event category
     this.category = category;
@@ -487,9 +483,7 @@ export class gdwel_7ssComponent implements OnInit {
     //  this.calendarEvents = calendarEvents;
     const userToken = localStorage.getItem(environment.authTokenKey);
     this.decoded = jwt_decode(userToken);
-    console.log("decodedid", this.decoded.id)
     this.EmployeeService.GetAllEmployee_with_id(this.decoded.id).subscribe((data) => {
-      console.log("gdwel_data---", this.Employee);
       this.Employee = data
       if ((data[0].emp_pos_id == 37) || (data[0].emp_pos_id == 38) || (data[0].emp_pos_id == 41)) {
         this.head = 0
@@ -498,7 +492,6 @@ export class gdwel_7ssComponent implements OnInit {
         this.head = 1
       }
       if ((data[0].emp_pos_id == 37) || (data[0].emp_pos_id == 41)) {
-        console.log("gdwel_data2")
         this.gdwel_7ssDataService.GetAllgdwel_7ss().subscribe((data: any) => {
 
           for (let i = 0; i < data.length; i++) {
@@ -507,20 +500,17 @@ export class gdwel_7ssComponent implements OnInit {
             this.cdRef.detectChanges();
           }
 
-          console.log("emp gdwel_data", this.calendarEvents);
         },
-          error => console.log(error),
+          error => console.log(),
           () => {
 
           });
       }
       else if ((data[0].emp_pos_id == 38)) {
         this.gdwel_7ssDataService.GetAllgdwel_7ss().subscribe(data => { this.calendarEvents = data; this.cdRef.detectChanges(); },
-          error => console.log(error),
-          () => { console.log("emp gdwel_data", this.calendarEvents) });
+          error => console.log() );
       }
       else {
-        console.log("gdwel_data1")
         let v = 0;
         if (this.selectedclass && this.selectedclass.class_id) {
           v = this.selectedclass.class_id;
@@ -533,8 +523,7 @@ export class gdwel_7ssComponent implements OnInit {
           this.calendarEvents = data;
           this.cdRef.detectChanges();
         },
-          error => console.log(error),
-          () => console.log("gdwel_data", this.calendarEvents));
+          error => console.log());
       }
 
       // form submit
@@ -577,8 +566,6 @@ export class gdwel_7ssComponent implements OnInit {
     }
     this.totalNumberOfgdwel_7ss = this.totalNumberOfSaturdays + this.totalNumberOfSundays;
 
-    console.log(this.totalNumberOfSaturdays)
-    console.log(this.totalNumberOfSundays)
   }
 
 }
