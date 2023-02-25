@@ -3,10 +3,8 @@ import { Injectable } from '@angular/core';
 // RxJS
 import { BehaviorSubject } from 'rxjs';
 // Object path
-import * as objectPath from 'object-path';
 // Services
 import { MenuConfigService } from './menu-config.service';
-import { MenuConfig } from 'src/app/core/_config/menu.config';
 import { environment } from './../../../../../environments/environment.prod';
 import jwt_decode from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
@@ -55,10 +53,8 @@ export class MenuAsideService {
 	getSecurity() {
 		const userToken = localStorage.getItem(environment.authTokenKey);
 		this.decoded = jwt_decode(userToken);
-	
 		this.http.get('https://localhost:44337/api/employee/id?id=' + this.decoded.id).subscribe({
 		  next: (result: any[]) => {
-			debugger;
 			var employee = result[0];
 			if (employee && employee.emp_pos_id) {
 			  var posId = employee.emp_pos_id as number;

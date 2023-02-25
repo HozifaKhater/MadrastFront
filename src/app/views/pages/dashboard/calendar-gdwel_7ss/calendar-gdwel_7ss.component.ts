@@ -24,6 +24,7 @@ export class gdwel_7ssComponent implements OnInit {
   decoded: any;
 
   data:any[] = [];
+  data2:any[] = [];
 
   days = [
     'الاحد',
@@ -41,24 +42,7 @@ export class gdwel_7ssComponent implements OnInit {
     this.getSecurity();
     this.getAllLevels();
     this.get_gdwel_7ss_new();
-    // for(var i =0 ; i < 5; i++){
-    //   var day = this.days[i];
-    //   var events = [];
-    //   for(var x=1; x<7; x++){
-    //     events.push({
-    //       level: (x+1)*2,
-    //       class: (x+0)*2,
-    //       teacher: `teacher  ${x}`,
-    //       eventtime:  x > 1 ? 1 : 2
-    //     })
-    //   }
-    //   this.data.push({
-    //     day: day,
-    //     events: events
-    //   });
-    // }
-
-    console.log(this.data)
+    this.get_gdwel_7ss_all();
   }
 
   getSecurity() {
@@ -98,8 +82,31 @@ export class gdwel_7ssComponent implements OnInit {
   get_gdwel_7ss_new() {
     this.http.get('https://localhost:44337/api/gdwel_7ss/get_gdwel_7ss_new').subscribe({
       next: (result: any[]) => {
-        debugger;
         this.data = result;
+      },
+      error: (err) => {
+        alert(err.message);
+      }
+    })
+  }
+
+  isApplied(evs :any[], i : number) : boolean{
+      return evs.filter(x=>x.position == (i+1)).length > 0;
+  }
+
+  getTitle(evs :any[], i : number) : string{
+    var hascol =  evs.filter(x=>x.position == (i+1));
+    if(hascol && hascol.length > 0){
+      return hascol[0].title;
+    }
+    return "";
+}
+
+  get_gdwel_7ss_all() {
+    this.http.get('https://localhost:44337/api/gdwel_7ss/get_gdwel_7ss_all').subscribe({
+      next: (result: any[]) => {
+        debugger;
+        this.data2 = result;
       },
       error: (err) => {
         alert(err.message);

@@ -86,4 +86,222 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+<div class="card">
+    <div class="card-header text-right">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <!-- <app-pagetitle title="Calendar" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="app-calendar">
+                                <table class="table table-bordered text-right">
+                                    <thead class="bg-dark text-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let evs of data">
+                                            <td>{{evs.day}}</td>
+                                            <td *ngFor="let ev of evs.events" [attr.colspan]="ev.eventtime">
+                                                <p>{{ev.level}} - {{ev.class}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<div class="card">
+    <div class="card-header text-right">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <!-- <app-pagetitle title="Calendar" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="app-calendar">
+                                <table class="table table-bordered table-responsive text-right">
+                                    <tr class="bg-dark text-light">
+                                        <td rowspan="2">
+                                            #
+                                        </td>
+                                        <td colspan="7">
+                                                الاحد
+                                        </td>
+                                        <td colspan="7">
+                                            الاثنين
+                                        </td>
+                                        <td colspan="7">
+                                            الثلاثاء
+                                        </td>
+                                        <td colspan="7">
+                                            الاربعاء
+                                        </td>
+                                        <td colspan="7">
+                                            الخميس
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-dark text-light">
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                    </tr>
+                                        <tr *ngFor="let evs of data2">
+                                            <td>{{evs.class}}</td>
+                                            <td *ngFor="let item of [].constructor(35);let i = index">
+                                                <p *ngIf="isApplied(evs.events, i)">
+                                                    {{getTitle(evs.events, i)}}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
