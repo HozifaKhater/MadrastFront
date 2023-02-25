@@ -164,10 +164,7 @@ export class CatchRecieptComponent implements OnInit {
             alert("Updated Sucessfully :)");
             this.form1.reset();
             this.CatchRecieptService.BClicked("");
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+            this.is_edit=false;
         })
     }
 	
@@ -175,22 +172,17 @@ export class CatchRecieptComponent implements OnInit {
 
     Cancle() {
         this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        this.is_edit=false;
 	}
 	
     print(){
         window.print();
     }
-    
+    is_edit:boolean=false;
     ngOnInit() {
         
 		this.butDisabled = true;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
+      
 
         this.CatchRecieptService.aClickedEvent
         .subscribe((data: string) => {
@@ -199,11 +191,7 @@ export class CatchRecieptComponent implements OnInit {
                 this.butDisabled = false;         
            }
 
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+           this.is_edit=true;
 
             this.id = this.CatchRecieptService.id;
             this.serial_number = this.CatchRecieptService.serial_number.toString();

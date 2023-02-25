@@ -185,6 +185,7 @@ openModal(content: any, event: any){
 		    })
 
             this.form1.reset();
+            this.is_edit=false;
         }
 	}
    
@@ -260,6 +261,8 @@ openModal(content: any, event: any){
 
  
     priv_info:any=[];
+    
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -282,6 +285,7 @@ openModal(content: any, event: any){
         this.Student_leaveDataService.aClickedEvent
 			.subscribe((data: string) => {
 				
+this.is_edit=true;
                 this.leav_stu_id = this.leav_stu_id;
                 this.student_civilian_id = this.Student_leaveDataService.student_civilian_id;
                 this.student_branch_id = this.student_branch_id;

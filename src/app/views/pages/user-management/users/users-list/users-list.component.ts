@@ -38,7 +38,7 @@ export class UsersListComponent implements OnInit {
     }
     openModal(content: any, event: any){
 
-      this.modalService.open(content,{backdrop:true,size:"xl",});
+      this.modalService.open(content);
   }
     form1: FormGroup;
 	add_maint() {
@@ -55,7 +55,7 @@ export class UsersListComponent implements OnInit {
                 this.MaintenanceDataService.BClicked("")
 
             },
-			error => {console.log();
+			error => {console.log(error);
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
                   if (error.error.errors.hasOwnProperty(fieldName)) {
@@ -86,6 +86,7 @@ export class UsersListComponent implements OnInit {
                 this.MaintenanceDataService.BClicked("");
                
                 
+this.is_edit=false;
             },error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -102,6 +103,7 @@ export class UsersListComponent implements OnInit {
 	}
   
 	priv_info:any=[];
+  is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -112,7 +114,7 @@ export class UsersListComponent implements OnInit {
 
 		this.MaintenanceDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
 				this.maint_id = Number(this.MaintenanceDataService.maint_id);
 				this.maint_date = this.MaintenanceDataService.maint_date;
 				this.maint_type = this.MaintenanceDataService.maint_type;

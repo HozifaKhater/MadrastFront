@@ -148,6 +148,8 @@ export class BehavestatusComponent implements OnInit {
         this.Behavioral_statusDataService.updateBehave(val).subscribe(res => {
            
             alert("Updated Successfully");
+            
+this.is_edit=false;
             this.Behavioral_statusDataService.BClicked("b2");
             this.selectedStudent = [];
             this.selectedclass = [];
@@ -161,6 +163,8 @@ export class BehavestatusComponent implements OnInit {
 	}
     cancel_behav() {
         /*this.form1.reset();*/
+        
+this.is_edit=false;
     }
 
 	filteredOptionslev: Observable<any[]>;
@@ -249,6 +253,7 @@ export class BehavestatusComponent implements OnInit {
     anotherLevelArray: Levels[]=[];
 
     priv_info:any=[];
+    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -273,7 +278,7 @@ export class BehavestatusComponent implements OnInit {
 
         this.Behavioral_statusDataService.aClickedEvent
 			.subscribe((data: string) => {
-                
+                this.is_edit=true;
                 this.behave_stat_id = this.Behavioral_statusDataService.behave_stat_id;
                 this.behave_date = this.Behavioral_statusDataService.behave_date;
                 this.behave_stat_rep = this.Behavioral_statusDataService.behave_stat_rep;

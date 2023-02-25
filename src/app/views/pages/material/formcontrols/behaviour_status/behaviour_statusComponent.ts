@@ -192,10 +192,7 @@ export class behaviours_statusComponent implements OnInit, AfterViewInit {
                 this.myControlStudent.reset();
                 this.myControlclass.reset();
                 this.myControllev.reset();
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+                this.is_edit=false;
             });
         }   
     }
@@ -207,10 +204,7 @@ export class behaviours_statusComponent implements OnInit, AfterViewInit {
         this.myControlStudent.reset();
         this.myControlclass.reset();
         this.myControllev.reset();
-        (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-        (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        this.is_edit=false;
    }
    updatedClass:any;
    updatedStudent:any;
@@ -305,6 +299,8 @@ export class behaviours_statusComponent implements OnInit, AfterViewInit {
     anotherLevelArray: Levels[];
  
     priv_info:any;
+    
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -349,7 +345,7 @@ export class behaviours_statusComponent implements OnInit, AfterViewInit {
             //(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
             //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
             //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
-    
+            this.is_edit=true;
             this.id = Number(this.behaviours_statusDataService.id);
             this.class_id = this.behaviours_statusDataService.class_id;
             this.student_id = this.behaviours_statusDataService.student_id;
@@ -413,9 +409,7 @@ export class behaviours_statusComponent implements OnInit, AfterViewInit {
             if (ele) { ele.click() }
 
         });
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
+        
 
     }
 

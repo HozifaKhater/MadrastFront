@@ -62,6 +62,7 @@ import { CorridorSupervisionListComponent } from './customers/corridor_supervisi
 import { EzonListComponent } from './customers/ezons-list/ezons-list.component';
 import { student_trackingListComponent } from './customers/student_tracking-list/student_tracking-list';
 import { student_tracking_reportListComponent } from './customers/student_tracking_report-list/student_tracking-list';
+import { enzratListComponent } from './customers/enzrat-list/enzrat-list.component';
 // Products
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
@@ -342,6 +343,7 @@ const routes: Routes = [
         SpecificationEditDialogComponent
     ],
     declarations: [
+        enzratListComponent,
         visits_otherComponent,
         absence_studentComponent,
 	month_valueListComponent,advertsListComponent,_7esaListComponent,
@@ -427,6 +429,7 @@ const routes: Routes = [
         Student_leaveListComponent
     ],
     exports: [
+        enzratListComponent,
         visits_otherComponent,
         absence_studentComponent,
 	 month_valueListComponent,advertsListComponent,_7esaListComponent,

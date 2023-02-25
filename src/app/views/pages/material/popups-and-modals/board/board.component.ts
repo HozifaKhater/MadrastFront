@@ -304,23 +304,19 @@ export class boardComponent implements OnInit {
    
 
          
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+            this.is_edit=false;
         })
     
         
 
     }
     cancel_year() {
-        (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-        (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        this.is_edit=false;
     }
     year_data_id: any;
     priv_info:any;
+    
+is_edit:boolean=false;
 	ngOnInit() {
         this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -328,18 +324,14 @@ export class boardComponent implements OnInit {
 			}
 	); 
 
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+       
         /*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
 
         this.boardDataService.aClickedEvent
             .subscribe((data: string) => {
                 //this.newArray = [];
                 console.log("edited");
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+                this.is_edit=true;
 
                 this.board_id = this.boardDataService.board_id;
                // this.board_type_name = this.boardDataService.board_type_name;

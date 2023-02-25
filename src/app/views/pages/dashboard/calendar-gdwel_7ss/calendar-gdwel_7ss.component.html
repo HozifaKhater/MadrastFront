@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" *ngIf="pos_id===38 || pos_id===35">
     <div class="card-header text-right">
         <h3 style="margin-right: 100px;">جدول الحصص</h3>
     </div>
@@ -68,9 +68,9 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let evs of data">
-                                            <td>{{evs.day}}</td>
-                                            <td *ngFor="let ev of evs.events" [attr.colspan]="ev.eventtime">
-                                                <p>{{ev.level}} - {{ev.class}}</p>
+                                            <td >{{evs.day}}</td>
+                                            <td (dblclick)="openModal(ev)" *ngFor="let ev of evs.events" [attr.colspan]="ev.eventtime">
+                                                <p >{{ev.level}} - {{ev.class}}</p>
                                                 <br>
                                                 <p>{{ev.teacher}}</p>
                                             </td>
@@ -89,7 +89,7 @@
 <br>
 <br>
 <br>
-<div class="card">
+<div class="card" *ngIf="pos_id===37 || pos_id===35">
     <div class="card-header text-right">
         <h3 style="margin-right: 100px;">جدول الحصص</h3>
     </div>
@@ -116,7 +116,7 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let evs of data">
-                                            <td>{{evs.day}}</td>
+                                            <td >{{evs.day}}</td>
                                             <td *ngFor="let ev of evs.events" [attr.colspan]="ev.eventtime">
                                                 <p>{{ev.level}} - {{ev.class}}</p>
                                             </td>
@@ -136,7 +136,7 @@
 <br>
 <br>
 <br>
-<div class="card">
+<div class="card" *ngIf="pos_id===39 || pos_id===40 || pos_id===35 || pos_id===44 || pos_id===43">
     <div class="card-header text-right">
         <h3 style="margin-right: 100px;">جدول الحصص</h3>
     </div>
@@ -287,9 +287,9 @@
                                         </td>
                                     </tr>
                                         <tr *ngFor="let evs of data2">
-                                            <td>{{evs.class}}</td>
-                                            <td *ngFor="let item of [].constructor(35);let i = index">
-                                                <p *ngIf="isApplied(evs.events, i)">
+                                            <td >{{evs.class}}</td>
+                                            <td  *ngFor="let item of [].constructor(35);let i = index">
+                                                <p  *ngIf="isApplied(evs.events, i)">
                                                     {{getTitle(evs.events, i)}}
                                                 </p>
                                             </td>

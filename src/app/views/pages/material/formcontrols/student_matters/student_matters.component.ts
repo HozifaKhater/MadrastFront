@@ -171,7 +171,7 @@ export class student_mattersComponent implements OnInit {
 			.subscribe(res => {
 				alert("Updated Successfully");
 				this.student_mattersDataService.BClicked("b2");
-			
+				this.is_edit=false;
 			},
 			error => {console.log();
 			const errorMessages = [];

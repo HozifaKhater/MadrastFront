@@ -168,6 +168,7 @@ export class ViolationrecordComponent implements OnInit {
     
         this.Violation_recordDataService.updateViolation(val).subscribe(res => {
             alert("Updated Sucessfully");
+            this.is_edit=false;
             this.Violation_recordDataService.BClicked("b2");
             this.form1.reset();
 			
@@ -250,6 +251,7 @@ export class ViolationrecordComponent implements OnInit {
   
  
     priv_info:any=[];
+    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -273,7 +275,7 @@ export class ViolationrecordComponent implements OnInit {
 		
         this.Violation_recordDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
                 this.viol_id = this.viol_id;
                 this.viol_date = this.Violation_recordDataService.viol_date;
                 this.violation_id = this.violation_id;

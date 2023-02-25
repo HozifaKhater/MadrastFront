@@ -205,7 +205,7 @@ export class FormfieldComponent implements OnInit {
             this.form1.reset();
             this.MasterJobsDataService.BClicked("");
             
-
+			this.is_edit=false;
 		},error => {console.log(error);
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
@@ -225,10 +225,7 @@ export class FormfieldComponent implements OnInit {
         //for (var j = 0; j < this.privs_edit.length; j++) {
         //    this.privs[j].checked = false;
         //}
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	returned_job_id: any;
 	checkbox_array: any;
@@ -315,6 +312,8 @@ export class FormfieldComponent implements OnInit {
 		this.checkbox_array = formArray.value;
 		console.log("arrayofchecks", event.target)
 	}
+	is_edit:boolean=false;
+
 	ngOnInit() {
 		
 
@@ -330,6 +329,7 @@ export class FormfieldComponent implements OnInit {
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 			
+this.is_edit=true;
 				this.job_id = Number(this.MasterJobsDataService.job_id);
 				this.job_name = this.MasterJobsDataService.job_name;
 				this.job_desc = this.MasterJobsDataService.job_desc;

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { gdwel_7ssComponent } from './calendar-gdwel_7ss.component';
 
-describe('gdwel_7ssComponent', () => {
+describe('CalendarComponent', () => {
   let component: gdwel_7ssComponent;
   let fixture: ComponentFixture<gdwel_7ssComponent>;
 

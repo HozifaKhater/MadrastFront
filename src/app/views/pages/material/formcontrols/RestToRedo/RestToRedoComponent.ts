@@ -224,10 +224,7 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+                
             })
 
         }
@@ -270,10 +267,8 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+                
+this.is_edit=false;
             });
         }
    }
@@ -282,10 +277,8 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
 
    Cancle() {
        this.form1.reset();
-       (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-       (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-       (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-       (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+    
+this.is_edit=false; 
    }
    updatedClass:any;
    updatedStudent:any;
@@ -300,6 +293,7 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
    anotherLevelArray: Levels[];
    
 	priv_info:any;
+    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -328,11 +322,8 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+            this.is_edit=true;
+
     
             this.id = this.RestToRedoService.id;
             this.level_name = this.RestToRedoService.level_name;

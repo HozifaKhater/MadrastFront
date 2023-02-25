@@ -167,6 +167,7 @@ export class RadiobuttonComponent implements OnInit {
             this.ActivityService.updateActivity(val).subscribe(res => {
                 alert("Updated Successfully");
                 this.ActivityService.BClicked("b2");
+                this.is_edit=false;
                 
             }, error => {
                 console.log();

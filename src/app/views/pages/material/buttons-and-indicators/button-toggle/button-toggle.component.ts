@@ -126,6 +126,7 @@ export class ButtonToggleComponent implements OnInit {
 			alert(errorMessages)
 		})
 			this.form1.reset();
+			this.is_edit=false;
 		}
 	}
 	cancel_delay() {

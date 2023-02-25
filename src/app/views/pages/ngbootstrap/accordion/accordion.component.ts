@@ -182,24 +182,21 @@ export class AccordionComponent implements OnInit {
 				alert("Updated Succesfully");
 				this.Add_libDataService.BClicked("b2");
 				this.form1.reset();
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+				
+this.is_edit=false;
 			})
 		}
 	}
 	cancel_lib() {
 		this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+	
+this.is_edit=false;
 	}
 
 	classValue: string="";
 	anotherClassf: def.nat[];
 	priv_info:any;
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -215,6 +212,7 @@ export class AccordionComponent implements OnInit {
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 
+				this.is_edit=true;
 
 				this.lib_id = Number(this.Add_libDataService.lib_id);
 				this.lib_book = String(this.Add_libDataService.lib_book);

@@ -295,7 +295,7 @@ export class VisitComponent implements OnInit {
         this.VisitsDataService.updatevisits(val).subscribe(res => {
             alert("Updated Successfuly");
             this.VisitsDataService.BClicked("b2");
-            
+            this.is_edit=false;
         })
     
         

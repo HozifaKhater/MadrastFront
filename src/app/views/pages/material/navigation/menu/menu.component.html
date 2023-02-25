@@ -458,11 +458,11 @@
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button id="update_btn" type="button" (click)="update_Evaluation_items()" style="border-radius: 20px;"
+        <button id="update_btn" type="button"  *ngIf="is_edit"  (click)="update_Evaluation_items()" style="border-radius: 20px;"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button id="save_btn" type="button" (click)="add_Evaluation_items()" style="border-radius: 20px;" 
+        <button id="save_btn" type="button" *ngIf="!is_edit"   (click)="add_Evaluation_items()" style="border-radius: 20px;" 
                 class="btn btn-primary">
             اضافة
         </button>

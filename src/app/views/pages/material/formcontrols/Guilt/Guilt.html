@@ -58,8 +58,8 @@
                     <div class="kt-form__actions kt-form__actions">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button id="save_btn" type="button" (click)="AddGuilt()" mat-raised-button color="primary">اضافة تهمة</button>&nbsp;
-                                <button id="update_btn" type="button" (click)="UpdateGuilt()" mat-raised-button color="primary"> تعديل التهمة</button>&nbsp;
+                                <button id="save_btn" type="button"  *ngIf="!is_edit"  (click)="AddGuilt()" mat-raised-button color="primary">اضافة تهمة</button>&nbsp;
+                                <button id="update_btn" type="button"   *ngIf="is_edit" (click)="UpdateGuilt()" mat-raised-button color="primary"> تعديل التهمة</button>&nbsp;
                                 <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
                                 <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
 

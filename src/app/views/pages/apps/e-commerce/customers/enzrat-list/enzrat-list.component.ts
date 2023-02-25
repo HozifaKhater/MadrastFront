@@ -332,11 +332,11 @@ export class enzratListComponent implements OnInit, OnDestroy {
 			error => console.log("errorrrrrrrrrrr"),
 			() => {
 				for (let item of this.data_info) {
-					this.	enzratDataService	.	level_id	=	item.	term_id	;
-					this.	enzratDataService	.	class_id	=	item.	subject_id	;
-					this.	enzratDataService	.	alert_type	=	item.	level_id	;
-					this.	enzratDataService	.	student_id	=	item.	class_id	;
-					this.	enzratDataService	.	is_sent	=	item.	date	;
+					this.enzratDataService.level_id = item.level_id;
+					this.enzratDataService.class_id = item.class_id;
+					this.enzratDataService.alert_type = item.alert_type;
+					this.enzratDataService.student_id = item.student_id;
+					this.enzratDataService.is_sent = item.is_sent;
 				   
 
 				   
@@ -354,7 +354,7 @@ export class enzratListComponent implements OnInit, OnDestroy {
 		console.log('enzrat ID', enzrat.ser);
 		this.enzratDataService.delete_from_enzrat(Number(enzrat.ser)).subscribe(res => {
 			this.get_data();
-			alert(res.toString());
+			alert("Deleted successfuly");
 		
 		})
 	

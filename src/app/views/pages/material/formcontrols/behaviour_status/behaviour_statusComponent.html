@@ -441,11 +441,11 @@
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="Update()"
+        <button  *ngIf="is_edit"  type="button" style="border-radius: 20px;" (click)="Update()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="Add()"
+        <button *ngIf="!is_edit"   type="button" style="border-radius: 20px;" (click)="Add()"
                 class="btn btn-primary">
             اضافة
         </button>

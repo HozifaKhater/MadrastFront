@@ -307,6 +307,7 @@ export class ModalComponent_not implements OnInit {
 				alert(res.toString());
 				this.Group_meetingDataService.BClicked("b2");
 				
+this.is_edit=false;
 			})
 			this.form1.reset();
 		}
@@ -329,10 +330,13 @@ export class ModalComponent_not implements OnInit {
 	meetingValue:string="";
 	priv_info:any=[];
 	id:string;
+	is_edit:boolean=false;
+
 	ngOnInit() {
 
 		this.id = this.route.snapshot.paramMap.get('id');
 		if (this.id) {
+			this.is_edit=true;
 			this.group_id = Number(this.Group_meetingDataService.group_id);
 			this.group_name = this.Group_meetingDataService.group_name;
 			this.meeting_no = Number(this.Group_meetingDataService.meeting_no);

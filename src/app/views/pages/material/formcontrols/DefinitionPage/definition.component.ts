@@ -95,6 +95,7 @@ export class DefinitionComponent implements OnInit {
 
         this.DefinitionService.updateDefinition(updatedDefinition).subscribe(res => {
             alert("Updated Succesfully");
+            this.is_edit=false;
             this.DefinitionService.BClicked("test");
             this.form1.reset();
             
@@ -104,6 +105,7 @@ export class DefinitionComponent implements OnInit {
 
     cancel_definition() {
         this.form1.reset();
+        this.is_edit=false;
        
     }
 
@@ -118,6 +120,7 @@ export class DefinitionComponent implements OnInit {
     myForm: FormGroup = this.initModelForm();
 
     priv_info:any=[];
+    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -132,6 +135,7 @@ export class DefinitionComponent implements OnInit {
 
         this.DefinitionService.aClickedEvent
             .subscribe((data: string) => {
+                this.is_edit=true;
                 if (Number(this.DefinitionService.def_id) != 0) {
 
                     this.butDisabled = false;

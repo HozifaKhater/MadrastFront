@@ -283,7 +283,7 @@ export class Card_notComponent implements OnInit {
             alert(res.toString());
             this.ta7dier_masterDataService.BClicked("");
             this.form1.reset();
-			
+			this.is_edit=false;
 		})
 			this.form1.reset();
 		}
@@ -333,11 +333,13 @@ export class Card_notComponent implements OnInit {
 	  }
 	  id: string;
 	priv_info:any[] = [];
+	
+is_edit:boolean=false;
 	ngOnInit() {
 		this.id = this.route.snapshot.paramMap.get('id');
 		if (this.id) {
 			
-				
+			this.is_edit=true;
 				this.ta7dier_id = Number(this.ta7dier_masterDataService.ta7dier_id);
 				
 				this.emp_id = this.ta7dier_masterDataService.emp_id;

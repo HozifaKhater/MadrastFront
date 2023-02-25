@@ -7,38 +7,6 @@
             <div class="kt-form__filtration">
                 <div class="row align-items-center">
 
-                    <div class="col-md-2 kt-margin-bottom-10-mobile">
-                        <!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->
-                        <div class="kt-form__control">
-                            <mat-form-field class="mat-form-field-fluid">
-                                <mat-select [(value)]="filterStatus" (selectionChange)="loadCustomersList()">
-                                    <mat-option value="">كل</mat-option>
-                                    <mat-option value="0">Suspended</mat-option>
-                                    <mat-option value="1">Active</mat-option>
-                                    <mat-option value="Pending">Pending</mat-option>
-                                </mat-select>
-                                <mat-hint align="start">
-                                    <strong>تصنيف</strong> بالصف
-                                </mat-hint>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 kt-margin-bottom-10-mobile">
-
-                        <div class="kt-form__control">
-                            <mat-form-field class="mat-form-field-fluid">
-                                <mat-select [(value)]="filterType" (selectionChange)="loadCustomersList()">
-                                    <mat-option value="">كل</mat-option>
-                                    <mat-option value="0">Business</mat-option>
-                                    <mat-option value="1">Individual</mat-option>
-                                </mat-select>
-                                <mat-hint align="start">
-                                    <strong>تصنيف</strong> بالحالة
-                                </mat-hint>
-                            </mat-form-field>
-                        </div>
-                    </div>
 
                     <div class="col-md-2 kt-margin-bottom-10-mobile">
                         <mat-form-field class="mat-form-field-fluid">
@@ -69,7 +37,7 @@
                             <!-- for example: Selected records count: 4 -->
                         </div>
                         <div class="kt-form__control kt-form__group--inline">
-                            <ng-template ngxPermissionsOnly="canDeleteECommerceData">
+                            <!-- <ng-template ngxPermissionsOnly="canDeleteECommerceData">
                                 <button (click)="deleteCustomers()"
                                         mat-raised-button
                                         color="accent"
@@ -77,17 +45,17 @@
                                         class="mat-button-mt-4">
                                     <mat-icon>delete</mat-icon>
                                     Delete All
-                                </button>&nbsp;<!-- Call 'delete-entity-dialog' from _shared folder -->
-                            </ng-template>
+                                </button>&nbsp;
+                            </ng-template> -->
 
-                            <button (click)="fetchCustomers()" mat-raised-button matTooltip="Fetch selected customers" class="mat-button-mt-4">
+                            <!-- <button (click)="fetchCustomers()" mat-raised-button matTooltip="Fetch selected customers" class="mat-button-mt-4">
                                 <mat-icon>clear_all</mat-icon>
                                 Fetch Selected
-                            </button>&nbsp;<!-- Call 'fetch-entity-dialog' from _shared folder -->
+                            </button>&nbsp;
                             <button (click)="updateStatusForCustomers()" mat-raised-button matTooltip="Update status for selected customers" class="mat-button-mt-4">
                                 <mat-icon>update</mat-icon>
                                 Update status
-                            </button><!-- Call 'update-stated-dialog' from _shared folder -->
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -139,7 +107,7 @@
                 </ng-container>
                 <ng-container matColumnDef="student">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>الطالب  </mat-header-cell>
-                    <mat-cell *matCellDef="let enzrat">{{enzrat.student}}</mat-cell>
+                    <mat-cell *matCellDef="let enzrat">{{enzrat.student_name}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="alert_type">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>نوع الانذار  </mat-header-cell>
@@ -174,13 +142,13 @@
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef>تفاعلات</mat-header-cell>
                     <mat-cell *matCellDef="let enzrat">
-                        <ng-template ngxPermissionsOnly="canEditECommerceData">
+                        <div div>
                             <button mat-icon-button color="primary" matTooltip="Edit customer" (click)="edit_subject(enzrat)">
                                 <mat-icon>create</mat-icon>
                             </button>&nbsp;
-                        </ng-template>
+                        </div>
 
-                        <ng-template ngxPermissionsOnly="canDeleteECommerceData">
+                        <div>
                             <button mat-icon-button
                                     color="warn"
                                     matTooltip="Delete customer"
@@ -188,7 +156,7 @@
                                     (click)="delete_subject(enzrat)">
                                 <mat-icon>delete</mat-icon>
                             </button>&nbsp;
-                        </ng-template>
+                        </div>
 
                         <!--<button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="More actions">
                             <mat-icon>more_vert</mat-icon>

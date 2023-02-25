@@ -1,286 +1,458 @@
-<div class="row" *ngIf="head == 1">
-    <div class="col-lg-12">
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-caption">
-                    <div class="kt-portlet__head-title">
-                        <span class="kt-portlet__head-icon kt-hide">
-                            <i class="la la-gear"></i>
-                        </span>
-                        <h3 class="kt-portlet__head-text">
-                            <i class="fas fa-tasks" style="margin:5px;"></i>
-                            جدول الحصص
-                        </h3>
+<div class="card" *ngIf="pos_id===38 || pos_id===35">
+    <div class="card-header text-right">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    <div class="card-body">
+        <div *ngIf="head == 1">
+            <form [formGroup]="calendarForm" (ngSubmit)="onSubmit()">
+                <div class="form-group kt-form__group row">
+                    <label class="col-lg-3 col-form-label">
+                        الصف
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-6 example-container">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-select
+                            (ngModelChange)="change_level($event)"
+                            [(ngModel)]="selectedlevel"
+                             formControlName="selectedlevel" >
+                                <mat-option *ngFor="let level of levels" [value]="level.lev_id">
+                                    {{ level.lev_name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="calendarForm.get('selectedlevel').hasError('required')">
+                              حقل الصف مطلوب
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row">
+                    <label class="col-lg-3 col-form-label">
+                        الفصل
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-6 example-container">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-select
+                            [(ngModel)]="selectedclass"
+                             formControlName="selectedclass" >
+                                <mat-option *ngFor="let cls of classes" [value]="cls.class_id">
+                                    {{ cls.class_name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="calendarForm.get('selectedlevel').hasError('required')">
+                              حقل الفصل مطلوب
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="container-fluid">
+            <!-- <app-pagetitle title="Calendar" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="app-calendar">
+                                <table class="table table-bordered text-right">
+                                    <thead class="bg-dark text-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr  *ngFor="let evs of data">
+                                            <td >{{evs.day}}</td>
+                                            <td (dblclick)="openModal(content,ev)" *ngFor="let ev of evs.events" [attr.colspan]="ev.eventtime">
+                                                <p >{{ev.level}} - {{ev.class}}</p>
+                                                <br>
+                                                <p>{{ev.teacher}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--begin::Form-->
-            <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
-                <div class="kt-portlet__body">
-                    <div class="kt-form__section kt-form__section--first">
-
-
-                        <div class="form-group kt-form__group row">
-
-                            <div class="col-lg-4">
-                                            <mat-form-field>
-                                                <!--<mat-label>
-                                                    الصف
-                                                </mat-label>-->
-                                                <input name="level" type="text" matInput [(ngModel)]="selectedlevel"
-                                                       (ngModelChange)="change_level($event)" placeholder="أختر الصف" [formControl]="myControllev"
-                                                       [matAutocomplete]="autolevel" forceSelection="lev_name">
-                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
-                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
-                                                        {{ level.lev_name }}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-                                  
-                                        <div class="col-lg-4">
-                                            <mat-form-field>
-                                                <!--<mat-label>
-                                                    الفصل
-                                                </mat-label>-->
-                                                <input name="class" type="text" matInput [(ngModel)]="selectedclass"
-                                                       (ngModelChange)="change_class($event)" placeholder="أختر الفصل" [formControl]="myControlclass"
-                                                       [matAutocomplete]="autoclass" forceSelection="class_name">
-                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
-                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
-                                                        {{ class.class_name }}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="card" *ngIf="pos_id===37 || pos_id===35">
+    <div class="card-header text-right">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <!-- <app-pagetitle title="Calendar" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="app-calendar">
+                                <table class="table table-bordered text-right">
+                                    <thead class="bg-dark text-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let evs of data">
+                                            <td >{{evs.day}}</td>
+                                            <td *ngFor="let ev of evs.events" [attr.colspan]="ev.eventtime">
+                                                <p>{{ev.level}} - {{ev.class}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-                                <div class="container-fluid">
-                                    <app-pagetitle title="Calendar" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="app-calendar">
-                                                        calendar
-                                                        <full-calendar #calendar defaultView="dayGridMonth" id="calendarID" [header]="{
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'}" [plugins]="calendarPlugins"
-                                                                       (eventResize)="yourEventResizeFunction($event)" eventResizableFromStart="true"
-                                                                       [eventLimit]="true" [editable]="true" [weekends]="calendarWeekends" themeSystem='bootstrap'
-                                                                       [bootstrapFontAwesome]="true" deepChangeDetection="true" [events]="calendarEvents"
-                                                                       (dateClick)="openModal(content, $event)" (eventClick)="openEditModal(editcontent, $event)"
-                                                                       (eventDrop)="onEventDrop(editcontent, $event)">
-                                                        </full-calendar>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+</div>
+
+<br>
+<br>
+<br>
+<div class="card" *ngIf="pos_id===39 || pos_id===40 || pos_id===35 || pos_id===44 || pos_id===43|| pos_id===45">
+    <div class="card-header text-right">
+        <h3 style="margin-right: 100px;">جدول الحصص</h3>
+    </div>
+    <div class="card-body">
+        <div *ngIf="head == 1">
+            <form [formGroup]="calendarForm" (ngSubmit)="onSubmit()">
+                <div class="form-group kt-form__group row">
+                    <label class="col-lg-3 col-form-label">
+                        الصف
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-6 example-container">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-select  
+                            (ngModelChange)="change_level($event)"
+                            formControlName="selectedlevel"
+                            [(ngModel)]="selectedlevel"
+                            >
+                                <mat-option *ngFor="let level of levels" [value]="level.lev_id">
+                                    {{ level.lev_name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="calendarForm.get('selectedlevel').hasError('required')">
+                              حقل الصف مطلوب
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row">
+                    <label class="col-lg-3 col-form-label">
+                        الفصل
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-6 example-container">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-select 
+                            [(ngModel)]="selectedclass"
+                            formControlName="selectedclass" >
+                                <mat-option *ngFor="let cls of classes" [value]="cls.class_id">
+                                    {{ cls.class_name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="calendarForm.get('selectedlevel').hasError('required')">
+                              حقل الفصل مطلوب
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container-fluid">
+            <!-- <app-pagetitle title="Calendar" [breadcrumbItems]="breadCrumbItems"></app-pagetitle> -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="app-calendar">
+                                <table class="table table-bordered table-responsive text-right">
+                                    <tr class="bg-dark text-light">
+                                        <td rowspan="2">
+                                            #
+                                        </td>
+                                        <td colspan="7">
+                                                الاحد
+                                        </td>
+                                        <td colspan="7">
+                                            الاثنين
+                                        </td>
+                                        <td colspan="7">
+                                            الثلاثاء
+                                        </td>
+                                        <td colspan="7">
+                                            الاربعاء
+                                        </td>
+                                        <td colspan="7">
+                                            الخميس
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-dark text-light">
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            7
+                                        </td>
+                                    </tr>
+                                        <tr  *ngFor="let evs of data2">
+                                            <td  >{{evs.class}}</td>
+                                            <td (dblclick)="openModal(content,evs)" *ngFor="let item of [].constructor(35);let i = index">
+                                                <p  *ngIf="isApplied(evs.events, i)">
+                                                    {{getTitle(evs.events, i)}}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
 
 
-                                <ng-template #content let-modal>
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">اضافه حصه</h5>
-                                        <button type="button" class="close" aria-hidden="true" (click)="closeEventModal()"></button>
-                                    </div>
-                                    <div class="modal-body p-3">
-                                        <form [formGroup]="formData">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">اسم الماده</label>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">اضافه حصه</h5>
+        <button type="button" class="close" aria-hidden="true" (click)="closeEventModal()"></button>
+    </div>
+    <div class="modal-body p-3">
+        <form [formGroup]="formData">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="control-label">اسم الماده</label>
 
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-select name="department" (ngModelChange)="change_subject($event)"
-                                                                        formControlName="selectedsubjects1" [(ngModel)]="selectedsubjects1" placeholder="الماده"
-                                                                        id="departmentsdropdown">
+                        <mat-form-field class="example-full-width">
+                            <mat-select name="department" (ngModelChange)="change_subject($event)"
+                                        formControlName="selectedsubjects1" [(ngModel)]="selectedsubjects1" placeholder="الماده"
+                                        id="departmentsdropdown">
 
-                                                                <mat-option *ngFor="let subjects of subjects" [value]="subjects">
-                                                                    {{ subjects.subject_name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                        <!--<input class="form-control" placeholder="Insert Event Name" type="text" name="title"
-                                                        >-->
-                                                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                                                            <span *ngIf="form.title.errors.required">This value is required.</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">المدرس</label>
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-select name="department" formControlName="selectedemp" [(ngModel)]="selectedemp" (selectionChange)="employeeChanged($event.value)"
-                                                                        placeholder="المدرس">
-                                                                <mat-option *ngFor="let emp of emps" [value]="emp">
-                                                                    {{ emp.emp_name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-
-
-                                                        <!--<select class="form-control"
-                                                                name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && form.category.errors }">
-                                                            <option *ngFor="let option of category" value="{{ option.value }}">
-                                                                {{ option.name }}
-                                                            </option>
-                                                        </select>-->
-                                                        <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
-                                                            <div *ngIf="form.category.errors.required">This value is required</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">المدرسين الاحتياطى</label>
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-select name="department" formControlName="selectedreplaceemp"
-                                                                        [(ngModel)]="selectedreplaceemp" placeholder="المدرسين الاحتياطى" multiple>
-                                                                <mat-option *ngFor="let emp of filteredEmps" [value]="emp">
-                                                                    {{ emp.emp_name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                        <!-- <select [(ngModel)]="selecteddepartment"
-                                                                placeholder="المدرس"
-                                                                id="departmentsdropdown"
-                                                                formControlName="category"
-                                                                class="form-control"
-                                                                multiple
-                                                                [ngClass]="{'is-invalid': submitted && form.category.errors}">
-                                                            <option value="null" disabled="true" [selected]="true">Placeholder text..</option>
-                                                            <option *ngFor="let emp of Employees" [value]="emp">
-                                                                {{ emp.emp_name }}
-                                                            </option>
-                                                        </select> -->
-                                                        <!--<select class="form-control"
-                                                                name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && form.category.errors }">
-                                                            <option *ngFor="let option of category" value="{{ option.value }}">
-                                                                {{ option.name }}
-                                                            </option>
-                                                        </select>-->
-                                                        <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
-                                                            <div *ngIf="form.category.errors.required">This value is required</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="text-right pt-4">
-                                                <button type="button" class="btn btn-light" (click)="closeEventModal()">Close</button>
-                                                <button type="submit" class="btn btn-success save-event ml-1" (click)="saveEvent()">Save</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </ng-template>
+                                <mat-option *ngFor="let subjects of subjects" [value]="subjects">
+                                    {{ subjects.subject_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!--<input class="form-control" placeholder="Insert Event Name" type="text" name="title"
+                        >-->
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                            <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="control-label">المدرس</label>
+                        <mat-form-field class="example-full-width">
+                            <mat-select name="department" formControlName="selectedemp" [(ngModel)]="selectedemp" (selectionChange)="employeeChanged($event.value)"
+                                        placeholder="المدرس">
+                                <mat-option *ngFor="let emp of emps" [value]="emp">
+                                    {{ emp.emp_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
 
 
-                                <ng-template #editcontent let-modal>
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edit Event</h5>
-                                        <button type="button" class="close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-                                    </div>
-                                    <div class="modal-body p-3">
-                                        <form [formGroup]="formEditData" (ngSubmit)="editEventSave()">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">اسم الماده</label>
+                        <!--<select class="form-control"
+                                name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && form.category.errors }">
+                            <option *ngFor="let option of category" value="{{ option.value }}">
+                                {{ option.name }}
+                            </option>
+                        </select>-->
+                        <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
+                            <div *ngIf="form.category.errors.required">This value is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="control-label">المدرسين الاحتياطى</label>
+                        <mat-form-field class="example-full-width">
+                            <mat-select name="department" formControlName="selectedreplaceemp"
+                                        [(ngModel)]="selectedreplaceemp" placeholder="المدرسين الاحتياطى" multiple>
+                                <mat-option *ngFor="let emp of filteredEmps" [value]="emp">
+                                    {{ emp.emp_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <select [(ngModel)]="selecteddepartment"
+                                placeholder="المدرس"
+                                id="departmentsdropdown"
+                                formControlName="category"
+                                class="form-control"
+                                multiple
+                                [ngClass]="{'is-invalid': submitted && form.category.errors}">
+                            <option value="null" disabled="true" [selected]="true">Placeholder text..</option>
+                            <option *ngFor="let emp of Employees" [value]="emp">
+                                {{ emp.emp_name }}
+                            </option>
+                        </select> -->
+                        <!--<select class="form-control"
+                                name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && form.category.errors }">
+                            <option *ngFor="let option of category" value="{{ option.value }}">
+                                {{ option.name }}
+                            </option>
+                        </select>-->
+                        <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
+                            <div *ngIf="form.category.errors.required">This value is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-select name="department" [ngModelOptions]="{standalone: true}"
-                                                                        [(ngModel)]="selectedsubjects1" placeholder="القسم الرئيسي" id="departmentsdropdown">
-
-                                                                <mat-option *ngFor="let subjects of subjects" [value]="subjects">
-                                                                    {{ subjects.subject_name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                        <!--<input class="form-control" placeholder="Insert Event Name" type="text" name="title"
-                                                        >-->
-                                                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                                                            <span *ngIf="form.title.errors.required">This value is required.</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">المدرس</label>
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-select name="department" [ngModelOptions]="{standalone: true}"
-                                                                        [(ngModel)]="selectedemp" placeholder="القسم الرئيسي">
-                                                                <mat-option *ngFor="let emp of Employees" [value]="emp">
-                                                                    {{ emp.emp_name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-
-
-                                                        <!--<select class="form-control"
-                                                                name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && form.category.errors }">
-                                                            <option *ngFor="let option of category" value="{{ option.value }}">
-                                                                {{ option.name }}
-                                                            </option>
-                                                        </select>-->
-                                                        <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
-                                                            <div *ngIf="form.category.errors.required">This value is required</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">المدرسين الاحتياطى</label>
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-select name="department" [ngModelOptions]="{standalone: true}"
-                                                                        [(ngModel)]="selectedreplaceemp" placeholder="القسم الرئيسي" multiple>
-                                                                <mat-option *ngFor="let emp of Employees" [value]="emp">
-                                                                    {{ emp.emp_name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                        <!-- <select [(ngModel)]="selecteddepartment"
-                                                                placeholder="المدرس"
-                                                                id="departmentsdropdown"
-                                                                formControlName="category"
-                                                                class="form-control"
-                                                                multiple
-                                                                [ngClass]="{'is-invalid': submitted && form.category.errors}">
-                                                            <option value="null" disabled="true" [selected]="true">Placeholder text..</option>
-                                                            <option *ngFor="let emp of Employees" [value]="emp">
-                                                                {{ emp.emp_name }}
-                                                            </option>
-                                                        </select> -->
-                                                        <!--<select class="form-control"
-                                                                name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && form.category.errors }">
-                                                            <option *ngFor="let option of category" value="{{ option.value }}">
-                                                                {{ option.name }}
-                                                            </option>
-                                                        </select>-->
-                                                        <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
-                                                            <div *ngIf="form.category.errors.required">This value is required</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <div class="text-right p-3">
-                                        <button type="button" class="btn btn-light" (click)="modal.dismiss('Close')">Close</button>
-                                        <button type="button" class="btn btn-danger delete-event ml-1" (click)="confirm()">Delete</button>
-                                        <button type="button" class="btn btn-success ml-1" (click)="editEventSave()">Save</button>
-                                    </div>
-                                </ng-template>
+            <div class="text-right pt-4">
+                <button type="button" class="btn btn-light" (click)="closeEventModal()">Close</button>
+                <button type="submit" class="btn btn-success save-event ml-1" *ngIf="!is_edit" (click)="saveEvent()">Save</button>
+                <button type="button" class="btn btn-danger delete-event ml-1" *ngIf="is_edit" (click)="confirm()">Delete</button>
+                <button type="button" class="btn btn-success ml-1" *ngIf="is_edit" (click)="editEventSave()">Save</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

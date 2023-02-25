@@ -232,10 +232,7 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
            alert("Updated Sucessfully ");
            this.form1.reset();
            this.RegimeCouncilStudentService.BClicked("");
-           (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-           (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-           (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-           (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+           this.is_edit=false;
        })
    }
    
@@ -243,20 +240,15 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
 
    Cancle() {
        this.form1.reset();
-       (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-       (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-       (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-       (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+       this.is_edit=false;
    }
    updatedClass:any;
    updatedStudent:any;
-
+   is_edit:boolean=false;
     ngOnInit() {
 
         this.butDisabled = true;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
+       
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
             error => console.log(error),
@@ -276,11 +268,7 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+            this.is_edit=true;
     
             this.id = this.RegimeCouncilStudentService.id;
             this.level_name = this.RegimeCouncilStudentService.level_name;

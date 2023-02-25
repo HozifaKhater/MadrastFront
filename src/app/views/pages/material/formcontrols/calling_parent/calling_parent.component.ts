@@ -68,7 +68,7 @@ export class calling_parentsComponent implements OnInit {
     
 
     behave_date:any;
-    cancel_behav(){}
+    cancel_behav(){this.is_edit=false;}
 behave_stat_rep:any;
 
 	departments: DepartmentMaster[];
@@ -155,7 +155,7 @@ behave_stat_rep:any;
            
             alert(res.toString());
             this.calling_parentsDataService.BClicked("b2");
-        
+            this.is_edit=false;
 		})
 
 	}

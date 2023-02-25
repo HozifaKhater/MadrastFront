@@ -96,15 +96,16 @@ export class ProgressBarComponent implements OnInit {
                 
             })
             this.form1.reset();
+			this.is_edit=false;
         }
 	}
     cancel_level() {
 		this.form1.reset();
 		this.LevelsDataService.BClicked("b2");
-		
+		this.is_edit=false;
 	}
 
-	
+	is_edit:boolean=false;
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -117,7 +118,7 @@ export class ProgressBarComponent implements OnInit {
 
 		this.LevelsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.lev_id = Number(this.LevelsDataService.lev_id);
 				this.lev_name = this.LevelsDataService.lev_name;
 				this.lev_class_no = Number(this.LevelsDataService.lev_class_no);

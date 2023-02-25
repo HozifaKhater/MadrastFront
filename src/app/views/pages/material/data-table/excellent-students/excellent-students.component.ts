@@ -183,6 +183,8 @@ export class ExcellentstudentsComponent implements OnInit {
 
 			this.Excellent_studentsDataService.updateExcellent_students(val).subscribe(res => {
 				alert("Updates Successfully");
+				
+this.is_edit=false;
 				this.form1.reset();
 				this.myControlStudent.reset();
 				this.myControlclass.reset();
@@ -292,6 +294,8 @@ export class ExcellentstudentsComponent implements OnInit {
     }
 
 	priv_info:any=[];
+	is_edit:boolean=false;
+
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -313,7 +317,7 @@ export class ExcellentstudentsComponent implements OnInit {
 
 		this.Excellent_studentsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.exc_stu_id = Number(this.Excellent_studentsDataService.exc_stu_id);
 				this.exc_stu_lev = this.Excellent_studentsDataService.exc_stu_lev;
 				this.exc_stu_clas = this.Excellent_studentsDataService.exc_stu_clas;

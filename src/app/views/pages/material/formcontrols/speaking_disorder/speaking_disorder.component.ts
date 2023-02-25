@@ -296,6 +296,7 @@ export class Speaking_disorderComponent implements OnInit {
             this.myControlclass.reset();
             this.myControllev.reset();
           
+this.is_edit=false;
 
 		})
             this.form1.reset();
@@ -395,6 +396,8 @@ export class Speaking_disorderComponent implements OnInit {
     anotherLevelArray: Levels[];
 
 	priv_info:any=[];
+    
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -416,7 +419,7 @@ export class Speaking_disorderComponent implements OnInit {
 		
         this.Speaking_disorderDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
                 this.speech_dis_id = this.speech_dis_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality_name = this.Speaking_disorderDataService.nationality_name;

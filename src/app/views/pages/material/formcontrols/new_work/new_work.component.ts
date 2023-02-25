@@ -90,7 +90,7 @@ export class new_workComponent implements OnInit {
         this.new_workDataService.updatenew_work(val).subscribe(res => {
 			alert(res.toString());
 			this.new_workDataService.BClicked("b2");
-			
+			this.is_edit=false;
 		},error => {console.log();
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
@@ -106,7 +106,7 @@ export class new_workComponent implements OnInit {
 
 	}
 	cancel_nework() {
-
+		this.is_edit=false;
 	}
 
 	priv_info:any=[];

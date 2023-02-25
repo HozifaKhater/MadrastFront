@@ -145,10 +145,8 @@ export class MenuComponent implements OnInit {
 				this.Evaluation_itemsService.updateEvaluation_items(val).subscribe(res => {
 					alert(res.toString());
 					this.Evaluation_itemsService.BClicked("b2");
-					(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-					(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-					(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-					(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+					
+this.is_edit=false;
 				})
 			}
 			this.form1.reset();
@@ -156,12 +154,12 @@ export class MenuComponent implements OnInit {
 	}
 	cancel_Evaluation_items() {
 		this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		
+this.is_edit=false;
 	}
 	priv_info:any;
+	is_edit:boolean=false;
+
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -189,6 +187,7 @@ export class MenuComponent implements OnInit {
 				})];
 
 	
+this.is_edit=true;
 
 				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
 				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;

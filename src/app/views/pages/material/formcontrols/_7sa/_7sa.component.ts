@@ -194,19 +194,13 @@ export class _7saComponent implements OnInit {
                 this.form1.reset();
                 this.butDisabled = true;
                 this.selecteddepartment = '';
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+                this.is_edit=false;
             })
         }
 	}
     cancel_department() {
         this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	side_dep_chck_change(event) {
 		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {

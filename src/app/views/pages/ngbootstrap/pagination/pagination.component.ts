@@ -200,6 +200,8 @@ export class PaginationComponent implements OnInit {
                 this.ObservationsDataService.BClicked("");
                 alert("Updated Succesfully");
                 this.form1.reset();
+                
+this.is_edit=false;
                 this.myControlEmp.reset();
                 this.myControlTime.reset();
                 this.myControlclass.reset();
@@ -226,6 +228,8 @@ export class PaginationComponent implements OnInit {
     anotherClassArray: Classes[] = [];
    
     priv_info:any=[];
+    
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -272,6 +276,7 @@ export class PaginationComponent implements OnInit {
 		
 		this.ObservationsDataService.aClickedEvent
 			.subscribe((data: string) => {
+                this.is_edit=true;
 
 				this.observer_id = Number(this.ObservationsDataService.observer_id);
 				this.observ_ftra = this.ObservationsDataService.observ_ftra;

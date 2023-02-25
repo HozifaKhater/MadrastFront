@@ -199,20 +199,14 @@ export class DividerComponent implements OnInit {
                 alert("Updated Successfully");
                 this.Good_bad_students_cardService.BClicked("")
 /*                this.form1.reset()*/;
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+this.is_edit=false;
             })
 /*        }*/
 
 	}
     cancel_goodbadstudents() {
 /*        this.form1.reset();*/
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+this.is_edit=false;
 	}
 
 

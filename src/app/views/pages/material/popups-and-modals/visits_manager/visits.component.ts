@@ -265,6 +265,7 @@ export class VisitManagerComponent implements OnInit {
 
             alert("Added Successfuly");
             this.VisitsDataService.BClicked("b2");
+            this.is_edit=false;
         })
             this.form1.reset();
         }

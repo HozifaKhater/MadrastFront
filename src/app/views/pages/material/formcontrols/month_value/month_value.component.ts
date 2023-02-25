@@ -220,19 +220,13 @@ export class month_valueComponent implements OnInit {
                 this.form1.reset();
                 this.butDisabled = true;
                 this.selecteddepartment = '';
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+				this.is_edit=false;
             })
         }
 	}
     cancel_department() {
         this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	side_dep_chck_change(event) {
 		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
@@ -257,6 +251,8 @@ export class month_valueComponent implements OnInit {
     }
     test1: any[];
     priv_info:any;
+	
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -283,12 +279,7 @@ export class month_valueComponent implements OnInit {
 					this.butDisabled = false;         
 				}
 			
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-				/*this.employeedepartment.emp_id = 1;*/
-				/*this.selecteddepartment.dep_id = Number(this.DepartmentService.dep_id);*/
+				this.is_edit=true;
 
 				console.log("department",this.selecteddepartment);
 				this.ser = this.month_valueDataService.ser;

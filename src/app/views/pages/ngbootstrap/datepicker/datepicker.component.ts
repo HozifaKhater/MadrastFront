@@ -209,20 +209,15 @@ export class DatepickerComponent implements OnInit {
 
 		this.divisionsDataService.updatedivisions(val).subscribe(res => {
 			alert(res.toString());
-			(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-			(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+			this.is_edit=false;
 		})
 
 	}
 	cancel_div() {
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 
+	is_edit:boolean=false;
 
 	ngOnInit() {
 		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
@@ -232,10 +227,7 @@ export class DatepickerComponent implements OnInit {
 		this.divisionsDataService.aClickedEvent
 			.subscribe((data: string) => {
 				console.log("edited");
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+				this.is_edit=true;
 
 
 				this.div_id = Number(this.divisionsDataService.div_id);

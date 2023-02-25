@@ -218,16 +218,10 @@ selectedghat:any;
 		console.log("dataservice", this.Takeem_masterDataService)
 		this.Takeem_masterDataService.EClicked("");
 		this.Takeem_masterDataService.AFTERsaveClicked("");
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	cancel_takeem_master() {
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 
 	priv_info:any;
@@ -268,8 +262,7 @@ selectedghat:any;
 			
 	 });
 
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+	
 		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
 
 		// this.Takeem_masterDataService.aClickedEvent

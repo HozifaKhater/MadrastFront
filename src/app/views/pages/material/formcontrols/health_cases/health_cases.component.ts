@@ -240,6 +240,7 @@ export class Health_casesComponent implements OnInit {
             
                 alert("Updated Succesfuly");
                 this.Health_casesDataService.BClicked("b2");
+                this.is_edit=false;
                 this.form1.reset();
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
@@ -345,6 +346,7 @@ export class Health_casesComponent implements OnInit {
     anotherLevelArray: Levels[];
  
 	priv_info:any=[];
+    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -369,7 +371,7 @@ export class Health_casesComponent implements OnInit {
 
         this.Health_casesDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
                 this.health_id = this.health_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality = this.Health_casesDataService.nationality;

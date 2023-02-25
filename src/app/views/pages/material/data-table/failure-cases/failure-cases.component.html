@@ -455,8 +455,8 @@
                             <div class="row">
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-6">
-                                    <button id="save_btn" type="button" (click)="add_failure()" mat-raised-button color="primary">اضافة</button>&nbsp;
-                                    <button id="update_btn" type="button" (click)="update_failure()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                    <button id="save_btn" type="button"  *ngIf="!is_edit"  (click)="add_failure()" mat-raised-button color="primary">اضافة</button>&nbsp;
+                                    <button id="update_btn" type="button"  *ngIf="is_edit"  (click)="update_failure()" mat-raised-button color="primary">تعديل</button>&nbsp;
                                     <button id="cancel_btn"  type="button" (click)="cancel_failure()" mat-raised-button color="primary">الغاء</button>&nbsp;
 
                                 </div>

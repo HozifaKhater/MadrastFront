@@ -120,11 +120,12 @@ export class ProgressSpinnerComponent implements OnInit {
 				
 			})
 				this.form1.reset();
+				this.is_edit=false;
 			}
 	}
 	cancel_class() {
 		this.form1.reset();
-		
+		this.is_edit=false;
 	}
 
 	filteredOptionslev: Observable<any[]>;
@@ -139,6 +140,8 @@ export class ProgressSpinnerComponent implements OnInit {
 	levelNameValue: string="";
 	corrValue: string="";
 	priv_info:any=[];
+	
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -161,6 +164,7 @@ export class ProgressSpinnerComponent implements OnInit {
 
 		this.ClassesDataService.aClickedEvent
 			.subscribe((data: string) => {
+				this.is_edit=true;
 				this.class_id = Number(this.ClassesDataService.class_id);
 				this.class_mr7la = this.ClassesDataService.class_mr7la;
 				this.class_level = this.ClassesDataService.class_level;

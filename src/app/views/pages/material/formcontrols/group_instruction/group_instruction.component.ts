@@ -138,6 +138,7 @@ export class group_instructioncomponentComponent implements OnInit {
 
 		this.instructionsDataService.updateinstructions(val).subscribe(res => {
 			alert("Updated Successfully");
+			this.is_edit=false;
 			this.form1.reset();
 			this.instructionsDataService.BClicked("");
 			
@@ -161,7 +162,9 @@ export class group_instructioncomponentComponent implements OnInit {
 	}
 	
     priv_info:any=[];
+	is_edit:boolean=false;
 	ngOnInit() {
+		
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
 			error => console.log(),
@@ -172,7 +175,7 @@ export class group_instructioncomponentComponent implements OnInit {
 
 		this.instructionsDataService.aClickedEvent
 			.subscribe((data: string) => {
-			
+				this.is_edit=true;
                 this.ser = String(this.instructionsDataService.ser);
                 this.level_name = this.instructionsDataService.level_name;
                 this.level_id = this.instructionsDataService.level_id;

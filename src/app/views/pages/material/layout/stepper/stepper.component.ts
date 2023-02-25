@@ -157,6 +157,7 @@ export class StepperComponent implements OnInit {
 			this.Corridor_supervisionDataService.updateCorridor_supervision(val).subscribe(res => {
 				alert(res.toString());
 				this.Corridor_supervisionDataService.BClicked("b2");
+				this.is_edit=false;
 				this.form1.reset();
 				this.selectedcorridor = [];
 				this.selecteddepartment = [];
@@ -251,6 +252,8 @@ export class StepperComponent implements OnInit {
 	anotherCorridorArray: corridor[] = [];
 
 	priv_info:any=[];
+	
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -286,7 +289,7 @@ export class StepperComponent implements OnInit {
 	
 		this.Corridor_supervisionDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.supervision_id = Number(this.Corridor_supervisionDataService.supervision_id);
 				this.basic_emp_name = this.Corridor_supervisionDataService.basic_emp_name;
 				this.spare_emp_id = this.Corridor_supervisionDataService.spare_emp_id;

@@ -117,6 +117,7 @@ export class mentality_inquiriesComponent implements OnInit {
                 alert("Updated Succesfully");
 				this.mentality_inquiriesDataService.BClicked("");
                 this.form1.reset();
+                this.is_edit=false;
                
             },error => {
                 const errorMessages = [];
@@ -134,9 +135,10 @@ export class mentality_inquiriesComponent implements OnInit {
 	}
     cancel_subject() {
         this.form1.reset();
-		
+		this.is_edit=false;
 	}
 
+    is_edit:boolean=false;
 	 priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -150,7 +152,8 @@ export class mentality_inquiriesComponent implements OnInit {
 		
 
         this.mentality_inquiriesDataService.aClickedEvent
-			.subscribe((data: string) => {			
+			.subscribe((data: string) => {	
+                this.is_edit=true;		
                 this.id = String(this.mentality_inquiriesDataService.id);
                 this.problem_type = this.mentality_inquiriesDataService.problem_type;
                 this.answer = this.mentality_inquiriesDataService.answer;

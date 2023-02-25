@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 // NGRX
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -25,13 +26,14 @@ import { ChangePasswordComponent } from './users/_subs/change-password/change-pa
 import { AddressComponent } from './users/_subs/address/address.component';
 import { SocialNetworksComponent } from './users/_subs/social-networks/social-networks.component';
 import { ECommerceModule } from '../apps/e-commerce/e-commerce.module';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // Material
 import {
+   
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatSortModule,
+    MatSortModule,  
     MatTableModule,
     MatSelectModule,
     MatMenuModule,
@@ -101,6 +103,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
+        NgbModule,
         ECommerceModule,
         CommonModule,
         HttpClientModule,
@@ -139,7 +142,8 @@ const routes: Routes = [
     ],
     entryComponents: [
         ActionNotificationComponent,
-        RoleEditDialogComponent
+        RoleEditDialogComponent,
+        
     ],
     declarations: [
         UserManagementComponent,

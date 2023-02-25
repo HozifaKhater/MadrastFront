@@ -411,6 +411,7 @@ export class InputComponent implements OnInit {
         this.EmployeeService.updateEmployee(val).subscribe(res => {
             this.EmployeeService.BClicked("saved_emppp");
             alert("Updated Succ");
+            this.is_edit=false;
             this.form1.reset();
 			
 		})

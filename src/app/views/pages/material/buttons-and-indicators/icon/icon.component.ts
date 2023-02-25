@@ -257,6 +257,7 @@ is_dep:boolean=true;
 
 			alert("Updated Succesfully");
 			this.NchraDataService.BClicked("b2");
+			this.is_edit=false;
 			
 		},error => {console.log();
 			const errorMessages = [];

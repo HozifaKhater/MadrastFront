@@ -251,19 +251,13 @@ export class student_basic_dataComponent implements OnInit {
 			this.myControlclass.reset();
 			this.myControllev.reset();
 			this.student_basic_dataDataService.BClicked("");
-			(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-			(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+			this.is_edit=false;
 		})
 
 	}
 	cancel_failure() {
 		this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	filteredOptionslev: Observable<any[]>;
 
@@ -353,6 +347,7 @@ classVar:any;
 anotherStuArray:Student[];
 anotherClassArray:Classes[];
 anotherLevelArray: Levels[];
+is_edit:boolean=false;
 	priv_info:any;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
@@ -379,7 +374,7 @@ anotherLevelArray: Levels[];
 				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-
+				this.is_edit=true;
 				this.ser	=	String(this.student_basic_dataDataService.ser)	;
 				this.previous_school	=	this.student_basic_dataDataService.previous_school	;
 				this.address	=	this.student_basic_dataDataService.address	;

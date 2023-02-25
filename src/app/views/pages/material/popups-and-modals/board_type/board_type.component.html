@@ -10,7 +10,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="kt-portlet__head-text">
-                            تعريف الجلسه
+                            تعريف المجلس
                         </h3>
                     </div>
                 </div>
@@ -204,8 +204,8 @@
                         <div class="row">
 
                             <div class="col-lg-6">
-                                <button id="save_btn" (click)="add()" mat-raised-button color="primary">حفظ</button>&nbsp;
-                                <button id="update_btn" (click)="update()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="save_btn"  *ngIf="!is_edit"   (click)="add()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn"   *ngIf="is_edit"  (click)="update()" mat-raised-button color="primary">تعديل</button>&nbsp;
                                 <button id="cancel_btn" (click)="cancel()" mat-raised-button color="primary">الغاء</button>&nbsp;
                                 <!--<button mat-raised-button type="reset">حذف</button>-->
                             </div>

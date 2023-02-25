@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { _7esa, _7esaMaster } from '../../../../_7esaMaster.Model';
 import { _7esa_defDataService } from '../../../../Services/_7esaDataService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../../../environments/environment.prod';
 import jwt_decode from 'jwt-decode';
+import { Employee } from '../../../../EmployeeMaster.Model';
+import { EmployeeDataService } from '../../../../Services/EmployeeDataService';
 
 @Component({
   selector: 'app-calendar-gdwel_7ss',
@@ -34,17 +36,34 @@ export class gdwel_7ssComponent implements OnInit {
     'الخميس',
   ]
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private cdRef:ChangeDetectorRef,
+    private EmployeeDataService: EmployeeDataService,
+    private fb: FormBuilder, private http: HttpClient) {
   }
   ngAfterViewInit() {
   }
+  public pos_id:number = 0;
   ngOnInit() {
     this.getSecurity();
     this.getAllLevels();
     this.get_gdwel_7ss_new();
     this.get_gdwel_7ss_all();
+    this.EmployeeDataService.GetAllEmployee_with_id(this.decoded.id).subscribe((data) => {
+			this.pos_id= data[0].emp_pos_id
+			
+		
+			this.cdRef.detectChanges();
+		},
+			error => console.log(error),
+            () => { 
+		
+			});
   }
-
+  openModal(event){
+  
+    console.log("event",event)
+  }
   getSecurity() {
     const userToken = localStorage.getItem(environment.authTokenKey);
     this.decoded = jwt_decode(userToken);
@@ -83,6 +102,7 @@ export class gdwel_7ssComponent implements OnInit {
     this.http.get('https://localhost:44337/api/gdwel_7ss/get_gdwel_7ss_new').subscribe({
       next: (result: any[]) => {
         this.data = result;
+       
       },
       error: (err) => {
         alert(err.message);
@@ -105,8 +125,9 @@ export class gdwel_7ssComponent implements OnInit {
   get_gdwel_7ss_all() {
     this.http.get('https://localhost:44337/api/gdwel_7ss/get_gdwel_7ss_all').subscribe({
       next: (result: any[]) => {
-        debugger;
+       
         this.data2 = result;
+        console.log("gdwel_7ss",this.data2)
       },
       error: (err) => {
         alert(err.message);
@@ -117,4 +138,5 @@ export class gdwel_7ssComponent implements OnInit {
   onSubmit() {
     console.log(this.calendarForm.value)
   }
+
 }

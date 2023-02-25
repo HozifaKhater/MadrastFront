@@ -175,6 +175,7 @@ export class statusComponent implements OnInit {
 		
 			this.statusDataService.BClicked("");
 			this.form1.reset();
+			this.is_edit=false;
 			this.myControllev.reset();
 			this.myControlclass.reset();
 			this.myControlstudent.reset();
@@ -185,6 +186,7 @@ export class statusComponent implements OnInit {
 	cancel() {
 		this.form1.reset();
 		this.myControllev.reset();
+		this.is_edit=false;
 		this.myControlclass.reset();
 		this.myControlstudent.reset();
 		
@@ -284,6 +286,7 @@ export class statusComponent implements OnInit {
 	}
 
 	priv_info:any=[];
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -307,6 +310,7 @@ export class statusComponent implements OnInit {
 
 		this.statusDataService.aClickedEvent
 			.subscribe((data: string) => {
+				this.is_edit=true;
                 this.id = String(this.statusDataService.id);
                 this.dob = this.statusDataService.dob;
                 this.notes = this.statusDataService.notes;

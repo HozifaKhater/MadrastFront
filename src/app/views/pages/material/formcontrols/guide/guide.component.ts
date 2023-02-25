@@ -182,6 +182,7 @@ export class guideComponent implements OnInit {
 		this.guideDataService.updateguide(val).subscribe(res => {
 			alert(res.toString());
 			this.guideDataService.BClicked("");
+			this.is_edit=false;
 			this.form1.reset();
 			this.myControllev.reset();
 			this.myControlclass.reset();
@@ -203,6 +204,7 @@ export class guideComponent implements OnInit {
 	}
 	cancel_department() {
 		this.form1.reset();
+		this.is_edit=false;
 		this.myControllev.reset();
 		this.myControlclass.reset();
 		this.myControlstudent.reset();
@@ -281,6 +283,7 @@ export class guideComponent implements OnInit {
 
 	
 	priv_info:any=[];
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -303,6 +306,7 @@ export class guideComponent implements OnInit {
 		this.guideDataService.aClickedEvent
 			.subscribe((data: string) => {
 			
+this.is_edit=true;
                 this.id = String(this.guideDataService.id);
                 this.service = this.guideDataService.services;
                 this.notes = this.guideDataService.ntoes;

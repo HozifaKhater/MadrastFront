@@ -142,6 +142,7 @@ export class ChipsComponent implements OnInit {
 			this.Student_premDataService.updateStudent_prem(val).subscribe(res => {
 				alert("Updated Succesfully");
 				this.Student_premDataService.BClicked("b2");
+				this.is_edit=false;
 				this.form1.reset();
 				this.myControllev.reset();
 				this.myControlclass.reset();

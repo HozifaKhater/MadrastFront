@@ -137,23 +137,17 @@ export class teacher_opinion_visitComponent implements OnInit {
                 this.teacher_opinion_visitDataService.BClicked("");
                 this.notes="";
 				this.is_agree="1";
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+				this.is_edit=false;
             })
         
 	}
     cancel_subject() {
         this.notes="";
 		this.is_agree="1";
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	priv_info:any;
-
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -170,6 +164,7 @@ export class teacher_opinion_visitComponent implements OnInit {
 				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+				this.is_edit=true;
 				this.ser	=	this.teacher_opinion_visitDataService.ser	;
 				this.takeem_id	=	this.teacher_opinion_visitDataService.takeem_id	;
 				this.emp_id	=	this.teacher_opinion_visitDataService.emp_id	;

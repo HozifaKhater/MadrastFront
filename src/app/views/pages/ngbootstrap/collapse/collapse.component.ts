@@ -51,7 +51,7 @@ export class CollapseComponent implements OnInit {
 	Departments: Departments[];
 	selecteddepartment: any;
 	students: Student[];
-	selectedstudent: any;
+	selectedstudent: any=[];
 	level: Levels[];
 	selectedlevel: any;
 	class: Classes[];
@@ -76,8 +76,8 @@ export class CollapseComponent implements OnInit {
 			this.bus_check=true;
 			this.form1 = this._fb.group({
 				selecteddepartment: ['', [Validators.required]],
-				employeedepartment: ['', [Validators.required]],
-				selectedstudent: ['', [Validators.required]]
+				employeedepartment: ['', [Validators.required]]
+			
 
 			});
 			
@@ -161,16 +161,17 @@ level_id:this.selectedlevel.lev_id
 			};
 			this.TripsDataService.addtrips(val).subscribe(res => {
 				this.returned_trip_id = res.toString();
-				if(this.selectedstudent !== null){
-
+				if(this.selectedstudent){
+					console.log("val this.selectedstudent",this.selectedstudent)
 					for (let i = 0; i < this.selectedstudent.length; i++) {
 						var val = {
 							trip_id: Number(this.returned_trip_id),
 							student_id: this.selectedstudent[i].student_id,
 							student_name: this.selectedstudent[i].student_name
 						}
+						//console.log("val details",val)
 						this.TripsDataService.addtrips_details(val).subscribe(res => {
-						})
+						},error=>console.log(error))
 					}
 				}
 				
@@ -189,13 +190,13 @@ level_id:this.selectedlevel.lev_id
             })
 			alert("Saved Successfully");
 			this.TripsDataService.BClicked("");
-			this.form1.reset();
-			this.myControllev.reset();
-			this.myControlclass.reset();
-			this.myControlstudent.reset();
-			this.selectedstudent = [];
-			this.selectedclass = [];
-			this.selectedlevel = [];
+			// this.form1.reset();
+			// this.myControllev.reset();
+			// this.myControlclass.reset();
+			// this.myControlstudent.reset();
+			// this.selectedstudent = [];
+			// this.selectedclass = [];
+			// this.selectedlevel = [];
 
 		}
 	}
@@ -248,10 +249,12 @@ level_id:this.selectedlevel.lev_id
 
 				alert("Updated Successfully");
 				this.TripsDataService.BClicked("test");
-				this.form1.reset();
-				this.myControllev.reset();
-				this.myControlclass.reset();
-				this.myControlstudent.reset();
+				
+this.is_edit=false;
+				// this.form1.reset();
+				// this.myControllev.reset();
+				// this.myControlclass.reset();
+				// this.myControlstudent.reset();
 				
 			},error => {
                 const errorMessages = [];
@@ -296,11 +299,12 @@ level_id:this.selectedlevel.lev_id
 			this.StudentDataService.GetAllStudent_of_class(event.class_id).subscribe(data => this.students = data,
 				error => console.log(),
 				() => {
-					this.TripsDataService.GetAlldetails_trips_with_trip_id(12).subscribe(data => this.trip_details = data,
+
+					this.TripsDataService.GetAlldetails_trips_with_trip_id(this.TripsDataService.trip_id).subscribe(data => this.trip_details = data,
 						error => console.log(),
 						() => {
 
-							console.log("this.trip_details",this.trip_details)
+							//console.log("this.trip_details",this.trip_details)
 							this.selectedstudent = this.students.filter((x) =>
 							this.trip_details.some((member) => member.student_id === x.student_id)
 						  );
@@ -320,6 +324,7 @@ level_id:this.selectedlevel.lev_id
 
 	priv_info:any=[];
 	trip_details:any[]=[]
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -344,7 +349,7 @@ level_id:this.selectedlevel.lev_id
 
 		this.TripsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.trip_id = Number(this.TripsDataService.trip_id);
 				this.trip_loc = this.TripsDataService.trip_loc;
 				this.trip_date = this.TripsDataService.trip_date;

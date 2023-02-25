@@ -89,10 +89,7 @@ export class GuiltComponent implements OnInit, AfterViewInit {
        this.GuiltServices.UpdateGuilt(updatedGuilt).subscribe(res => {
            this.form1.reset();
            this.GuiltServices.BClicked("");
-           (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-           (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-           (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-           (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+           this.is_edit=false;
        })
    }
    
@@ -100,23 +97,19 @@ export class GuiltComponent implements OnInit, AfterViewInit {
 
    Cancle() {
        this.form1.reset();
-       (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-       (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-       (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-       (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+       this.is_edit=false;
    }
 
 
 
+   is_edit:boolean=false;
     ngOnInit() {
 
         this.butDisabled = true;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
-
+     
         this.GuiltServices.aClickedEvent
         .subscribe((data: string) => {
+            this.is_edit=true;
             this.guilt = this.GuiltServices.guilt;
             this.date_of_guilt = this.GuiltServices.date_of_guilt;
             this.details_of_guilt = this.GuiltServices.details_of_guilt;

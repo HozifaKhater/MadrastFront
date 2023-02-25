@@ -304,8 +304,8 @@
                                     data-dismiss="modal">
                                     إغلاق
                                 </button>
-                                    <button type="button" style="border-radius: 20px;" (click)="update()" class="btn btn-primary">تعديل</button>
-                                    <button type="button" style="border-radius: 20px;" (click)="add()" class="btn btn-primary">اضافة</button>
+                                    <button type="button" style="border-radius: 20px;" *ngIf="is_edit"   (click)="update()" class="btn btn-primary">تعديل</button>
+                                    <button type="button" style="border-radius: 20px;" *ngIf="!is_edit"   (click)="add()" class="btn btn-primary">اضافة</button>
 
 
                                 </div>

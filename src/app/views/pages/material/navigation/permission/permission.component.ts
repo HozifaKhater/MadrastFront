@@ -222,26 +222,17 @@ selectedghat:any;
 		this.Takeem_masterDataService.evaluation_date=this.evaluation_date;
 		console.log("dataservice", this.Takeem_masterDataService)
 		this.Takeem_masterDataService.EClicked("");
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	cancel_takeem_master() {
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
-
+	is_edit:boolean=false;
 
 	ngOnInit() {
 		this.Takeem_masterDataService.aClickedEvent
 		.subscribe((data: string) => {
-					(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-		 		(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+			this.is_edit=true;
 		console.log("testdclick1111",this.Takeem_masterDataService);
 		this.evaluation_date = this.Takeem_masterDataService.evaluation_date;
 		var selected_object = String(this.Takeem_masterDataService.evaluation_object_id);

@@ -652,6 +652,7 @@ export class SelectComponent implements OnInit {
 
 			this.StudentDataService.BClicked("b2");
 			this.is_edit=false;
+			
 		})
 			this.form1.reset();
 		//}

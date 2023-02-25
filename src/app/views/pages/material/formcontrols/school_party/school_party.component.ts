@@ -133,6 +133,8 @@ export class SchoolpartyComponent implements OnInit {
             this.School_partyDataService.updateParty(val).subscribe(res => {
                 alert("Updated Successfully");
                 this.School_partyDataService.BClicked("b2");
+                
+this.is_edit=false;
                
             })
             this.form1.reset();
@@ -141,7 +143,7 @@ export class SchoolpartyComponent implements OnInit {
 	}
    
 
-	
+	is_edit:boolean=false;
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -153,7 +155,7 @@ export class SchoolpartyComponent implements OnInit {
 		
         this.School_partyDataService.aClickedEvent
             .subscribe((data: string) => {
-             
+                this.is_edit=true;
                 this.sch_party_id = this.School_partyDataService.sch_party_id;
                 this.dep_id = String(this.School_partyDataService.dep_id);
                 this.dep_name = this.School_partyDataService.dep_name;

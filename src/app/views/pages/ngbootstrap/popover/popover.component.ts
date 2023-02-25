@@ -83,7 +83,7 @@ export class PopoverComponent implements OnInit {
 			this.Corr_meetingDataService.updateCorr_meeting(val).subscribe(res => {
 				alert(res.toString());
 				this.Corr_meetingDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			},
 			error => {console.log();
                 const errorMessages = [];
@@ -102,6 +102,7 @@ export class PopoverComponent implements OnInit {
 	
 
 	priv_info:any=[];
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(),
@@ -113,6 +114,7 @@ export class PopoverComponent implements OnInit {
 		this.Corr_meetingDataService.aClickedEvent
 			.subscribe((data: string) => {
 
+				this.is_edit=true;
 				this.corr_meet_id = Number(this.Corr_meetingDataService.corr_meet_id);
 				this.corr_meet_date = this.Corr_meetingDataService.corr_meet_date;
 				this.corr_meet_time = this.Corr_meetingDataService.corr_meet_time;

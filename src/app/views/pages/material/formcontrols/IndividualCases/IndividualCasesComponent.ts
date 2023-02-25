@@ -262,6 +262,7 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
             .subscribe(res => {
                     alert("Updated Sucessfully");
                     this.IndividualCasesService.BClicked("");
+                    this.is_edit=false;
                     this.form1.reset();
                     this.myControlStudent.reset();
                     this.myControlclass.reset();
@@ -286,6 +287,7 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
    anotherDefArray: Definition[];
 
     priv_info:any=[];
+    is_edit:boolean=false;
     ngOnInit() {
        this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
        .subscribe(data =>this.priv_info = data,
@@ -326,7 +328,7 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
             if (Number(this.IndividualCasesService.id) != 0) {
                 this.butDisabled = false;         
             }
-    
+            this.is_edit=true;
             this.id = this.IndividualCasesService.id;
             this.level_name = this.IndividualCasesService.level_name;
             this.class_id = this.IndividualCasesService.class_id.toString();

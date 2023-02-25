@@ -136,6 +136,7 @@ export class DailystatpartyComponent implements OnInit {
 
             this.Daily_absence_statDataService.updateDailystat(val).subscribe(res => {
                 alert("Updated Successfully");
+                this.is_edit=false;
                 this.Daily_absence_statDataService.BClicked("b2");
                 
             })
@@ -147,6 +148,8 @@ export class DailystatpartyComponent implements OnInit {
 
 
 	priv_info:any=[];
+    
+is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -157,7 +160,7 @@ export class DailystatpartyComponent implements OnInit {
 
         this.Daily_absence_statDataService.aClickedEvent
             .subscribe((data: string) => {
-             
+                this.is_edit=true;
                 var selected_levels = String(this.Daily_absence_statDataService.lev_id);
                 this.selectedlevels = this.Levels[this.Levels.findIndex(function (el) {
                     return String(el.lev_id) == selected_levels;

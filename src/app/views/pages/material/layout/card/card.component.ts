@@ -283,7 +283,7 @@ export class CardComponent implements OnInit {
             alert(res.toString());
             this.ta7dier_masterDataService.BClicked("");
             this.form1.reset();
-			
+			this.is_edit=false;
 		})
 			this.form1.reset();
 		}

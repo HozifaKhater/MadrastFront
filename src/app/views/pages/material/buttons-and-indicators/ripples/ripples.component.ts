@@ -80,15 +80,18 @@ export class RipplesComponent implements OnInit {
 			
 		})
             this.form1.reset();
+			this.is_edit=false;
         }
 
 	}
     cancel_mra7l() {
         this.form1.reset();
+		this.is_edit=false;
 		
 	}
 
 	priv_info:any=[];
+	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -102,6 +105,8 @@ export class RipplesComponent implements OnInit {
 		this.Mra7lDataService.aClickedEvent
 			.subscribe((data: string) => {
 				
+this.is_edit=true;
+
 				this.mr7la_id = Number(this.Mra7lDataService.mr7la_id);
 				this.mr7la_name = this.Mra7lDataService.mr7la_name;
 				this.mr7la_code = Number(this.Mra7lDataService.mr7la_code);

@@ -279,6 +279,8 @@ export class BottomSheetComponent implements OnInit {
 		this.School_dataDataService.updateSchool_data(val).subscribe(res => {
 			alert("Updated Successfully");
 			this.form1.reset();
+			
+this.is_edit=false;
 			this.myControlAss1.reset();
 			this.myControlAss2.reset();
 			this.myControlAss3.reset();
@@ -303,6 +305,7 @@ export class BottomSheetComponent implements OnInit {
 	cancel_school() {
 		this.form1.reset();
 		
+this.is_edit=false;
 	}
 
 
@@ -312,7 +315,7 @@ export class BottomSheetComponent implements OnInit {
 	Ass2: any =[];
 	Ass3: any = [];
 	Ass4: any = [];
-
+	is_edit:boolean=false;
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -378,7 +381,7 @@ export class BottomSheetComponent implements OnInit {
 
 		this.School_dataDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
 				this.school_id = Number(this.School_dataDataService.school_id);
 				this.school_name = this.School_dataDataService.school_name;
 				this.school_man = this.School_dataDataService.school_man;

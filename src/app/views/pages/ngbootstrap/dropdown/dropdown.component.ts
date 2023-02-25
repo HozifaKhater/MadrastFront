@@ -168,6 +168,7 @@ export class DropdownComponent implements OnInit {
             });
 			alert("Updated Successfully");
 			this.teams_and_groupsDataService.BClicked("");
+			this.is_edit=false;
 			this.form1.reset();
 			
 		},error => {console.log(error);

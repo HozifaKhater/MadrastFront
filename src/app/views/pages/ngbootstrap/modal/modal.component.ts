@@ -322,7 +322,7 @@ export class ModalComponent implements OnInit {
 			this.Group_meetingDataService.updateGroup_meeting(val).subscribe(res => {
 				alert(res.toString());
 				this.Group_meetingDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			})
 			this.form1.reset();
 		}

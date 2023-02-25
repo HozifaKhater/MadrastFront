@@ -235,6 +235,7 @@ export class CheckboxComponent implements OnInit {
             this.DepartmentService.updateDepartment(val).subscribe(res => {
                 alert(res.toString());
                 this.DepartmentService.BClicked('Component B is clicked!!');
+				this.is_edit=false;
 				this.DepartmentService.GetAllMasterdepartment().subscribe(data => this.departments = data,
 					error => console.log());
 

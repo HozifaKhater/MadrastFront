@@ -170,6 +170,7 @@ export class swotComponent implements OnInit {
                 this.swotDataService.BClicked('Component B is clicked!!');
                 this.form1.reset();
                 
+this.is_edit=false;
                 this.selecteddepartment = '';
                 
             })
@@ -188,6 +189,7 @@ export class swotComponent implements OnInit {
 
 
    	priv_info:any=[];
+	   is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -209,7 +211,7 @@ export class swotComponent implements OnInit {
 				
 		this.swotDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.ser	=	this.swotDataService.ser	;
 				this.dep_id = this.swotDataService.dep_id;
 				this.dep_name = this.swotDataService.dep_name;

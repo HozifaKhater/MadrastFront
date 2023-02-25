@@ -149,14 +149,14 @@ export class GridListEntryComponent implements OnInit {
                 alert("Updated Successfully");
                 this.EzonDataService.BClicked("test");
                 this.form1.reset();
-                
+                this.is_edit=false;
             })
         }
 	}
     cancel_ezon() {
 		this.modalService.dismissAll();
         this.form1.reset();
-		
+		this.is_edit=false;
 	}
 
 	dept: Departments[]=[];

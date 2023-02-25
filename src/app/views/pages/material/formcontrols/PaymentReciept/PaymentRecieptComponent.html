@@ -186,8 +186,8 @@
                     <div class="kt-form__actions kt-form__actions">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button id="save_btn" type="button" (click)="AddPaymentReciept()" mat-raised-button color="primary">حفظ</button>&nbsp;
-                                <button id="update_btn" type="button" (click)="UpdatePaymentReciept()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="save_btn" type="button" *ngIf="!is_edit"   (click)="AddPaymentReciept()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" type="button"  *ngIf="is_edit"  (click)="UpdatePaymentReciept()" mat-raised-button color="primary">تعديل</button>&nbsp;
                                 <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
                                 <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
                                 <button type="button"  (click)="print()" mat-raised-button color="primary">اطبع</button>&nbsp;
