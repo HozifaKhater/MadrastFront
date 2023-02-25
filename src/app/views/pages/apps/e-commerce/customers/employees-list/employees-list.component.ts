@@ -19,54 +19,37 @@ import { CustomerModel, CustomersDataSource, CustomersPageRequested, OneCustomer
 import { CustomerEditDialogComponent } from '../customer-edit/customer-edit.dialog.component';
 import { EmployeeDataService } from '../../../../../../Services/EmployeeDataService';
 import { EmployeeMaster, Employee } from '../../../../../../EmployeeMaster.Model';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../../Services/user_privDataService ';
 
-// Table with EDIT item in MODAL
-// ARTICLE for table with sort/filter/paginator
-// https://blog.angular-university.io/angular-material-data-table/
-// https://v5.material.angular.io/compgetItemCssClassByStatusonents/table/overview
-// https://v5.material.angular.io/components/sort/overview
-// https://v5.material.angular.io/components/table/overview#sorting
-// https://www.youtube.com/watch?v=NSt9CI3BXv4
 @Component({
-	// tslint:disable-next-line:component-selector
 	selector: 'kt-emps-list',
 	templateUrl: './employees-list.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 	
-	/*,providers: [DepartmentDataService]*/
 })
 export class EmployeesListComponent implements OnInit, OnDestroy {
-	// Table fields
-
-
-    Element1: [{ id: "1" },
-        { id: "2" }];
+	
 	displayedColumns = ['select', 'emp_id', 'emp_name', 'emp_nationality', 'emp_civilian_id', 'actions'];
 
 	ELEMENT_DATA: Element[];
-        //= [{ "dep_id": 1, "dep_name": "main dep", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{"dep_id": 2, "dep_name": "asdasd","dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null},
-        //{ "dep_id": 3, "dep_name": "asd", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{ "dep_id": 4, "dep_name": "main dep2", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null },
-        //{ "dep_id": 5, "dep_name": "Master Department", "dep_desc": null, "dep_supervisor_id": 0, "dep_supervisor_name": null }]
-/*	dataSource: [{ "dep_id": 1, "dep_name": "main dep", "dep_desc": "asdasd", "dep_supervisor_id": 0, "dep_supervisor_name": "1", "parent_id": 1 }];*/
-	/*dataSource = new MatTableDataSource(this.ELEMENT_DATA)*/
+        
     @ViewChild(MatSort, { static: true }) sort: MatSort; 
 	dataSource: any;
-    	//this.dataSource.push(model);  //add the new model object to the dataSource
-		//this.dataSource = [...this.dataSource];  //refresh the dataSource
+
 	emps: EmployeeMaster[];
-	//dataSource = new MatTableDataSource<OrdersDetailsDataSource>(null);
 	
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-	//@ViewChild('sort1', { static: true }) sort: MatSort;
+
 	// Filter fields
 	@ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 	filterStatus: string = '';
 	filterType: string = '';
+	
 	// Selection
-	selection = new SelectionModel<CustomerModel>(true, []);
-	customersResult: CustomerModel[] = [];
+	selection = new SelectionModel<any>(true, []);
+	customersResult: any[] = [];
+	
 	// Subscriptions
 	private subscriptions: Subscription[] = [];
 	
@@ -80,6 +63,7 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 	 * @param store: Store<AppState>
 	 */
 	constructor(
+		private router: Router, private user_privDataService: user_privDataService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
 		private layoutUtilsService: LayoutUtilsService,
@@ -94,17 +78,11 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 	get_emps() {
 		
 		this.EmployeeDataService.GetAllEmployee().subscribe(data => this.ELEMENT_DATA = data,
-			error => console.log(error),
+			error => console.log(),
 			() => this.dataSource.data = this.ELEMENT_DATA
         );
     }
-	/**
-	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-	 */
-
-	/**
-	 * On init
-	 */
+	
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
     }
@@ -117,11 +95,35 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
         this.get_emps()
     }
 
+	masterToggle() {
+		this.customersResult = this.ELEMENT_DATA
+		if (this.selection.selected.length === this.ELEMENT_DATA.length) {
+			this.selection.clear();
+		} else {
+			this.customersResult.forEach(row => this.selection.select(row));
+		}
+	}
+
+	deleteCustomers() {
+		for (let i = 0; i < this.selection.selected.length; i++) {
+			this.EmployeeDataService.deleteEmployee(Number(this.selection.selected[i].emp_id))
+			.subscribe((data: string) => {
+                this.get_emps();
+            });
+		}
+		alert("تم حذف الكل");
+	}
+
+	priv_info:any=[];
 	ngOnInit() {
-       
-		let model: any = [{ 'id': 1, 'assetID': 2, 'severity': 3, 'riskIndex': 4, 'riskValue': 5, 'ticketOpened': true, 'lastModifiedDate': "2018 - 12 - 10", 'eventType': 'Add' }];  //get the model from the form
-		//this.dataSource.push(model);  //add the new model object to the dataSource
-		//this.dataSource = [...this.dataSource];  //refresh the dataSource
+		
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
+			error => console.log()); 
+
+		this.EmployeeDataService.bClickedEvent
+			.subscribe((data: string) => {
+				this.get_emps();
+			});
 
 		// If the user changes the sort order, reset back to the first page.
 		const sortSubscription = this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
@@ -150,15 +152,7 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 			.subscribe();
 		this.subscriptions.push(searchSubscription);
 
-		// Init DataSource
-	/*	this.dataSource = new CustomersDataSource(this.store);*/
-		//const entitiesSubscription = this.dataSource.entitySubject.pipe(
-		//	skip(1),
-		//	distinctUntilChanged()
-		//).subscribe(res => {
-		//	this.customersResult = res;
-		//});
-		/*this.subscriptions.push(entitiesSubscription);*/
+		
 		// First load
 		of(undefined).pipe(take(1), delay(1000)).subscribe(() => { // Remove this line, just loading imitation
 			this.loadCustomersList();
@@ -191,7 +185,6 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 		// Call request from server
 		this.store.dispatch(new CustomersPageRequested({ page: queryParams }));
 		this.selection.clear();
-        console.log("yyyy",this.ELEMENT_DATA);
 	}
 
 	/**
@@ -227,31 +220,6 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 	 * @param _item: CustomerModel
 	 */
 
-
-	/**
-	 * Delete selected customers
-	 */
-	deleteCustomers() {
-		const _title: string = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.TITLE');
-		const _description: string = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.DESCRIPTION');
-		const _waitDesciption: string = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.WAIT_DESCRIPTION');
-		const _deleteMessage = this.translate.instant('ECOMMERCE.CUSTOMERS.DELETE_CUSTOMER_MULTY.MESSAGE');
-
-		const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-		dialogRef.afterClosed().subscribe(res => {
-			if (!res) {
-				return;
-			}
-
-			const idsForDeletion: number[] = [];
-			for (let i = 0; i < this.selection.selected.length; i++) {
-				idsForDeletion.push(this.selection.selected[i].dep_id);
-			}
-			this.store.dispatch(new ManyCustomersDeleted({ ids: idsForDeletion }));
-			this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-			this.selection.clear();
-		});
-	}
 
 	/**
 	 * Fetch selected customers
@@ -322,17 +290,12 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 	departments_info: any [];
 	editCustomer(emps: Employee, EmployeeDataService: EmployeeDataService ) {
 
-		//this.DepartmentService.data = Number(customer.dep_id)
-		//console.log('CUSTOMER ID', Number(customer.dep_id));
-		console.log('emp ID', emps.emp_id);
 		this.EmployeeDataService.emp_id = Number(emps.emp_id);
 		this.EmployeeDataService.GetAllEmployee_with_id(emps.emp_id).subscribe(data => this.departments_info = data,
-			error => console.log("errorrrrrrrrrrr", error),
+			error => console.log(),
 			() => {
 				for (let item of this.departments_info) {
-                    console.log("this.departments_info",this.departments_info)
 					
-					console.log('testempname', item.emp_name);
 					this.EmployeeDataService.emp_civilian_id = item.emp_civilian_id;
 					this.EmployeeDataService.emp_sex = item.emp_sex;
 					this.EmployeeDataService.emp_sex_id = item.emp_sex_id;
@@ -377,23 +340,22 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 					this.EmployeeDataService.emp_password = item.emp_password;
 					this.EmployeeDataService.in_class_priv = item.in_class_priv;
 					this.EmployeeDataService.dep_work = item.dep_work;
-					this.EmployeeDataService.emp_dep_parent = item.emp_dep_parent;
+					this.EmployeeDataService.relgion_id = item.relgion_id;
+					this.EmployeeDataService.religion_name = item.religion_name;
 
 		
 				};
-				console.log('Component A is clicked!!', this.EmployeeDataService.emp_name);
 				this.EmployeeDataService.AClicked('Component A is clicked!!');
 			}
 		);
 		
 
 	}
-	deleteCustomer(emps: Employee) {
+	deleteCustomer(customer: CustomerModel, EmployeeDataService: EmployeeDataService) {
 	
-	//	console.log('CUSTOMER ID', emps.dep_id);
-		this.EmployeeDataService.deleteEmployee(Number(emps.emp_id)).subscribe(res => {
+		this.EmployeeDataService.deleteEmployee(Number(customer.dep_id)).subscribe(res => {
 			this.get_emps();;
-			alert(res.toString());
+			alert("Deleted Successfully");
 		
 		})
 		
@@ -408,94 +370,5 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 		return numSelected === numRows;
 	}
 
-	/**
-	 * Toggle all selections
-	 */
-	masterToggle() {
-		if (this.selection.selected.length === this.customersResult.length) {
-			this.selection.clear();
-		} else {
-			this.customersResult.forEach(row => this.selection.select(row));
-		}
-	}
-
-	/** UI */
-	/**
-	 * Retursn CSS Class Name by status
-	 *
-	 * @param status: number
-	 */
-	getItemCssClassByStatus(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'danger';
-			case 1:
-				return 'success';
-			case 2:
-				return 'metal';
-		}
-		return '';
-	}
-
-	/**
-	 * Returns Item Status in string
-	 * @param status: number
-	 */
-	getItemStatusString(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'تم الشرح';
-			case 1:
-				return 'Active';
-			case 2:
-				return 'Pending';
-		}
-		return '';
-	}
-
-	/**
-	 * Returns CSS Class Name by type
-	 * @param status: number
-	 */
-	getItemCssClassByType(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'accent';
-			case 1:
-				return 'primary';
-			case 2:
-				return '';
-		}
-		return '';
-	}
-
-	/**
-	 * Returns Item Type in string
-	 * @param status: number
-	 */
-	getItemTypeString(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'Business';
-			case 1:
-				return 'مثال7';
-		}
-		return '';
-    }
-   public test()
-    {
-    return 0;
-};
-    //console.log("zzzzz", this.test);
- 
-
-}
-
-//console.log("zzzzzz", this.departments)
-export interface Element {
-    dep_id: number;
-    dep_name: string;
-    dep_desc: string;
-    dep_supervisor_id: number;
-    dep_supervisor_name: string;
+	
 }

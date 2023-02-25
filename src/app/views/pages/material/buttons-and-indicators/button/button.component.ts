@@ -23,21 +23,12 @@ import { Employee,EmployeeMaster } from '../../../../../EmployeeMaster.Model';
 export class ButtonComponent implements OnInit {
 
 	Employee: Employee[];
-    foods = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos' }
-    ];
-	exampleBasic;
-	exampleRaised;
-	exampleIcon;
-	exmapleFab;
-	exampleMiniFav;
+   
 	bind_ta7diers(event) {
 		this.ta7dier_masterDataService.subject_id = event.subject_id;
         this.ta7dier_masterDataService.BClicked(event.subject_id);
-        console.log("subid", event.subject_id, this.ta7dier_masterDataService.subject_id)
     }
+	
     subject: any;
 	decoded:any;
 	subjects: Subjects[];
@@ -45,17 +36,18 @@ export class ButtonComponent implements OnInit {
 		private SubjectDataService: SubjectDataService, private ta7dier_masterDataService: ta7dier_masterDataService) {
 		const userToken = localStorage.getItem(environment.authTokenKey);
 		this.decoded = jwt_decode(userToken);
-		this.EmployeeDataService.GetAllEmployee_with_id(this.decoded.id).subscribe(data => this.Employee = data,
-			error => console.log(error),
+
+		this.EmployeeDataService.GetAllEmployee_with_id(this.decoded.id)
+		.subscribe(data => this.Employee = data,
+			error => console.log(),
             () => { 
-				console.log("this.Employee",this.Employee)
-		this.SubjectDataService.get_subject_def_with_dep_id(this.Employee[0].emp_dep_id).subscribe(data => this.subjects = data,
-			error => console.log(error),
-            () => {console.log("this.subjects",this.subjects) });
+
+				this.SubjectDataService.get_subject_def_with_dep_id(this.Employee[0].emp_dep_id)
+				.subscribe(data => this.subjects = data,
+					error => console.log());
+
 			});
-		// this.SubjectDataService.GetAllSubject().subscribe(data => this.subjects = data,
-		// 	error => console.log(error),
-		// 	() => { console.log("department dropdown") });
+		
 	}
 
 	ngOnInit() {

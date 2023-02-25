@@ -114,11 +114,11 @@ behave_stat_rep:any;
                 lev_id: this.selectedlevel.lev_id,
                 class_name: this.selectedclass.class_name,
                 class_id: this.selectedclass.class_id,
-                meeting_date: this.behave_date,
+                meeting_date: this.meeting_date,
                 student_name: this.selectedstudent.student_name,
                 student_id: this.selectedstudent.student_id,
-               // reason: this.,
-
+                meeting_side_name: this.meeting_side_name,
+                meeting_side_id: Number(this.meeting_side_id),
             };
             this.calling_parentsDataService.save_in_calling_parents(val).subscribe(res => {
                
@@ -134,26 +134,22 @@ behave_stat_rep:any;
     update_behav() {
 		
         var val = {
-            ser: this.ser,
+            ser: Number(this.calling_parentsDataService.ser),
             date: this.date,
             lev_name: this.lev_name,
             lev_id: this.lev_id,
             class_name: this.class_name,
             class_id: this.class_id,
             meeting_date: this.meeting_date,
-            student_name: this.student_name,
-            student_id: this.student_id,
+            student_name: this.selectedstudent.student_name,
+            student_id: this.selectedstudent.student_id,
             meeting_side_name: this.meeting_side_name,
-            meeting_side_id: this.meeting_side_id,
+            meeting_side_id:  Number(this.meeting_side_id),
             
 		};
-
-		console.log("val", val);
-      
-
         this.calling_parentsDataService.update_calling_parents(val).subscribe(res => {
            
-            alert(res.toString());
+            alert("Updated Successfully");
             this.calling_parentsDataService.BClicked("b2");
         
 		})
@@ -237,10 +233,16 @@ behave_stat_rep:any;
         }
     }
 
-  
+    classValue: any;
+    levelValue:any;
+    studentValue:any;
+    studentVar:any;
+    classVar:any;
+    anotherStuArray:Student[];
+    anotherClassArray:Classes[];
+    anotherLevelArray: Levels[];
  
 	priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -263,7 +265,7 @@ behave_stat_rep:any;
 
         this.calling_parentsDataService.aClickedEvent
 			.subscribe((data: string) => {
-				this.is_edit=true;
+				
                 this.ser = this.calling_parentsDataService.ser;
                 this.date = this.calling_parentsDataService.date;
                 this.lev_name = this.calling_parentsDataService.lev_name;
@@ -276,11 +278,40 @@ behave_stat_rep:any;
                 this.meeting_side_name = this.calling_parentsDataService.meeting_side_name;
                 this.meeting_side_id = this.calling_parentsDataService.meeting_side_id;
                 
-                var selected_level_status = String(this.calling_parentsDataService.lev_id);
-                this.selectedlevel = this.level[this.level.findIndex(function (el) {
+                // Get Student Object 
 
-                    return String(el.lev_id) == selected_level_status;
-                })];
+                var std_id = this.calling_parentsDataService.student_id;
+
+                this.StudentDataService.GetAllstudents_with_id(Number(std_id))
+                .subscribe(data => this.anotherStuArray = data,
+                    error => console.log(),
+                    () => {
+                        
+                        this.selectedstudent = this.anotherStuArray[0];
+                       
+                        // Get Class Object with Student Object 
+                        var class_id2 = this.calling_parentsDataService.class_id;
+
+                        this.ClassesDataService.GetAllClasses_with_id(class_id2)
+                        .subscribe(data => this.anotherClassArray = data,
+                            error => console.log(),
+                        () => {
+                            this.selectedclass = this.anotherClassArray[0];
+
+                            // Get Level Object with Class Object 
+                            var level_id = this.calling_parentsDataService.lev_id;
+
+                            this.LevelsDataService.GetAllLevels_with_id(level_id)
+                            .subscribe(data => this.anotherLevelArray = data,
+                                error => console.log(),
+                                () => {
+                                    this.selectedlevel = this.anotherLevelArray[this.anotherLevelArray.findIndex(function (el) {
+                    
+                                        return String(el.lev_id) == level_id;
+                                    })];
+                                });
+                        });
+                    });
 
                 
 

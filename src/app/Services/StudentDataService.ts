@@ -91,12 +91,7 @@ export class StudentDataService
     private actionUrl: string;  
     constructor(private http: HttpClient){}
   
-    //public GetAlldepartment = (): Observable<any> =>  
-    //{
-      
-    //    return this.http1.get(this.actionUrl).map((response: Response) => <any>response.json());
-     
-    //}
+   
     get_branch_stistics(): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/student/get_branch_stistics');
     }
@@ -137,12 +132,10 @@ export class StudentDataService
     @Output() bClickedEvent = new EventEmitter<string>();
     BClicked(msg: string) {
         this.bClickedEvent.emit(msg);
-        console.log(msg);
     }
 
     @Output() cClickedEvent = new EventEmitter<string>();
     CClicked(msg: string) {
         this.cClickedEvent.emit(msg);
-        console.log(msg);
     }
 }  

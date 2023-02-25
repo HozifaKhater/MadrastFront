@@ -50,7 +50,10 @@ export class messagesDataService {
 
     save_in_messages_to_emp_id(val: any) {
        
-        return this.http.post(this.APIUrl + '/messages/save_in_messages_to_emp_id', val);
+        if(val !== null && val !== undefined){
+            return this.http.post(this.APIUrl + '/messages/save_in_messages_to_emp_id', val);
+
+        }
     }
 
     save_in_messages_files(val: any) {

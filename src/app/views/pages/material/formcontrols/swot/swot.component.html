@@ -46,7 +46,6 @@
                                                 <mat-label>
                                                     القسم
                                                 </mat-label>
-                                                <!--
                                                 <input name="department"
                                                        type="text"
                                                        matInput
@@ -62,17 +61,6 @@
                                                 </mat-autocomplete>
 
                                             </mat-form-field>
-                                        -->
-                                        <mat-select required name="emp"
-                                            [ngModelOptions]="{standalone: true}"
-                                            [(ngModel)]="selecteddepartment"
-                                            placeholder="">
-
-                                            <mat-option *ngFor="let dept of departments" [value]="dept">
-                                                {{ dept.dep_name }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
                                         </div>
 
                                         <div class="col-1"></div>

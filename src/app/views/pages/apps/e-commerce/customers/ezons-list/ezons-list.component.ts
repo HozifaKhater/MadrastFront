@@ -89,7 +89,6 @@ export class EzonListComponent implements OnInit, OnDestroy {
 			error => console.log(),
 			() => {
 				this.dataSource.data =this.ELEMENT_DATA
-				console.log("ELEMENT_DATA",this.ELEMENT_DATA)
 			}
 		); 
 	}

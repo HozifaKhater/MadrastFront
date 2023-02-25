@@ -74,12 +74,9 @@ export class swotComponent implements OnInit {
 		private router: Router, private user_privDataService: user_privDataService,
 		public _fb: FormBuilder,private DepartmentService: DepartmentDataService, private swotDataService: swotDataService) {
         this.form1 = this._fb.group({
-			
+			myControl: [[Validators.required]]
 		      
         });
-		this.DepartmentService.GetAlldepartment()
-		.subscribe(data => this.departments = data,
-			error => console.log());
 	}
  
 	add_department() {
@@ -167,7 +164,7 @@ export class swotComponent implements OnInit {
 				risks: this.risks	,
 				
             };
-			console.log(val);
+
             this.swotDataService.update_swot(val).subscribe(res => {
                 alert("Updated Succesfully");
                 this.swotDataService.BClicked('Component B is clicked!!');
@@ -188,8 +185,8 @@ export class swotComponent implements OnInit {
     displayFn(selectedoption) {
         return this.selecteddepartment ? this.selecteddepartment.dep_name : undefined;
     }
-	anotherArray:Departments[];
 
+	anotherDepArray:Departments[];
    	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -223,15 +220,16 @@ export class swotComponent implements OnInit {
 				this.dep_nameSelected = this.swotDataService.dep_name;
 
 
-				//var selected_value_emp = this.swotDataService.dep_id;
+				var dep_id = this.swotDataService.dep_id;
 				//this.selecteddepartment = this.departments[this.departments.findIndex(x => x.dep_id === selected_value_emp )];//Number(this.DepartmentService.dep_supervisor_id)
 				
-
-				var selected_value_emp = this.swotDataService.dep_id;
-                this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
-
-                    return el.dep_id == selected_value_emp;
-                })];
+				this.DepartmentService.GetAlldepartment_with_id(Number(dep_id))
+				.subscribe(data => this.anotherDepArray = data,
+					error => console.log(),
+					() => {
+						
+						this.selecteddepartment = this.anotherDepArray[0];
+					});
 
 				// open modal
 				var ele = document.getElementById('modalOpener');

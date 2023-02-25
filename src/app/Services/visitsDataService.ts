@@ -30,6 +30,7 @@ export class VisitsDataService {
     public emp_from_id: string;
     public emp_to_id: string;
     public takeem_id: string;
+    public percentage : number;
     constructor(private http: HttpClient) { }
 
     GetAllVisits(): Observable<any[]> {

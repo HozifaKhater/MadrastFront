@@ -97,7 +97,10 @@ export class InputComponent implements OnInit {
 	emp_password: string = "";
 	in_class_priv: string = "";
 	dep_work: string = "";
+    relgion_id: number;
+	religion_name: string="";
 
+is_edit:boolean=false;
 
 	trainig_id: number;
 	trainig_name: string = "";
@@ -143,8 +146,11 @@ export class InputComponent implements OnInit {
     selectedemp_status: any;
     form1: FormGroup;
 
-    constructor(private modalService: NgbModal,
-        private cdRef: ChangeDetectorRef, private router: Router, private user_privDataService: user_privDataService,public _fb: FormBuilder, private DepartmentService: DepartmentDataService, private Training_coursesDataService: Training_coursesDataService, private EmployeeService: EmployeeDataService, MasterJobsDataService: MasterJobsDataService
+    constructor(
+       
+        private modalService: NgbModal,
+        private cdRef: ChangeDetectorRef, private router: Router, 
+        private user_privDataService: user_privDataService,public _fb: FormBuilder, private DepartmentService: DepartmentDataService, private Training_coursesDataService: Training_coursesDataService, private EmployeeService: EmployeeDataService, MasterJobsDataService: MasterJobsDataService
         , private SubjectDataService: SubjectDataService) {
         this.form1 = this._fb.group({
             emp_civilian_id: ['', [Validators.required]],
@@ -162,67 +168,54 @@ export class InputComponent implements OnInit {
 			error => console.log());
 
         SubjectDataService.GetAllSubject().subscribe(data => this.subjects = data,
-            error => console.log());
+            error => console.log(),
+            () => console.log());
 
         EmployeeService.Getdefinations_with_scode("sex").subscribe(data => this.sex = data,
-            error => console.log());
+            error => console.log(),
+            () => console.log());
 
         EmployeeService.Getdefinations_with_scode("nat").subscribe(data => this.nat = data,
-            error => console.log());
-
+            error => console.log(),
+            () => console.log());
         EmployeeService.Getdefinations_with_scode("status").subscribe(data => this.status = data,
-            error => console.log());
-
+            error => console.log(),
+            () => console.log());
         EmployeeService.Getdefinations_with_scode("religion").subscribe(data => this.religion = data,
-            error => console.log());
-
+            error => console.log(),
+            () => console.log());
         EmployeeService.Getdefinations_with_scode("job_type").subscribe(data => this.job_type = data,
-            error => console.log());
-
+            error => console.log(),
+            () => console.log());
         EmployeeService.Getdefinations_with_scode("relation_type").subscribe(data => this.relation_type = data,
-            error => console.log());
-
+            error => console.log(),
+            () => console.log());
         EmployeeService.Getdefinations_with_scode("crit_level").subscribe(data => this.crit_level = data,
-            error => console.log());
-
+            error => console.log(),
+            () => console.log());
         EmployeeService.Getdefinations_with_scode("emp_status").subscribe(data => this.emp_status = data,
-            error => console.log());
+            error => console.log(),
+            () => console.log());
         
 }
     public filteredList
     public isFiltered(permission) {
+       
+       // console.log("permission", this.filteredList)
 
         return this.country.slice().find(item => item.country_id === permission.country_id);
     }
-    dep_id:any=0;
-    dep_name:any="";
-    emp_dep_parent:any=0;
-    emp_dep_parent2:any=0;
     get_side_dep(event) {
-        this.dep_id=event.dep_id;
-        this.dep_name=event.dep_name;
-         this.emp_dep_parent=0;
-         this.emp_dep_parent2=event.dep_id;
+        if(event !== null && event !== undefined && event.length !== 0){
 
-        this.DepartmentService.get_department_def_with_master_id(event.dep_id).subscribe(data => this.side_departments = data,
-            error => console.log(),
-            ()=>{
-              
-                   
-                var selected_side_dep = String(this.EmployeeService.emp_dep_id);
-                this.selectedsidedepartment = this.side_departments[this.side_departments.findIndex(function (el) {
-                    return String(el.dep_id) == selected_side_dep;
-                })];
-            
-            });
-    }
-    change_side_dep(event) {
-        this.dep_id=event.dep_id;
-        this.dep_name=event.dep_name;
-       this.emp_dep_parent= this.emp_dep_parent2;
+            this.DepartmentService.get_department_def_with_master_id(event.dep_id).subscribe(data => this.side_departments = data,
+                error => console.log(),
+                () => console.log());
+        }
     }
     todate: any;
     updateCalcs(event) {
+        //   console.log("age", moment(this.student_dob).format('DD-MM-YYYY'), this.start_date[0].start_year_date, "brrrrrr", getAge("08-28-2000", "9-15-2022"))
         fromdate = moment(event).format('MM-DD-YYYY')
         this.todate = moment(Date.now()).format('MM-DD-YYYY')
         if (this.todate) this.todate = new Date(this.todate);
@@ -246,6 +239,7 @@ export class InputComponent implements OnInit {
         if (ydiff >= 0) this.emp_age_year = String(ydiff);
         if (mdiff >= 0) this.emp_age_month = String(mdiff);
         if (ddiff >= 0) this.emp_age_day = String(ddiff);
+       // console.log("ageee", String(ydiff), String(mdiff), String(ddiff), event, moment(event).format('DD-MM-YYYY'), moment(Date.now()).format('MM-DD-YYYY'))
     }
 	selectedjob: any;
 	emailFormControl = new FormControl('', [
@@ -260,13 +254,13 @@ export class InputComponent implements OnInit {
 	matcher = new MyErrorStateMatcher();
 	value = 'Clear me';
     add_employee() {
-        console.log("subjectsss", this.selectedsubject.subject_id, this.selectedsubject.subject_name)
+      //  console.log("subjectsss", this.selectedsubject.subject_id, this.selectedsubject.subject_name)
 		//var test1
 		//test1 = this.departments[this.selecteddepartment]
 		//var schoolterm
 		//schoolterm = this.activities[this.activity_school_term]
         if (this.form1.invalid) {
-            console.log('Form invalid...');
+           // console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
             var val = {
@@ -288,8 +282,8 @@ export class InputComponent implements OnInit {
                 emp_pos_type_id: Number(this.selectedjob_tybe.def_id),
                 emp_pos: this.job_name_from_function,
                 emp_pos_id: Number(this.job_id_from_function),
-                emp_dep: this.dep_name,
-                emp_dep_id: Number(this.dep_id),
+                emp_dep: this.selecteddepartment.dep_name,
+                emp_dep_id: Number(this.selecteddepartment.dep_id),
                 emp_subject: this.selectedsubject.subject_name,
                 emp_subject_id: Number(this.selectedsubject.subject_id),
                 emp_div: this.emp_div,
@@ -315,34 +309,40 @@ export class InputComponent implements OnInit {
                 emp_password: this.emp_password,
                 in_class_priv: Number(this.in_class_priv),
                 dep_work: Number(this.dep_work),
- emp_dep_parent:this.emp_dep_parent
+                relgion_id: Number(this.selectedrel.def_id),
+                religion_name : this.selectedrel.def_name
 
             };
-            console.log("asd", val)
+          //  console.log("asd", val)
             this.EmployeeService.addEmployee(val).subscribe(res => {
                 this.EmployeeService.BClicked("saved_emppp");
                 alert(res.toString());
                 this.form1.reset();
             })
-            console.log(val)
+         //   console.log(val)
         }
       
 	}
 
 	add_training() {
-
+		//var test1
+		//test1 = this.departments[this.selecteddepartment]
+		//var schoolterm
+		//schoolterm = this.activities[this.activity_school_term]
 		var val = {
+
+
 
 			trainig_name: this.trainig_name,
 			trainig_from: moment(this.trainig_from).format('DD/MM/YYYY'),
 			trainig_to: moment(this.trainig_to).format('DD/MM/YYYY'),
 			traing_desc: this.traing_desc
 		};
-		console.log("asd", val)
+		//console.log("asd", val)
 		this.Training_coursesDataService.addTraining_courses(val).subscribe(res => {
 			alert(res.toString());
 		})
-		console.log(val)
+	//	console.log(val)
 	}
 
 
@@ -351,10 +351,10 @@ export class InputComponent implements OnInit {
 	job_selection(event) {
 		this.job_id_from_function = event.source.value.job_id;
 		this.job_name_from_function = event.source.value.job_name;
-		console.log("selected job function", event.source.value.job_id, event)
+		//console.log("selected job function", event.source.value.job_id, event)
 	}
 	update_employee() {
-		console.log("empsssssssss",this.EmployeeService)
+		//console.log("empsssssssss",this.EmployeeService)
 		var val = {
 			emp_id: Number(this.EmployeeService.emp_id),
 
@@ -375,8 +375,8 @@ export class InputComponent implements OnInit {
             emp_pos_type_id: Number(this.selectedjob_tybe.def_id),
             emp_pos: this.job_name_from_function,
             emp_pos_id: Number(this.job_id_from_function),
-            emp_dep: this.dep_name,
-            emp_dep_id: Number(this.dep_id),
+            emp_dep: this.selecteddepartment.dep_name,
+            emp_dep_id: Number(this.selecteddepartment.dep_id),
             emp_subject: this.selectedsubject.subject_name,
             emp_subject_id: Number(this.selectedsubject.subject_id),
             emp_div: this.emp_div,
@@ -402,21 +402,31 @@ export class InputComponent implements OnInit {
             emp_password: this.emp_password,
             in_class_priv: Number(this.in_class_priv),
             dep_work: Number(this.dep_work),
-             emp_dep_parent:this.emp_dep_parent
+            relgion_id: Number(this.selectedrel.def_id),
+            religion_name : this.selectedrel.def_name
+            
 		};
 
-		console.log("val", val);
+		//console.log("val", val);
       
 
         this.EmployeeService.updateEmployee(val).subscribe(res => {
             this.EmployeeService.BClicked("saved_emppp");
-            alert("Updated Succ");
+            alert(res.toString());
             this.form1.reset();
-			
+			// (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
+			// (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
+			// (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
+			// (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+            this.is_edit=false;
 		})
 
 	}
-    
+    cancel_employee() {
+        this.form1.reset();
+		
+	}
+
     myControl = new FormControl('');
   //  options: string[];
     filteredOptions: Observable<any[]>;
@@ -428,24 +438,20 @@ export class InputComponent implements OnInit {
         return selectedoption ? selectedoption.country_name : undefined;
     }
  
-priv_info:any;
+priv_info:any=[];
 read:any;
 write:any;
 read_and_Write:any;
-is_edit:boolean=false;
 	ngOnInit() {
         
-        console.log("asdsd",this.router.url as string )
+       // console.log("asdsd",this.router.url as string )
         this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-            this.read=this.priv_info[0].read
-        ;this.write=this.priv_info[0].wirte;
-        this.read_and_Write=this.priv_info[0].read_and_Write});
+			error => console.log(),
+            () => {this.cdRef.detectChanges();});
       
 
         this.EmployeeService.Getcountries().subscribe(data => this.country = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
                 this.filteredOptions = this.myControl.valueChanges
                     .pipe(
@@ -453,21 +459,20 @@ is_edit:boolean=false;
                         map(value => typeof value === 'string' ? value : value.country_name),
                         map(country_name => country_name ? this._filter(country_name) : this.country.slice())
                     );
-                console.log("test", this.filteredOptions)
+             //   console.log("test", this.filteredOptions)
                 //this.filteredList = this.country.slice();
-                //console.log("ok", this.filteredList);
+                //console.log(, this.filteredList);
             });
 		
 		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
 
 		this.EmployeeService.aClickedEvent
 			.subscribe((data: string) => {
+                this.is_edit=true
 				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
 				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-                this.is_edit=true;
-				console.log("editemps",this.EmployeeService)
 				this.emp_id = Number(this.EmployeeService.emp_id);
 				this.emp_civilian_id = this.EmployeeService.emp_civilian_id;
 				this.emp_sex = this.EmployeeService.emp_sex;
@@ -513,6 +518,15 @@ is_edit:boolean=false;
 				this.emp_password = this.EmployeeService.emp_password;
 				this.in_class_priv = this.EmployeeService.in_class_priv;
 				this.dep_work = this.EmployeeService.dep_work;
+                
+                
+                var selected_rel = String(this.EmployeeService.relgion_id);
+                this.selectedsex = this.religion[this.religion.findIndex(function (el) {
+
+                    return String(el.def_id) == selected_rel;
+
+                })];
+
 
                 var selected_sex = String(this.EmployeeService.emp_sex_id);
                 this.selectedsex = this.sex[this.sex.findIndex(function (el) {
@@ -569,48 +583,34 @@ is_edit:boolean=false;
                 this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
                     return String(el.dep_id) == selected_dep;
                 })];
-                if (Number(this.EmployeeService.emp_dep_parent) != 0) {
-                    var selected_dep = String(this.EmployeeService.emp_dep_parent);
-                    this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
-                        return String(el.dep_id) == selected_dep;
-                    })];
-                    // this.DepartmentService.get_department_def_with_master_id(this.selecteddepartment.dep_id).subscribe(data => this.side_departments = data,
-                    //     error => console.log(),
-                    //     () => {
-                         
-                          
-                    //         this.cdRef.detectChanges();
-                    //         console.log("d5l?!!" )
-                    //     });
-                  
-                }
 
                 var selected_subject = String(this.EmployeeService.emp_subject_id);
                 this.selectedsubject = this.subjects[this.subjects.findIndex(function (el) {
                     return String(el.subject_id) == selected_subject;
                 })];
 
-                // var selected_side_dep = String(this.EmployeeService.emp_dep_id);
-                // this.selectedsidedepartment = this.side_departments[this.side_departments.findIndex(function (el) {
-                //     return String(el.dep_id) == selected_side_dep;
-                // })];
+                var selected_subject = String(this.EmployeeService.emp_dep_id);
+                this.selectedsubject = this.subjects[this.subjects.findIndex(function (el) {
+                    return String(el.subject_id) == selected_subject;
+                })];
 
                 var selected_country = String(this.EmployeeService.emp_educationa_qualification_country_id);
                 this.selectedcountry = this.country[this.country.findIndex(function (el) {
                     return String(el.country_id) == selected_country;
                 })];
+
+
 				/*	document.getElementById("save_btn").innerHTML="asdasd"*/
-                console.log("edited", this.country)
+                //console.log("edited", this.country)
 
                 // open modal
-                this.cdRef.detectChanges();
                 var ele = document.getElementById('modalOpener');
                 if (ele) { ele.click() }
 			});
 
 		this.Training_coursesDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
+				//console.log("edited");
 				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
 				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
@@ -654,7 +654,7 @@ is_edit:boolean=false;
 	addFieldValue(index) {
 		if (index != 0) {
 			this.fieldArray.push(this.newAttribute);
-			console.log("zzzzz", this.fieldArray, this.newAttribute)
+			//console.log("zzzzz", this.fieldArray, this.newAttribute)
 			this.newAttribute = {};
 		}
 	}
@@ -662,7 +662,7 @@ is_edit:boolean=false;
 	deleteFieldValue(index) {
 		if (index != 0) {
 			this.fieldArray.splice(index, 1);
-			console.log("delete", index)
+			//console.log("delete", index)
 		}
 	}
 
@@ -673,7 +673,7 @@ is_edit:boolean=false;
     }
     openModal1() {
         this.display = "show";
-        console.log("clicked")
+       // console.log("clicked")
         this.cdRef.detectChanges();
     }
     onCloseHandled() {

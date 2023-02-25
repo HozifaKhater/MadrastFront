@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ChangeDetectorRef,TemplateRef } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ta7dier_masterDataService } from '../../../../../Services/Ta7dier_masterDataService';
 import { SubjectDataService } from '../../../../../Services/SubjectDataService';
 import { Ta7dier, Ta7dier_masterMaster } from '../../../../../Ta7dier_masterMaster.Model';
@@ -15,7 +15,7 @@ import { EmployeeDataService } from '../../../../../Services/EmployeeDataService
 import { Employee,EmployeeMaster } from '../../../../../EmployeeMaster.Model';
 import { gdwel_7ssDataService } from '../../../../../Services/gdwel_7ssDataService';
 import { gdwel_7ss,gdwel_7ssMaster } from '../../../../../gdwel_7ssMaster.Model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
 import { environment } from '../../../../../../environments/environment.prod';
 import jwt_decode from 'jwt-decode';
@@ -44,7 +44,6 @@ export class CardComponent implements OnInit {
 	public Editor = ClassicEditor;
 	@ViewChild("myEditor", { static: false }) myEditor: any;
 	@Input() ta7dier_master_data: any;
-	@ViewChild('content', { static: true }) modalContent: TemplateRef<any>;
 	ta7dier_id: number;
 	emp_id: string;
 	emp_name: string = "";
@@ -101,9 +100,7 @@ export class CardComponent implements OnInit {
     form1: FormGroup;
 	decoded:any;
 	hasPermission = false;
-	constructor(
-		private route: ActivatedRoute,
-		private modalService: NgbModal,
+	constructor(private modalService: NgbModal,
 		private cdRef:ChangeDetectorRef,
 		private gdwel_7ssDataService: gdwel_7ssDataService,
 		private EmployeeDataService: EmployeeDataService,
@@ -331,13 +328,10 @@ export class CardComponent implements OnInit {
 	  displayFnlev(selectedoption) {
 		  return selectedoption ? selectedoption.lev_name : undefined;
 	  }
-	  id: string;
+
 	priv_info:any[] = [];
-	is_edit:boolean=false;
 	ngOnInit() {
 		
-		this.id = this.route.snapshot.paramMap.get('id');
-		if (!this.id) {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>{
 			this.priv_info = data;
 			if(this.priv_info[0].write == 1 || this.priv_info[0].read_and_write == 1){
@@ -358,7 +352,7 @@ export class CardComponent implements OnInit {
 		
 		this.ta7dier_masterDataService.aClickedEvent
 			.subscribe((data: string) => {
-				this.is_edit=true;
+				
 				this.ta7dier_id = Number(this.ta7dier_masterDataService.ta7dier_id);
 				
 				this.emp_id = this.ta7dier_masterDataService.emp_id;
@@ -418,17 +412,17 @@ export class CardComponent implements OnInit {
 
                 })];
 
-				this.openModal(this.modalContent,"event");
+				
 				this.cdRef.detectChanges();
 
 				// open modal
-				// var ele = document.getElementById('modalOpener');
-				// if (ele) { ele.click() }
+				var ele = document.getElementById('modalOpener');
+				if (ele) { ele.click() }
 
 			});
 	
 		this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Editor', active: true }];
-		}
+		
 	}
 
 	display = "";
