@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../Services/user_privDataService ';
 
 const checkboxButtons = {
 	beforeCodeTitle: 'Checkbox buttons',
@@ -192,9 +194,22 @@ export class ButtonsComponent implements OnInit {
 	checkboxGroupForm: FormGroup;
 	radioGroupForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder) {}
+	constructor(private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef,
+		private router: Router,
+    private user_privDataService: user_privDataService,) {
+    
+  }
 
+  priv_info:any=[];
 	ngOnInit() {
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});
+
 		this.exampleCheckboxButtons = checkboxButtons;
 		this.exampleCheckboxButtonsReactiveForms = checkboxButtonsReactiveForms;
 		this.exampleRadioButtons = radioButtons;
