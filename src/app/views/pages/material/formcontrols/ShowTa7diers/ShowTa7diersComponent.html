@@ -9,7 +9,8 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="kt-portlet__head-text">
-                             جدول التحضيرات
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                            جدول التحضيرات
                         </h3>
                     </div>
                 </div>
@@ -18,15 +19,16 @@
             <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
                 <div class="kt-portlet__body">
                     <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">القسم :</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
+                     
+                        <div class="col-lg-4">
+                            <mat-form-field>
+                                <mat-label>القسم</mat-label>
                                 <input name="dept"
                                        type="text"
                                        matInput
                                        [(ngModel)]="selectedDept"
                                        (ngModelChange)="Change_Dept($event)"
-                                       placeholder="أختر القسم"
+                                       placeholder=""
                                        [formControl]="myControlDept"
                                        [matAutocomplete]="autoDept"
                                        forceSelection="dept_name">
@@ -41,9 +43,10 @@
                     </div>
 
                     <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">المادة :</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
+                       
+                        <div class="col-lg-4">
+                            <mat-form-field>
+                                <mat-label>المادة</mat-label>
                                 <input name="subj"
                                        type="text"
                                        matInput

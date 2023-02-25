@@ -9,9 +9,9 @@
 				</a>
 			</div>
 			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-				<div class="kt-grid__item kt-grid__item--middle">
+				<div class="kt-grid__item">
 
-					<div class="box" style="height: 30rem; border-left: none; border-right:3px solid #01718d;">
+					<!-- <div class="box" style="height: 30rem; border-left: none; border-right:3px solid #01718d;">
 						<p class="box-title">أخبار عامة</p>
 						<marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:20rem;" onmouseout="this.start();">
 							<div class="mat-table__wrapper">
@@ -37,7 +37,44 @@
 							</div>
 							
 						</marquee>
-					</div>
+					</div> -->
+
+					<div class="newscard">
+  
+						<div class="newscard__body">
+						  <h3 class="newscard__title">أخبار عامة</h3>
+
+						  
+						  <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:30rem;" onmouseout="this.start();">
+							<div class="mat-table__wrapper">
+
+								<mat-table id="news" class="lmat-elevation-z8"
+										   #table
+										   [dataSource]="dataSource"
+										   matSort
+										   #sort1="matSort"
+										   matSortActive="id"
+										   matSortDirection="asc"
+										   matSortDisableClear
+										   >
+									
+									<ng-container matColumnDef="news">
+										<mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+										<mat-cell *matCellDef="let new" style="text-align: right;">{{new.body}}</mat-cell>
+									</ng-container>
+					
+									<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+					
+									<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+								</mat-table>
+							</div>
+							
+						</marquee>
+
+						  <p class="newscard__text">أخبار عامة للبرنامج</p>
+						</div>
+					  </div>
+
 
 					<!--<marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();">
 

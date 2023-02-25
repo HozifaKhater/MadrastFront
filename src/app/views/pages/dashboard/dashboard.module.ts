@@ -1,5 +1,6 @@
 // Angular
-import { NgModule } from '@angular/core';
+
+import { NgModule} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 // Core Module
@@ -42,11 +43,18 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { week_Ta7deirComponent } from '../../pages/dashboard/week-Ta7diers-list/week-Ta7diers-list.component';
 import { actual_weekTa7diersComponent } from '../../pages/dashboard/actual_weekTa7diers-list/actual_weekTa7diers-list.component';
 
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 /*import { ECommerceModule } from '../apps/e-commerce/e-commerce.module';*/
 
 // import { CalendarComponent } from '../calendar/calendar.component';
 @NgModule({
 	imports: [
+		NgbAlertModule,
+		NgbPaginationModule,
+		NgbAccordionModule,
 		CKEditorModule,
 		FormsModule,
         ReactiveFormsModule,
@@ -77,6 +85,7 @@ import { actual_weekTa7diersComponent } from '../../pages/dashboard/actual_weekT
 	],
 	providers: [SignalrService],
 	declarations: [
+		
 		DashboardComponent,
 		BorrowedBooksListComponent,
 		Ta7deirComponent,
@@ -105,7 +114,6 @@ import { actual_weekTa7diersComponent } from '../../pages/dashboard/actual_weekT
 		ShowstudentmattersListComponent,
 		Shownew_workListComponent,
 		Showusers_privComponent
-
 		]
 })
 export class DashboardModule {

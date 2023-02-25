@@ -1,475 +1,984 @@
-﻿<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
-<div class="row">
-    <div class="col-lg-12">
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-caption">
-                    <div class="kt-portlet__head-title">
-                        <span class="kt-portlet__head-icon kt-hide">
-                            <i class="la la-gear"></i>
-                        </span>
-                        <h3 class="kt-portlet__head-text">
-                            حالات الرسوب في أسابيع
-                        </h3>
+﻿<!--<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
+                            <span class="kt-portlet__head-icon kt-hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="kt-portlet__head-text">
+                                حالات الرسوب في أسابيع
+                            </h3>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!--begin::Form-->
-            <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
-                <div class="kt-portlet__body">
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الصف:</b>
-                        <div class="col-lg-6 example-container">
-                            <mat-form-field >
-                                <input  name="level"
-                                       type="text"
-                                       matInput
-                                       [(ngModel)]="selectedlevel"
+                </div>-->
+<!--begin::Form-->
+<!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+              <div class="kt-portlet__body">
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الصف:</b>
+                      <div class="col-lg-6 example-container">
+                          <mat-form-field>
+                              <input name="level"
+                                     type="text"
+                                     matInput
+                                     [(ngModel)]="selectedlevel"
                                      (ngModelChange)="change_level($event)"
-                                       placeholder="أختر الصف"
-                                       [formControl]="myControllev"
-                                       [matAutocomplete]="autolevel"
-                                       forceSelection="lev_name">
-                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
-                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
-                                        {{ level.lev_name }}
-                                    </mat-option>
-                                </mat-autocomplete>
+                                     placeholder="أختر الصف"
+                                     [formControl]="myControllev"
+                                     [matAutocomplete]="autolevel"
+                                     forceSelection="lev_name">
+                              <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                  <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                      {{ level.lev_name }}
+                                  </mat-option>
+                              </mat-autocomplete>
 
-                            </mat-form-field>
-
-
-
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الفصل:</b>
-                        <div class="col-lg-6 example-container">
-                            <mat-form-field >
-                                <input  name="class"
-                                       type="text"
-                                       matInput
-                                       [(ngModel)]="selectedclass"
-                                       (ngModelChange)="change_class($event)"
-                                       placeholder="أختر الفصل"
-                                       [formControl]="myControlclass"
-                                       [matAutocomplete]="autoclass"
-                                       forceSelection="class_name"
-                                       >
-                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
-                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
-                                        {{ class.class_name }}
-                                    </mat-option>
-                                </mat-autocomplete>                         
-                            </mat-form-field>
-                        </div>
-                    </div>
+                          </mat-form-field>
 
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الطالب:</b>
-                        <div class="col-lg-6 example-container">
-                            <mat-form-field >
-                                <input name="student"
-                                       type="text"
-                                       matInput
-                                      
-                                       [(ngModel)]="selectedstudent"
-                                       placeholder="أختر الطالب"
-                                       [formControl]="myControlstudent"
-                                       [matAutocomplete]="autostudent"
-                                       forceSelection="student_name"
-                                       >
-                                <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnstudent">
-                                    <mat-option *ngFor="let student of filteredOptionsstudent  | async" [value]="student">
-                                        {{ student.student_name }}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                        </div>
-                    </div>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الجنسيه:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <mat-select placeholder="الجنسيه"
-                                            [(ngModel)]="selectednation"
-                                            required formControlName="selectednation">
-                                    <mat-option *ngFor="let nat of nat" [value]="nat">
-                                        {{ nat.def_name }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="
-        form1.controls.selectednation.hasError('required') &&
-        (form1.controls.selectednation.dirty || form1.controls.selectednation.touched)
-      ">
-                                    اختر الجنسيه
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                      </div>
+                  </div>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">رقم الهاتف:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input [(ngModel)]="fail_mob" required formControlName="fail_mob" matInput placeholder="الهاتف" type="number">
-
-                                <mat-error *ngIf="
-        form1.controls.fail_mob.hasError('required') &&
-        (form1.controls.fail_mob.dirty || form1.controls.fail_mob.touched)
-      ">
-                                    ادخل رقم الهاتف
-                                </mat-error>
-
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">تاريخ الميلاد:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input [(ngModel)]="fail_birth" required formControlName="fail_birth" matInput [matDatepicker]="dp3" placeholder="التاريخ" disabled>
-                                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-
-                                <mat-error *ngIf="
-        form1.controls.fail_birth.hasError('required') &&
-        (form1.controls.fail_birth.dirty || form1.controls.fail_birth.touched)
-      ">
-                                    ادخل تاريخ الميلاد
-                                </mat-error>
-
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">تاريخ بدء العمل معه:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input [(ngModel)]="fail_date" required formControlName="fail_date" matInput [matDatepicker]="dp4" placeholder="التاريخ" disabled>
-                                <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
-                                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-
-                                <mat-error *ngIf="
-        form1.controls.fail_date.hasError('required') &&
-        (form1.controls.fail_date.dirty || form1.controls.fail_date.touched)
-      ">
-                                    ادخل بدء العمل
-                                </mat-error>
-
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">ملاحظات حول شخصية الطالب وسلوكه:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <textarea [(ngModel)]="fail_desc" formControlName="fail_desc" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
-                                          required matInput placeholder="ملاحظات" type="email"></textarea>
-
-                                <mat-error *ngIf="
-        form1.controls.fail_desc.hasError('required') &&
-        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
-      ">
-                                    ادخل الملاحظات
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_desc.hasError('pattern') &&
-        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
-      ">
-                                    ادخل الملاحظات
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الأسباب الذاتية والبيئية:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <textarea [(ngModel)]="fail_reason" formControlName="fail_reason" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
-                                          required matInput placeholder="الأسباب الذاتية" type="email"></textarea>
-
-                                <mat-error *ngIf="
-        form1.controls.fail_reason.hasError('required') &&
-        (form1.controls.fail_reason.dirty || form1.controls.fail_reason.touched)
-      ">
-                                    ادخل الأسباب الذاتية والبيئية
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_reason.hasError('pattern') &&
-        (form1.controls.fail_reason.dirty || form1.controls.fail_reason.touched)
-      ">
-                                    ادخل الأسباب الذاتية والبيئية
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">المادة:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <mat-select required
-                                            formControlName="selectedsubject"
-                                            [(ngModel)]="selectedsubject"
-                                            placeholder="أختر المادة"
-                                            id="departmentsdropdown"
-                                            [disabled]="butDisabled"
-                                            multiple>
-                                    <mat-option *ngFor="let subject of subjects" [value]="subject">
-                                        {{ subject.subject_name }}
-                                    </mat-option>
-                                </mat-select>
-
-                                <mat-error *ngIf="
-        form1.controls.selectedsubject.hasError('required') &&
-        (form1.controls.selectedsubject.dirty || form1.controls.selectedsubject.touched)
-      ">
-                                    اختر الماده
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الفترة الأولي:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input formControlName="fail_1" 
-                                       required [(ngModel)]="fail_1" matInput placeholder="أدخل الفترة الأولي" type="number">
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الفصل:</b>
+                      <div class="col-lg-6 example-container">
+                          <mat-form-field>
+                              <input name="class"
+                                     type="text"
+                                     matInput
+                                     [(ngModel)]="selectedclass"
+                                     (ngModelChange)="change_class($event)"
+                                     placeholder="أختر الفصل"
+                                     [formControl]="myControlclass"
+                                     [matAutocomplete]="autoclass"
+                                     forceSelection="class_name">
+                              <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                  <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                      {{ class.class_name }}
+                                  </mat-option>
+                              </mat-autocomplete>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
 
-                                <mat-error *ngIf="
-        form1.controls.fail_1.hasError('required') &&
-        (form1.controls.fail_1.dirty || form1.controls.fail_1.touched)
-      ">
-                                    ادخل الفترة الأولي المكونة من أرقام فقط
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_1.hasError('pattern') &&
-        (form1.controls.fail_1.dirty || form1.controls.fail_1.touched)
-      ">
-                                    ادخل الفترة الأولي المكونة من أرقام فقط
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الطالب:</b>
+                      <div class="col-lg-6 example-container">
+                          <mat-form-field>
+                              <input name="student"
+                                     type="text"
+                                     matInput
+                                     [(ngModel)]="selectedstudent"
+                                     placeholder="أختر الطالب"
+                                     [formControl]="myControlstudent"
+                                     [matAutocomplete]="autostudent"
+                                     forceSelection="student_name">
+                              <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnstudent">
+                                  <mat-option *ngFor="let student of filteredOptionsstudent  | async" [value]="student">
+                                      {{ student.student_name }}
+                                  </mat-option>
+                              </mat-autocomplete>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الفترة الثانية:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input formControlName="fail_2"
-                                       required [(ngModel)]="fail_2" matInput placeholder="أدخل الفترة الثانية" type="number">
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الجنسيه:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <mat-select placeholder="الجنسيه"
+                                          [(ngModel)]="selectednation"
+                                          required formControlName="selectednation">
+                                  <mat-option *ngFor="let nat of nat" [value]="nat">
+                                      {{ nat.def_name }}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="
+  form1.controls.selectednation.hasError('required') &&
+  (form1.controls.selectednation.dirty || form1.controls.selectednation.touched)
+">
+                                  اختر الجنسيه
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">رقم الهاتف:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input [(ngModel)]="fail_mob" required formControlName="fail_mob" matInput placeholder="الهاتف" type="number">
 
-                                <mat-error *ngIf="
-        form1.controls.fail_2.hasError('required') &&
-        (form1.controls.fail_2.dirty || form1.controls.fail_2.touched)
-      ">
-                                    ادخل الفترة الثانية المكونة من أرقام فقط
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_2.hasError('pattern') &&
-        (form1.controls.fail_2.dirty || form1.controls.fail_2.touched)
-      ">
-                                    ادخل الفترة الثانية المكونة من أرقام فقط
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                              <mat-error *ngIf="
+  form1.controls.fail_mob.hasError('required') &&
+  (form1.controls.fail_mob.dirty || form1.controls.fail_mob.touched)
+">
+                                  ادخل رقم الهاتف
+                              </mat-error>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الفترة الثالثة:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input formControlName="fail_3"
-                                       required [(ngModel)]="fail_3" matInput placeholder="أدخل الفترة الثالثة" type="number">
+                          </mat-form-field>
+                      </div>
+                  </div>
 
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">تاريخ الميلاد:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input [(ngModel)]="fail_birth" required formControlName="fail_birth" matInput [matDatepicker]="dp3" placeholder="التاريخ" disabled>
+                              <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
 
-                                <mat-error *ngIf="
-        form1.controls.fail_3.hasError('required') &&
-        (form1.controls.fail_3.dirty || form1.controls.fail_3.touched)
-      ">
-                                    ادخل الفترة الثالثة المكونة من أرقام فقط
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_3.hasError('pattern') &&
-        (form1.controls.fail_3.dirty || form1.controls.fail_3.touched)
-      ">
-                                    ادخل الفترة الثالثة المكونة من أرقام فقط
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                              <mat-error *ngIf="
+  form1.controls.fail_birth.hasError('required') &&
+  (form1.controls.fail_birth.dirty || form1.controls.fail_birth.touched)
+">
+                                  ادخل تاريخ الميلاد
+                              </mat-error>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الفترة الرابعة:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input formControlName="fail_4" 
-                                       required [(ngModel)]="fail_4" matInput placeholder="أدخل الفترة الرابعة" type="number">
+                          </mat-form-field>
+                      </div>
+                  </div>
 
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">تاريخ بدء العمل معه:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input [(ngModel)]="fail_date" required formControlName="fail_date" matInput [matDatepicker]="dp4" placeholder="التاريخ" disabled>
+                              <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                              <mat-datepicker #dp4 disabled="false"></mat-datepicker>
 
-                                <mat-error *ngIf="
-        form1.controls.fail_4.hasError('required') &&
-        (form1.controls.fail_4.dirty || form1.controls.fail_4.touched)
-      ">
-                                    ادخل الفترة الرابعة المكونة من أرقام فقط
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_4.hasError('pattern') &&
-        (form1.controls.fail_4.dirty || form1.controls.fail_4.touched)
-      ">
-                                    ادخل الفترة الرابعة المكونة من أرقام فقط
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                              <mat-error *ngIf="
+  form1.controls.fail_date.hasError('required') &&
+  (form1.controls.fail_date.dirty || form1.controls.fail_date.touched)
+">
+                                  ادخل بدء العمل
+                              </mat-error>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">نهاية العام:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input formControlName="fail_end_year"
-                                       required [(ngModel)]="fail_end_year" matInput placeholder="أدخل نهاية العام" type="number">
+                          </mat-form-field>
+                      </div>
+                  </div>
 
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">ملاحظات حول شخصية الطالب وسلوكه:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <textarea [(ngModel)]="fail_desc" formControlName="fail_desc" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                        required matInput placeholder="ملاحظات" type="email"></textarea>
 
-                                <mat-error *ngIf="
-        form1.controls.fail_end_year.hasError('required') &&
-        (form1.controls.fail_end_year.dirty || form1.controls.fail_end_year.touched)
-      ">
-                                    ادخل نهاية العام المكونة من أرقام فقط
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_end_year.hasError('pattern') &&
-        (form1.controls.fail_end_year.dirty || form1.controls.fail_end_year.touched)
-      ">
-                                    ادخل نهاية العام المكونة من أرقام فقط
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                              <mat-error *ngIf="
+  form1.controls.fail_desc.hasError('required') &&
+  (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+">
+                                  ادخل الملاحظات
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_desc.hasError('pattern') &&
+  (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+">
+                                  ادخل الملاحظات
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الأسباب الذاتية والبيئية:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <textarea [(ngModel)]="fail_reason" formControlName="fail_reason" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                        required matInput placeholder="الأسباب الذاتية" type="email"></textarea>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">مواقف أخري:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <textarea [(ngModel)]="fail_sit" formControlName="fail_sit" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
-                                          required matInput placeholder="مواقف أخري" type="text"></textarea>
+                              <mat-error *ngIf="
+  form1.controls.fail_reason.hasError('required') &&
+  (form1.controls.fail_reason.dirty || form1.controls.fail_reason.touched)
+">
+                                  ادخل الأسباب الذاتية والبيئية
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_reason.hasError('pattern') &&
+  (form1.controls.fail_reason.dirty || form1.controls.fail_reason.touched)
+">
+                                  ادخل الأسباب الذاتية والبيئية
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                                <mat-error *ngIf="
-        form1.controls.fail_sit.hasError('required') &&
-        (form1.controls.fail_sit.dirty || form1.controls.fail_sit.touched)
-      ">
-                                    ادخل مواقف أخري
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_sit.hasError('pattern') &&
-        (form1.controls.fail_sit.dirty || form1.controls.fail_sit.touched)
-      ">
-                                    ادخل مواقف أخري
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">المادة:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <mat-select required
+                                          formControlName="selectedsubject"
+                                          [(ngModel)]="selectedsubject"
+                                          placeholder="أختر المادة"
+                                          id="departmentsdropdown"
+                                          [disabled]="butDisabled"
+                                          multiple>
+                                  <mat-option *ngFor="let subject of subjects" [value]="subject">
+                                      {{ subject.subject_name }}
+                                  </mat-option>
+                              </mat-select>
 
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">التاريخ:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <input [(ngModel)]="fail_eff_date" required formControlName="fail_eff_date" matInput [matDatepicker]="dp5" placeholder="التاريخ" disabled>
-                                <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
-                                <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+                              <mat-error *ngIf="
+  form1.controls.selectedsubject.hasError('required') &&
+  (form1.controls.selectedsubject.dirty || form1.controls.selectedsubject.touched)
+">
+                                  اختر الماده
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                                <mat-error *ngIf="
-        form1.controls.fail_eff_date.hasError('required') &&
-        (form1.controls.fail_eff_date.dirty || form1.controls.fail_eff_date.touched)
-      ">
-                                    ادخل التاريخ
-                                </mat-error>
-
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الجهود المهنية المبذولة ونتائجها:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <textarea [(ngModel)]="fail_eff_results" formControlName="fail_eff_results" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
-                                          required matInput placeholder="الجهود المهنية" type="text"></textarea>
-
-                                <mat-error *ngIf="
-        form1.controls.fail_eff_results.hasError('required') &&
-        (form1.controls.fail_eff_results.dirty || form1.controls.fail_eff_results.touched)
-      ">
-                                    ادخل الجهود المهنية
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_eff_results.hasError('pattern') &&
-        (form1.controls.fail_eff_results.dirty || form1.controls.fail_eff_results.touched)
-      ">
-                                    ادخل الجهود المهنية
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الموقف نهاية العام والتوصيات:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field >
-                                <textarea [(ngModel)]="fail_recomm" formControlName="fail_recomm" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
-                                          required matInput placeholder="الموقف نهاية العام" type="text"></textarea>
-
-                                <mat-error *ngIf="
-        form1.controls.fail_recomm.hasError('required') &&
-        (form1.controls.fail_recomm.dirty || form1.controls.fail_recomm.touched)
-      ">
-                                    ادخل الموقف نهاية العام
-                                </mat-error>
-                                <mat-error *ngIf="
-        form1.controls.fail_recomm.hasError('pattern') &&
-        (form1.controls.fail_recomm.dirty || form1.controls.fail_recomm.touched)
-      ">
-                                    ادخل الموقف نهاية العام
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الفترة الأولي:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input formControlName="fail_1"
+                                     required [(ngModel)]="fail_1" matInput placeholder="أدخل الفترة الأولي" type="number">
 
 
-                </div>
-                    <div class="kt-portlet__foot kt-portlet__no-border">
-                        <div class="kt-form__actions kt-form__actions--solid">
-                            <div class="row">
-                                <div class="col-lg-2"></div>
-                                <div class="col-lg-6">
-                                    <button id="save_btn" type="button" (click)="add_failure()" mat-raised-button color="primary">اضافة</button>&nbsp;
-                                    <button id="update_btn" type="button" (click)="update_failure()" mat-raised-button color="primary">تعديل</button>&nbsp;
-                                    <button id="cancel_btn"  type="button" (click)="cancel_failure()" mat-raised-button color="primary">الغاء</button>&nbsp;
+                              <mat-error *ngIf="
+  form1.controls.fail_1.hasError('required') &&
+  (form1.controls.fail_1.dirty || form1.controls.fail_1.touched)
+">
+                                  ادخل الفترة الأولي المكونة من أرقام فقط
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_1.hasError('pattern') &&
+  (form1.controls.fail_1.dirty || form1.controls.fail_1.touched)
+">
+                                  ادخل الفترة الأولي المكونة من أرقام فقط
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-</form>
-            <!--end::Form-->
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الفترة الثانية:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input formControlName="fail_2"
+                                     required [(ngModel)]="fail_2" matInput placeholder="أدخل الفترة الثانية" type="number">
+
+
+                              <mat-error *ngIf="
+  form1.controls.fail_2.hasError('required') &&
+  (form1.controls.fail_2.dirty || form1.controls.fail_2.touched)
+">
+                                  ادخل الفترة الثانية المكونة من أرقام فقط
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_2.hasError('pattern') &&
+  (form1.controls.fail_2.dirty || form1.controls.fail_2.touched)
+">
+                                  ادخل الفترة الثانية المكونة من أرقام فقط
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الفترة الثالثة:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input formControlName="fail_3"
+                                     required [(ngModel)]="fail_3" matInput placeholder="أدخل الفترة الثالثة" type="number">
+
+
+                              <mat-error *ngIf="
+  form1.controls.fail_3.hasError('required') &&
+  (form1.controls.fail_3.dirty || form1.controls.fail_3.touched)
+">
+                                  ادخل الفترة الثالثة المكونة من أرقام فقط
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_3.hasError('pattern') &&
+  (form1.controls.fail_3.dirty || form1.controls.fail_3.touched)
+">
+                                  ادخل الفترة الثالثة المكونة من أرقام فقط
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الفترة الرابعة:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input formControlName="fail_4"
+                                     required [(ngModel)]="fail_4" matInput placeholder="أدخل الفترة الرابعة" type="number">
+
+
+                              <mat-error *ngIf="
+  form1.controls.fail_4.hasError('required') &&
+  (form1.controls.fail_4.dirty || form1.controls.fail_4.touched)
+">
+                                  ادخل الفترة الرابعة المكونة من أرقام فقط
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_4.hasError('pattern') &&
+  (form1.controls.fail_4.dirty || form1.controls.fail_4.touched)
+">
+                                  ادخل الفترة الرابعة المكونة من أرقام فقط
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">نهاية العام:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input formControlName="fail_end_year"
+                                     required [(ngModel)]="fail_end_year" matInput placeholder="أدخل نهاية العام" type="number">
+
+
+                              <mat-error *ngIf="
+  form1.controls.fail_end_year.hasError('required') &&
+  (form1.controls.fail_end_year.dirty || form1.controls.fail_end_year.touched)
+">
+                                  ادخل نهاية العام المكونة من أرقام فقط
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_end_year.hasError('pattern') &&
+  (form1.controls.fail_end_year.dirty || form1.controls.fail_end_year.touched)
+">
+                                  ادخل نهاية العام المكونة من أرقام فقط
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">مواقف أخري:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <textarea [(ngModel)]="fail_sit" formControlName="fail_sit" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                        required matInput placeholder="مواقف أخري" type="text"></textarea>
+
+                              <mat-error *ngIf="
+  form1.controls.fail_sit.hasError('required') &&
+  (form1.controls.fail_sit.dirty || form1.controls.fail_sit.touched)
+">
+                                  ادخل مواقف أخري
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_sit.hasError('pattern') &&
+  (form1.controls.fail_sit.dirty || form1.controls.fail_sit.touched)
+">
+                                  ادخل مواقف أخري
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">التاريخ:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <input [(ngModel)]="fail_eff_date" required formControlName="fail_eff_date" matInput [matDatepicker]="dp5" placeholder="التاريخ" disabled>
+                              <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                              <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+
+                              <mat-error *ngIf="
+  form1.controls.fail_eff_date.hasError('required') &&
+  (form1.controls.fail_eff_date.dirty || form1.controls.fail_eff_date.touched)
+">
+                                  ادخل التاريخ
+                              </mat-error>
+
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الجهود المهنية المبذولة ونتائجها:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <textarea [(ngModel)]="fail_eff_results" formControlName="fail_eff_results" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                        required matInput placeholder="الجهود المهنية" type="text"></textarea>
+
+                              <mat-error *ngIf="
+  form1.controls.fail_eff_results.hasError('required') &&
+  (form1.controls.fail_eff_results.dirty || form1.controls.fail_eff_results.touched)
+">
+                                  ادخل الجهود المهنية
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_eff_results.hasError('pattern') &&
+  (form1.controls.fail_eff_results.dirty || form1.controls.fail_eff_results.touched)
+">
+                                  ادخل الجهود المهنية
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="form-group kt-form__group row">
+                      <b class="col-lg-2 col-form-label">الموقف نهاية العام والتوصيات:</b>
+                      <div class="col-lg-6">
+                          <mat-form-field>
+                              <textarea [(ngModel)]="fail_recomm" formControlName="fail_recomm" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                        required matInput placeholder="الموقف نهاية العام" type="text"></textarea>
+
+                              <mat-error *ngIf="
+  form1.controls.fail_recomm.hasError('required') &&
+  (form1.controls.fail_recomm.dirty || form1.controls.fail_recomm.touched)
+">
+                                  ادخل الموقف نهاية العام
+                              </mat-error>
+                              <mat-error *ngIf="
+  form1.controls.fail_recomm.hasError('pattern') &&
+  (form1.controls.fail_recomm.dirty || form1.controls.fail_recomm.touched)
+">
+                                  ادخل الموقف نهاية العام
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+
+              </div>
+              <div class="kt-portlet__foot kt-portlet__no-border">
+                  <div class="kt-form__actions kt-form__actions--solid">
+                      <div class="row">
+                          <div class="col-lg-2"></div>
+                          <div class="col-lg-6">
+                              <button id="save_btn" type="button" (click)="add_failure()" mat-raised-button color="primary">اضافة</button>&nbsp;
+                              <button id="update_btn" type="button" (click)="update_failure()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                              <button id="cancel_btn" type="button" (click)="cancel_failure()" mat-raised-button color="primary">الغاء</button>&nbsp;
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </form>-->
+<!--end::Form-->
+<!--</div>
         </div>
     </div>
 </div>
-</div>
 <div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
-<kt-failure-list></kt-failure-list>
-</div>
+    <kt-failure-list></kt-failure-list>
+</div>-->
 <!--End Activity Data-->
+
+
+<div class="card" dir="rtl"
+     *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">حالات الرسوب في أسابيع</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة حالات الرسوب في أسابيع
+        </button>
+        <br />
+    </div>
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-failure-list></kt-failure-list>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">
+            <i class="fas fa-tasks" style="margin:5px;"></i>
+            اضافة حالات الرسوب في أسابيع
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الصف</mat-label>
+                                                <input name="level"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedlevel"
+                                                       (ngModelChange)="change_level($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControllev"
+                                                       [matAutocomplete]="autolevel"
+                                                       forceSelection="lev_name">
+                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                        {{ level.lev_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفصل</mat-label>
+                                                <input name="class"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedclass"
+                                                       (ngModelChange)="change_class($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControlclass"
+                                                       [matAutocomplete]="autoclass"
+                                                       forceSelection="class_name">
+                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                        {{ class.class_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الطالب</mat-label>
+                                                <input name="student"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedstudent"
+                                                       placeholder=""
+                                                       [formControl]="myControlstudent"
+                                                       [matAutocomplete]="autostudent"
+                                                       forceSelection="student_name">
+                                                <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnstudent">
+                                                    <mat-option *ngFor="let student of filteredOptionsstudent  | async" [value]="student">
+                                                        {{ student.student_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الجنسيه</mat-label>
+                                                <mat-select placeholder=""
+                                                            [(ngModel)]="selectednation"
+                                                            required formControlName="selectednation">
+                                                    <mat-option *ngFor="let nat of nat" [value]="nat">
+                                                        {{ nat.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="
+        form1.controls.selectednation.hasError('required') &&
+        (form1.controls.selectednation.dirty || form1.controls.selectednation.touched)
+      ">
+                                                    من فضلك اختر الجنسيه
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>رقم الهاتف</mat-label>
+                                                <input [(ngModel)]="fail_mob" required formControlName="fail_mob" matInput placeholder="" type="number">
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_mob.hasError('required') &&
+        (form1.controls.fail_mob.dirty || form1.controls.fail_mob.touched)
+      ">
+                                                    من فضلك ادخل رقم الهاتف
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="dp3.open()">
+                                                <mat-label>
+                                                    تاريخ الميلاد
+
+                                                </mat-label>
+                                                <input [(ngModel)]="fail_birth" required formControlName="fail_birth" matInput [matDatepicker]="dp3" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_birth.hasError('required') &&
+        (form1.controls.fail_birth.dirty || form1.controls.fail_birth.touched)
+      ">
+                                                    من فضلك ادخل تاريخ الميلاد
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="dp4.open()">
+                                                <mat-label>تاريخ بدء العمل معه</mat-label>
+                                                <input [(ngModel)]="fail_date" required formControlName="fail_date" matInput [matDatepicker]="dp4" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_date.hasError('required') &&
+        (form1.controls.fail_date.dirty || form1.controls.fail_date.touched)
+      ">
+                                                    من فضلك ادخل تاريخ بدء العمل
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>ملاحظات حول شخصية الطالب وسلوكه</mat-label>
+
+                                                <textarea [(ngModel)]="fail_desc" formControlName="fail_desc" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                          required matInput placeholder="" type="email"></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_desc.hasError('required') &&
+        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+      ">
+                                                    من فضلك ادخل الملاحظات
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_desc.hasError('pattern') &&
+        (form1.controls.fail_desc.dirty || form1.controls.fail_desc.touched)
+      ">
+                                                    من فضلك ادخل الملاحظات
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الأسباب الذاتية والبيئية</mat-label>
+                                                <textarea [(ngModel)]="fail_reason" formControlName="fail_reason" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                          required matInput placeholder="" type="email"></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_reason.hasError('required') &&
+        (form1.controls.fail_reason.dirty || form1.controls.fail_reason.touched)
+      ">
+                                                    من فضلك ادخل الأسباب الذاتية والبيئية
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_reason.hasError('pattern') &&
+        (form1.controls.fail_reason.dirty || form1.controls.fail_reason.touched)
+      ">
+                                                    من فضلك ادخل الأسباب الذاتية والبيئية
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>المادة</mat-label>
+                                                <mat-select required
+                                                            formControlName="selectedsubject"
+                                                            [(ngModel)]="selectedsubject"
+                                                            placeholder=""
+                                                            id="departmentsdropdown"
+                                                            [disabled]="butDisabled"
+                                                            multiple>
+                                                    <mat-option *ngFor="let subject of subjects" [value]="subject">
+                                                        {{ subject.subject_name }}
+                                                    </mat-option>
+                                                </mat-select>
+
+                                                <mat-error *ngIf="
+        form1.controls.selectedsubject.hasError('required') &&
+        (form1.controls.selectedsubject.dirty || form1.controls.selectedsubject.touched)
+      ">
+                                                    من فضلك اختر الماده
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفترة الأولي</mat-label>
+                                                <input formControlName="fail_1"
+                                                       required [(ngModel)]="fail_1" matInput placeholder="" type="number">
+
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_1.hasError('required') &&
+        (form1.controls.fail_1.dirty || form1.controls.fail_1.touched)
+      ">
+                                                    ادخل الفترة الأولي المكونة من أرقام فقط
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_1.hasError('pattern') &&
+        (form1.controls.fail_1.dirty || form1.controls.fail_1.touched)
+      ">
+                                                    ادخل الفترة الأولي المكونة من أرقام فقط
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفترة الثانية</mat-label>
+                                                <input formControlName="fail_2"
+                                                       required [(ngModel)]="fail_2" matInput placeholder="" type="number">
+
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_2.hasError('required') &&
+        (form1.controls.fail_2.dirty || form1.controls.fail_2.touched)
+      ">
+                                                    ادخل الفترة الثانية المكونة من أرقام فقط
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_2.hasError('pattern') &&
+        (form1.controls.fail_2.dirty || form1.controls.fail_2.touched)
+      ">
+                                                    ادخل الفترة الثانية المكونة من أرقام فقط
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفترة الثالثة</mat-label>
+                                                <input formControlName="fail_3"
+                                                       required [(ngModel)]="fail_3" matInput placeholder="" type="number">
+
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_3.hasError('required') &&
+        (form1.controls.fail_3.dirty || form1.controls.fail_3.touched)
+      ">
+                                                    ادخل الفترة الثالثة المكونة من أرقام فقط
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_3.hasError('pattern') &&
+        (form1.controls.fail_3.dirty || form1.controls.fail_3.touched)
+      ">
+                                                    ادخل الفترة الثالثة المكونة من أرقام فقط
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفترة الرابعة</mat-label>
+                                                <input formControlName="fail_4"
+                                                       required [(ngModel)]="fail_4" matInput placeholder="" type="number">
+
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_4.hasError('required') &&
+        (form1.controls.fail_4.dirty || form1.controls.fail_4.touched)
+      ">
+                                                    ادخل الفترة الرابعة المكونة من أرقام فقط
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_4.hasError('pattern') &&
+        (form1.controls.fail_4.dirty || form1.controls.fail_4.touched)
+      ">
+                                                    ادخل الفترة الرابعة المكونة من أرقام فقط
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+
+
+                                            <mat-form-field>
+                                                <mat-label>نهاية العام</mat-label>
+                                                <input formControlName="fail_end_year"
+                                                       required [(ngModel)]="fail_end_year" matInput placeholder="" type="number">
+
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_end_year.hasError('required') &&
+        (form1.controls.fail_end_year.dirty || form1.controls.fail_end_year.touched)
+      ">
+                                                    ادخل نهاية العام المكونة من أرقام فقط
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_end_year.hasError('pattern') &&
+        (form1.controls.fail_end_year.dirty || form1.controls.fail_end_year.touched)
+      ">
+                                                    ادخل نهاية العام المكونة من أرقام فقط
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>مواقف أخري</mat-label>
+                                                <textarea [(ngModel)]="fail_sit" formControlName="fail_sit" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                          required matInput placeholder="" type="text"></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_sit.hasError('required') &&
+        (form1.controls.fail_sit.dirty || form1.controls.fail_sit.touched)
+      ">
+                                                    من فضلك ادخل مواقف أخري
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_sit.hasError('pattern') &&
+        (form1.controls.fail_sit.dirty || form1.controls.fail_sit.touched)
+      ">
+                                                    من فضلك ادخل مواقف أخري
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field (click)="dp5.open()">
+                                                <mat-label>التاريخ</mat-label>
+                                                <input [(ngModel)]="fail_eff_date" required formControlName="fail_eff_date" matInput [matDatepicker]="dp5" placeholder="">
+                                                <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_eff_date.hasError('required') &&
+        (form1.controls.fail_eff_date.dirty || form1.controls.fail_eff_date.touched)
+      ">
+                                                    من فضلك ادخل التاريخ
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الجهود المهنية المبذولة ونتائجها</mat-label>
+                                                <textarea [(ngModel)]="fail_eff_results" formControlName="fail_eff_results" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                          required matInput placeholder="" type="text"></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_eff_results.hasError('required') &&
+        (form1.controls.fail_eff_results.dirty || form1.controls.fail_eff_results.touched)
+      ">
+                                                    من فضلك ادخل الجهود المهنية
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_eff_results.hasError('pattern') &&
+        (form1.controls.fail_eff_results.dirty || form1.controls.fail_eff_results.touched)
+      ">
+                                                    من فضلك ادخل الجهود المهنية
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+
+                                        <div class="col-lg-9">
+                                            <mat-form-field>
+                                                <mat-label>الموقف نهاية العام والتوصيات</mat-label>
+                                                <textarea [(ngModel)]="fail_recomm" formControlName="fail_recomm" pattern="^[أ-ي-a-zA-Z0-9-_.@_#!?^%$ ]{0,200}"
+                                                          required matInput placeholder="" type="text"></textarea>
+
+                                                <mat-error *ngIf="
+        form1.controls.fail_recomm.hasError('required') &&
+        (form1.controls.fail_recomm.dirty || form1.controls.fail_recomm.touched)
+      ">
+                                                    من فضلك ادخل الموقف نهاية العام
+                                                </mat-error>
+                                                <mat-error *ngIf="
+        form1.controls.fail_recomm.hasError('pattern') &&
+        (form1.controls.fail_recomm.dirty || form1.controls.fail_recomm.touched)
+      ">
+                                                    من فضلك ادخل الموقف نهاية العام
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button id="update_btn" type="button" (click)="update_failure()" style="border-radius: 20px;" 
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button id="save_btn" type="button" (click)="add_failure()" style="border-radius: 20px;"
+                class="btn btn-primary">
+            اضافة
+        </button>
+    </div>
+
+</ng-template>

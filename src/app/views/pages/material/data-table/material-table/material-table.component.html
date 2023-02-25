@@ -19,17 +19,19 @@
             <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
                 <div class="kt-portlet__body">
                     <div class="form-group kt-form__group row">
-                        <!--<mat-label>الصف
-                            <span class="text-danger">*</span>
-                        </mat-label>-->
+                
                         <div class="col-lg-4">
-                            <mat-form-field >
+                            <mat-form-field>
+                                <mat-label>
+                                    الصف
+                                    <!--<span class="text-danger">*</span>-->
+                                </mat-label>
                                 <input name="level"
                                        type="text"
                                        matInput
                                        [(ngModel)]="selectedlevel"
                                        (ngModelChange)="change_level($event)"
-                                       placeholder="أختر الصف"
+                                       placeholder=""
                                        [formControl]="myControllev"
                                        [matAutocomplete]="autolevel"
                                        forceSelection="lev_name">
@@ -44,17 +46,19 @@
                     </div>
 
                     <div class="form-group kt-form__group row">
-                        <!--<mat-label>الفصل
-                            <span class="text-danger">*</span>
-                        </mat-label>-->
+                
                         <div class="col-lg-4">
-                            <mat-form-field >
+                            <mat-form-field>
+                                <mat-label>
+                                    الفصل
+                                    <!--<span class="text-danger">*</span>-->
+                                </mat-label>
                                 <input name="class"
                                        type="text"
                                        matInput
                                        [(ngModel)]="selectedclass"
                                        (ngModelChange)="change_class($event)"
-                                       placeholder="أختر الفصل"
+                                       placeholder=""
                                        [formControl]="myControlclass"
                                        [matAutocomplete]="autoclass"
                                        forceSelection="class_name">

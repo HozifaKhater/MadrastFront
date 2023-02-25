@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import { Definition } from '../../../../../Definitions.Model';
 import { DefinitionDataService } from '../../../../../Services/Definition';
 import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'kt-RestToRedo',
@@ -70,7 +70,8 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-    constructor(
+    constructor(private modalService: NgbModal,
+        private cdRef: ChangeDetectorRef,
         private router: Router, private user_privDataService: user_privDataService,
         public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
@@ -328,11 +329,11 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+            //(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
+            //(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
+            //(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
+            //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+            //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
     
             this.id = this.RestToRedoService.id;
             this.level_name = this.RestToRedoService.level_name;
@@ -403,11 +404,27 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                                 });
                         });
                     });		
+            // open modal
+            var ele = document.getElementById('modalOpener');
+            if (ele) { ele.click() }
         });
 
         (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
         (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
         (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
 
+    }
+
+    display = "";
+    openModal(content: any, event: any) {
+
+        this.modalService.open(content, { backdrop: true, size: "xl", });
+    }
+    openModal1() {
+        this.display = "show";
+        this.cdRef.detectChanges();
+    }
+    onCloseHandled() {
+        this.display = "";
     }
 }

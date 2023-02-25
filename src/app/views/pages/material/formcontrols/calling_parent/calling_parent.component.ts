@@ -1,4 +1,4 @@
-﻿import { Component,ChangeDetectorRef, OnInit, ChangeDetectionStrategy, Input, ViewEncapsulation } from '@angular/core';
+﻿import { Component, ChangeDetectorRef, OnInit, ChangeDetectionStrategy, Input, ViewEncapsulation} from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { DepartmentDataService } from '../../../../../Services/DepartmentDataService';
@@ -22,6 +22,7 @@ import { FormArray, FormBuilder,  FormGroup} from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -68,7 +69,7 @@ export class calling_parentsComponent implements OnInit {
     
 
     behave_date:any;
-    cancel_behav(){}
+
 behave_stat_rep:any;
 
 	departments: DepartmentMaster[];
@@ -82,7 +83,7 @@ behave_stat_rep:any;
 
     form1: FormGroup;
 
-    constructor(
+    constructor(private modalService: NgbModal,
         private cdRef: ChangeDetectorRef,
         private router: Router, private user_privDataService: user_privDataService,
         public _fb: FormBuilder,
@@ -314,10 +315,27 @@ behave_stat_rep:any;
                     });
 
                 
-
+                // open modal
+                var ele = document.getElementById('modalOpener');
+                if (ele) { ele.click() }
 			});
 		
        
 
-	}
+    }
+
+    display = "";
+    openModal(content: any, event: any) {
+
+        this.modalService.open(content, { backdrop: true, size: "xl", });
+    }
+    openModal1() {
+        this.display = "show";
+        console.log("clicked")
+        this.cdRef.detectChanges();
+    }
+    onCloseHandled() {
+        this.display = "";
+    }
+
 }

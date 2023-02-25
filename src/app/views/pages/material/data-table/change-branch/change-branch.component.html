@@ -9,6 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
                             تغيير التشعيب
                         </h3>
                     </div>
@@ -24,15 +25,15 @@
                         <div class="col-lg-4">
                             <mat-form-field>
 
-                                <!--<mat-label>
+                                <mat-label>
                                     الصف
-                                </mat-label>-->
+                                </mat-label>
                                 <input name="level"
                                        type="text"
                                        matInput
                                        [(ngModel)]="selectedlevel"
                                        (ngModelChange)="change_level($event)"
-                                       placeholder="أختر الصف"
+                                       placeholder=""
                                        [formControl]="myControllev"
                                        [matAutocomplete]="autolevel"
                                        forceSelection="lev_name">
@@ -49,13 +50,13 @@
 
                         <div class="col-lg-4">
                             <mat-form-field>
-                                <!--<mat-label>الفصل</mat-label>-->
+                                <mat-label>الفصل</mat-label>
                                 <input name="class"
                                        type="text"
                                        matInput
                                        [(ngModel)]="selectedclass"
                                        (ngModelChange)="change_class($event)"
-                                       placeholder="أختر الفصل"
+                                       placeholder=""
                                        [formControl]="myControlclass"
                                        [matAutocomplete]="autoclass"
                                        forceSelection="class_name">
@@ -74,15 +75,15 @@
                         <div class="col-lg-4">
                             <mat-form-field>
 
-                                <!--<mat-label>
+                                <mat-label>
                                     الطالب
-                                </mat-label>-->
+                                </mat-label>
                                 <input name="student"
                                        type="text"
                                        matInput
                                        (ngModelChange)="change_student($event)"
                                        [(ngModel)]="selectedstudent"
-                                       placeholder="أختر الطالب"
+                                       placeholder=""
                                        [formControl]="myControlstudent"
                                        [matAutocomplete]="autostudent"
                                        forceSelection="student_name">
@@ -99,11 +100,11 @@
 
                         <div class="col-lg-4">
                             <mat-form-field>
-                                <!--<mat-label>تغيير الشعبة الي</mat-label>-->
+                                <mat-label>تغيير الشعبة الي</mat-label>
                                 <mat-select [(ngModel)]="student_branch"
                                             required formControlName="student_branch"
                                             id="studentdropdown"
-                                            placeholder="تغيير الشعبة الي">
+                                            placeholder="">
 
                                     <mat-option *ngFor="let branch of branch" [value]="branch">
                                         {{ branch.def_name }}
