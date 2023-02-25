@@ -480,24 +480,24 @@ export class Speaking_disorderComponent implements OnInit {
 											return String(el.lev_id) == level_id;
 										})];
                                          
-                                        this.Speaking_disorderDataService.get_speaking_details_first_with_speech_dis_id(this.speech_dis_id)
-                                        .subscribe((data:any) => this.first = data.data,
-                                            error => console.log(),
-                                        () => {
+                                        // this.Speaking_disorderDataService.get_speaking_details_first_with_speech_dis_id(this.speech_dis_id)
+                                        // .subscribe((data:any) => this.first = data.data,
+                                        //     error => console.log(),
+                                        // () => {
 
-                                            this.other_situations = this.first[0].other_situations;
-                                            this.date = this.first[0].date;
-                                            this.effort_results = this.first[0].effort_results;
-                                            this.end_year_state = this.first[0].end_year_state;
+                                        //     this.other_situations = this.first[0].other_situations;
+                                        //     this.date = this.first[0].date;
+                                        //     this.effort_results = this.first[0].effort_results;
+                                        //     this.end_year_state = this.first[0].end_year_state;
 
-                                            this.Speaking_disorderDataService.get_speaking_details_second_with_speech_dis_id(this.speech_dis_id)
-                                            .subscribe((data:any) => this.second = data.data,
-                                            error => console.log(),
-                                            () => {
-                                                    this.visit_date = this.second[0].visit_date;
-                                                    this.visit_results = this.second[0].visit_results;
-                                            });
-                                        });
+                                        //     this.Speaking_disorderDataService.get_speaking_details_second_with_speech_dis_id(this.speech_dis_id)
+                                        //     .subscribe((data:any) => this.second = data.data,
+                                        //     error => console.log(),
+                                        //     () => {
+                                        //             this.visit_date = this.second[0].visit_date;
+                                        //             this.visit_results = this.second[0].visit_results;
+                                        //     });
+                                        // });
                                      
 									});
 							});
