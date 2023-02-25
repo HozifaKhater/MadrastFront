@@ -23,12 +23,6 @@ export class Add_libDataService {
 
     constructor(private http: HttpClient) { }
 
-    //public GetAlldepartment = (): Observable<any> =>  
-    //{
-
-    //    return this.http1.get(this.actionUrl).map((response: Response) => <any>response.json());
-
-    //}
     GetAllAdd_lib(): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/add_lib');
     }
@@ -36,7 +30,6 @@ export class Add_libDataService {
         return this.http.get<any>(this.APIUrl + '/add_lib/id?id=' + val);
     }
     addAdd_lib(val: any) {
-        console.log("ttt")
         return this.http.post(this.APIUrl + '/add_lib', val);
     }
     updateAdd_lib(val: any) {
@@ -49,7 +42,6 @@ export class Add_libDataService {
     /*   @Output() deparmentClickedEvent = new EventEmitter<string>();*/
     AClicked(msg: string) {
         this.aClickedEvent.emit(msg);
-        console.log(Add_libDataService);
     }
     @Output() bClickedEvent = new EventEmitter<string>();
     /*   @Output() deparmentClickedEvent = new EventEmitter<string>();*/

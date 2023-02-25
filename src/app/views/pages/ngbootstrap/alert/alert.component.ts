@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgbAlertConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -49,11 +49,11 @@ export class AlertComponent implements OnInit {
 
 	form1: FormGroup;
 	constructor(
+		private cdRef: ChangeDetectorRef,
 		private router: Router, private user_privDataService: user_privDataService,
 		public _fb: FormBuilder, alertConfig: NgbAlertConfig, private EmployeeService: EmployeeDataService, private Borrow_bookDataService: Borrow_bookDataService) {
 		this.EmployeeService.GetAllEmployee().subscribe(data => this.Employees = data,
-			error => console.log(error),
-			() => console.log("emp dropdown", this.Employees));
+			error => console.log());
 
 		this.form1 = this._fb.group({
 			borr_name: ['', [Validators.required]]
@@ -65,10 +65,9 @@ export class AlertComponent implements OnInit {
 
 	add_borrow() {
 		if (this.form1.invalid) {
-			console.log('Form invalid...');
 			this.form1.markAllAsTouched();
 		} else {
-		this.Borrow_bookDataService.borr_date = moment(this.borr_date).format('DD/MM/YYYY');
+		this.Borrow_bookDataService.borr_date = this.borr_date;
 		this.Borrow_bookDataService.borr_name = this.employeedepartment.emp_name;
 		this.Borrow_bookDataService.BClicked('Component A is clicked!!');
 		//var test1
@@ -91,26 +90,20 @@ export class AlertComponent implements OnInit {
 	}
 
 
-	priv_info:any;
+	priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}); 
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});
 		
 
-		
-		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
-
+	
 		this.Borrow_bookDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-
-
+				
 				this.borr_id = Number(this.Borrow_bookDataService.borr_id);
 
 				this.borr_date = this.Borrow_bookDataService.borr_date;
@@ -127,8 +120,7 @@ export class AlertComponent implements OnInit {
 			debounceTime(5000)
 		).subscribe(() => this.successMessage = null);
 
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		
 	}
 
 
