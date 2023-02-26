@@ -131,3 +131,6 @@ dist
 *.sqlite
 *.sqlite
 .vs/slnx.sqlite
+.vs/MadrastFront/FileContentIndex/read.lock
+.vs/slnx.sqlite
+.vs/slnx.sqlite
