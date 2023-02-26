@@ -352,7 +352,8 @@ export class Absence_casesComponent implements OnInit {
     anotherStuArray:Student[];
     anotherClassArray:Classes[];
     anotherLevelArray: Levels[];
- 
+    absence:any[];
+
     priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -378,7 +379,7 @@ export class Absence_casesComponent implements OnInit {
         this.Absence_casesDataService.aClickedEvent
 			.subscribe((data: string) => {
 
-                this.absence_cases_id = this.absence_cases_id;
+                this.absence_cases_id = this.Absence_casesDataService.absence_cases_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality = this.Absence_casesDataService.nationality_name;
                 this.phone_no = this.Absence_casesDataService.phone_no;
@@ -435,6 +436,18 @@ export class Absence_casesComponent implements OnInit {
 						
 											return String(el.lev_id) == level_id;
 										})];
+
+                                        this.Absence_casesDataService.get_absence_cases_details_with_absence_cases_id
+                                        (this.absence_cases_id)
+                                        .subscribe(data => this.absence = data,
+                                            error => console.log(),
+                                            () => {
+                                                this.other_situations = this.absence['data'][0].other_situations;
+                                                this.date = this.absence['data'][0].date;
+                                                this.effort_results = this.absence['data'][0].effort_results;
+                                                this.end_year_state	= this.absence['data'][0].end_year_state;
+
+                                            });
 									});
 							});
 

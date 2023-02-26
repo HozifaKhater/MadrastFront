@@ -1,215 +1,426 @@
 ﻿    <!--Departments Data-->
-    <div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="kt-portlet">
-                    <div class="kt-portlet__head">
-                        <div class="kt-portlet__head-caption">
-                            <div class="kt-portlet__head-title">
+<!--<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
 
-                                <h3 class="kt-portlet__head-text">
-                                    <i class="fas fa-tasks" style="margin:5px;"></i>
-                                    بطاقة رعاية طالب متفوق
-                                </h3>
-                            </div>
+                            <h3 class="kt-portlet__head-text">
+                                <i class="fas fa-tasks" style="margin:5px;"></i>
+                                بطاقة رعاية طالب متفوق
+                            </h3>
                         </div>
                     </div>
-                    <!--begin::Form-->
-                    <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
-                        <div class="kt-portlet__body">
-                            <div class="kt-form__section kt-form__section--first">
+                </div>-->
+                <!--begin::Form-->
+                <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed" [formGroup]="form1">
+                    <div class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
 
-                                <div class="form-group kt-form__group row">
+                            <div class="form-group kt-form__group row">
 
-                                    <label class="col-lg-3 col-form-label">
-                                        المادة:
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <input name="subject"
-                                                   type="text"
-                                                   matInput
-                                                   [(ngModel)]="selectedsubject"
-                                                   placeholder="أختر المادة"
-                                                   [formControl]="myControlsub"
-                                                   [matAutocomplete]="auto"
-                                                   forceSelection="subject_name"
-                                                   [(value)]="subjectNameValue">
-                                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-                                                <mat-option *ngFor="let subject of filteredOptions  | async" [value]="subject">
-                                                    {{ subject.subject_name }}
-                                                </mat-option>
-                                            </mat-autocomplete>
+                                <label class="col-lg-3 col-form-label">
+                                    المادة:
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <input name="subject"
+                                               type="text"
+                                               matInput
+                                               [(ngModel)]="selectedsubject"
+                                               placeholder="أختر المادة"
+                                               [formControl]="myControlsub"
+                                               [matAutocomplete]="auto"
+                                               forceSelection="subject_name"
+                                               [(value)]="subjectNameValue">
+                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                                            <mat-option *ngFor="let subject of filteredOptions  | async" [value]="subject">
+                                                {{ subject.subject_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
 
-                                        </mat-form-field>
-                                    </div>
+                                    </mat-form-field>
                                 </div>
-
-                                <div class="form-group kt-form__group row">
-                                    <label class="col-lg-3 col-form-label">
-                                        الصف:
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <input type="text"
-                                                   matInput
-                                                   [(ngModel)]="selectedlevel"
-                                                   (ngModelChange)="change_level($event)"
-                                                   placeholder="أختر الصف"
-                                                   [formControl]="myControllev"
-                                                   [matAutocomplete]="autolevel"
-                                                   forceSelection="lev_name"
-                                                   [(value)]="levelNameValue">
-                                            <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
-                                                <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
-                                                    {{ level.lev_name }}
-                                                </mat-option>
-                                            </mat-autocomplete>
-
-
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                                <div class="form-group kt-form__group row">
-                                    <label class="col-lg-3 col-form-label">
-                                        الفصل:
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <input name="class"
-                                                   type="text"
-                                                   matInput
-                                                   [(ngModel)]="selectedclass"
-                                                   (ngModelChange)="change_class($event)"
-                                                   placeholder="أختر الفصل"
-                                                   [formControl]="myControlclass"
-                                                   [matAutocomplete]="autoclass"
-                                                   forceSelection="class_name"
-                                                   [(value)]="classNameValue">
-                                            <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
-                                                <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
-                                                    {{ class.class_name }}
-                                                </mat-option>
-                                            </mat-autocomplete>
-
-
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                                <div class="form-group kt-form__group row">
-                                    <label class="col-lg-3 col-form-label">
-                                        اسم الطالب:
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <input name="student"
-                                                   type="text"
-                                                   matInput
-                                                   [(ngModel)]="selectedStudent"
-                                                   (ngModelChange)="Change_Student()"
-                                                   placeholder="أختر الطالب"
-                                                   [formControl]="myControlStudent"
-                                                   [matAutocomplete]="autoStudent"
-                                                   forceSelection="student"
-                                                   [(value)]="studentNameValue">
-                                            <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
-                                                <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
-                                                    {{ student.student_name }}
-                                                </mat-option>
-                                            </mat-autocomplete>
-
-
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
                             </div>
-                        </div>
 
-                    </form>
-                </div>
-            </div>
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">
+                                    الصف:
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <input type="text"
+                                               matInput
+                                               [(ngModel)]="selectedlevel"
+                                               (ngModelChange)="change_level($event)"
+                                               placeholder="أختر الصف"
+                                               [formControl]="myControllev"
+                                               [matAutocomplete]="autolevel"
+                                               forceSelection="lev_name"
+                                               [(value)]="levelNameValue">
+                                        <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                            <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                {{ level.lev_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
 
-            <div class="col-lg-6">
-                <div class="kt-portlet">
-                    <div class="kt-portlet__head">
-                        <div class="kt-portlet__head-caption">
-                            <div class="kt-portlet__head-title">
 
-                                <h3 class="kt-portlet__head-text">
-                                    استكمال بطاقة رعاية طالب متفوق
-                                </h3>
+                                    </mat-form-field>
+                                </div>
                             </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">
+                                    الفصل:
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <input name="class"
+                                               type="text"
+                                               matInput
+                                               [(ngModel)]="selectedclass"
+                                               (ngModelChange)="change_class($event)"
+                                               placeholder="أختر الفصل"
+                                               [formControl]="myControlclass"
+                                               [matAutocomplete]="autoclass"
+                                               forceSelection="class_name"
+                                               [(value)]="classNameValue">
+                                        <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                            <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                {{ class.class_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">
+                                    اسم الطالب:
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <input name="student"
+                                               type="text"
+                                               matInput
+                                               [(ngModel)]="selectedStudent"
+                                               (ngModelChange)="Change_Student()"
+                                               placeholder="أختر الطالب"
+                                               [formControl]="myControlStudent"
+                                               [matAutocomplete]="autoStudent"
+                                               forceSelection="student"
+                                               [(value)]="studentNameValue">
+                                        <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                            <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                                {{ student.student_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <form class="kt-form" [formGroup]="form1">
-                        <div class="kt-portlet__body">
-                            <div class="kt-form__section kt-form__section--first">
-
-                                <div class="form-group kt-form__group row">
-                                    <label class="col-lg-3 col-form-label">جوانب الأبداع:</label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <textarea [(ngModel)]="good_ebda3"
-                                                      [ngModelOptions]="{standalone: true}"
-                                                      matInput
-                                                      placeholder="جوانب الأبداع"
-                                                      type="text"></textarea>
-
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="form-group kt-form__group row">
-                                    <label class="col-lg-3 col-form-label">طرق التحفيز:</label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <textarea [(ngModel)]="good_tahfeez" [ngModelOptions]="{standalone: true}" matInput placeholder="طرق التحفيز" type="text"></textarea>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="form-group kt-form__group row">
-                                    <label class="col-lg-3 col-form-label">النتائج:</label>
-                                    <div class="col-lg-6">
-                                        <mat-form-field >
-                                            <textarea [(ngModel)]="good_result" [ngModelOptions]="{standalone: true}" matInput placeholder="النتائج" type="email"></textarea>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-
-
-
-                        </div>
-                        <div class="kt-portlet__foot">
-                            <div class="kt-form__actions kt-form__actions">
-                                <div class="row">
-
-                                    <div class="col-lg-6">
-                                        <button id="save_btn" type="button" *ngIf="!is_edit" (click)="add_good_bad_students_card()" mat-raised-button color="accent">حفظ</button>&nbsp;
-                                        <button id="update_btn" type="button" *ngIf="is_edit" (click)="update_goodbadstudents()" mat-raised-button color="accent">تعديل</button>&nbsp;
-                                        <button id="cancel_btn" type="button" (click)="cancel_goodbadstudents()" mat-raised-button color="accent">الغاء</button>&nbsp;
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!--end::Form-->
-                </div>
+                </form>
             </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
+
+                            <h3 class="kt-portlet__head-text">
+                                استكمال بطاقة رعاية طالب متفوق
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="kt-form" [formGroup]="form1">
+                    <div class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">جوانب الأبداع:</label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <textarea [(ngModel)]="good_ebda3"
+                                                  [ngModelOptions]="{standalone: true}"
+                                                  matInput
+                                                  placeholder="جوانب الأبداع"
+                                                  type="text"></textarea>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">طرق التحفيز:</label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <textarea [(ngModel)]="good_tahfeez" [ngModelOptions]="{standalone: true}" matInput placeholder="طرق التحفيز" type="text"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-3 col-form-label">النتائج:</label>
+                                <div class="col-lg-6">
+                                    <mat-form-field>
+                                        <textarea [(ngModel)]="good_result" [ngModelOptions]="{standalone: true}" matInput placeholder="النتائج" type="email"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions kt-form__actions">
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <button id="save_btn" type="button" (click)="add_good_bad_students_card()" mat-raised-button color="accent">حفظ</button>&nbsp;
+                                    <button id="update_btn" type="button" (click)="update_goodbadstudents()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                    <button id="cancel_btn" type="button" (click)="cancel_goodbadstudents()" mat-raised-button color="accent">الغاء</button>&nbsp;
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>-->
+                <!--end::Form-->
+            <!--</div>
+        </div>
     </div>
-    <div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
-<kt-GoodBadStudentsCards-list></kt-GoodBadStudentsCards-list>
 </div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-GoodBadStudentsCards-list></kt-GoodBadStudentsCards-list>
+</div>-->
 <!--End Departments Data-->
+
+<div class="card" dir="rtl">
+    <div class="card-header">
+        <h3 style="display:flex;">بطاقة رعاية طالب متفوق</h3>
+    </div>
+    <div class="card-body">
+
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content1, $event)"
+                id="modalOpener">
+            اضافة بطاقة رعاية طالب متفوق
+        </button>
+
+
+
+    </div>
+    <br />
+</div>
+
+
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+    <kt-GoodBadStudentsCards-list></kt-GoodBadStudentsCards-list>
+</div>
+
+<ng-template #content1 let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">
+            <i class="fas fa-tasks" style="margin:5px;"></i>
+            اضافة بطاقة رعاية طالب متفوق
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    المادة
+                                                </mat-label>
+                                                <input name="subject"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedsubject"
+                                                       placeholder=""
+                                                       [formControl]="myControlsub"
+                                                       [matAutocomplete]="auto"
+                                                       forceSelection="subject_name"
+                                                       [(value)]="subjectNameValue">
+                                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                                                    <mat-option *ngFor="let subject of filteredOptions  | async" [value]="subject">
+                                                        {{ subject.subject_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الصف
+                                                </mat-label>
+                                                <input type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedlevel"
+                                                       (ngModelChange)="change_level($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControllev"
+                                                       [matAutocomplete]="autolevel"
+                                                       forceSelection="lev_name"
+                                                       [(value)]="levelNameValue">
+                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                        {{ level.lev_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الفصل
+                                                </mat-label>
+                                                <input name="class"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedclass"
+                                                       (ngModelChange)="change_class($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControlclass"
+                                                       [matAutocomplete]="autoclass"
+                                                       forceSelection="class_name"
+                                                       [(value)]="classNameValue">
+                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                        {{ class.class_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    الطالب
+                                                </mat-label>
+                                                <input name="student"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedStudent"
+                                                       (ngModelChange)="Change_Student()"
+                                                       placeholder=""
+                                                       [formControl]="myControlStudent"
+                                                       [matAutocomplete]="autoStudent"
+                                                       forceSelection="student"
+                                                       [(value)]="studentNameValue">
+                                                <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                                    <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                                        {{ student.student_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>جوانب الأبداع</mat-label>
+                                                <textarea [(ngModel)]="good_ebda3"
+                                                          [ngModelOptions]="{standalone: true}"
+                                                          matInput
+                                                          placeholder=""
+                                                          type="text"></textarea>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>طرق التحفيز</mat-label>
+                                                <textarea [(ngModel)]="good_tahfeez" [ngModelOptions]="{standalone: true}" matInput placeholder="" type="text"></textarea>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-9">
+                                            <mat-form-field>
+                                                <mat-label>النتائج</mat-label>
+                                                <textarea [(ngModel)]="good_result" [ngModelOptions]="{standalone: true}" matInput placeholder="" type="email"></textarea>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button id="update_btn" type="button" (click)="update_goodbadstudents()" style="border-radius: 20px;" class="btn btn-primary">تعديل</button>
+        <button id="save_btn" type="button" (click)="add_good_bad_students_card()" style="border-radius: 20px;"
+                class="btn btn-primary">
+            حفظ
+        </button>
+    </div>
+
+</ng-template>

@@ -3,12 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-// Depending on whether rollup is used, moment needs to be imported differently.
-// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
-// syntax. However, rollup creates a synthetic default module and we thus need to import it using
-// the `default as` syntax.
 import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment } from 'moment';
 import { teacher_opinion_visitDataService } from '../../../../../Services/teacher_opinion_visitDataService';
 import { Takeem_masterDataService } from '../../../../../Services/Takeem_masterDataService';
@@ -45,19 +40,6 @@ export class teacher_opinion_visitComponent implements OnInit {
 	is_agree:string="1";
 	notes:string="";
 	notes1:string="";
-	exampleBasicDatepicker;
-	exampleDatepickerStartDate;
-	exampleDatepickerSelectedValue;
-	exampleDatepickerWithMinMaxValidation;
-	exampleDatepickerWithFilterValidation;
-	exampleDatepickerInputAndChangeEvents;
-	exampleDisabledDatepicker;
-	exampleDatepickerTouchUI;
-	exampleDatepickerOpenMethod;
-	exampleDatepickerWithDifferentLocale;
-	exampleDatepickerThatUsesMomentJsDates;
-	exampleDatepickerWithCustomFormats;
-	exampleUsesMomentJsDates;
 
 	startDate = new Date(1990, 0, 1);
 	date = new FormControl(new Date());
@@ -73,29 +55,39 @@ export class teacher_opinion_visitComponent implements OnInit {
 	constructor(private modalService: NgbModal,
 		private cdRef: ChangeDetectorRef,
 		private router: Router, private user_privDataService: user_privDataService,
-		private Takeem_masterDataService: Takeem_masterDataService,private teacher_opinion_visitDataService: teacher_opinion_visitDataService, public _fb: FormBuilder) {
+		private Takeem_masterDataService: Takeem_masterDataService,
+		private teacher_opinion_visitDataService: teacher_opinion_visitDataService, 
+		public _fb: FormBuilder) {
+
 		const userToken = localStorage.getItem(environment.authTokenKey);
         this.decoded = jwt_decode(userToken);
+
+		this.form1 = this._fb.group({
+        });
+		
 	}
 
 	change_agree(event){
-		this.is_agree=event.target.value
-		console.log("change_agree",event.target.value)
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			this.is_agree=event.target.value
+		}
 	}
 
 
+
 	date_Change(event){
-		console.log("this.student_trackingDataService",event)
-		this.Takeem_masterDataService.evaluation_subject_id=this.decoded.id;
-		this.Takeem_masterDataService.evaluation_date=event.target.value;
-		
-		console.log("this.student_trackingDataService",this.Takeem_masterDataService)
-		this.Takeem_masterDataService.DClicked("test")
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			this.Takeem_masterDataService.evaluation_subject_id=this.decoded.id;
+			this.Takeem_masterDataService.evaluation_date=event.target.value;
+			
+			this.Takeem_masterDataService.DClicked("test")
+		}
 	}
 
 
 	add_subject() {
-		console.log("noteeees", this.notes)
             var val = {
 
 			
@@ -106,14 +98,12 @@ export class teacher_opinion_visitComponent implements OnInit {
 				
 
             };
-            console.log("subject value", val)
             this.teacher_opinion_visitDataService.save_in_teacher_opinion_visit(val).subscribe(res => {
                 alert("Added Successfully");
                 this.teacher_opinion_visitDataService.BClicked("");
 				 this.notes="";
 				 this.is_agree="1";
             })
-            console.log(val)
           
         
 	}
@@ -129,7 +119,6 @@ export class teacher_opinion_visitComponent implements OnInit {
 				notes	: this.notes	,
             };
 
-            console.log("val", val);
 
 
             this.teacher_opinion_visitDataService.update_teacher_opinion_visit(val).subscribe(res => {
@@ -138,6 +127,7 @@ export class teacher_opinion_visitComponent implements OnInit {
                 this.notes="";
 				this.is_agree="1";
 				this.is_edit=false;
+                
             })
         
 	}
@@ -148,14 +138,19 @@ export class teacher_opinion_visitComponent implements OnInit {
 	}
 	priv_info:any;
 	is_edit:boolean=false;
+   
+	
+    priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}); 
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});
+       
 		this.butDisabled = true;
 		
-		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
 
 		this.teacher_opinion_visitDataService.aClickedEvent
 			.subscribe((data: string) => {
@@ -165,26 +160,19 @@ export class teacher_opinion_visitComponent implements OnInit {
 				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 				this.is_edit=true;
+				
 				this.ser	=	this.teacher_opinion_visitDataService.ser	;
 				this.takeem_id	=	this.teacher_opinion_visitDataService.takeem_id	;
 				this.emp_id	=	this.teacher_opinion_visitDataService.emp_id	;
 				this.is_agree	=	this.teacher_opinion_visitDataService.is_agree	;
 				this.notes	=	this.teacher_opinion_visitDataService.notes	;
-				
-			
-				console.log("is agree",this.teacher_opinion_visitDataService.is_agree)
-				console.log(this.teacher_opinion_visitDataService.ser)
-				/*	document.getElementById("save_btn").innerHTML="asdasd"*/
-				console.log("edited")
+	
 
 				// open modal
 				var ele = document.getElementById('modalOpener');
 				if (ele) { ele.click() }
 
 			});
-(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-
 
 	}
 
@@ -205,7 +193,6 @@ export class teacher_opinion_visitComponent implements OnInit {
 	}
 	openModal1() {
 		this.display = "show";
-		console.log("clicked")
 		this.cdRef.detectChanges();
 	}
 	onCloseHandled() {

@@ -76,533 +76,852 @@
 </head>
 
 <!--  لوحة رئيس القسم -->
-<div *ngIf="pos_id===38 || pos_id===35">
-
-    <kt-ta7deirs-list></kt-ta7deirs-list>
-    <kt-show-ezons-list></kt-show-ezons-list>
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">جدول الحصص</h3>
-    </div>
-    <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
-
-    <br />
-    <!--الخطة اليومية-->
-
-    <kt-show-visits-list></kt-show-visits-list>
-    <kt-show-group_meeting-list></kt-show-group_meeting-list>
-    <kt-show-matters-list></kt-show-matters-list>
-    <kt-show-new_work-list></kt-show-new_work-list>
-
-    <br />
-
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">المتعلمين</h3>
-    </div>
-    <div class="form-group kt-form__group row">
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الفصول : {{number_of_classes}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الغياب : {{number_of_absence}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الحضور : {{number_of_attendance}}
-        </label>
-    </div>
-
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">احصائيات</h3>
-    </div>
-
-    <div class="form-group kt-form__group row">
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد المتفوقين : {{number_of_good_students}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد المتعثرين : {{number_of_bad_students}}
-        </label>
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733; <b>التحضيرات</b> &#9733;</span>
+                <!--<span><b>التحضيرات</b></span>-->
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-ta7deirs-list></kt-ta7deirs-list>
+            </ng-template>
+        </ngb-panel>
 
     </div>
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">الاعياد</h3>
+</ngb-accordion>
+
+<ngb-accordion #acc1="ngbAccordion" activeIds="ngb-panel-1">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الأذونات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-ezons-list></kt-show-ezons-list>
+            </ng-template>
+        </ngb-panel>
+
     </div>
-    <app-calendar></app-calendar>
+</ngb-accordion>
 
+<ngb-accordion #acc2="ngbAccordion" activeIds="ngb-panel-2">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>جدول الحصص</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
-
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
     </div>
+</ngb-accordion>
+
+<ngb-accordion #acc3="ngbAccordion" activeIds="ngb-panel-3">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الزيارات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-visits-list></kt-show-visits-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc4="ngbAccordion" activeIds="ngb-panel-4">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الأجتماعات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-group_meeting-list></kt-show-group_meeting-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc5="ngbAccordion" activeIds="ngb-panel-5">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أمور خاصة بالطلاب</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-matters-list></kt-show-matters-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc6="ngbAccordion" activeIds="ngb-panel-6">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>ما يستجد من أعمال</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-new_work-list></kt-show-new_work-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
 
 
-</div>
+<ngb-accordion #acc7="ngbAccordion" activeIds="ngb-panel-7">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>المتعلمين</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="form-group kt-form__group row">
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الفصول : {{number_of_classes}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الغياب : {{number_of_absence}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الحضور : {{number_of_attendance}}
+                    </label>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc8="ngbAccordion" activeIds="ngb-panel-8">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>احصائيات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="form-group kt-form__group row">
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد المتفوقين : {{number_of_good_students}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد المتعثرين : {{number_of_bad_students}}
+                    </label>
+
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc9="ngbAccordion" activeIds="ngb-panel-9">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الاعياد</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc10="ngbAccordion" activeIds="ngb-panel-10">
+    <div *ngIf="pos_id===38 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أخبار عامة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+
 <!-- لوحة أمين المكتبة -->
-<div *ngIf="test===1 || pos_id===35">
+<ngb-accordion #acc11="ngbAccordion" activeIds="ngb-panel-11">
+    <div *ngIf="test===1 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>جدول الحصص</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
 
-    <!-- <kt-borrowed-books-list></kt-borrowed-books-list> -->
-    <app-calendar></app-calendar>
-    <br />
-
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
-
-            <div class="box" style="height:33rem;">
-              
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                  
-            </div>
-
-        </div>
     </div>
-</div>
+</ngb-accordion>
+
+<ngb-accordion #acc12="ngbAccordion" activeIds="ngb-panel-12">
+    <div *ngIf="test===1 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أخبار عامة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+
 
 <!-- لوحة الاخصائي الاجتماعي والنفسي -->
-<div *ngIf="test===1 || pos_id===35">
-    <app-calendar></app-calendar>
-    <br />
 
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
+<ngb-accordion #acc13="ngbAccordion" activeIds="ngb-panel-13">
+    <div *ngIf="test===1 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>جدول الحصص</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
 
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
     </div>
+</ngb-accordion>
 
-    <kt-calling_parents-list></kt-calling_parents-list>
+<ngb-accordion #acc14="ngbAccordion" activeIds="ngb-panel-14">
+    <div *ngIf="test===1 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أخبار عامة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
 
-</div>
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc15="ngbAccordion" activeIds="ngb-panel-15">
+    <div *ngIf="test===1 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>استدعاء أولياء الامور</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-calling_parents-list></kt-calling_parents-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+
 
 <!--لوحة المدير/ المدراء المساعدين -->
-<div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+<ngb-accordion #acc16="ngbAccordion" activeIds="ngb-panel-16">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>المتعلمين</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="form-group kt-form__group row">
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الغياب : {{number_of_absence}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الحضور : {{number_of_attendance}}
+                    </label>
+                </div>
+            </ng-template>
+        </ngb-panel>
 
-    <br />
-    <!--المتعلمين-->
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">المتعلمين</h3>
     </div>
-    <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
-    <div class="form-group kt-form__group row">
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الغياب : {{number_of_absence}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الحضور : {{number_of_attendance}}
-        </label>
+</ngb-accordion>
+
+<ngb-accordion #acc17="ngbAccordion" activeIds="ngb-panel-17">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>جدول الحصص</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
+            </ng-template>
+        </ngb-panel>
+
     </div>
+</ngb-accordion>
 
-    <!--المعلمين-->
-    <kt-show-delays-list></kt-show-delays-list>
-    <kt-show-ezons-list></kt-show-ezons-list>
+<ngb-accordion #acc18="ngbAccordion" activeIds="ngb-panel-18">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>افادات التأخير</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-delays-list></kt-show-delays-list>
+            </ng-template>
+        </ngb-panel>
 
-    <!--الخطة اليومية-->
-    <kt-show-visits-list></kt-show-visits-list>
-    <kt-show-group_meeting-list></kt-show-group_meeting-list>
-    <kt-show-matters-list></kt-show-matters-list>
-    <kt-show-new_work-list></kt-show-new_work-list>
-
-    <kt-show-users_priv-list></kt-show-users_priv-list>
-    <app-calendar></app-calendar>
-
-
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
-
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
     </div>
+</ngb-accordion>
+
+<ngb-accordion #acc19="ngbAccordion" activeIds="ngb-panel-19">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الأذونات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-ezons-list></kt-show-ezons-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc20="ngbAccordion" activeIds="ngb-panel-20">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الزيارات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-visits-list></kt-show-visits-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc21="ngbAccordion" activeIds="ngb-panel-21">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>الأجتماعات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-group_meeting-list></kt-show-group_meeting-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc22="ngbAccordion" activeIds="ngb-panel-22">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أمور خاصة بالطلاب</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-matters-list></kt-show-matters-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+<ngb-accordion #acc23="ngbAccordion" activeIds="ngb-panel-23">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>ما يستجد من أعمال</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-new_work-list></kt-show-new_work-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+<ngb-accordion #acc24="ngbAccordion" activeIds="ngb-panel-24">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>المستخدمين</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-show-users_priv-list></kt-show-users_priv-list>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+<ngb-accordion #acc25="ngbAccordion" activeIds="ngb-panel-25">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>جدول الحصص</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+<ngb-accordion #acc26="ngbAccordion" activeIds="ngb-panel-26">
+    <div *ngIf="pos_id===39 || pos_id===40 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أخبار عامة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
 
 
-</div>
 
 <!--  المعلم -->
-<div *ngIf="pos_id===37 || pos_id===35">
-   
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-             خطة المنهج
-        </h3>
-    </div>
+<ngb-accordion #acc27="ngbAccordion" activeIds="ngb-panel-27">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>خطة المنهج</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-week-ta7deirs-list></kt-week-ta7deirs-list>
+                <kt-actual_weekTa7diers-list></kt-actual_weekTa7diers-list>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <!-- <kt-ta7deirs-list></kt-ta7deirs-list> -->
-        <kt-week-ta7deirs-list></kt-week-ta7deirs-list>
-        <kt-actual_weekTa7diers-list></kt-actual_weekTa7diers-list>
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">جدول الحصص</h3>
-    </div>
-    
-    <div class="form-group kt-form__group row">
-        <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
-    </div>
-    
+<ngb-accordion #acc28="ngbAccordion" activeIds="ngb-panel-28">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>جدول الحصص</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar-gdwel_7ss></app-calendar-gdwel_7ss>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;" >المتعلمين</h3>
     </div>
-    <div class="form-group kt-form__group row">
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الفصول : {{number_of_classes}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الغياب : {{number_of_absence}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الحضور : {{number_of_attendance}}
-        </label>
-    </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">احصائيات</h3>
-    </div>
-    
-    <div class="form-group kt-form__group row">
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد المتفوقين : {{number_of_good_students}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد المتعثرين : {{number_of_bad_students}}
-        </label>
-        
-    </div>
+<ngb-accordion #acc29="ngbAccordion" activeIds="ngb-panel-29">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>المتعلمين</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="form-group kt-form__group row">
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الفصول : {{number_of_classes}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الغياب : {{number_of_absence}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الحضور : {{number_of_attendance}}
+                    </label>
+                </div>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            رزنامة المدرسة 
-        </h3>
     </div>
-    <div class="form-group kt-form__group row">
-        <app-calendar></app-calendar>
-    </div>
-    
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            لوحة اعلانات المدرسة 
-        </h3>
-    </div>
-        
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
+<ngb-accordion #acc30="ngbAccordion" activeIds="ngb-panel-30">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>احصائيات</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="form-group kt-form__group row">
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد المتفوقين : {{number_of_good_students}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد المتعثرين : {{number_of_bad_students}}
+                    </label>
 
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                   
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                    <!-- <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3> -->
-                    <!-- 
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3> -->
-                
-                </marquee>
-            </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
 
-        </div>
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            قيمة الشهر التربوية 
-        </h3>
-        <br>
-        <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+<ngb-accordion #acc31="ngbAccordion" activeIds="ngb-panel-31">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>رزنامة المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
+
     </div>
+</ngb-accordion>
 
 
-</div>
+<ngb-accordion #acc32="ngbAccordion" activeIds="ngb-panel-32">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>لوحة اعلانات المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+<ngb-accordion #acc33="ngbAccordion" activeIds="ngb-panel-33">
+    <div *ngIf="pos_id===37 || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>قيمة الشهر التربوية</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+            </ng-template>
+        </ngb-panel>
+
+    </div>
+</ngb-accordion>
+
+
 <!-- شئون الطلبة -->
-<div *ngIf="test===1  || pos_id===35">
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;" >المتعلمين</h3>
-    </div>
-    <div class="form-group kt-form__group row">
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الفصول : {{number_of_classes}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الغياب : {{number_of_absence}}
-        </label>
-        <label style="font-weight: bold;" class="col-lg-2 col-form-label">
-            اعداد الحضور : {{number_of_attendance}}
-        </label>
-    </div>
+<ngb-accordion #acc34="ngbAccordion" activeIds="ngb-panel-34">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>المتعلمين</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="form-group kt-form__group row">
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الفصول : {{number_of_classes}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الغياب : {{number_of_absence}}
+                    </label>
+                    <label style="font-weight: bold;" class="col-lg-2 col-form-label">
+                        اعداد الحضور : {{number_of_attendance}}
+                    </label>
+                </div>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            رزنامة المدرسة 
-        </h3>
     </div>
-    <div class="form-group kt-form__group row">
-        <app-calendar></app-calendar>
+</ngb-accordion>
+
+<ngb-accordion #acc35="ngbAccordion" activeIds="ngb-panel-35">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>رزنامة المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
+
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            لوحة اعلانات المدرسة 
-        </h3>
+<ngb-accordion #acc36="ngbAccordion" activeIds="ngb-panel-36">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>أخبار عامة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
     </div>
-    
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
+</ngb-accordion>
 
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
+<ngb-accordion #acc37="ngbAccordion" activeIds="ngb-panel-37">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>استدعاء اولياء الامور</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-calling_parents-list></kt-calling_parents-list>
+            </ng-template>
+        </ngb-panel>
 
-        </div>
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            استدعاء اولياء الامور  
-        </h3>
-    </div>
-
-    <div class="form-group kt-form__group row">
-        <kt-calling_parents-list></kt-calling_parents-list>
-    </div>
-
-</div>
 
 <!-- المقصف المدرسي -->
-<div *ngIf="test===1  || pos_id===35">
+<ngb-accordion #acc38="ngbAccordion" activeIds="ngb-panel-38">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>رزنامة المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            رزنامة المدرسة 
-        </h3>
     </div>
-    <div class="form-group kt-form__group row">
-        <app-calendar></app-calendar>
+</ngb-accordion>
+
+<ngb-accordion #acc39="ngbAccordion" activeIds="ngb-panel-39">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>لوحة اعلانات المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            لوحة اعلانات المدرسة 
-        </h3>
-    </div>
-        
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
 
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
-    </div>
-
-</div>
 
 <!--  الخطة الاستراتيجية -->
-<div *ngIf="test===1  || pos_id===35">
+<ngb-accordion #acc40="ngbAccordion" activeIds="ngb-panel-40">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>رزنامة المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            رزنامة المدرسة 
-        </h3>
     </div>
-    <div class="form-group kt-form__group row">
-        <app-calendar></app-calendar>
+</ngb-accordion>
+
+<ngb-accordion #acc41="ngbAccordion" activeIds="ngb-panel-41">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>لوحة اعلانات المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            لوحة اعلانات المدرسة 
-        </h3>
-    </div>
-    
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
 
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
-    </div>
-
-</div>
 <!-- حارس المدرسة -->
-<div *ngIf="test===1  || pos_id===35">
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            استدعاء اولياء الامور  
-        </h3>
-    </div>
+<ngb-accordion #acc42="ngbAccordion" activeIds="ngb-panel-42">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>استدعاء اولياء الامور</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <kt-calling_parents-list></kt-calling_parents-list>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <kt-calling_parents-list></kt-calling_parents-list>
     </div>
+</ngb-accordion>
 
-</div>
 
 <!-- السكرتارية -->
-<div *ngIf="test===1  || pos_id===35">
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            رزنامة المدرسة 
-        </h3>
+<ngb-accordion #acc43="ngbAccordion" activeIds="ngb-panel-43">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>رزنامة المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
+
     </div>
-    <div class="form-group kt-form__group row">
-        <app-calendar></app-calendar>
+</ngb-accordion>
+
+<ngb-accordion #acc44="ngbAccordion" activeIds="ngb-panel-44">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>لوحة اعلانات المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
     </div>
-
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            لوحة اعلانات المدرسة 
-        </h3>
-    </div>
-        
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
-
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
-    </div>
-
-
-</div>
-
+</ngb-accordion>
 
 <!-- امين المخزن-->
-<div *ngIf="test===1  || pos_id===35">
+<ngb-accordion #acc45="ngbAccordion" activeIds="ngb-panel-45">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>رزنامة المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-calendar></app-calendar>
+            </ng-template>
+        </ngb-panel>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            رزنامة المدرسة 
-        </h3>
     </div>
-    <div class="form-group kt-form__group row">
-        <app-calendar></app-calendar>
+</ngb-accordion>
+
+<ngb-accordion #acc46="ngbAccordion" activeIds="ngb-panel-46">
+    <div *ngIf="test===1  || pos_id===35">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>&#9733;<b>لوحة اعلانات المدرسة</b>&#9733;</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                    <div class="kt-grid__item kt-grid__item--middle">
+
+                        <div class="box" style="height:33rem;">
+                            <p class="box-title">أخبار عامة</p>
+                            <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
+                                <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
+                            </marquee>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
     </div>
+</ngb-accordion>
 
-    <div class="form-group kt-form__group row">
-        <h3 style="margin-right: 100px;">
-            لوحة اعلانات المدرسة 
-        </h3>
-    </div>
-    
-    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-        <div class="kt-grid__item kt-grid__item--middle">
 
-            <div class="box" style="height:33rem;">
-                <p class="box-title">أخبار عامة</p>
-                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 *ngFor="let adverts of adverts" class="article-title">{{adverts.body}}</h3>
-                </marquee>
-                <!-- <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();" style="height:27rem;" onmouseout="this.start();">
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                    <h3 class="article-title">يتميز خط المطابع الأميرية بجماليته ومراعاته لفن الخط العربي.</h3>
-                </marquee> -->
-            </div>
-
-        </div>
-    </div>
-
-</div>
 
 

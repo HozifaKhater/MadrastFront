@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 //import { PizzaParty1Component } from './pizza-party.component';
 
@@ -26,6 +26,7 @@ import { DefinitionDataService } from '../../../../../Services/Definition';
 import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
 //import { PizzaPartyComponent } from '../snackbar/pizza-party.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'kt-board',
@@ -107,7 +108,8 @@ export class boardComponent implements OnInit {
     vpic_label:any;
     
     visit_types_selection:any;
-    constructor(private router: Router, private user_privDataService: user_privDataService,
+    constructor(private modalService: NgbModal,
+        private cdRef: ChangeDetectorRef, private router: Router, private user_privDataService: user_privDataService,
         private datePipe: DatePipe,public snackBar: MatSnackBar,
         private board_typeDataService: board_typeDataService,
         private boardDataService: boardDataService,
@@ -325,6 +327,8 @@ is_edit:boolean=false;
 	); 
 
        
+        //(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
         /*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
 
         this.boardDataService.aClickedEvent
@@ -332,6 +336,10 @@ is_edit:boolean=false;
                 //this.newArray = [];
                 console.log("edited");
                 this.is_edit=true;
+                //(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
+                //(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
+                //(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
+                //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 
                 this.board_id = this.boardDataService.board_id;
                // this.board_type_name = this.boardDataService.board_type_name;
@@ -371,7 +379,24 @@ is_edit:boolean=false;
                 })];
 
                 console.log("year_date_from", this.board_type_name);
+
+                // open modal
+                var ele = document.getElementById('modalOpener');
+                if (ele) { ele.click() }
+
             })
        
-	}
+    }
+    display = "";
+    openModal(content: any, event: any) {
+
+        this.modalService.open(content, { backdrop: true, size: "xl", });
+    }
+    openModal1() {
+        this.display = "show";
+        this.cdRef.detectChanges();
+    }
+    onCloseHandled() {
+        this.display = "";
+    }
 }

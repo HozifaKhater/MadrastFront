@@ -74,7 +74,7 @@ const routes: Routes = [
                 component: RolesListComponent
             },
             {
-                path: 'users',
+                path: 'maintenance_follow_up',
                 component: UsersListComponent
             },
             {

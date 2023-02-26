@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import { DefinitionDataService } from '../../../../../Services/Definition';
 import { AccusedStudentService } from '../../../../../Services/AccusedStudentService';
 import { GuiltServices } from '../../../../../Services/GuiltServices';
 import { Guilt } from '../../../../../Guilt.Model';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'kt-AccusedStudents',
@@ -67,7 +67,8 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-    constructor(public _fb: FormBuilder,
+    constructor(private modalService: NgbModal,
+        private cdRef: ChangeDetectorRef, public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
         private StudentDataService: StudentDataService,
         private LevelsDataService: LevelsDataService, 
@@ -292,6 +293,9 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
 
         this.butDisabled = true;
        
+        //(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
             error => console.log(error),
@@ -302,7 +306,12 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
                         startWith(''),
                         map(value => typeof value === 'string' ? value : value.lev_name),
                         map(lev_name => lev_name ? this._filterlev(lev_name) : this.level.slice())
-                    );
+                );
+
+                // open modal
+                var ele = document.getElementById('modalOpener');
+                if (ele) { ele.click() }
+
             });
 
    
@@ -313,4 +322,18 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
         
 
     }
+
+    display = "";
+    openModal(content: any, event: any) {
+
+        this.modalService.open(content, { backdrop: true, size: "xl", });
+    }
+    openModal1() {
+        this.display = "show";
+        this.cdRef.detectChanges();
+    }
+    onCloseHandled() {
+        this.display = "";
+    }
+
 }

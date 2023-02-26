@@ -56,16 +56,10 @@ export class EmployeeDataService {
 	emp_password: string = "";
 	in_class_priv: string = "";
 	dep_work: string = "";
-	emp_dep_parent:string="";
+	relgion_id : number;
+	religion_name: string="";
     constructor(private http: HttpClient) { }
 
-    //public GetAlldepartment = (): Observable<any> =>  
-    //{
-
-    //    return this.http1.get(this.actionUrl).map((response: Response) => <any>response.json());
-
-    //}
-	
 	GetGoodStudents(): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/employee/GetGoodStudents');
 	}
@@ -87,7 +81,6 @@ export class EmployeeDataService {
         return this.http.get<any>(this.APIUrl + '/countries');
     }
     addEmployee(val: any) {
-        console.log("ttt")
         return this.http.post(this.APIUrl + '/employee', val);
     }
 	updateEmployee(val: any) {

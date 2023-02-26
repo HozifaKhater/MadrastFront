@@ -56,42 +56,33 @@
             <!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->
             <!-- Group actions are shared for all LISTS | See '../../_shared' folder -->
             <div class="row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20"
-                 [ngClass]="{'show' : selection.selected.length > 0}">
-                <!-- We show 'Group Actions' div if smth are selected -->
-                <div class="col-xl-12">
-                    <div class="kt-form__group kt-form__group--inline">
-                        <div class="kt-form__label kt-form__label-no-wrap">
-                            <label class="kt--font-bold kt-font-danger-">
-                                <span translate="ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT"></span> {{ selection.selected.length }}
-                            </label>
-                            <!-- selectedCountsTitle => function from codeBehind (customer-list.component.ts file) -->
-                            <!-- selectedCountsTitle => just returns title of selected items count -->
-                            <!-- for example: Selected records count: 4 -->
-                        </div>
-                        <div class="kt-form__control kt-form__group--inline">
-                            <div>
-                                <button (click)="deleteCustomers()"
-                                        mat-raised-button
-                                        color="accent"
-                                        matTooltip="Delete selected customers"
-                                        class="mat-button-mt-4">
-                                    <mat-icon>delete</mat-icon>
-                                    Delete All
-                                </button>&nbsp;<!-- Call 'delete-entity-dialog' from _shared folder -->
-                            </div>
-
-                            <button (click)="fetchCustomers()" mat-raised-button matTooltip="Fetch selected customers" class="mat-button-mt-4">
-                                <mat-icon>clear_all</mat-icon>
-                                Fetch Selected
-                            </button>&nbsp;<!-- Call 'fetch-entity-dialog' from _shared folder -->
-                            <button (click)="updateStatusForCustomers()" mat-raised-button matTooltip="Update status for selected customers" class="mat-button-mt-4">
-                                <mat-icon>update</mat-icon>
-                                Update status
-                            </button><!-- Call 'update-stated-dialog' from _shared folder -->
+            [ngClass]="{'show' : selection.selected.length > 0}">
+           <!-- We show 'Group Actions' div if smth are selected -->
+           <div class="col-xl-12">
+               <div class="kt-form__group kt-form__group--inline">
+                   <div class="kt-form__label kt-form__label-no-wrap">
+                       <label class="kt--font-bold kt-font-danger-">
+                           <span translate="ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT"></span> {{ selection.selected.length }}
+                       </label>
+                       <!-- selectedCountsTitle => function from codeBehind (customer-list.component.ts file) -->
+                       <!-- selectedCountsTitle => just returns title of selected items count -->
+                       <!-- for example: Selected records count: 4 -->
+                   </div>
+                   <div class="kt-form__control kt-form__group--inline">
+                       <div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+                           <button (click)="deleteCustomers()"
+                                   mat-raised-button
+                                   color="accent"
+                                   matTooltip="Delete selected customers"
+                                   class="mat-button-mt-4">
+                               <mat-icon>delete</mat-icon>
+                               Delete All
+                           </button>&nbsp;<!-- Call 'delete-entity-dialog' from _shared folder -->
                         </div>
                     </div>
-                </div>
-            </div>
+               </div>
+           </div>
+       </div>
             <!-- end::GROUP ACTIONS -->
         </div>
         <!-- end::FILTERS & GROUP ACTIONS -->

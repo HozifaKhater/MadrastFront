@@ -17,5 +17,8 @@
 <br />
 <br />
 <br />
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
 
 <kt-show_lib-list></kt-show_lib-list>
+</div>
+

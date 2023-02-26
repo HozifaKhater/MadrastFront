@@ -394,6 +394,8 @@ this.is_edit=false;
     anotherStuArray:Student[];
     anotherClassArray:Classes[];
     anotherLevelArray: Levels[];
+    first:any[];
+    second:any[];
 
 	priv_info:any=[];
     
@@ -421,6 +423,8 @@ is_edit:boolean=false;
 			.subscribe((data: string) => {
 				this.is_edit=true;
                 this.speech_dis_id = this.speech_dis_id;
+				
+                this.speech_dis_id = this.Speaking_disorderDataService.speech_dis_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality_name = this.Speaking_disorderDataService.nationality_name;
                 this.phone_no = this.Speaking_disorderDataService.phone_no;
@@ -480,6 +484,26 @@ is_edit:boolean=false;
 						
 											return String(el.lev_id) == level_id;
 										})];
+                                         
+                                        // this.Speaking_disorderDataService.get_speaking_details_first_with_speech_dis_id(this.speech_dis_id)
+                                        // .subscribe((data:any) => this.first = data.data,
+                                        //     error => console.log(),
+                                        // () => {
+
+                                        //     this.other_situations = this.first[0].other_situations;
+                                        //     this.date = this.first[0].date;
+                                        //     this.effort_results = this.first[0].effort_results;
+                                        //     this.end_year_state = this.first[0].end_year_state;
+
+                                        //     this.Speaking_disorderDataService.get_speaking_details_second_with_speech_dis_id(this.speech_dis_id)
+                                        //     .subscribe((data:any) => this.second = data.data,
+                                        //     error => console.log(),
+                                        //     () => {
+                                        //             this.visit_date = this.second[0].visit_date;
+                                        //             this.visit_results = this.second[0].visit_results;
+                                        //     });
+                                        // });
+                                     
 									});
 							});
 

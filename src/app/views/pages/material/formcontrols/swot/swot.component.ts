@@ -187,7 +187,7 @@ this.is_edit=false;
         return this.selecteddepartment ? this.selecteddepartment.dep_name : undefined;
     }
 
-
+	anotherDepArray:Departments[];
    	priv_info:any=[];
 	   is_edit:boolean=false;
 	ngOnInit() {
@@ -222,8 +222,16 @@ this.is_edit=false;
 				this.dep_nameSelected = this.swotDataService.dep_name;
 
 
-				var selected_value_emp = this.swotDataService.dep_id;
-				this.selecteddepartment = this.departments[this.departments.findIndex(x => x.dep_id === selected_value_emp )];//Number(this.DepartmentService.dep_supervisor_id)
+				var dep_id = this.swotDataService.dep_id;
+				//this.selecteddepartment = this.departments[this.departments.findIndex(x => x.dep_id === selected_value_emp )];//Number(this.DepartmentService.dep_supervisor_id)
+				
+				this.DepartmentService.GetAlldepartment_with_id(Number(dep_id))
+				.subscribe(data => this.anotherDepArray = data,
+					error => console.log(),
+					() => {
+						
+						this.selecteddepartment = this.anotherDepArray[0];
+					});
 
 				// open modal
 				var ele = document.getElementById('modalOpener');

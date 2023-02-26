@@ -203,7 +203,7 @@ this.is_edit=false;
 
     change_level(event) {
 		
-		if(event !== null){
+        if(event !== null && event !== undefined && event.length !== 0){
 			this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
 				error => console.log(),
 				() => {
@@ -219,25 +219,30 @@ this.is_edit=false;
     }
 
     change_class(event) {
-		if(event !== null){
+        if(event !== null && event !== undefined && event.length !== 0){
 			this.class_id_value = event.class_id;
 			this.Change_Student();
 		}
     }
 
     Change_Student(){
-        this.StudentDataService.GetAllStudent_of_class(this.class_id_value)
-        .subscribe(data => this.student = data,
-			error => console.log(),
-			() => {
-                this.filteredOptionsStudents = this.myControlStudent.valueChanges
-                    .pipe(
-                        startWith(''),
-                        map(value => value ? typeof value === 'string' ? value : value.student_name : ''),
-                        map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
-                    );
-					this.setData();
-			});
+        if(this.class_id_value !== null && this.class_id_value !== undefined){
+
+            this.StudentDataService.GetAllStudent_of_class(this.class_id_value)
+            .subscribe(data => this.student = data,
+                error => console.log(),
+                () => {
+                    this.filteredOptionsStudents = this.myControlStudent.valueChanges
+                        .pipe(
+                            startWith(''),
+                            map(value => value ? typeof value === 'string' ? value : value.student_name : ''),
+                            map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
+                        );
+                        if(this.selectedStudent !== null && this.selectedStudent !== undefined){
+                            this.setData();
+                        }
+                });
+        }
 
     }
 

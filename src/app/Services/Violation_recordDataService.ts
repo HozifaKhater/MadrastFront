@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
     providedIn: 'root'
 })
 export class Violation_recordDataService {
-    readonly APIUrl = "https://localhost:44337/api";
+    readonly APIUrl = "https://astores.azurewebsites.net/api";
     private actionUrl: string;
     public viol_id : number;
     public lev_id: number;

@@ -66,11 +66,9 @@ import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { ToolbarComponent } from './navigation/toolbar/toolbar.component';
 // Layout
 import { CardComponent } from './layout/card/card.component';
-import { Card_notComponent } from './layout/card_not/card_not.component';
 import { DividerComponent } from './layout/divider/divider.component';
 import { ExpansionPanelComponent } from './layout/expansion-panel/expansion-panel.component';
 import { GridListComponent } from './layout/grid-list/grid-list.component';
-import { GridListEntry_notComponent } from './layout/grid-list-entry_not/grid-list-entry_not.component';
 import { ListComponent } from './layout/list/list.component';
 import { MaterialTabsComponent } from './layout/material-tabs/material-tabs.component';
 import { StepperComponent } from './layout/stepper/stepper.component';
@@ -181,7 +179,6 @@ import { student_trackingDataService } from '../../../Services/student_trackingD
 
 import { teacher_opinion_visitComponent } from './formcontrols/teacher_opinion_visit/teacher_opinion_visit.component';
 import { messagesComponent } from './formcontrols/message/message.component';
-import { messages_notComponent } from './formcontrols/message_not/message_not.component';
 import { teacher_opinion_visitDataService } from '../../../Services/teacher_opinion_visitDataService';
 
 import { SchoolpartyComponent } from './formcontrols/school_party/school_party.component';
@@ -291,7 +288,7 @@ const routes: Routes = [
                 
             },
             {
-                path: 'form-controls/checkbox',
+                path: 'form-controls/departments',
                 component: CheckboxComponent,
              
             },
@@ -301,15 +298,15 @@ const routes: Routes = [
                 canActivate: [ModuleGuard],
             },
             {
-                path: 'form-controls/datepicker',
+                path: 'form-controls/subjects',
                 component: DatepickerComponent
             },
             {
-                path: 'form-controls/formfield',
+                path: 'form-controls/jobs',
                 component: FormfieldComponent
             },
             {
-                path: 'form-controls/input',
+                path: 'form-controls/employees',
                 component: InputComponent
             },
             {
@@ -317,15 +314,15 @@ const routes: Routes = [
                 component: mentality_inquiriesComponent
             },
             {
-                path: 'form-controls/radiobutton',
+                path: 'form-controls/activities',
                 component: RadiobuttonComponent
             },
             {
-                path: 'form-controls/select',
+                path: 'form-controls/students',
                 component: SelectComponent
             },
             {
-                path: 'form-controls/slider',
+                path: 'form-controls/users',
                 component: SliderComponent
             },
             {
@@ -346,23 +343,23 @@ const routes: Routes = [
                 component: class_instructionComponent
             },
             {
-                path: 'navigation/menu',
+                path: 'navigation/evaluation_items',
                 component: MenuComponent
             },
             {
-                path: 'navigation/sidenav',
+                path: 'navigation/evaluate_strategic_plan_teams',
                 component: SidenavComponent
             },
             {
-                path: 'navigation/toolbar',
+                path: 'navigation/do_evaluation',
                 component: ToolbarComponent
             },
             {
-                path: 'navigation/branch_stat',
+                path: 'navigation/branching',
                 component: branchComponent
             },
             {
-                path: 'navigation/disonlevel',
+                path: 'navigation/distribution_on_levels',
                 component: DisonLevelComponent
             },
             {
@@ -370,47 +367,35 @@ const routes: Routes = [
                 component: level_statisticsComponent
             },
             {
-                path: 'layout/card_not/:id',
-                component: Card_notComponent
-            },
-            {
-                path: 'layout/card',
+                path: 'layout/writing_preparation',
                 component: CardComponent
             },
-            // {
-            //     path: 'layout/card/',
-            //     component: CardComponent
-            // },
             {
-                path: 'layout/divider',
+                path: 'layout/top_student',
                 component: DividerComponent
             },
             {
-                path: 'layout/expansion-panel',
+                path: 'layout/daily_admin_status',
                 component: ExpansionPanelComponent
             },
             {
-                path: 'layout/grid-list',
+                path: 'layout/teacher_absences_permissions',
                 component: GridListComponent
             },
             {
-                path: 'layout/grid-list-entry',
+                path: 'layout/add_absences_permissions',
                 component: GridListEntryComponent
             },
             {
-                path: 'layout/grid-list-entry_not/:id',
-                component: GridListEntry_notComponent
-            },
-            {
-                path: 'layout/list',
+                path: 'layout/poor_student',
                 component: ListComponent
             },
             {
-                path: 'layout/tabs',
+                path: 'layout/corridors',
                 component: MaterialTabsComponent
             },
             {
-                path: 'layout/stepper',
+                path: 'layout/supervisors_distribution',
                 component: StepperComponent
             },
             {
@@ -422,39 +407,39 @@ const routes: Routes = [
                 component: TreeComponent
             },
             {
-                path: 'buttons-and-indicators/button',
+                path: 'buttons-and-indicators/preparation_status',
                 component: ButtonComponent
             },
             {
-                path: 'buttons-and-indicators/button-toggle',
+                path: 'buttons-and-indicators/delay_affidavit',
                 component: ButtonToggleComponent
             },
             {
-                path: 'buttons-and-indicators/chips',
+                path: 'buttons-and-indicators/student_exit_permit',
                 component: ChipsComponent
             },
             {
-                path: 'buttons-and-indicators/icon',
+                path: 'buttons-and-indicators/posted_internal_external',
                 component: IconComponent
             },
             {
-                path: 'buttons-and-indicators/progress-bar',
+                path: 'buttons-and-indicators/levels',
                 component: ProgressBarComponent
             },
             {
-                path: 'buttons-and-indicators/progress-spinner',
+                path: 'buttons-and-indicators/classes',
                 component: ProgressSpinnerComponent
             },
             {
-                path: 'buttons-and-indicators/ripples',
+                path: 'buttons-and-indicators/stages',
                 component: RipplesComponent
             },
             {
-                path: 'popups-and-modals/bottom-sheet',
+                path: 'popups-and-modals/school_data',
                 component: BottomSheetComponent
             },
             {
-                path: 'popups-and-modals/dialog',
+                path: 'popups-and-modals/school_schedule',
                 component: DialogComponent
             },
             {
@@ -462,7 +447,7 @@ const routes: Routes = [
                 component: holidayComponent
             },
             {
-                path: 'popups-and-modals/snackbar',
+                path: 'popups-and-modals/school_year_info',
                 component: SnackbarComponent
             },
             {
@@ -474,7 +459,7 @@ const routes: Routes = [
                 component: meeting_typeComponent
             },
             {
-                path: 'popups-and-modals/tooltip',
+                path: 'popups-and-modals/visit_definition',
                 component: MaterialTooltipComponent
             },
             {
@@ -485,11 +470,11 @@ const routes: Routes = [
                 path: 'data'
             },
             {
-                path: 'data-table/paginator',
+                path: 'data-table/student_absence',
                 component: PaginatorComponent
             },
             {
-                path: 'data-table/sort-header',
+                path: 'data-table/distribution_students_to_classes',
                 component: SortHeaderComponent
             },
             {
@@ -497,7 +482,7 @@ const routes: Routes = [
                 component: FailurestudentsComponent
             },
             {
-                path: 'data-table/table',
+                path: 'data-table/students_sequence_in_class',
                 component: MaterialTableComponent
             },
 
@@ -581,12 +566,7 @@ const routes: Routes = [
                 path: 'form-controls/message',
                 component:messagesComponent
 
-            },  
-            {
-                path: 'form-controls/message_not/:id',
-                component:messages_notComponent
-
-            },            
+            },           
             {
                 path: 'form-controls/school_party',
                 component: SchoolpartyComponent
@@ -821,9 +801,6 @@ const routes: Routes = [
         , Supervisor_opinionDataService, Student_transferDataService, Student_leaveDataService,GuiltComponent
     ],
     declarations: [
-        messages_notComponent,
-        GridListEntry_notComponent,
-        Card_notComponent,
 	 _7saComponent,advertsComponent,month_valueComponent,
         GuiltComponent,
         meeting_typeComponent,

@@ -20,16 +20,17 @@
             <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
                 <div class="kt-portlet__body">
                     <div class="form-group kt-form__group row">
-                        <!--<mat-label>
-                            الصف-->
-                            <!--<span class="text-danger">*</span>-->
-                        <!--</mat-label>-->
+                   
                         <div class="col-lg-4">
-                            <mat-form-field >
+                            <mat-form-field>
+                                <mat-label>
+                                    الصف
+                                    <!--<span class="text-danger">*</span>-->
+                                </mat-label>
                                 <mat-select [(ngModel)]="selectedlevel"
                                             [ngModelOptions]="{standalone: true}"
                                             id="levelsdropdown"
-                                            placeholder="أختر الصف"
+                                            placeholder=""
                                             (ngModelChange)="departmentemp($event)">
 
                                     <mat-option *ngFor="let level of levels" [value]="level">

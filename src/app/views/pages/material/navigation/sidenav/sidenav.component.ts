@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { Takeem_masterDataService } from '../../../../../Services/Takeem_masterDataService';
 import { Takeem_master } from '../../../../../Takeem_masterMaster.Model';
 
@@ -13,6 +13,8 @@ import { DepartmentMaster,Departments } from '../../../../../DepartmentMaster.Mo
 import * as def from '../../../../../definationsMaster.Model';
 import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
 	selector: 'kt-sidenav',
 	templateUrl: './sidenav.component.html',
@@ -56,7 +58,8 @@ export class SidenavComponent implements OnInit {
 	takeem_master: Takeem_master[];
 label_name:any;
 ghat: def.gha[];
-	constructor(
+	constructor(private modalService: NgbModal,
+		private cdRef: ChangeDetectorRef,
 		private router: Router, private user_privDataService: user_privDataService,
 		private DepartmentDataService:DepartmentDataService,
 		private EmployeeDataService:EmployeeDataService,
@@ -225,7 +228,6 @@ selectedghat:any;
 	}
 
 	priv_info:any;
-	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -234,7 +236,10 @@ selectedghat:any;
 	); 
 		this.Takeem_masterDataService.aClickedEvent
 		.subscribe((data: string) => {
-			this.is_edit=true;
+				//	(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
+				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
+		 	//	(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
+				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 		console.log("testdclick1111",this.Takeem_masterDataService);
 		this.evaluation_date = this.Takeem_masterDataService.evaluation_date;
 		var selected_object = String(this.Takeem_masterDataService.evaluation_object_id);
@@ -258,7 +263,9 @@ selectedghat:any;
 			
 		}
 	
-				
+			// open modal
+			var ele = document.getElementById('modalOpener');
+			if (ele) { ele.click() }
 			
 	 });
 
@@ -294,5 +301,19 @@ selectedghat:any;
 
 		
 
+	}
+
+	display = "";
+	openModal(content: any, event: any) {
+
+		this.modalService.open(content, { backdrop: true, size: "xl", });
+	}
+	openModal1() {
+		this.display = "show";
+		console.log("clicked")
+		this.cdRef.detectChanges();
+	}
+	onCloseHandled() {
+		this.display = "";
 	}
 }

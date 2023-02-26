@@ -1,252 +1,248 @@
 <!-- Start Rest To Redo -->
-<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+<!--<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
 
-<div class="row" id="printdiv">
-    <div class="col-lg-12">
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-caption">
-                    <div class="kt-portlet__head-title">
-                        <span class="kt-portlet__head-icon kt-hide">
-                            <i class="la la-gear"></i>
-                        </span>
-                        <h3 class="kt-portlet__head-text">
-                            الباقون للاعادة
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <!--begin::Form-->
-            <form class="kt-form kt-form--label-align-right" [formGroup]="form1">
-                <div class="kt-portlet__body">
-                    <div class="kt-form__section kt-form__section--first">
-
-                        <div class="form-group kt-form__group row">
-                            <b class="col-lg-2 col-form-label">الصف:</b>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <input name="level"
-                                           type="text"
-                                           matInput
-                                           [(ngModel)]="selectedlevel"
-                                           (ngModelChange)="change_level($event)"
-                                           placeholder="أختر الصف"
-                                           [formControl]="myControllev"
-                                           [matAutocomplete]="autolevel"
-                                           forceSelection="lev_name"
-                                           [(value)] = "levelValue">
-                                    <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
-                                        <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
-                                            {{ level.lev_name }}
-                                        </mat-option>
-                                    </mat-autocomplete>
-    
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">الفصل:</b>
-                        <div class="col-lg-6">
-                            <mat-form-field class="example-full-width">
-                                <input name="class"
-                                       type="text"
-                                       matInput
-                                       [(ngModel)]="selectedclass"
-                                       (ngModelChange)="change_class($event)"
-                                       placeholder="أختر الفصل"
-                                       [formControl]="myControlclass"
-                                       [matAutocomplete]="autoclass"
-                                       forceSelection="class_name"
-                                       [(value)] = "classValue">
-                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
-                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
-                                        {{ class.class_name }}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
+    <div class="row" id="printdiv">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-caption">
+                        <div class="kt-portlet__head-title">
+                            <span class="kt-portlet__head-icon kt-hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="kt-portlet__head-text">
+                                الباقون للاعادة
+                            </h3>
                         </div>
                     </div>
+                </div>-->
+                <!--begin::Form-->
+                <!--<form class="kt-form kt-form--label-align-right" [formGroup]="form1">
+                    <div class="kt-portlet__body">
+                        <div class="kt-form__section kt-form__section--first">
 
-                    <div class="form-group kt-form__group row">
-                        <label class="col-lg-2 col-form-label">اسم الطالب :</label>
-                        <div class="col-lg-6">
-                            <mat-form-field class="example-full-width">
-                                <input name="student"
-                                       type="text"
-                                       matInput
-                                       [(ngModel)]="selectedStudent"
-                                       (ngModelChange)="Change_Student()"
-                                       placeholder="أختر الطالب"
-                                       [formControl]="myControlStudent"
-                                       [matAutocomplete]="autoStudent"
-                                       forceSelection="student"
-                                       >
-                                <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
-                                    <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
-                                        {{ student.student_name }}
-                                    </mat-option>
-                                </mat-autocomplete>
+                            <div class="form-group kt-form__group row">
+                                <b class="col-lg-2 col-form-label">الصف:</b>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="level"
+                                               type="text"
+                                               matInput
+                                               [(ngModel)]="selectedlevel"
+                                               (ngModelChange)="change_level($event)"
+                                               placeholder="أختر الصف"
+                                               [formControl]="myControllev"
+                                               [matAutocomplete]="autolevel"
+                                               forceSelection="lev_name"
+                                               [(value)]="levelValue">
+                                        <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                            <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                {{ level.lev_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
 
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">الجنسية : </label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <input 
-                                        matInput 
-                                        placeholder="اختر الجنسية" 
-                                        [(ngModel)]="nationality" 
-                                        formControlName="nationality" 
-                                        name="nationality" 
-                                        [(value)]="nationality">
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">رقم الهاتف : </label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <input name="phoneNumber"  [(ngModel)]="phone_no" required formControlName="phone_no" matInput >
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">تاريخ الميلاد : </label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <input id="date_of_birth" 
-                                        [(ngModel)]="date_of_birth" 
-                                        name="date_of_birth" 
-                                        formControlName="date_of_birth" 
-                                        matInput  
-                                        [matDatepicker]="dp4" 
-                                        [(value)]="date_of_birth">
-                                    <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
-                                    <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">السن عند دخول المرحله الابتدائية :</label>
-                            
-                            <mat-form-field >
-                                <input type="number" 
-                                    matInput 
-                                    placeholder="" 
-                                    [(ngModel)]="student_age_day" 
-                                    formControlName="student_age_day" 
-                                    name="student_age_day" 
-                                    [(value)]="student_age_day">
-                            </mat-form-field>
-                            <label style="margin-right: 10px;" class="col-form-label" >يوم</label>
-
-                            <mat-form-field >
-                                <input 
-                                    type="number" 
-                                    matInput 
-                                    placeholder="" 
-                                    [(ngModel)]="student_age_month" 
-                                    formControlName="student_age_month" 
-                                    name="student_age_month"  
-                                    [(value)]="student_age_month" >
-                            </mat-form-field>
-                            <label style="margin-right: 10px;"  class="col-form-label" >شهر</label>
-
-                            <mat-form-field >
-                                <input 
-                                    type="number" 
-                                    matInput 
-                                    placeholder="" 
-                                    [(ngModel)]="student_age_year" 
-                                    formControlName="student_age_year" 
-                                    name="student_age_year"  
-                                    [(value)]="student_age_year">
-                            </mat-form-field>
-                            <label style="margin-right: 10px;" class="col-form-label" >سنة</label>
-
-                        </div>
-
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">تاريخ بدأ العمل معه : </label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <input  name="date_of_starting_work" matInput  [matDatepicker]="dp3">
-                                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-caption">
-                                <div class="kt-portlet__head-title">
-                                    <span class="kt-portlet__head-icon kt-hide">
-                                        <i class="la la-gear"></i>
-                                    </span>
-                                    <h3 class="kt-portlet__head-text">
-                                        ملاحظات علي متابعة الطالب
-                                    </h3>
+                                    </mat-form-field>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">يتابع من خلال شريحة : </label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <mat-select [(ngModel)]="allSlides"
-                                                placeholder=""
-                                                formControlName="s_code"
-                                                [(value)]="selectedSlide">
-    
-                                        <mat-option *ngFor="let slide of slides" [value]="slide.def_name">
-                                            {{ slide.def_name }}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
+                            <div class="form-group kt-form__group row">
+                                <b class="col-lg-2 col-form-label">الفصل:</b>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="class"
+                                               type="text"
+                                               matInput
+                                               [(ngModel)]="selectedclass"
+                                               (ngModelChange)="change_class($event)"
+                                               placeholder="أختر الفصل"
+                                               [formControl]="myControlclass"
+                                               [matAutocomplete]="autoclass"
+                                               forceSelection="class_name"
+                                               [(value)]="classValue">
+                                        <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                            <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                {{ class.class_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
                             </div>
-                        </div>  
-                        
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label" >فتح له ملف اجتماعي بتاريخ : </label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <input id="date_of_file_opening" 
-                                        [(ngModel)]="date_of_file_opening" 
-                                        name="date_of_file_opening" 
-                                        formControlName="date_of_file_opening" 
-                                        matInput  
-                                        [matDatepicker]="dp1" 
-                                        [(value)]="date_of_file_opening">
-                                    <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-                                    <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                        </div>
 
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">اسباب البقاء للاعادة :</label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <textarea matInput placeholder="" [(ngModel)]="reasons" formControlName="reasons" name="reasons">
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">اسم الطالب :</label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="student"
+                                               type="text"
+                                               matInput
+                                               [(ngModel)]="selectedStudent"
+                                               (ngModelChange)="Change_Student()"
+                                               placeholder="أختر الطالب"
+                                               [formControl]="myControlStudent"
+                                               [matAutocomplete]="autoStudent"
+                                               forceSelection="student">
+                                        <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                            <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                                {{ student.student_name }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">الجنسية : </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               placeholder="اختر الجنسية"
+                                               [(ngModel)]="nationality"
+                                               formControlName="nationality"
+                                               name="nationality"
+                                               [(value)]="nationality">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">رقم الهاتف : </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="phoneNumber" [(ngModel)]="phone_no" required formControlName="phone_no" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">تاريخ الميلاد : </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input id="date_of_birth"
+                                               [(ngModel)]="date_of_birth"
+                                               name="date_of_birth"
+                                               formControlName="date_of_birth"
+                                               matInput
+                                               [matDatepicker]="dp4"
+                                               [(value)]="date_of_birth">
+                                        <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                                        <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">السن عند دخول المرحله الابتدائية :</label>
+
+                                <mat-form-field>
+                                    <input type="number"
+                                           matInput
+                                           placeholder=""
+                                           [(ngModel)]="student_age_day"
+                                           formControlName="student_age_day"
+                                           name="student_age_day"
+                                           [(value)]="student_age_day">
+                                </mat-form-field>
+                                <label style="margin-right: 10px;" class="col-form-label">يوم</label>
+
+                                <mat-form-field>
+                                    <input type="number"
+                                           matInput
+                                           placeholder=""
+                                           [(ngModel)]="student_age_month"
+                                           formControlName="student_age_month"
+                                           name="student_age_month"
+                                           [(value)]="student_age_month">
+                                </mat-form-field>
+                                <label style="margin-right: 10px;" class="col-form-label">شهر</label>
+
+                                <mat-form-field>
+                                    <input type="number"
+                                           matInput
+                                           placeholder=""
+                                           [(ngModel)]="student_age_year"
+                                           formControlName="student_age_year"
+                                           name="student_age_year"
+                                           [(value)]="student_age_year">
+                                </mat-form-field>
+                                <label style="margin-right: 10px;" class="col-form-label">سنة</label>
+
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">تاريخ بدأ العمل معه : </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="date_of_starting_work" matInput [matDatepicker]="dp3">
+                                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-caption">
+                                    <div class="kt-portlet__head-title">
+                                        <span class="kt-portlet__head-icon kt-hide">
+                                            <i class="la la-gear"></i>
+                                        </span>
+                                        <h3 class="kt-portlet__head-text">
+                                            ملاحظات علي متابعة الطالب
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">يتابع من خلال شريحة : </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-select [(ngModel)]="allSlides"
+                                                    placeholder=""
+                                                    formControlName="s_code"
+                                                    [(value)]="selectedSlide">
+
+                                            <mat-option *ngFor="let slide of slides" [value]="slide.def_name">
+                                                {{ slide.def_name }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">فتح له ملف اجتماعي بتاريخ : </label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input id="date_of_file_opening"
+                                               [(ngModel)]="date_of_file_opening"
+                                               name="date_of_file_opening"
+                                               formControlName="date_of_file_opening"
+                                               matInput
+                                               [matDatepicker]="dp1"
+                                               [(value)]="date_of_file_opening">
+                                        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                                        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">اسباب البقاء للاعادة :</label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput placeholder="" [(ngModel)]="reasons" formControlName="reasons" name="reasons">
                                     </textarea>
-                                </mat-form-field>
+                                    </mat-form-field>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">الجهود المهنية المبذولة ونتائجها :</label>
-                            <div class="col-lg-6">
-                                <mat-form-field class="example-full-width">
-                                    <textarea matInput placeholder="" [(ngModel)]="results" formControlName="results" name="results">
+                            <div class="form-group kt-form__group row">
+                                <label class="col-lg-2 col-form-label">الجهود المهنية المبذولة ونتائجها :</label>
+                                <div class="col-lg-6">
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput placeholder="" [(ngModel)]="results" formControlName="results" name="results">
                                     </textarea>
                                 </mat-form-field>
                             </div>
@@ -262,23 +258,340 @@
                                 <button id="update_btn" type="button" *ngIf="is_edit"   (click)="UpdateRetToRedo()" mat-raised-button color="primary">تعديل</button>&nbsp;
                                 <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
                                 <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions kt-form__actions">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button id="save_btn" type="button" (click)="AddRestToRedo()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                    <button id="update_btn" type="button" (click)="UpdateRetToRedo()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                    <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
+                                    <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>-->
+                <!--end::Form-->
+            <!--</div>
+        </div>
+
+    </div>
+
+</div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+    <kt-RestToRedo-list></kt-RestToRedo-list>
+</div>-->
+
+
+<!--End Rest To Redo -->
+
+
+<div class="card" dir="rtl"
+     *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+    <div class="card-header">
+        <h3 style="display:flex;">الباقون للاعادة</h3>
+    </div>
+    <div class="card-body">
+        <button type="button" style="display:block;" class="btn btn-primary"
+                (click)="openModal(content, $event)"
+                id="modalOpener">
+            اضافة الباقون للاعادة
+        </button>
+        <br />
+    </div>
+</div>
+
+<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
+
+    <kt-RestToRedo-list></kt-RestToRedo-list>
+</div>
+
+
+<ng-template #content let-modal>
+
+    <div class="modal-body">
+        <form dir="rtl" class="kt-form" [formGroup]="form1">
+            <div dir="rtl" class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+
+                    <div class="form-group kt-form__group text-right">
+
+                        <div class="container">
+                            <div class="row" id="printdiv">
+
+                                <div class="col-lg-12">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            الباقون للاعادة
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الصف</mat-label>
+                                                <input name="level"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedlevel"
+                                                       (ngModelChange)="change_level($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControllev"
+                                                       [matAutocomplete]="autolevel"
+                                                       forceSelection="lev_name"
+                                                       [(value)]="levelValue">
+                                                <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
+                                                    <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
+                                                        {{ level.lev_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الفصل</mat-label>
+                                                <input name="class"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedclass"
+                                                       (ngModelChange)="change_class($event)"
+                                                       placeholder=""
+                                                       [formControl]="myControlclass"
+                                                       [matAutocomplete]="autoclass"
+                                                       forceSelection="class_name"
+                                                       [(value)]="classValue">
+                                                <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
+                                                    <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
+                                                        {{ class.class_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+
+                                            <mat-form-field>
+                                                <mat-label>الطالب</mat-label>
+                                                <input name="student"
+                                                       type="text"
+                                                       matInput
+                                                       [(ngModel)]="selectedStudent"
+                                                       (ngModelChange)="Change_Student()"
+                                                       placeholder=""
+                                                       [formControl]="myControlStudent"
+                                                       [matAutocomplete]="autoStudent"
+                                                       forceSelection="student">
+                                                <mat-autocomplete autoActiveFirstOption #autoStudent="matAutocomplete" [displayWith]="displayFnStudent">
+                                                    <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
+                                                        {{ student.student_name }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الجنسية</mat-label>
+                                                <input matInput
+                                                       placeholder=""
+                                                       [(ngModel)]="nationality"
+                                                       formControlName="nationality"
+                                                       name="nationality"
+                                                       [(value)]="nationality">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>
+                                                    رقم الهاتف
+                                                </mat-label>
+                                                <input name="phoneNumber" [(ngModel)]="phone_no" required formControlName="phone_no" matInput>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="dp4.open()">
+                                                <mat-label>
+                                                    تاريخ الميلاد
+
+                                                </mat-label>
+                                                <input id="date_of_birth"
+                                                       [(ngModel)]="date_of_birth"
+                                                       name="date_of_birth"
+                                                       formControlName="date_of_birth"
+                                                       matInput
+                                                       [matDatepicker]="dp4"
+                                                       [(value)]="date_of_birth">
+                                                <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <mat-label>السن عند دخول المرحله الابتدائية</mat-label>
+
+                                                <input type="number"
+                                                       matInput
+                                                       placeholder="يوم"
+                                                       [(ngModel)]="student_age_day"
+                                                       formControlName="student_age_day"
+                                                       name="student_age_day"
+                                                       [(value)]="student_age_day">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <input type="number"
+                                                       matInput
+                                                       placeholder="شهر"
+                                                       [(ngModel)]="student_age_year"
+                                                       formControlName="student_age_year"
+                                                       name="student_age_year"
+                                                       [(value)]="student_age_year">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <mat-form-field>
+                                                <input type="number"
+                                                       matInput
+                                                       placeholder="سنة"
+                                                       [(ngModel)]="student_age_year"
+                                                       formControlName="student_age_year"
+                                                       name="student_age_year"
+                                                       [(value)]="student_age_year">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="dp3.open()">
+                                                <mat-label>تاريخ بدء العمل معه</mat-label>
+                                                <input name="date_of_starting_work" matInput [matDatepicker]="dp3">
+                                                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">
+                                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                                            ملاحظات علي متابعة الطالب
+                                        </h3>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>يتابع من خلال شريحة</mat-label>
+                                                <mat-select [(ngModel)]="allSlides"
+                                                            placeholder=""
+                                                            formControlName="s_code"
+                                                            [(value)]="selectedSlide">
+
+                                                    <mat-option *ngFor="let slide of slides" [value]="slide.def_name">
+                                                        {{ slide.def_name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+                                        <div class="col-lg-4">
+                                            <mat-form-field (click)="dp1.open()">
+                                                <mat-label>فتح له ملف اجتماعي بتاريخ</mat-label>
+                                                <input id="date_of_file_opening"
+                                                       [(ngModel)]="date_of_file_opening"
+                                                       name="date_of_file_opening"
+                                                       formControlName="date_of_file_opening"
+                                                       matInput
+                                                       [matDatepicker]="dp1"
+                                                       [(value)]="date_of_file_opening">
+                                                <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group kt-form__group row">
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>اسباب البقاء للاعادة</mat-label>
+                                                <textarea matInput placeholder="" [(ngModel)]="reasons" formControlName="reasons" name="reasons">
+                                    </textarea>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <mat-form-field>
+                                                <mat-label>الجهود المهنية المبذولة ونتائجها</mat-label>
+                                                <textarea matInput placeholder="" [(ngModel)]="results" formControlName="results" name="results">
+                                    </textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-            <!--end::Form-->
-        </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="direction:ltr;">
+        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+                data-dismiss="modal">
+            إغلاق
+        </button>
+        <button id="update_btn" type="button" style="border-radius: 20px;" (click)="UpdateRetToRedo()"
+                class="btn btn-primary">
+            تعديل
+        </button>
+        <button id="save_btn" type="button" style="border-radius: 20px;" (click)="AddRestToRedo()"
+                class="btn btn-primary">
+            اضافة
+        </button>
     </div>
 
-</div>
-
-</div>
-<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
-
-<kt-RestToRedo-list></kt-RestToRedo-list>
-</div>
-
-
-<!--End Rest To Redo -->
+</ng-template>

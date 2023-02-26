@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { LevelsDataService } from '../../../../../Services/LevelsDataService';
 
 import { LevelsMaster, Levels } from '../../../../../LevelsMaster.Model';
@@ -22,6 +22,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
 	selector: 'kt-failure-students',
 	templateUrl: './failure-cases.component.html',
@@ -76,7 +78,8 @@ export class FailurestudentsComponent implements OnInit {
 	pageEvent: PageEvent;
 
 	form1: FormGroup;
-	constructor(
+	constructor(private modalService: NgbModal,
+		private cdRef: ChangeDetectorRef,
 		private router: Router, private user_privDataService: user_privDataService,
 		private SubjectDataService: SubjectDataService,
 		private Failure_casesDataService: Failure_casesDataService, 
@@ -103,8 +106,8 @@ export class FailurestudentsComponent implements OnInit {
 			
 				selectednation: ['', [Validators.required]],
 				fail_mob: ['', [Validators.required]],
-				fail_birth: [{ value: '', disabled: true }, [Validators.required]],
-				fail_date: [{ value: '', disabled: true }, [Validators.required]],
+				fail_birth: [{ value: '', disabled: false }, [Validators.required]],
+				fail_date: [{ value: '', disabled: false }, [Validators.required]],
 				fail_desc: ['', [Validators.required]],
 				fail_reason: ['', [Validators.required]],
 				selectedsubject: ['', [Validators.required]],
@@ -114,7 +117,7 @@ export class FailurestudentsComponent implements OnInit {
 				fail_4: ['', [Validators.required]],
 				fail_end_year: ['', [Validators.required]],
 				fail_sit: ['', [Validators.required]],
-				fail_eff_date:[{ value: '', disabled: true }, [Validators.required]],
+				fail_eff_date:[{ value: '', disabled: false }, [Validators.required]],
 				fail_eff_results: ['', [Validators.required]],
 				fail_recomm: ['', [Validators.required]]
 			});
@@ -315,6 +318,10 @@ this.is_edit=false;
 			.subscribe((data: string) => {
 				console.log("edited");
 				this.is_edit=true;
+				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
+				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
+				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
+				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 
 
 				this.fail_id = Number(this.Failure_casesDataService.fail_id);
@@ -356,6 +363,10 @@ this.is_edit=false;
                     return String(el.student_name) == selected_student_value;
                 })];
 */
+
+				// open modal
+				var ele = document.getElementById('modalOpener');
+				if (ele) { ele.click() }
 			});
 			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
 			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
@@ -364,5 +375,18 @@ this.is_edit=false;
 
 	setPageSizeOptions(setPageSizeOptionsInput: string) {
 		this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+	}
+
+	display = "";
+	openModal(content: any, event: any) {
+
+		this.modalService.open(content, { backdrop: true, size: "xl", });
+	}
+	openModal1() {
+		this.display = "show";
+		this.cdRef.detectChanges();
+	}
+	onCloseHandled() {
+		this.display = "";
 	}
 }

@@ -98,7 +98,7 @@ export class VisitManagerComponent implements OnInit {
          
             job: ['', [Validators.required]],
             topic: ['', [Validators.required]]
-       
+            
 
         });
 
@@ -220,7 +220,8 @@ export class VisitManagerComponent implements OnInit {
                 
                 visit_date: this.visit_date,
                 topic: this.topic,
-                job: this.job
+                job: this.job,
+                percentage: this.attendance_precent
         
             };
             this.VisitsDataService.addvisits(val).subscribe(res => {
@@ -228,12 +229,6 @@ export class VisitManagerComponent implements OnInit {
                 alert("Added Successfuly");
                 this.VisitsDataService.BClicked("b2");
             })
-
-           // var val2 = {
-             //   attendance_precent: String(this.attendance_precent)
-          //  };
-            
-          //  this.VisitsDataService.addstudent_attendance_precent(val2).subscribe()
 
         }
     }
@@ -247,7 +242,7 @@ export class VisitManagerComponent implements OnInit {
             visit_id: this.visit_id,
             visit_type_name: this.visit_type_name,
             visit_type_id: this.visit_type_id,
-            visit_date: this.visit_date_db,
+            visit_date: this.visit_date,
             phone: this.phone,
             start_time: this.start_time,
             end_time: this.end_time,
@@ -258,12 +253,13 @@ export class VisitManagerComponent implements OnInit {
             notes: this.notes,
             dep_name: this.dep_name,
             dep_id: this.dep_id,
-            vnote: this.vnote
+            vnote: this.vnote,
+            percentage: this.attendance_precent
 
         };
         this.VisitsDataService.updatevisits(val).subscribe(res => {
 
-            alert("Added Successfuly");
+            alert("Updated Successfuly");
             this.VisitsDataService.BClicked("b2");
             this.is_edit=false;
         })
@@ -275,7 +271,6 @@ export class VisitManagerComponent implements OnInit {
    
     year_data_id: any;
     priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -289,11 +284,9 @@ export class VisitManagerComponent implements OnInit {
 
         this.VisitsDataService.aClickedEvent
             .subscribe((data: string) => {
-                this.is_edit=true;
+                
                 this.visit_id = this.VisitsDataService.visit_id;
-               // this.visit_type_name = this.VisitsDataService.visit_type_name;
-              //  this.visit_type_id = this.VisitsDataService.visit_type_id;
-                this.visit_date_db = this.VisitsDataService.visit_date;
+                this.visit_date = this.VisitsDataService.visit_date;
                 this.phone = this.VisitsDataService.phone;
                 this.start_time = this.VisitsDataService.start_time;
                 this.end_time = this.VisitsDataService.end_time;
@@ -302,21 +295,9 @@ export class VisitManagerComponent implements OnInit {
                 this.instructions = this.VisitsDataService.instructions;
                 this.job = this.VisitsDataService.job;
                 this.notes = this.VisitsDataService.notes;
-               // this.dep_name = this.VisitsDataService.dep_name;
-               // this.dep_id = this.VisitsDataService.dep_id;
-                this.vnote = this.VisitsDataService.vnote;
+                this.attendance_precent = this.VisitsDataService.percentage.toString();
 
-                var selected_value = this.VisitsDataService.visit_type_id
-                this.selected_visit_type = this.visit_types[this.visit_types.findIndex(function (el) {
-                    return String(el.visit_type_id) == selected_value
-                })];
-
-                var selected_value = this.VisitsDataService.dep_id
-                this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
-                    return String(el.dep_id) == selected_value
-                })];
-
-
+                
                 // open modal
                 var ele = document.getElementById('modalOpener');
                 if (ele) { ele.click() }

@@ -1,9 +1,8 @@
-﻿import { Component, OnInit, ElementRef, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component,ChangeDetectorRef, OnInit, ElementRef, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { MatFormFieldControl } from '@angular/material';
-import { Departments } from '../../../../../DepartmentMaster.Model';
-import { MasterJobdetails,privs } from '../../../../../MasterJobMaster.Model';
 import { MasterJobsDataService } from '../../../../../Services/MasterJobsDataService';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../Services/user_privDataService ';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
@@ -49,14 +48,6 @@ export class FormfieldComponent implements OnInit {
 	in_class_priv: string = "";
 	dep_work: string = "";
 
-	exampleSimpleFormField;
-	exampleFormFieldWithLabel;
-	exampleFormFieldWithHints;
-	exampleFormFieldWithErrorMessages;
-	exampleFormFieldWithPrefixSuffix;
-	exampleFormFieldTheming;
-	exampleFormFieldWithCustomTelephoneNumberInputControl;
-	exampleFormFieldAppearanceVariants;
 	options: FormGroup;
 	options2: FormGroup;
     foods = [
@@ -79,6 +70,8 @@ export class FormfieldComponent implements OnInit {
     newArray: Array<any> = [];
     form1: FormGroup;
 	constructor(
+		private cdRef: ChangeDetectorRef,
+        private router: Router, private user_privDataService: user_privDataService,
 		private modalService: NgbModal,
 		fb: FormBuilder, public _fb: FormBuilder,private MasterJobsDataService: MasterJobsDataService) {
 		this.butdisableclass = 0;
@@ -99,7 +92,7 @@ export class FormfieldComponent implements OnInit {
 			'fontSize': [16, Validators.min(10)],
 		});
 		this.MasterJobsDataService.GetAllprivs().subscribe(data => this.privs = data,
-			error => console.log(error),
+			error => console.log(),
 			() => {
 			
 				for (var i = 0; i < this.privs.length; i++) {
@@ -123,7 +116,8 @@ export class FormfieldComponent implements OnInit {
 						this.privs[i].checked = false;//  checkbox status false
 						this.newArray.push(this.privs[i]);
 					} //End if
-				};console.log("zzzzzzzzzzzzzzzzzzz",this.privs, this.privs_edit) });
+				};
+			});
 		/*this.checked = true;*/
 		//zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 		
@@ -139,32 +133,29 @@ export class FormfieldComponent implements OnInit {
 	butdisableclass: number;
 	butdisablework: number;
 	side_jobclass_chck_change(event) {
-		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
-		//	console.log("checked changed")
-		//}
-		console.log(event)
-		if (event.checked == true) {
-			this.butdisableclass = 1;
-		}
-		if (event.checked === false) {
-			this.butdisableclass = 0;
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			if (event.checked == true) {
+				this.butdisableclass = 1;
+			}
+			if (event.checked === false) {
+				this.butdisableclass = 0;
+			}
 		}
 	}
 	side_jobwork_chck_change(event) {
-		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
-		//	console.log("checked changed")
-		//}
-		console.log(event)
-		if (event.checked == true) {
-			this.butdisablework = 1;
-		}
-		if (event.checked === false) {
-			this.butdisablework = 0;
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			if (event.checked == true) {
+				this.butdisablework = 1;
+			}
+			if (event.checked === false) {
+				this.butdisablework = 0;
+			}
 		}
 	}
 	update_jobs() {
 
-		/*console.log("emp", emp, this.employeedepartment );*/
 		var val = {
 			job_id: this.MasterJobsDataService.job_id,
 			job_name: this.job_name,
@@ -174,30 +165,28 @@ export class FormfieldComponent implements OnInit {
 
 		};
 
-		console.log("val", val);
-
 
 		this.MasterJobsDataService.updatejobs(val).subscribe(res => {
 			alert(res.toString());
-			(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-			(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+			
 			this.MasterJobsDataService.deletedetails_jobs(Number(this.MasterJobsDataService.job_id)).subscribe(res => {
 				this.MasterJobsDataService.adddetails_job(val).subscribe(res => {
-					this.returned_job_id = res.toString(); console.log(res.toString(), this.returned_job_id);
-					for (let i = 0; i < this.checkbox_array.length; i++) {
-						var val2 = {
-							job_id: Number(this.MasterJobsDataService.job_id),
-							priv_name: this.checkbox_array[i],
-							page_name: this.checkbox_array[i],
-							priv_def_id: Number(this.checkbox_array[i]),
-							in_class_priv: Number(this.butdisableclass),
-							dep_work: Number(this.butdisablework)
+					this.returned_job_id = res.toString();
+					 
+					if(this.checkbox_array !== undefined){
+						
+						for (let i = 0; i < this.checkbox_array.length; i++) {
+							var val2 = {
+								job_id: Number(this.MasterJobsDataService.job_id),
+								priv_name: this.checkbox_array[i],
+								page_name: this.checkbox_array[i],
+								priv_def_id: Number(this.checkbox_array[i]),
+								in_class_priv: Number(this.butdisableclass),
+								dep_work: Number(this.butdisablework)
+							}
+							this.MasterJobsDataService.adddetails_job(val2).subscribe()
+						
 						}
-						this.MasterJobsDataService.adddetails_job(val2).subscribe(res => { console.log("val2", val2) })
-                        console.log("checkbox array", this.newArray[i]);
-                      
 					}
 
                 })
@@ -207,6 +196,8 @@ export class FormfieldComponent implements OnInit {
             
 			this.is_edit=false;
 		},error => {console.log(error);
+
+		},error => {
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
 			  if (error.error.errors.hasOwnProperty(fieldName)) {
@@ -227,15 +218,12 @@ export class FormfieldComponent implements OnInit {
         //}
 		this.is_edit=false;
 	}
+  
 	returned_job_id: any;
 	checkbox_array: any;
 	add_jobs() {
-		//var test1
-		//test1 = this.departments[this.selecteddepartment]
-		//var schoolterm
-		//schoolterm = this.activities[this.activity_school_term]
+		
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
             var val = {
@@ -245,23 +233,27 @@ export class FormfieldComponent implements OnInit {
                 in_class_priv: Number(this.butdisableclass),
                 dep_work: Number(this.butdisablework)
             };
-            console.log("asd", val)
             this.MasterJobsDataService.addjobs(val).subscribe(res => {
-                this.returned_job_id = res.toString(); console.log(res.toString(), this.returned_job_id);
-                for (let i = 0; i < this.checkbox_array.length; i++) {
-                    var val2 = {
-                        job_id: Number(this.returned_job_id),
-                        priv_name: this.checkbox_array[i],
-                        page_name: this.checkbox_array[i],
-                        priv_def_id: Number(this.checkbox_array[i]),
-                        in_class_priv: Number(this.butdisableclass),
-                        dep_work: Number(this.butdisablework)
-                    }
-                    this.MasterJobsDataService.adddetails_job(val2).subscribe(res => { console.log("val2", val2) })
-                    console.log("checkbox array", this.checkbox_array[i])
-                }
+                this.returned_job_id = res.toString(); 
+				
+				if(this.checkbox_array !== undefined){
 
-            },error => {console.log(error);
+						for (let i = 0; i < this.checkbox_array.length; i++) {
+							var val2 = {
+								job_id: Number(this.returned_job_id),
+								priv_name: this.checkbox_array[i],
+								page_name: this.checkbox_array[i],
+								priv_def_id: Number(this.checkbox_array[i]),
+								in_class_priv: Number(this.butdisableclass),
+								dep_work: Number(this.butdisablework)
+							}
+							this.MasterJobsDataService.adddetails_job(val2).subscribe()
+					
+						}
+					
+				}
+
+            },error => {
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
                   if (error.error.errors.hasOwnProperty(fieldName)) {
@@ -277,7 +269,6 @@ export class FormfieldComponent implements OnInit {
           
             alert("Saved Successfuly");
             this.MasterJobsDataService.BClicked("");
-            console.log(val)
             this.form1.reset();
         }
 	}
@@ -290,35 +281,45 @@ export class FormfieldComponent implements OnInit {
 	}
 	myForm: FormGroup = this.initModelForm();
 	onCheckChange(event) {
-		const formArray: FormArray = this.myForm.get('myChoices') as FormArray;
-		if (event.target.checked) {
-			formArray.push(new FormControl(event.target.value));
-		}
-	
-		else {
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			const formArray: FormArray = this.myForm.get('myChoices') as FormArray;
+			if (event.target.checked) {
+				formArray.push(new FormControl(event.target.value));
+			}
 		
-			let i: number = 0;
+			else {
+			
+				let i: number = 0;
 
-			formArray.controls.forEach((ctrl: FormControl) => {
-				if (ctrl.value == event.target.value) {
-					// Remove the unselected element from the arrayForm
-					formArray.removeAt(i);
-					return;
-				}
+				formArray.controls.forEach((ctrl: FormControl) => {
+					if (ctrl.value == event.target.value) {
+						// Remove the unselected element from the arrayForm
+						formArray.removeAt(i);
+						return;
+					}
 
-				i++;
-			});
+					i++;
+				});
+			}
+			this.checkbox_array = formArray.value;
 		}
-		this.checkbox_array = formArray.value;
-		console.log("arrayofchecks", event.target)
 	}
 	is_edit:boolean=false;
 
+
+	priv_info:any=[];
 	ngOnInit() {
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});	
+		
 		
 
 		
-		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
 
 		this.MasterJobsDataService.aClickedEvent
 			.subscribe((data: string) => {
@@ -330,6 +331,7 @@ export class FormfieldComponent implements OnInit {
 				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 			
 this.is_edit=true;
+				
 				this.job_id = Number(this.MasterJobsDataService.job_id);
 				this.job_name = this.MasterJobsDataService.job_name;
 				this.job_desc = this.MasterJobsDataService.job_desc;
@@ -337,11 +339,10 @@ this.is_edit=true;
 				this.dep_work = this.MasterJobsDataService.dep_work;
 				/*	document.getElementById("save_btn").innerHTML="asdasd"*/
 				this.MasterJobsDataService.GetAllprivs_with_job_id(Number(this.MasterJobsDataService.job_id)).subscribe(data => this.privs_edit = data,
-					error => console.log(error),
-					() => { console.log("jobdetprivs",this.privs_edit) });
-				console.log("edited")
+					error => console.log());
+
 				this.MasterJobsDataService.GetAllprivs().subscribe(data => this.privs = data,
-					error => console.log(error),
+					error => console.log(),
 					() => {
                         this.newArray = [];
 						for (var i = 0; i < this.privs.length; i++) {
@@ -350,7 +351,6 @@ this.is_edit=true;
                            
 							for (var j = 0; j < this.privs_edit.length; j++) {
 							
-								//console.log("301:this.privs[i]", this.privs[i].priv_id, this.privs_edit[j].priv_id);
 								if (this.privs[i].menu_id == this.privs_edit[j].menu_id) {
 									// we have found this.officeLIST[i]] in this.office, so we can stop searching
 									ismatch = true;
@@ -367,7 +367,8 @@ this.is_edit=true;
 								this.privs[i].checked = false;//  checkbox status false
 								this.newArray.push(this.privs[i]);
 							} //End if
-						};console.log("all privs", this.privs) });
+						};
+					});
 
 				// open modal
 				var ele = document.getElementById('modalOpener');
@@ -375,7 +376,5 @@ this.is_edit=true;
 
 			});
 	
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
 	}
 }

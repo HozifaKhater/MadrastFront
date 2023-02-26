@@ -60,77 +60,70 @@ export class AccordionComponent implements OnInit {
 		public _fb: FormBuilder, config: NgbAccordionConfig, 
 		private Add_libDataService: Add_libDataService, 
 		private EmployeeService: EmployeeDataService) {
-		// customize default values of accordions used by this component tree
-		// config.closeOthers = true;
-		//  config.type = 'info';
+		
 
 		EmployeeService.Getdefinations_with_scode("classif").subscribe(data => this.classif = data,
-			error => console.log(error),
-			() => console.log("ok"));
+			error => console.log());
 
 			
 		EmployeeService.Getdefinations_with_scode("classif").subscribe(data => this.scodes = data,
-				error => console.log(error),
-				() => console.log("scodes", this.scodes));
+				error => console.log());
 
 
 		this.form1 = this._fb.group({
 			lib_rec_no: ['', [Validators.required]],
 			lib_book_name: ['', [Validators.required]],
 			lib_author_name: ['', [Validators.required]],
-			
 		});
 
 	}
 
 	checked_radio: any;
-	handleChange(evt) {
-		if (evt.target.value === "employee") {
-			this.disabled = true
-			this.disabled_emp = false
+	handleChange(event) {
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			if (event.target.value === "employee") {
+				this.disabled = true
+				this.disabled_emp = false
+			}
+			else if (event.target.value === "department") {
+				this.disabled = false
+				this.disabled_emp = true
+			}
+			this.checked_radio = event.target.value
 		}
-		else if (evt.target.value === "department") {
-			this.disabled = false
-			this.disabled_emp = true
-		}
-		console.log(evt.target.value, evt);
-		this.checked_radio = evt.target.value
 	}
 
 	butdisableclass: number;
 	butdisablework: number;
 	side_jobclass_chck_change(event) {
-		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
-		//	console.log("checked changed")
-		//}
-		console.log(event)
-		if (event.checked == true) {
-			this.butdisableclass = 1;
-		}
-		if (event.checked === false) {
-			this.butdisableclass = 0;
+		if(event !== null && event !== undefined && event.length !== 0){
+			if (event.checked == true) {
+				this.butdisableclass = 1;
+			}
+			if (event.checked === false) {
+				this.butdisableclass = 0;
+			}
 		}
 	}
 	side_jobwork_chck_change(event) {
-		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
-		//	console.log("checked changed")
-		//}
-		console.log(event)
-		if (event.checked == true) {
-			this.butdisablework = 1;
-		}
-		if (event.checked === false) {
-			this.butdisablework = 0;
+		if(event !== null && event !== undefined && event.length !== 0){
+
+			if (event.checked == true) {
+				this.butdisablework = 1;
+			}
+			if (event.checked === false) {
+				this.butdisablework = 0;
+			}
 		}
 	}
-	selectedclassif: any;
+	selectedclassif: any=[];
 	selectedclassif2: any;
 	date:string = "";
 
 	add_lib() {
 
 		if (this.form1.invalid) {
-			console.log('Form invalid...');
 			this.form1.markAllAsTouched();
 		} else {
 			var val = {
@@ -142,25 +135,19 @@ export class AccordionComponent implements OnInit {
 				lib_date: this.date,
 				lib_page_no: Number(this.lib_page_no),
 				lib_rec_no: Number(this.lib_rec_no),
-				lib_classification: this.selectedclassif.def_name,
+				lib_classification: this.selectedclassif.def_id.toString(),
 			};
-			console.log("asd", val)
 			this.Add_libDataService.addAdd_lib(val).subscribe(res => {
 				alert(res.toString());
 				this.Add_libDataService.BClicked("b2");
 				this.form1.reset();
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+				
 			})
 		}
 	}
 
-	//corridorsDataService: corridorsDataService;
 	update_lib() {
 		if (this.form1.invalid) {
-			console.log('Form invalid...');
 			this.form1.markAllAsTouched();
 		} else {
 			var val = {
@@ -172,11 +159,8 @@ export class AccordionComponent implements OnInit {
 				lib_date: this.date,
 				lib_page_no: Number(this.lib_page_no),
 				lib_rec_no: Number(this.lib_rec_no),
-				lib_classification: this.selectedclassif.def_name,
+				lib_classification: this.selectedclassif.def_id.toString(),
 			};
-
-			console.log("val", val);
-
 
 			this.Add_libDataService.updateAdd_lib(val).subscribe(res => {
 				alert("Updated Succesfully");
@@ -184,24 +168,24 @@ export class AccordionComponent implements OnInit {
 				this.form1.reset();
 				
 this.is_edit=false;
+				
 			})
 		}
 	}
-	cancel_lib() {
-		this.form1.reset();
 	
-this.is_edit=false;
-	}
 
 	classValue: string="";
 	anotherClassf: def.nat[];
 	priv_info:any;
 	is_edit:boolean=false;
+	priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}); 
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});
 		
 
 		this.Add_libDataService.aClickedEvent
@@ -214,6 +198,7 @@ this.is_edit=false;
 
 				this.is_edit=true;
 
+				
 				this.lib_id = Number(this.Add_libDataService.lib_id);
 				this.lib_book = String(this.Add_libDataService.lib_book);
 				this.lib_ref = String(this.Add_libDataService.lib_ref);
@@ -223,21 +208,13 @@ this.is_edit=false;
 				this.lib_page_no = Number(this.Add_libDataService.lib_page_no);
 				this.lib_rec_no = Number(this.Add_libDataService.lib_rec_no);
 				this.lib_classification = this.Add_libDataService.lib_classification;
-				this.selectedclassif =  this.Add_libDataService.lib_classification;
-				//console.log("classValue",this.classValue);
-				/*
-				this.EmployeeService.Getdefinations_with_scode("classif")
-				.subscribe(data => this.anotherClassf = data,
-					error => console.log(error),
-					() => {
-						console.log("anotherClassf",this.anotherClassf);
-						//this.selectedclassif = this.anotherClassf[0];
-						this.classValue =  this.anotherClassf[0].def_name;
-						console.log("classValue",this.classValue);
-					});
-*/
-				//this.classValue = this.Add_libDataService.lib_classification;
-				//console.log("classValue",this.classValue);
+				
+				var id= Number(this.Add_libDataService.lib_classification);
+                this.selectedclassif = this.classif[this.classif.findIndex(function (el) {
+
+                    return el.def_id == id;
+                })];
+
 
 				// open modal
 				var ele = document.getElementById('modalOpener');
@@ -245,8 +222,7 @@ this.is_edit=false;
 
 			});
 
-		//(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		
 	}
 
 	// api methods
@@ -269,7 +245,6 @@ this.is_edit=false;
 	}
 	openModal1() {
 		this.display = "show";
-		console.log("clicked")
 		this.cdRef.detectChanges();
 	}
 	onCloseHandled() {

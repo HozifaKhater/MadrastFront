@@ -225,10 +225,10 @@ export class VisitComponent implements OnInit {
         if (this.selecteddepartment === undefined) {
            this.selecteddepartment = [{'dep_name': "", 'dep_id': 0}];
         }
-        if (this.selectedemp_from.length < 1 || this.selectedemp_from === undefined) {
+        if (this.selectedemp_from.length < 1) {
             this.selectedemp_from = [{'emp_name': "", 'emp_id': 0}];
          }
-         if (this.selectedemp_to.length < 1 || this.selectedemp_to === undefined) {
+         if (this.selectedemp_to.length < 1) {
             this.selectedemp_to = [{'emp_name': "", 'emp_id': 0}];
          }
 
@@ -263,32 +263,25 @@ export class VisitComponent implements OnInit {
         if (this.selecteddepartment === undefined) {
             this.selecteddepartment = [{'dep_name': "", 'dep_id': 0}];
          }
-         if ( this.selectedemp_from === undefined) {
-             this.selectedemp_from = [{'emp_name': "", 'emp_id': 0}];
-          }
-          if ( this.selectedemp_to === undefined) {
-             this.selectedemp_to = [{'emp_name': "", 'emp_id': 0}];
-          }
        
         var val = {
-            visit_id: this.VisitsDataService.visit_id,
-              
-            visit_type_name: this.selected_visit_type.visit_type_name,
-            visit_type_id: this.selected_visit_type.visit_type_id,
+            visit_id: this.visit_id,
+            visit_type_name: this.visit_type_name,
+            visit_type_id: this.visit_type_id,
             visit_date: this.visit_date2,
             start_time: this.start_time,
             end_time: this.end_time,
             name: this.name,
-            phone: this.selected_visit_type.phone_label,
-            topic: this.selected_visit_type.topic_label,
-            instructions: this.selected_visit_type.instructions_label,
-            job: this.selected_visit_type.job_label,
+            phone: this.phone,
+            topic: this.topic,
+            instructions: this.instructions,
+            job: this.job,
             notes: this.notes,
             dep_name: this.selecteddepartment.dep_name,
             dep_id: this.selecteddepartment.dep_id,
-            vnote: this.selected_visit_type.vnote_label,
+            vnote: this.vnote,
             emp_from_id:this.selectedemp_from.emp_id,
-            emp_to_id:this.selectedemp_to.emp_id,
+            emp_to_id:this.selectedemp_to.emp_id
 
         };
 
@@ -304,7 +297,6 @@ export class VisitComponent implements OnInit {
     
     year_data_id: any;
 	priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -316,7 +308,7 @@ export class VisitComponent implements OnInit {
 
         this.VisitsDataService.aClickedEvent
             .subscribe((data: string) => {
-                this.is_edit=true;
+                
                 this.visit_id = this.VisitsDataService.visit_id;
                // this.visit_type_name = this.VisitsDataService.visit_type_name;
               //  this.visit_type_id = this.VisitsDataService.visit_type_id;
@@ -338,43 +330,7 @@ export class VisitComponent implements OnInit {
                 this.selected_visit_type = this.visit_types[this.visit_types.findIndex(function (el) {
                     return String(el.visit_type_id) == selected_value
                 })];
-                this.Visit_typesDataService.GetAllvisit_types_with_id(this.VisitsDataService.visit_type_id).subscribe(data => this.Visit_types_model = data,
-                    error => console.log(),
-                    () => {
-                        
-                        this.is_visit_date = this.Visit_types_model[0].is_visit_date;
-                        this.visit_date = this.Visit_types_model[0].visit_date;
-                        this.is_phone = this.Visit_types_model[0].is_phone;
-                        this.phone_label = this.Visit_types_model[0].phone_label;
-                        this.is_start_time = this.Visit_types_model[0].is_start_time;
-                        this.start_time_label = this.Visit_types_model[0].start_time_label;
-                        this.is_end_time = this.Visit_types_model[0].is_end_time;
-                        this.end_time_label = this.Visit_types_model[0].end_time_label;
-                        this.is_name = this.Visit_types_model[0].is_name;
-                        this.name_label = this.Visit_types_model[0].name_label;
-                        this.is_topic = this.Visit_types_model[0].is_topic;
-                        this.topic_label = this.Visit_types_model[0].topic_label;
-                        this.is_instructions = this.Visit_types_model[0].is_instructions;
-                        this.instructions_label = this.Visit_types_model[0].instructions_label;
-                        this.is_job = this.Visit_types_model[0].is_job;
-                        this.job_label = this.Visit_types_model[0].job_label;
-                        this.is_notes = this.Visit_types_model[0].is_notes;
-                        this.notes_label = this.Visit_types_model[0].notes_label;
-                        this.is_dep = this.Visit_types_model[0].is_dep;
-                        this.dep_label = this.Visit_types_model[0].dep_label;
-                        this.is_vnote = this.Visit_types_model[0].is_vnote;
-                        this.vnote_label = this.Visit_types_model[0].vnote_label;
-                        this.is_vpic = this.Visit_types_model[0].is_vpic;
-                        this.vpic_label = this.Visit_types_model[0].vpic_label;
-        
-                        this.is_emp_from = this.Visit_types_model[0].is_emp_from;
-                        this.emp_from_label = this.Visit_types_model[0].emp_from_label;
-                        this.is_emp_to = this.Visit_types_model[0].is_emp_to;
-                        this.is_emp_to = this.Visit_types_model[0].is_emp_to;
-                        this.is_takeem = this.Visit_types_model[0].is_takeem;
-                        this.takeem_label = this.Visit_types_model[0].takeem_label;
-                        this.cdRef.detectChanges();
-                    });
+
                 var selected_value = this.VisitsDataService.dep_id
                 this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
                     return String(el.dep_id) == selected_value
@@ -387,7 +343,7 @@ export class VisitComponent implements OnInit {
                 this.selectedemp_to = this.emp_to[this.emp_to.findIndex(function (el) {
                     return String(el.emp_id) == selected_value_emp_to_id
                 })];
-                this.cdRef.detectChanges();
+
                 // open modal
                 var ele = document.getElementById('modalOpener');
                 if (ele) { ele.click() }
