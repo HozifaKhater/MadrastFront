@@ -64,6 +64,7 @@ export class BehavestatusComponent implements OnInit {
     behave_stat_rep: string = "";
 
 
+    is_edit:boolean=false;
     class_id_value:number=0;
 
 	level: Levels[]=[];
@@ -157,7 +158,7 @@ this.is_edit=false;
             this.myControllev.reset();
             this.myControlclass.reset();
             this.myControlStudent.reset();
-			
+            this.is_edit=false;
 		})
 
 	}

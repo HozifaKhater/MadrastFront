@@ -38,7 +38,7 @@ export class financial__fund_expensesComponent implements OnInit {
     public price: string = "";
     public notes: string;
 
-	
+	is_edit:boolean=false;
     form1: FormGroup;
     constructor(
 		private modalService: NgbModal,
@@ -120,8 +120,6 @@ export class financial__fund_expensesComponent implements OnInit {
    
 
 	priv_info:any=[];
-	
-is_edit:boolean=false;	
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -133,8 +131,7 @@ is_edit:boolean=false;
 
 		this.financial__fund_expensesDataService.aClickedEvent
 			.subscribe((data: string) => {
-			
-this.is_edit=true;
+				this.is_edit=true;
                 this.id = this.financial__fund_expensesDataService.id;
                 this.type_name = this.financial__fund_expensesDataService.type_name;
                 this.date = this.financial__fund_expensesDataService.date;

@@ -156,8 +156,8 @@
 
                             <div class="col-lg-6">
                                 <button id="save_btn" type="button" (click)="add_behav()" mat-raised-button color="accent">حفظ</button>&nbsp;
-                                <button id="update_btn" type="button" (click)="update_behav()" mat-raised-button color="accent">تعديل</button>&nbsp;
-                                <button id="cancel_btn" type="button" (click)="cancel_behav()" mat-raised-button color="accent">الغاء</button>&nbsp;
+                                <button id="update_btn" type="button" *ngIf="is_edit"  (click)="update_behav()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="cancel_btn" type="button" *ngIf="!is_edit"  (click)="cancel_behav()" mat-raised-button color="accent">الغاء</button>&nbsp;
                                 <button mat-raised-button type="reset">حذف</button>
 
 

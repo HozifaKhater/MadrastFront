@@ -44,7 +44,7 @@ export class EventspartyComponent implements OnInit {
     selecteddepartment: any;
 
 	departments: Departments[];
-    
+    is_edit:boolean=false;
     form1: FormGroup;
     constructor(
         private cdRef: ChangeDetectorRef,
@@ -120,7 +120,6 @@ export class EventspartyComponent implements OnInit {
                 alert("Updated Successfully");
                 this.EventsDataService.BClicked("b2");
                 this.is_edit=false;
-                
             })
             this.form1.reset();
         }
@@ -130,7 +129,6 @@ export class EventspartyComponent implements OnInit {
 
 
 	priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -142,8 +140,7 @@ export class EventspartyComponent implements OnInit {
 
         this.EventsDataService.aClickedEvent
             .subscribe((data: string) => {
-             
-this.is_edit=true;
+                this.is_edit=true;
                 var selected_value = String(this.EventsDataService.dep_id);
 				this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
 					return el.dep_id == selected_value;})];

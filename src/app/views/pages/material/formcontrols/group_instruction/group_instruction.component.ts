@@ -50,7 +50,7 @@ export class group_instructioncomponentComponent implements OnInit {
 	labelPosition: string = 'before';
 	dep_name: any;
 	dep_desc: any;
-
+	is_edit:boolean=false;
 	changeLablesPositions() {
 		this.labelPosition = this.labelPosition === 'before' ? 'after' : 'before';
 	}
@@ -141,7 +141,7 @@ export class group_instructioncomponentComponent implements OnInit {
 			this.is_edit=false;
 			this.form1.reset();
 			this.instructionsDataService.BClicked("");
-			
+			this.is_edit=false;
 		},error => {
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {

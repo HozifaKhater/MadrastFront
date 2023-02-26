@@ -35,7 +35,7 @@ export class PaginationComponent implements OnInit {
 	emp_name: string = "";
 	observ_loc: string = "";
 	observe_date: string = "";
-
+    is_edit:boolean=false;
 	Employees: Employee[];
 	employeedepartment: any=[];
 	Levels: Levels[];
@@ -200,13 +200,11 @@ export class PaginationComponent implements OnInit {
                 this.ObservationsDataService.BClicked("");
                 alert("Updated Succesfully");
                 this.form1.reset();
-                
-this.is_edit=false;
                 this.myControlEmp.reset();
                 this.myControlTime.reset();
                 this.myControlclass.reset();
                 this.myControllev.reset();
-
+                this.is_edit=false;
             },error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -228,8 +226,6 @@ this.is_edit=false;
     anotherClassArray: Classes[] = [];
    
     priv_info:any=[];
-    
-is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -277,7 +273,6 @@ is_edit:boolean=false;
 		this.ObservationsDataService.aClickedEvent
 			.subscribe((data: string) => {
                 this.is_edit=true;
-
 				this.observer_id = Number(this.ObservationsDataService.observer_id);
 				this.observ_ftra = this.ObservationsDataService.observ_ftra;
 				this.class_name = this.ObservationsDataService.class_name;

@@ -24,7 +24,7 @@ export class DropdownComponent implements OnInit {
 	type_name: string = "";
 	name: string = "";
 	goals: string = "";
-	
+	is_edit:boolean=false;
     selecteddepartment: any =[];
     departments: any =[];
     disabled_emp: any;
@@ -167,6 +167,7 @@ export class DropdownComponent implements OnInit {
 			this.is_edit=false;
 			this.form1.reset();
 			
+			this.is_edit=false;
 		},error => {console.log(error);
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
@@ -196,6 +197,7 @@ export class DropdownComponent implements OnInit {
 		this.teams_and_groupsDataService.aClickedEvent
 			.subscribe((data: string) => {
 
+				this.is_edit=true;
 				this.id = Number(this.teams_and_groupsDataService.id);
 				this.type_id = this.teams_and_groupsDataService.type_id;
 				this.type_name = this.teams_and_groupsDataService.type_name;

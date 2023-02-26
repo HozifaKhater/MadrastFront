@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { DepartmentDataService } from '../../../../../Services/DepartmentDataService';
 import { DepartmentMaster, Departments } from '../../../../../DepartmentMaster.Model';
 import { Http, Response, Headers } from '@angular/http';
@@ -55,7 +55,7 @@ export class month_valueComponent implements OnInit {
 	month	:string="";
 	year	:string="";
 	
-
+	is_edit:boolean=false;
 	dep_nameSelected: string;
 	
 	Employees: Employee[];
@@ -81,6 +81,7 @@ export class month_valueComponent implements OnInit {
     form1: FormGroup;
 	public decoded:any;
 	constructor(
+		private cdRef: ChangeDetectorRef,
 		private router: Router, private user_privDataService: user_privDataService,
 		public _fb: FormBuilder,private DepartmentService: DepartmentDataService, private month_valueDataService: month_valueDataService) {
 			const userToken = localStorage.getItem(environment.authTokenKey);
@@ -93,17 +94,14 @@ export class month_valueComponent implements OnInit {
 
 	selected(test1, test2)
 	{
-		console.log("worked?", test1, test2)
 	}
 	depdropdown(event)
 	{
-		console.log("worked!",event)
 	}
 
 	add_department() {
 
         if (this.form1.invalid) {
-            console.log('Form invalid...', this.form1.errors);
             this.form1.markAllAsTouched();
         } else {
 		var val = {
@@ -116,7 +114,6 @@ export class month_valueComponent implements OnInit {
 			
 		};
 
-		console.log("val", val);
 
 
 	this.month_valueDataService.save_in_month_value(val).subscribe(res => {
@@ -126,7 +123,6 @@ export class month_valueComponent implements OnInit {
 		this.form1.reset();
 		})
             
-        console.log(val);
 
             this.form1.reset();
             //for (let name in this.form1.controls) {
@@ -177,12 +173,10 @@ export class month_valueComponent implements OnInit {
 				i++;
 			});
 		}
-		console.log("arrayofchecks",formArray.value)
     }
 
     update_department() {
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
             var department;
@@ -193,11 +187,9 @@ export class month_valueComponent implements OnInit {
             //console.log("department", this.departments, department, "department", this.selecteddepartment.dep_name, emp, this.Employees);
             if (this.butDisabled == true) {
                 chck = 0
-                console.log("val", 0);
             }
             if (this.butDisabled == false) {
                 chck = Number(this.selecteddepartment.dep_id);
-                console.log("val", 1);
             };
 
             /*console.log("emp", emp, this.employeedepartment );*/
@@ -211,7 +203,6 @@ export class month_valueComponent implements OnInit {
 				
             };
 
-            console.log("val", val);
 
 
             this.month_valueDataService.update_month_value(val).subscribe(res => {
@@ -220,7 +211,7 @@ export class month_valueComponent implements OnInit {
                 this.form1.reset();
                 this.butDisabled = true;
                 this.selecteddepartment = '';
-				this.is_edit=false;
+                this.is_edit=false;
             })
         }
 	}
@@ -232,7 +223,6 @@ export class month_valueComponent implements OnInit {
 		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
 		//	console.log("checked changed")
 		//}
-		console.log(event)
 		if (event.checked == true) {
 			this.butDisabled = false;
 		}
@@ -250,18 +240,19 @@ export class month_valueComponent implements OnInit {
         return this.selecteddepartment ? this.selecteddepartment.dep_name : undefined;
     }
     test1: any[];
-    priv_info:any;
-	
-is_edit:boolean=false;
+	priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}); 
-        this.DepartmentService.GetAlldepartment().subscribe(data => this.departments = data,
-            error => console.log(error),
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
             () => {
-                console.log("emp dropdown", this.departments);
+				this.cdRef.detectChanges();
+
+			}); 
+
+        this.DepartmentService.GetAlldepartment().subscribe(data => this.departments = data,
+            error => console.log(),
+            () => {
                 this.filteredOptions = this.myControl.valueChanges
                     .pipe(
                         startWith(''),
@@ -281,7 +272,6 @@ is_edit:boolean=false;
 			
 				this.is_edit=true;
 
-				console.log("department",this.selecteddepartment);
 				this.ser = this.month_valueDataService.ser;
 				this.title = this.month_valueDataService.title;
 				this.body = this.month_valueDataService.body;
@@ -294,8 +284,6 @@ is_edit:boolean=false;
 				
 		});
 
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
 		
 	/*	test1 = this.departments[this.selecteddepartment - 1]*/
 
@@ -311,9 +299,7 @@ is_edit:boolean=false;
 		this.labelPosition = this.labelPosition === 'before' ? 'after' : 'before';
 	}
 
-	changeValueEvent() {
-		console.log('myValue:', this.myValue);
-	}
+	
 
 
 }

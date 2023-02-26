@@ -261,7 +261,7 @@ export class Student_transComponent implements OnInit {
         }
     }
 
- 
+    is_edit:boolean=false;
     priv_info:any=[];
     is_edit:boolean=false;
 	ngOnInit() {

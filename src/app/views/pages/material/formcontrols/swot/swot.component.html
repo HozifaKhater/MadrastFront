@@ -43,22 +43,14 @@
                                         <div class="col-lg-4">
                                             <mat-form-field>
 
-                                                <mat-label>
-                                                    القسم
-                                                </mat-label>
-                                                <input name="department"
-                                                       type="text"
-                                                       matInput
-                                                       [(ngModel)]="selecteddepartment"
-                                                       placeholder=""
-                                                       [formControl]="myControl"
-                                                       [matAutocomplete]="auto"
-                                                       forceSelection="dep_name">
-                                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-                                                    <mat-option *ngFor="let department of filteredOptions  | async" [value]="department">
-                                                        {{ department.dep_name }}
+                                            
+                                                <mat-select placeholder=""
+                                                [(ngModel)]="selecteddepartment"
+                                                required formControlName="selecteddepartment">
+                                                    <mat-option *ngFor="let department of departments" [value]="department">
+                                                        {{ department.def_name }}
                                                     </mat-option>
-                                                </mat-autocomplete>
+                                                </mat-select>
 
                                             </mat-form-field>
                                         </div>
@@ -117,15 +109,15 @@
         </form>
     </div>
     <div class="modal-footer" style="direction:ltr;">
-        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+        <button type="button" style="border-radius: 20px;"  (click)="modal.dismiss('Close')" class="btn btn-secondary"
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;"   *ngIf="is_edit" (click)="update_department()"
+        <button type="button" style="border-radius: 20px;"  *ngIf="is_edit"  (click)="update_department()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button type="button" style="border-radius: 20px;"  *ngIf="!is_edit"  (click)="add_department()"
+        <button type="button" style="border-radius: 20px;" *ngIf="!is_edit"  (click)="add_department()"
                 class="btn btn-primary">
             اضافة
         </button>

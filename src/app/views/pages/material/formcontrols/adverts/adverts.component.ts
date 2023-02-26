@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { DepartmentDataService } from '../../../../../Services/DepartmentDataService';
 import { DepartmentMaster, Departments } from '../../../../../DepartmentMaster.Model';
 import { Http, Response, Headers } from '@angular/http';
@@ -55,7 +55,7 @@ export class advertsComponent implements OnInit {
 	start_date	:string="";
 	end_date	:string="";
 	
-
+	is_edit:boolean=false;
 	dep_nameSelected: string;
 	
 	Employees: Employee[];
@@ -81,6 +81,8 @@ export class advertsComponent implements OnInit {
     form1: FormGroup;
 	public decoded:any;
 	constructor(
+		private cdRef: ChangeDetectorRef,
+
 		private router: Router, private user_privDataService: user_privDataService,
 		public _fb: FormBuilder,private DepartmentService: DepartmentDataService, private advertsDataService: advertsDataService) {
 			const userToken = localStorage.getItem(environment.authTokenKey);
@@ -230,7 +232,7 @@ this.dep_id = this.selecteddepartment.dep_id;
 	}
     cancel_department() {
         //this.form1.reset();
-		this.is_edit=false;
+		
 	}
 	side_dep_chck_change(event) {
 		//if ((<HTMLInputElement>document.getElementById("side_dep_chck")).checked = true) {
@@ -254,14 +256,16 @@ this.dep_id = this.selecteddepartment.dep_id;
         return this.selecteddepartment ? this.selecteddepartment.dep_name : undefined;
     }
     test1: any[];
-    priv_info:any;
-	
-is_edit:boolean=false;
+	priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+			() => {
+				this.cdRef.detectChanges();
+ 
 			}); 
+
         this.DepartmentService.GetAlldepartment().subscribe(data => this.departments = data,
             error => console.log(error),
             () => {
@@ -283,12 +287,7 @@ is_edit:boolean=false;
 					this.butDisabled = false;         
 				}
 			
-				
-this.is_edit=true;
-				/*this.employeedepartment.emp_id = 1;*/
-				/*this.selecteddepartment.dep_id = Number(this.DepartmentService.dep_id);*/
-
-				console.log("department",this.selecteddepartment);
+				this.is_edit=true;
 				this.ser = this.advertsDataService.ser;
 				this.title = this.advertsDataService.title;
 				this.body = this.advertsDataService.body;
@@ -301,17 +300,7 @@ this.is_edit=true;
 				
 		});
 
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-		
-	/*	test1 = this.departments[this.selecteddepartment - 1]*/
 
-		//this.dep_id = this.dep_id;
-		//this.dep_name = this.dep_name;
-		//this.dep_check = this.dep_check;
-		//this.dep_desc = this.dep_desc;
-		//this.dep_supervisor_id = this.test1[0].dep_id
-		//this.dep_supervisor_name = this.test1[0].dep_name
 	}
 
 	changeLablesPositions() {

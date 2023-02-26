@@ -1,183 +1,178 @@
 ﻿<!--Activity Data-->
-
-
-<!--<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="kt-portlet">
-                <div class="kt-portlet__head">
-                    <div class="kt-portlet__head-caption">
-                        <div class="kt-portlet__head-title">
-
-                            <h3 class="kt-portlet__head-text">
-                                <i class="fas fa-tasks" style="margin:5px;"></i>
-                                الزيارات
-                            </h3>
-                        </div>
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                     
+                        <h3 class="kt-portlet__head-text">
+                            <i class="fas fa-tasks" style="margin:5px;"></i>
+                            الزيارات
+                        </h3>
                     </div>
-                </div>-->
-                <!--begin::Form-->
-                <!--<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
-                    <div class="kt-portlet__body">
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+                <div class="kt-portlet__body">
 
 
-                        <div class="form-group kt-form__group row">
-                            <label class="col-lg-2 col-form-label">
-                                نوع الزياره
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6 example-container">
-                                <mat-form-field>
-                                    <mat-select required name="department"
-                                                #refCountry="ngModel"
-                                                [(ngModel)]="selected_visit_type"
-                                                placeholder="Please select Value"
-                                                (ngModelChange)="visit_types_selection($event)">
-                                        <mat-option *ngFor="let visit_types of visit_types" [value]="visit_types">
-                                            {{ visit_types.visit_type_name }}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group kt-form__group row" *ngIf="is_visit_date === 1">
-                            <label class="col-lg-2 col-form-label">{{visit_date}}</label>
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <input [(ngModel)]="visit_date2" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="pickera" placeholder="أختر التاريخ">
-                                    <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
-                                    <mat-datepicker #pickera></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group kt-form__group row" *ngIf="is_start_time === 1">
-                            <b class="col-lg-2 col-form-label">{{start_time_label}}</b>
-
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <input [(ngModel)]="start_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
-
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group kt-form__group row" *ngIf="is_end_time === 1">
-                            <b class="col-lg-2 col-form-label">{{end_time_label}}</b>
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <input [(ngModel)]="end_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
-
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group kt-form__group row" *ngIf="is_dep === 1">
-                        <label class="col-lg-2 col-form-label">{{dep_label}}</label>
-                        <div class="col-lg-6">
-                            <mat-form-field>
+                    <div class="form-group kt-form__group row">
+                        <label class="col-lg-2 col-form-label">نوع الزياره
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-6 example-container">
+                            <mat-form-field >
                                 <mat-select required name="department"
                                             #refCountry="ngModel"
-                                            [(ngModel)]="selecteddepartment"
-                                            (change)="selected()"
-                                            placeholder="Please select Value">
-                                    <mat-option *ngFor="let department of departments" [value]="department">
-                                        {{ department.dep_name }}
+                                            [(ngModel)]="selected_visit_type"
+                                            placeholder="Please select Value"
+                                            (ngModelChange)="visit_types_selection($event)">
+                                    <mat-option *ngFor="let visit_types of visit_types" [value]="visit_types">
+                                        {{ visit_types.visit_type_name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
 
-                    <div class="form-group kt-form__group row" *ngIf="is_name === 1">
-                        <label class="col-lg-2 col-form-label">{{name_label}}</label>
+                    
+                    <div class="form-group kt-form__group row" *ngIf="is_visit_date === 1">
+                        <label class="col-lg-2 col-form-label">{{visit_date}}</label>
                         <div class="col-lg-6">
-                            <mat-form-field>
-                                <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" matInput placeholder="أسم الزياره">
-
+                            <mat-form-field >
+                                <input [(ngModel)]="visit_date2" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="pickera"  placeholder="أختر التاريخ">
+                                <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
+                                <mat-datepicker #pickera></mat-datepicker>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div class="form-group kt-form__group row" *ngIf="is_job === 1">
-                        <label class="col-lg-2 col-form-label">{{job_label}}</label>
-                        <div class="col-lg-6">
-                            <mat-form-field>
-                                <input [(ngModel)]="job" [ngModelOptions]="{standalone: true}" matInput placeholder="أسم الوظيفة">
 
-                            </mat-form-field>
-                        </div>
                     </div>
-                    <div class="form-group kt-form__group row" *ngIf="is_phone === 1">
-                        <label class="col-lg-2 col-form-label">{{phone_label}}</label>
+
+                    <div class="form-group kt-form__group row" *ngIf="is_start_time === 1">
+                        <b class="col-lg-2 col-form-label">{{start_time_label}}</b>
+
                         <div class="col-lg-6">
-                            <mat-form-field>
-                                <input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" matInput placeholder="رقم الهاتف">
+                            <mat-form-field >
+                                <input [(ngModel)]="start_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
 
                             </mat-form-field>
                         </div>
                     </div>
 
 
-                    <div class="form-group kt-form__group row" *ngIf="is_topic === 1">
-                        <b class="col-lg-2 col-form-label">{{topic_label}}</b>
+                    <div class="form-group kt-form__group row" *ngIf="is_end_time === 1">
+                        <b class="col-lg-2 col-form-label">{{end_time_label}}</b>
                         <div class="col-lg-6">
-                            <mat-form-field>
-                                <textarea [(ngModel)]="topic" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="موضوع">
+                            <mat-form-field >
+                                <input [(ngModel)]="end_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="وقت الحضور">
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row" *ngIf="is_dep === 1">
+                    <label class="col-lg-2 col-form-label">{{dep_label}}</label>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <mat-select required name="department"
+                                        #refCountry="ngModel"
+                                        [(ngModel)]="selecteddepartment"
+                                        (change)="selected()"
+                                        placeholder="Please select Value">
+                                <mat-option *ngFor="let department of departments" [value]="department">
+                                    {{ department.dep_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group kt-form__group row" *ngIf="is_name === 1">
+                    <label class="col-lg-2 col-form-label">{{name_label}}</label>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" matInput placeholder="أسم الزياره">
+
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row" *ngIf="is_job === 1">
+                    <label class="col-lg-2 col-form-label">{{job_label}}</label>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <input [(ngModel)]="job" [ngModelOptions]="{standalone: true}" matInput placeholder="أسم الوظيفة">
+
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row" *ngIf="is_phone === 1">
+                    <label class="col-lg-2 col-form-label">{{phone_label}}</label>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" matInput placeholder="رقم الهاتف">
+                     
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="form-group kt-form__group row" *ngIf="is_topic === 1">
+                    <b class="col-lg-2 col-form-label">{{topic_label}}</b>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <textarea [(ngModel)]="topic" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="موضوع">
 </textarea>
-                            </mat-form-field>
-                        </div>
+                        </mat-form-field>
                     </div>
+                </div>
 
 
-                    <div class="form-group kt-form__group row" *ngIf="is_instructions === 1">
-                        <b class="col-lg-2 col-form-label">{{instructions_label}}</b>
-                        <div class="col-lg-6">
-                            <mat-form-field>
-                                <textarea [(ngModel)]="instructions" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="شروط">
+                <div class="form-group kt-form__group row" *ngIf="is_instructions === 1">
+                    <b class="col-lg-2 col-form-label">{{instructions_label}}</b>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <textarea [(ngModel)]="instructions" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="شروط">
 </textarea>
-                            </mat-form-field>
-                        </div>
+                        </mat-form-field>
                     </div>
+                </div>
 
-                    <div class="form-group kt-form__group row" *ngIf="is_notes === 1">
-                        <b class="col-lg-2 col-form-label">{{notes_label}}</b>
-                        <div class="col-lg-6">
-                            <mat-form-field>
-                                <textarea [(ngModel)]="notes" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="ملاحظات/وصف">
+                <div class="form-group kt-form__group row" *ngIf="is_notes === 1">
+                    <b class="col-lg-2 col-form-label">{{notes_label}}</b>
+                    <div class="col-lg-6">
+                        <mat-form-field >
+                            <textarea [(ngModel)]="notes" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="ملاحظات/وصف">
 </textarea>
-                            </mat-form-field>
-                        </div>
+                        </mat-form-field>
                     </div>
-                    <div>
-                        <ckeditor [editor]="Editor" *ngIf="is_vpic === 1" [data]="data" [(ngModel)]="vnote" (change)="onChange($event)" [ngModelOptions]="{standalone: true}"></ckeditor>
+                </div>
+                <div>
+                    <ckeditor [editor]="Editor" *ngIf="is_vpic === 1" [data]="data" [(ngModel)]="vnote" (change)="onChange($event)" [ngModelOptions]="{standalone: true}"></ckeditor>
+                </div>
+                <div class="form-group kt-form__group row">
+                    <b class="col-lg-2 col-form-label">{{vpic_label}}</b>
+                    <div class="col-lg-2">
+
+                        <!--<input type="file" [(ngModel)]="school_logo" [ngModelOptions]="{standalone: true}" class="file-upload" id="ImageBinary" (change)=”onFileChanged($event)” />-->
+                        <input type="file" (change)="onFileChanged($event);">
+
+                        <!--<img [src]="imageSource" alt="Image Source">-->
+                        <!--<img [src]="imgURL" *ngIf="imgURL">-->
+
+
                     </div>
-                    <div class="form-group kt-form__group row">
-                        <b class="col-lg-2 col-form-label">{{vpic_label}}</b>
-                        <div class="col-lg-2">-->
+                </div>
 
-                            <!--<input type="file" [(ngModel)]="school_logo" [ngModelOptions]="{standalone: true}" class="file-upload" id="ImageBinary" (change)=”onFileChanged($event)” />-->
-                            <!--<input type="file" (change)="onFileChanged($event);">-->
-
-                            <!--<img [src]="imageSource" alt="Image Source">-->
-                            <!--<img [src]="imgURL" *ngIf="imgURL">-->
-
-
-                        <!--</div>
-                    </div>
-
-                    <div class="kt-portlet__foot">
-                        <div class="kt-form__actions kt-form__actions">
-                            <div class="row">
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions kt-form__actions">
+                        <div class="row">
 
                             <div class="col-lg-6">
-                                <button id="save_btn"   *ngIf="!is_edit"  (click)="add_year()" mat-raised-button color="accent">أضافة</button>&nbsp;
-                                <button id="update_btn" *ngIf="is_edit"   (click)="update_year()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="save_btn" *ngIf="!is_edit" (click)="add_year()" mat-raised-button color="accent">أضافة</button>&nbsp;
+                                <button id="update_btn" *ngIf="is_edit" (click)="update_year()" mat-raised-button color="accent">تعديل</button>&nbsp;
                                 <button id="cancel_btn" (click)="cancel_year()" mat-raised-button color="accent">الغاء</button>&nbsp;
                                 <!--<button mat-raised-button type="reset">حذف</button>-->
                             </div>
@@ -187,246 +182,10 @@
             </form>
             <!--end::Form-->
         </div>
-                                <div class="col-lg-6">
-                                    <button id="save_btn" (click)="add_year()" mat-raised-button color="accent">أضافة</button>&nbsp;
-                                    <button id="update_btn" (click)="update_year()" mat-raised-button color="accent">تعديل</button>&nbsp;
-                                    <button id="cancel_btn" (click)="cancel_year()" mat-raised-button color="accent">الغاء</button>&nbsp;-->
-                                    <!--<button mat-raised-button type="reset">حذف</button>-->
-                                <!--</div>
-                            </div>
-                        </div>
-                    </div>
-                </form>-->
-                <!--end::Form-->
-            <!--</div>
-        </div>
     </div>
 </div>
+</div>
 <div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
-    <kt-board-list></kt-board-list>
-</div>-->
+<kt-board-list></kt-board-list>
+</div>
 <!--End Activity Data-->
-
-
-<div class="card" dir="rtl" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
-    <div class="card-header">
-        <h3 style="display:flex;">تشكيل المجالس</h3>
-    </div>
-    <div class="card-body">
-        <button type="button" style="display:block;" class="btn btn-primary"
-                (click)="openModal(content, $event)"
-                id="modalOpener">
-            اضافة تشكيل مجالس
-        </button>
-        <br />
-    </div>
-</div>
-
-<div *ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
-  <kt-board-list></kt-board-list>
-</div>
-
-
-
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">
-            <i class="fas fa-tasks" style="margin:5px;"></i>
-            اضافة تشكيل مجالس
-        </h3>
-    </div>
-
-    <div class="modal-body">
-        <form dir="rtl" class="kt-form" [formGroup]="form1">
-            <div dir="rtl" class="kt-portlet__body">
-                <div class="kt-form__section kt-form__section--first">
-
-                    <div class="form-group kt-form__group text-right">
-
-                        <div class="container">
-                            <div class="row">
-
-                                <div class="col-lg-12">
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4">
-                                            <mat-form-field>
-                                                <mat-label>نوع الزياره</mat-label>
-                                                <mat-select required name="department"
-                                                            #refCountry="ngModel"
-                                                            [(ngModel)]="selected_visit_type"
-                                                            placeholder=""
-                                                            (ngModelChange)="visit_types_selection($event)">
-                                                    <mat-option *ngFor="let visit_types of visit_types" [value]="visit_types">
-                                                        {{ visit_types.visit_type_name }}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-1"></div>
-
-                                        <div class="col-lg-4" *ngIf="is_visit_date === 1">
-                                            <mat-form-field (click)="pickera.open()">
-                                                <mat-label>{{visit_date}}</mat-label>
-                                                <input [(ngModel)]="visit_date2" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="pickera" placeholder="">
-                                                <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
-                                                <mat-datepicker #pickera></mat-datepicker>
-
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4" *ngIf="is_start_time === 1">
-                                            <mat-form-field>
-                                                <mat-label>{{start_time_label}}</mat-label>
-                                                <input [(ngModel)]="start_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-                                        <div class="col-lg-4" *ngIf="is_end_time === 1">
-
-                                            <mat-form-field>
-                                                <mat-label>{{end_time_label}}</mat-label>
-                                                <input [(ngModel)]="end_time" [ngModelOptions]="{standalone: true}" type="time" matInput placeholder="">
-
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4" *ngIf="is_dep === 1">
-                                            <mat-form-field>
-                                                <mat-label>{{dep_label}}</mat-label>
-                                                <mat-select required name="department"
-                                                            #refCountry="ngModel"
-                                                            [(ngModel)]="selecteddepartment"
-                                                            (change)="selected()"
-                                                            placeholder="">
-                                                    <mat-option *ngFor="let department of departments" [value]="department">
-                                                        {{ department.dep_name }}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-                                        <div class="col-lg-4" *ngIf="is_name === 1">
-                                            <mat-form-field>
-                                                <mat-label>
-                                                    {{name_label}}
-
-                                                </mat-label>
-                                                <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4" *ngIf="is_job === 1">
-                                            <mat-form-field>
-                                                <mat-label>{{job_label}}</mat-label>
-                                                <input [(ngModel)]="job" [ngModelOptions]="{standalone: true}" matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-                                        <div class="col-lg-4" *ngIf="is_phone === 1">
-
-                                            <mat-form-field>
-                                                <mat-label>{{phone_label}}</mat-label>
-
-                                                <input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4" *ngIf="is_topic === 1">
-                                            <mat-form-field>
-                                                <mat-label>{{topic_label}}</mat-label>
-                                                <textarea [(ngModel)]="topic" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
-</textarea>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-                                        <div class="col-lg-4" *ngIf="is_instructions === 1">
-                                            <mat-form-field>
-                                                <mat-label>{{instructions_label}}</mat-label>
-                                                <textarea [(ngModel)]="instructions" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder=""></textarea>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-
-                                        <div class="col-lg-4" *ngIf="is_notes === 1">
-                                            <mat-form-field>
-                                                <mat-label>{{notes_label}}</mat-label>
-                                                <textarea [(ngModel)]="notes" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="">
-</textarea>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-
-                                        <ckeditor [editor]="Editor" *ngIf="is_vpic === 1" [data]="data" [(ngModel)]="vnote" (change)="onChange($event)" [ngModelOptions]="{standalone: true}"></ckeditor>
-
-                                    </div>
-
-                                    <div class="form-group kt-form__group row">
-                                        <mat-label class="col-lg-2 col-form-label">{{vpic_label}}</mat-label>
-                                        <div class="col-lg-2">
-
-                                            <mat-form-field>
-
-                                                <input type="file" (change)="onFileChanged($event);">
-                                            </mat-form-field>
-
-                                        </div>
-
-                                        <div class="col-1"></div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer" style="direction:ltr;">
-        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
-                data-dismiss="modal">
-            إغلاق
-        </button>
-        <button id="update_btn" type="button" (click)="update_year()" style="border-radius: 20px;"
-                class="btn btn-primary">
-            تعديل
-        </button>
-        <button id="save_btn" (click)="add_year()" type="button" style="border-radius: 20px;"
-                class="btn btn-primary">
-            اضافة
-        </button>
-    </div>
-
-</ng-template>
-

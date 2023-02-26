@@ -36,7 +36,7 @@ export class BottomSheetComponent implements OnInit {
 	school_assis3_id	:string="";
 	school_assis4_id	:string="";
 	school_man_id	:string="";
-
+	is_edit:boolean=false;
 	public selectedimage;
 	public event1;
 	imgURL: any;
@@ -279,15 +279,14 @@ export class BottomSheetComponent implements OnInit {
 		this.School_dataDataService.updateSchool_data(val).subscribe(res => {
 			alert("Updated Successfully");
 			this.form1.reset();
-			
-this.is_edit=false;
 			this.myControlAss1.reset();
 			this.myControlAss2.reset();
 			this.myControlAss3.reset();
 			this.myControlAss4.reset();
 			this.myControlManager.reset();
 			this.School_dataDataService.BClicked("");
-			
+			this.is_edit=false;
+
 		},error => {console.log();
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
@@ -305,7 +304,6 @@ this.is_edit=false;
 	cancel_school() {
 		this.form1.reset();
 		
-this.is_edit=false;
 	}
 
 
@@ -315,7 +313,7 @@ this.is_edit=false;
 	Ass2: any =[];
 	Ass3: any = [];
 	Ass4: any = [];
-	is_edit:boolean=false;
+
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -382,6 +380,7 @@ this.is_edit=false;
 		this.School_dataDataService.aClickedEvent
 			.subscribe((data: string) => {
 				this.is_edit=true;
+
 				this.school_id = Number(this.School_dataDataService.school_id);
 				this.school_name = this.School_dataDataService.school_name;
 				this.school_man = this.School_dataDataService.school_man;

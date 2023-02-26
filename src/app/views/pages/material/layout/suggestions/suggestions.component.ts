@@ -72,7 +72,7 @@ export class SuggestionsComponent implements OnInit {
 			error => console.log());
 
 	}
-
+	is_edit:boolean=false;
 	selectedsuggtype: any =[];
 
 	add_sugg() {
@@ -137,7 +137,6 @@ export class SuggestionsComponent implements OnInit {
 	typeVar: any=[];
 	
 	priv_info:any=[];
-	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -160,8 +159,7 @@ export class SuggestionsComponent implements OnInit {
 
 		this.SuggestionsDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
-this.is_edit=true;
+				this.is_edit=true;
 				this.sugg_id = Number(this.SuggestionsDataService.sugg_id);
 				this.sugg_body = this.SuggestionsDataService.sugg_body;
 				this.sugg_title = this.SuggestionsDataService.sugg_title;

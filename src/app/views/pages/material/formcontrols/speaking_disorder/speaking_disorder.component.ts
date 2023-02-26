@@ -282,6 +282,8 @@ export class Speaking_disorderComponent implements OnInit {
                                 this.Speaking_disorderDataService.addSpeaking_disorderDetailsSecond(details2)
                                 .subscribe();
                             });
+                            this.is_edit=false;
+
     
 
 
@@ -296,7 +298,6 @@ export class Speaking_disorderComponent implements OnInit {
             this.myControlclass.reset();
             this.myControllev.reset();
           
-this.is_edit=false;
 
 		})
             this.form1.reset();
@@ -396,10 +397,9 @@ this.is_edit=false;
     anotherLevelArray: Levels[];
     first:any[];
     second:any[];
+    is_edit:boolean=false;
 
 	priv_info:any=[];
-    
-is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -421,9 +421,8 @@ is_edit:boolean=false;
 		
         this.Speaking_disorderDataService.aClickedEvent
 			.subscribe((data: string) => {
-				this.is_edit=true;
-                this.speech_dis_id = this.speech_dis_id;
-				
+                this.is_edit=true
+
                 this.speech_dis_id = this.Speaking_disorderDataService.speech_dis_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality_name = this.Speaking_disorderDataService.nationality_name;
@@ -485,24 +484,24 @@ is_edit:boolean=false;
 											return String(el.lev_id) == level_id;
 										})];
                                          
-                                        // this.Speaking_disorderDataService.get_speaking_details_first_with_speech_dis_id(this.speech_dis_id)
-                                        // .subscribe((data:any) => this.first = data.data,
-                                        //     error => console.log(),
-                                        // () => {
+                                        this.Speaking_disorderDataService.get_speaking_details_first_with_speech_dis_id(this.speech_dis_id)
+                                        .subscribe((data:any) => this.first = data.data,
+                                            error => console.log(),
+                                        () => {
 
-                                        //     this.other_situations = this.first[0].other_situations;
-                                        //     this.date = this.first[0].date;
-                                        //     this.effort_results = this.first[0].effort_results;
-                                        //     this.end_year_state = this.first[0].end_year_state;
+                                            this.other_situations = this.first[0].other_situations;
+                                            this.date = this.first[0].date;
+                                            this.effort_results = this.first[0].effort_results;
+                                            this.end_year_state = this.first[0].end_year_state;
 
-                                        //     this.Speaking_disorderDataService.get_speaking_details_second_with_speech_dis_id(this.speech_dis_id)
-                                        //     .subscribe((data:any) => this.second = data.data,
-                                        //     error => console.log(),
-                                        //     () => {
-                                        //             this.visit_date = this.second[0].visit_date;
-                                        //             this.visit_results = this.second[0].visit_results;
-                                        //     });
-                                        // });
+                                            this.Speaking_disorderDataService.get_speaking_details_second_with_speech_dis_id(this.speech_dis_id)
+                                            .subscribe((data:any) => this.second = data.data,
+                                            error => console.log(),
+                                            () => {
+                                                    this.visit_date = this.second[0].visit_date;
+                                                    this.visit_results = this.second[0].visit_results;
+                                            });
+                                        });
                                      
 									});
 							});

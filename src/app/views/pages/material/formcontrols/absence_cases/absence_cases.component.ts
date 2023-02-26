@@ -73,7 +73,7 @@ export class Absence_casesComponent implements OnInit {
     self_reasons: string = "";
 
     returned_absence_id: string = "";
-
+    is_edit:boolean=false;
     absence_details_id: number;
     other_situations: string = "";
     date: string = "";
@@ -250,7 +250,7 @@ export class Absence_casesComponent implements OnInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
-               
+                this.is_edit=false;
             });
         }
 	}
@@ -378,7 +378,7 @@ export class Absence_casesComponent implements OnInit {
 
         this.Absence_casesDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+                this.is_edit=true;
                 this.absence_cases_id = this.Absence_casesDataService.absence_cases_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality = this.Absence_casesDataService.nationality_name;

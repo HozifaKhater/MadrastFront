@@ -49,7 +49,7 @@ export class SchoolpartyComponent implements OnInit {
     School_partyMaster: School_partyMaster[];
     favoriteSeason: string;
    
-
+    is_edit:boolean=false;
 	semesters = [
 		{ value: '1', viewValue: 'الأول' },
 		{ value: '2', viewValue: 'الثاني' }
@@ -136,6 +136,7 @@ export class SchoolpartyComponent implements OnInit {
                 
 this.is_edit=false;
                
+                this.is_edit=false;
             })
             this.form1.reset();
         }

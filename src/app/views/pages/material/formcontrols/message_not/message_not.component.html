@@ -98,11 +98,11 @@
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;" id="update_btn" (click)="reply_message()"
+        <button type="button" style="border-radius: 20px;" *ngIf="is_edit" id="update_btn" (click)="reply_message()"
                 class="btn btn-primary">
             رد
         </button>
-        <button type="button" style="border-radius: 20px;" id="save_btn" (click)="sendmessage()"
+        <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" id="save_btn" (click)="sendmessage()"
                 class="btn btn-primary">
             ارسال
         </button>

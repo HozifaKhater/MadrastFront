@@ -127,18 +127,10 @@ export class teacher_opinion_visitComponent implements OnInit {
                 this.notes="";
 				this.is_agree="1";
 				this.is_edit=false;
-                
             })
         
 	}
-    cancel_subject() {
-        this.notes="";
-		this.is_agree="1";
-		this.is_edit=false;
-	}
-	priv_info:any;
-	is_edit:boolean=false;
-   
+    is_edit:boolean=false;
 	
     priv_info:any=[];
 	ngOnInit() {
@@ -154,13 +146,7 @@ export class teacher_opinion_visitComponent implements OnInit {
 
 		this.teacher_opinion_visitDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
 				this.is_edit=true;
-				
 				this.ser	=	this.teacher_opinion_visitDataService.ser	;
 				this.takeem_id	=	this.teacher_opinion_visitDataService.takeem_id	;
 				this.emp_id	=	this.teacher_opinion_visitDataService.emp_id	;

@@ -51,7 +51,7 @@ export class AccordionComponent implements OnInit {
 	exampleGlobalConfigurationOfAccordions: any;
     disabled: boolean;
     disabled_emp: boolean;
-	
+	is_edit:boolean=false;
 	classif: def.nat[];
 	form1: FormGroup;
 	constructor(private modalService: NgbModal,
@@ -167,8 +167,7 @@ export class AccordionComponent implements OnInit {
 				this.Add_libDataService.BClicked("b2");
 				this.form1.reset();
 				
-this.is_edit=false;
-				
+				this.is_edit=false;
 			})
 		}
 	}
@@ -176,8 +175,6 @@ this.is_edit=false;
 
 	classValue: string="";
 	anotherClassf: def.nat[];
-	priv_info:any;
-	is_edit:boolean=false;
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -190,15 +187,8 @@ this.is_edit=false;
 
 		this.Add_libDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-
-				this.is_edit=true;
-
 				
+				this.is_edit=true;
 				this.lib_id = Number(this.Add_libDataService.lib_id);
 				this.lib_book = String(this.Add_libDataService.lib_book);
 				this.lib_ref = String(this.Add_libDataService.lib_ref);

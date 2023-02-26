@@ -70,7 +70,7 @@ export class Card_notComponent implements OnInit {
 		this.data = data;
 	}
 	
-	
+	is_edit:boolean=false;
 	weeks = [
 		{ value: '1', viewValue: 'اسبوع1' },
 		{ value: '2', viewValue: 'اسبوع2' },
@@ -430,7 +430,7 @@ is_edit:boolean=false;
 		
 		this.ta7dier_masterDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
 				this.ta7dier_id = Number(this.ta7dier_masterDataService.ta7dier_id);
 				
 				this.emp_id = this.ta7dier_masterDataService.emp_id;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef,OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,9 @@ import { Student } from '../../../../../StudentMaster.Model';
 import { Definition } from '../../../../../Definitions.Model';
 import { DefinitionDataService } from '../../../../../Services/Definition';
 import { RegimeCouncilStudentService } from '../../../../../Services/RegimeCouncilStudentService';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../Services/user_privDataService ';
+
 
 @Component({
     selector: 'kt-RegimeCouncilStudents',
@@ -38,7 +40,8 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
 
     nationality:string="";
     
-    
+    is_edit:boolean=false;
+
     level: Levels[];
     selectedlevel: any;
 
@@ -58,8 +61,10 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-    constructor(private modalService: NgbModal,
-        private cdRef: ChangeDetectorRef, public _fb: FormBuilder,
+    constructor(
+        private cdRef: ChangeDetectorRef,
+        private router: Router, private user_privDataService: user_privDataService,
+        public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
         private StudentDataService: StudentDataService,
         private LevelsDataService: LevelsDataService, 
@@ -74,8 +79,7 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
             });
        
         this.DefinitionDataService.GetSituationTypes().subscribe((data:any) => this.slides = data.data,
-            error => console.log(error),
-            () => {console.log("slides Data ", this.slides)});
+            error => console.log());
     } 
 
     filteredOptionslev: Observable<any[]>;
@@ -113,44 +117,51 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
     }
 
     change_level(event) {
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("class dropdown", this.class);
                 this.filteredOptionsclass = this.myControlclass.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.class_name),
+                        map(value => value? typeof value === 'string' ? value : value.class_name : ''),
                         map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
                     );
             });
+        }
     }
 
     change_class(event) {
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ActivityDataService.activity_id = event.class_id;
         this.ActivityDataService.BClicked("test");
         this.class_id = event.class_id;
-        console.log(" class id",  event.class_id);
         this.Change_Student();
+        }
     }
 
     Change_Student(){
+        if(this.class_id !== null && this.class_id !== undefined){
+
         this.StudentDataService.GetAllStudent_of_class(this.class_id).subscribe(data => this.student = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("student dropdown", this.student);
                 
                 this.filteredOptionsStudents = this.myControlStudent.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.student_name),
+                        map(value => value? typeof value === 'string' ? value : value.student_name : ''),
                         map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
                     );
             });
 
-            
-        console.log("selected student", this.selectedStudent);
-        this.setData();
+            if(this.selectedStudent !== null && this.selectedStudent !== undefined){
+
+                this.setData();
+            }
+        }
     }
   
     setData(){
@@ -163,14 +174,12 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
 
     AddRegimeCouncilStudent(){
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         }else {
             var chck;
             
             if (this.butDisabled == true) {
                 chck = Number(this.id);
-                console.log("check  ", chck);
             };
 
             var newRegimeCouncilStudent= {
@@ -190,12 +199,11 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
 
             }
 
-            console.log("new Regime Council Student  ", newRegimeCouncilStudent);
-
             this.RegimeCouncilStudentService.SaveRegimeCouncilStudent(newRegimeCouncilStudent).subscribe(res => {
                 alert("Added Sucesfully");
                 this.form1.reset();
                 this.RegimeCouncilStudentService.BClicked("");
+                
             })
 
         }
@@ -207,7 +215,6 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
 
         if (this.butDisabled == false) {
            chck = Number(this.id);
-           console.log("selected id ", chck );
         };
 
         var updatedRegimeCouncilStudent = {
@@ -227,13 +234,12 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
             date :this.date,        
        }
 
-       console.log("updated Regime Council Student ", updatedRegimeCouncilStudent);
-
        this.RegimeCouncilStudentService.UpdateRegimeCouncilStudent(updatedRegimeCouncilStudent).subscribe(res => {
            alert("Updated Sucessfully ");
            this.form1.reset();
            this.RegimeCouncilStudentService.BClicked("");
            this.is_edit=false;
+
        })
    }
    
@@ -242,22 +248,27 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
    Cancle() {
        this.form1.reset();
        this.is_edit=false;
+
    }
    updatedClass:any;
    updatedStudent:any;
-   is_edit:boolean=false;
-    ngOnInit() {
+
+   priv_info:any=[];
+   ngOnInit() {
+       this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+       .subscribe(data =>this.priv_info = data,
+           error => console.log(),
+           () => {
+               this.cdRef.detectChanges();
+
+           }); 
 
         this.butDisabled = true;
-       
-        //(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
+        
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("levels dropdown", this.level);
                 this.filteredOptionslev = this.myControllev.valueChanges
                     .pipe(
                         startWith(''),
@@ -271,14 +282,8 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
             if (Number(this.RegimeCouncilStudentService.id) != 0) {
                 this.butDisabled = false;         
             }
-    
-            this.is_edit=true;
-            //(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            //(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            //(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
-    
+            this.is_edit=true
+
             this.id = this.RegimeCouncilStudentService.id;
             this.level_name = this.RegimeCouncilStudentService.level_name;
             this.class_id = this.RegimeCouncilStudentService.class_id.toString();
@@ -291,10 +296,8 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
             this.date = this.RegimeCouncilStudentService.date;
 
             
-            console.log("class id ", this.class_id);
-            console.log("student id ", this.student_id);
             //this.student_age_day = this.scodes.find(e => e.s_code_arabic == this.selected).s_code,
-
+           
             /*
             this.StudentDataService.GetAllstudents_with_id(this.student_id).subscribe(data => this.updatedStudent = data,
             error => console.log(error),
@@ -318,24 +321,8 @@ export class RegimeCouncilStudentsComponent implements OnInit, AfterViewInit {
             this.selectedclass = this.updatedClass; 
 
                 */
-
-            // open modal
-            var ele = document.getElementById('modalOpener');
-            if (ele) { ele.click() }
-
+    
         });
 
-    }
-    display = "";
-    openModal(content: any, event: any) {
-
-        this.modalService.open(content, { backdrop: true, size: "xl", });
-    }
-    openModal1() {
-        this.display = "show";
-        this.cdRef.detectChanges();
-    }
-    onCloseHandled() {
-        this.display = "";
     }
 }

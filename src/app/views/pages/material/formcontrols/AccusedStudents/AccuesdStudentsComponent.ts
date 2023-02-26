@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,8 @@ import { DefinitionDataService } from '../../../../../Services/Definition';
 import { AccusedStudentService } from '../../../../../Services/AccusedStudentService';
 import { GuiltServices } from '../../../../../Services/GuiltServices';
 import { Guilt } from '../../../../../Guilt.Model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../Services/user_privDataService ';
 
 @Component({
     selector: 'kt-AccusedStudents',
@@ -45,7 +46,8 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
     date_of_birth:any;
     nationality:any;
     
-    
+    is_edit:boolean=false;
+
     level: Levels[];
     selectedlevel: any;
 
@@ -67,8 +69,10 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-    constructor(private modalService: NgbModal,
-        private cdRef: ChangeDetectorRef, public _fb: FormBuilder,
+    constructor(
+        private cdRef: ChangeDetectorRef,
+        private router: Router, private user_privDataService: user_privDataService,
+       public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
         private StudentDataService: StudentDataService,
         private LevelsDataService: LevelsDataService, 
@@ -78,8 +82,7 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
         private GuiltServices : GuiltServices) {
 
             this.DefinitionDataService.GetFollowedUpSlides().subscribe((data:any) => this.slides = data.data,
-            error => console.log(error),
-            () => {console.log("slides Data 2 ", this.slides)});
+            error => console.log());
 
             this.form1 = this._fb.group({
                 date_of_birth:[[Validators.required]],
@@ -90,8 +93,7 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
             });
        
             this.DefinitionDataService.GetFollowedUpSlides().subscribe((data:any) => this.slides = data.data,
-            error => console.log(error),
-            () => {console.log("slides Data ", this.slides)});
+            error => console.log());
     } 
 
     filteredOptionslev: Observable<any[]>;
@@ -129,44 +131,51 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
     }
 
     change_level(event) {
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("class dropdown", this.class);
                 this.filteredOptionsclass = this.myControlclass.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.class_name),
+                        map(value =>value? typeof value === 'string' ? value : value.class_name : ''),
                         map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
                     );
             });
+        }
     }
 
     change_class(event) {
-        this.ActivityDataService.activity_id = event.class_id;
-        this.ActivityDataService.BClicked("test");
-        this.class_id = event.class_id;
-        console.log(" class id",  event.class_id);
-        this.Change_Student();
+        if(event !== null && event !== undefined && event.length !== 0){
+
+            this.ActivityDataService.activity_id = event.class_id;
+            this.ActivityDataService.BClicked("test");
+            this.class_id = event.class_id;
+            this.Change_Student();
+        }
     }
 
     Change_Student(){
+        if(this.class_id !== null && this.class_id !== undefined){
+
         this.StudentDataService.GetAllStudent_of_class(this.class_id).subscribe(data => this.student = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("student dropdown", this.student);
                 
                 this.filteredOptionsStudents = this.myControlStudent.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.student_name),
+                        map(value => value? typeof value === 'string' ? value : value.student_name :''),
                         map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
                     );
             });
 
-            
-        console.log("selected student", this.selectedStudent);
-        this.setData();
+            if(this.selectedStudent !== null && this.selectedStudent !== undefined){
+
+                this.setData();
+            }
+        }
 
     }
   
@@ -184,20 +193,17 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
 
     AddAccusedStudent(){
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         }else {
             var chck;
             
             if (this.butDisabled == true) {
                 chck = Number(this.id);
-                console.log("check  ", chck);
             };
             
             this.GuiltServices.GetGuiltByStudentId(this.selectedStudent.student_id).subscribe((data:any) => this.allGuilts = data.data,
-                error => console.log(error),
+                error => console.log(),
                 () => {
-                    console.log("all Guilts Data ", this.allGuilts);
                     for (let i = 0; i < this.allGuilts.length; i++) {
                         var newAccusedStudent = {
                             level_id: Number(this.selectedlevel.lev_id),
@@ -221,7 +227,6 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
                             results: this.results
                         }
         
-                        console.log("new Accused Student", newAccusedStudent);
         
                         this.AccusedStudentService.SaveAccusedStudent(newAccusedStudent).subscribe(res => {
                             //alert("Added Sucesfully ");
@@ -231,7 +236,6 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
                     }
                 });
 
-            console.log("this.allGuilts.length  ", this.allGuilts);        
             
             alert("Added Sucesfully ");
         }
@@ -243,7 +247,6 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
 
         if (this.butDisabled == false) {
            chck = Number(this.id);
-           console.log("selected id ", chck );
         };
 
         var updatedAccusedStudent = {
@@ -270,13 +273,13 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
             
        }
 
-       console.log("updated Accused Student", updatedAccusedStudent);
 
        this.AccusedStudentService.UpdateAccusedStudent(updatedAccusedStudent).subscribe(res => {
            alert("Updated Sucessfully");
            this.form1.reset();
            this.AccusedStudentService.BClicked("");
            this.is_edit=false;
+
        })
    }
    
@@ -285,55 +288,45 @@ export class AccusedStudentsComponent implements OnInit, AfterViewInit {
    Cancle() {
        this.form1.reset();
        this.is_edit=false;
+
    }
 
 
-   is_edit:boolean=false;
-    ngOnInit() {
+
+   priv_info:any=[];
+   ngOnInit() {
+       this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+       .subscribe(data =>this.priv_info = data,
+           error => console.log(),
+           () => {
+               this.cdRef.detectChanges();
+
+           }); 
 
         this.butDisabled = true;
        
-        //(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        //(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        //(<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("levels dropdown", this.level);
                 this.filteredOptionslev = this.myControllev.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.lev_name),
+                        map(value => value? typeof value === 'string' ? value : value.lev_name : ''),
                         map(lev_name => lev_name ? this._filterlev(lev_name) : this.level.slice())
-                );
-
-                // open modal
-                var ele = document.getElementById('modalOpener');
-                if (ele) { ele.click() }
-
+                    );
             });
 
    
-           
+        this.AccusedStudentService.aClickedEvent
+        .subscribe((data: string) => {
+            
+            this.is_edit=true
+        });
         
 
         
         
 
     }
-
-    display = "";
-    openModal(content: any, event: any) {
-
-        this.modalService.open(content, { backdrop: true, size: "xl", });
-    }
-    openModal1() {
-        this.display = "show";
-        this.cdRef.detectChanges();
-    }
-    onCloseHandled() {
-        this.display = "";
-    }
-
 }

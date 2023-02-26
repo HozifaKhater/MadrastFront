@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef,OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { LevelsDataService } from '../../../../../Services/LevelsDataService';
 
 import { LevelsMaster, Levels } from '../../../../../LevelsMaster.Model';
@@ -22,8 +22,6 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { user_privDataService } from '../../../../../Services/user_privDataService ';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 @Component({
 	selector: 'kt-failure-students',
 	templateUrl: './failure-cases.component.html',
@@ -54,7 +52,8 @@ export class FailurestudentsComponent implements OnInit {
 	fail_recomm: string = "";
     selectednation: any;
     butDisabled: any;
- 
+    is_edit:boolean=false;
+
 	subjects: Subjects[];
 	students: Student[];
 	selectedstudent: any;
@@ -78,8 +77,8 @@ export class FailurestudentsComponent implements OnInit {
 	pageEvent: PageEvent;
 
 	form1: FormGroup;
-	constructor(private modalService: NgbModal,
-		private cdRef: ChangeDetectorRef,
+	constructor(
+		private cdRef: ChangeDetectorRef,       
 		private router: Router, private user_privDataService: user_privDataService,
 		private SubjectDataService: SubjectDataService,
 		private Failure_casesDataService: Failure_casesDataService, 
@@ -90,24 +89,20 @@ export class FailurestudentsComponent implements OnInit {
 		public _fb: FormBuilder) {
 
 			this.LevelsDataService.GetAllLevels().subscribe(data => this.Levels = data,
-				error => console.log(error),
-				() => console.log("emp dropdown", this.Levels));
+				error => console.log());
 			this.ClassesDataService.GetAllClasses().subscribe(data => this.classes = data,
-				error => console.log(error),
-				() => console.log("emp dropdown", this.classes));
+				error => console.log());
 			this.StudentDataService.GetAlldepartment().subscribe(data => this.students = data,
-				error => console.log(error),
-				() => console.log("emp dropdown", this.students));
+				error => console.log());
 			this.SubjectDataService.GetAllSubject().subscribe(data => this.subjects = data,
-				error => console.log(error),
-				() => { console.log("department dropdown") });
+				error => console.log());
 
 			this.form1 = this._fb.group({
 			
 				selectednation: ['', [Validators.required]],
 				fail_mob: ['', [Validators.required]],
-				fail_birth: [{ value: '', disabled: false }, [Validators.required]],
-				fail_date: [{ value: '', disabled: false }, [Validators.required]],
+				fail_birth: [{ value: '', disabled: true }, [Validators.required]],
+				fail_date: [{ value: '', disabled: true }, [Validators.required]],
 				fail_desc: ['', [Validators.required]],
 				fail_reason: ['', [Validators.required]],
 				selectedsubject: ['', [Validators.required]],
@@ -117,19 +112,17 @@ export class FailurestudentsComponent implements OnInit {
 				fail_4: ['', [Validators.required]],
 				fail_end_year: ['', [Validators.required]],
 				fail_sit: ['', [Validators.required]],
-				fail_eff_date:[{ value: '', disabled: false }, [Validators.required]],
+				fail_eff_date:[{ value: '', disabled: true }, [Validators.required]],
 				fail_eff_results: ['', [Validators.required]],
 				fail_recomm: ['', [Validators.required]]
 			});
 
 			EmployeeService.Getdefinations_with_scode("nat").subscribe(data => this.nat = data,
-				error => console.log(error),
-				() => console.log("ok"));
+				error => console.log());
 		}
 
 	add_failure() {
 		if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
 			
@@ -156,7 +149,6 @@ export class FailurestudentsComponent implements OnInit {
 					fail_eff_results: this.fail_eff_results,
 					fail_recomm: this.fail_recomm
 				};
-				console.log("new vlaue", val)
 				this.Failure_casesDataService.addFailure_cases(val).subscribe(res => {
 					
 					this.form1.reset();
@@ -174,7 +166,6 @@ export class FailurestudentsComponent implements OnInit {
 	//corridorsDataService: corridorsDataService;
 	update_failure() {
 		if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
 			for (let i = 0; i < this.selectedsubject.length; i++) {
@@ -202,14 +193,13 @@ export class FailurestudentsComponent implements OnInit {
 					fail_recomm: this.fail_recomm
 				};
 
-				console.log("val", val);
 
 
 				this.Failure_casesDataService.updateFailure_cases(val).subscribe(res => {
 					this.form1.reset();
 					this.Failure_casesDataService.BClicked("");
-					
-this.is_edit=false;
+					this.is_edit=false;
+
 				})
 			}
 			alert("Updated Succesfully");
@@ -217,8 +207,8 @@ this.is_edit=false;
 	}
 	cancel_failure() {
 		this.form1.reset();
-
 		this.is_edit=false;
+
 	}
 	level: Levels[];
 	class: Classes[];
@@ -257,14 +247,13 @@ this.is_edit=false;
 
  change_level(event) {
         this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
 				var selected_class_status = String(this.Failure_casesDataService.fail_class);
 				this.selectedclass = this.class[this.class.findIndex(function (el) {
 					
 					return String(el.class_id) == selected_class_status;
 				})];
-                console.log("emp dropdown", this.class);
                 this.filteredOptionsclass = this.myControlclass.valueChanges
                     .pipe(
                         startWith(''),
@@ -277,38 +266,37 @@ this.is_edit=false;
     }
     change_class(event) {
         this.StudentDataService.GetAllStudent_of_class(event.class_id).subscribe(data => this.students = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
 				var selected_student_status = String(this.Failure_casesDataService.fail_student);
 				this.selectedstudent = this.students[this.students.findIndex(function (el) {
 					
 					return String(el.student_id) == selected_student_status;
 				})];
-                console.log("emp dropdown", this.students);
                 this.filteredOptionsstudent = this.myControlstudent.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.student_name),
+                        map(value =>value? typeof value === 'string' ? value : value.student_name : ''),
                         map(student_name => student_name ? this._filterstudent(student_name) : this.students.slice())
                     );
             });
     }
-	priv_info:any;
-	is_edit:boolean=false;
+	priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}); 
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});	
 
 		this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-			error => console.log(error),
+			error => console.log(),
 			() => {
-				console.log("emp dropdown", this.level);
 				this.filteredOptionslev = this.myControllev.valueChanges
 					.pipe(
 						startWith(''),
-						map(value => typeof value === 'string' ? value : value.lev_name),
+						map(value =>value? typeof value === 'string' ? value : value.lev_name : ''),
 						map(lev_name => lev_name ? this._filterlev(lev_name) : this.level.slice())
 					);
 			});
@@ -316,12 +304,7 @@ this.is_edit=false;
 
 		this.Failure_casesDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				this.is_edit=true;
-				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+				this.is_edit=true
 
 
 				this.fail_id = Number(this.Failure_casesDataService.fail_id);
@@ -363,30 +346,11 @@ this.is_edit=false;
                     return String(el.student_name) == selected_student_value;
                 })];
 */
-
-				// open modal
-				var ele = document.getElementById('modalOpener');
-				if (ele) { ele.click() }
 			});
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
 
 	}
 
 	setPageSizeOptions(setPageSizeOptionsInput: string) {
 		this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-	}
-
-	display = "";
-	openModal(content: any, event: any) {
-
-		this.modalService.open(content, { backdrop: true, size: "xl", });
-	}
-	openModal1() {
-		this.display = "show";
-		this.cdRef.detectChanges();
-	}
-	onCloseHandled() {
-		this.display = "";
 	}
 }

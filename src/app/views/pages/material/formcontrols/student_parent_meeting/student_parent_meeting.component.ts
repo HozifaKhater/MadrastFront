@@ -162,7 +162,7 @@ export class student_parent_meetingComponent implements OnInit {
             alert("Updated Successfully");
             this.student_parent_meetingDataService.BClicked("b2");
             this.form1.reset();
-			
+            this.is_edit=false;
 		},error => {console.log();
             const errorMessages = [];
             for (const fieldName in error.error.errors) {
@@ -273,7 +273,7 @@ export class student_parent_meetingComponent implements OnInit {
     anotherStuArray:Student[];
     anotherClassArray:Classes[];
     anotherLevelArray: Levels[];
- 
+    is_edit:boolean=false;
 	priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -298,7 +298,7 @@ export class student_parent_meetingComponent implements OnInit {
 
 		this.student_parent_meetingDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+                this.is_edit=true;
                 this.id = this.student_parent_meetingDataService.id.toString();
 				this.level_id = this.student_parent_meetingDataService.level_id;
 				this.level_name = this.student_parent_meetingDataService.level_name;

@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	`]
 })
 export class SnackbarComponent implements OnInit {
-
+    is_edit:boolean=false;
 	exampleBasic;
 	exampleCustom;
 	exampleDismissal;
@@ -153,8 +153,8 @@ export class SnackbarComponent implements OnInit {
                 
             })
             this.School_year_dataDataService.BClicked("");
-            this.is_edit=false;
             this.form1.reset();
+            this.is_edit=false;
         },error => {console.log();
             const errorMessages = [];
             for (const fieldName in error.error.errors) {
@@ -174,7 +174,6 @@ export class SnackbarComponent implements OnInit {
     year_details_info:any[];
 
 	priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -187,7 +186,6 @@ export class SnackbarComponent implements OnInit {
         this.School_year_dataDataService.aClickedEvent
             .subscribe((data: string) => {
                 this.is_edit=true;
-
                 this.year_data_id = Number(this.School_year_dataDataService.year_data_id);
                 this.year_date_from = this.School_year_dataDataService.year_date_from;
                 this.year_date_to = this.School_year_dataDataService.year_date_to;

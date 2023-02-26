@@ -225,6 +225,7 @@ export class MaterialTooltipComponent implements OnInit {
             this.is_takeem = 0;
         }
     }
+    is_edit:boolean=false;
 	position = 'before';
     add() {
         
@@ -312,14 +313,12 @@ export class MaterialTooltipComponent implements OnInit {
             alert("Updated Successfully");
             this.Visit_typesDataService.BClicked("");
             this.is_edit=false;
-            
         })
 
     }
     
 	
     priv_info:any=[];
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,

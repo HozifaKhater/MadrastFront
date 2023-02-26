@@ -239,15 +239,15 @@
         </form>
     </div>
     <div class="modal-footer" style="direction:ltr;">
-        <button type="button" style="border-radius: 20px;" (click)="modal.dismiss('Close')" class="btn btn-secondary"
+        <button type="button" style="border-radius: 20px;"  (click)="modal.dismiss('Close')" class="btn btn-secondary"
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;" *ngIf="is_edit"   (click)="UpdateIndividualCase()"
+        <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="UpdateIndividualCase()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button type="button" style="border-radius: 20px;"  *ngIf="!is_edit"  (click)="AddIndividualCase()"
+        <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="AddIndividualCase()"
                 class="btn btn-primary">
             اضافة
         </button>

@@ -51,7 +51,7 @@ export class board_typeComponent implements OnInit {
     is_dep_check: any;
     is_job_check: any;
     is_emp_check: any;
-   
+    is_edit:boolean=false;
     job_label:any;
     dep_label:any;
     onChildButtonClick() { }
@@ -259,20 +259,15 @@ export class board_typeComponent implements OnInit {
         this.board_typeDataService.update_board_type(val).subscribe(res => {
             alert(res.toString());
             this.board_typeDataService.BClicked("");
-           
-this.is_edit=false;
+            this.is_edit=false;
         })
 
     }
     cancel() {
-      
-this.is_edit=false;
+        
     }
     
     priv_info:any;
-
-    
-is_edit:boolean=false;
 	ngOnInit() {
         this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
 			error => console.log(error),
@@ -283,9 +278,7 @@ is_edit:boolean=false;
         
         this.board_typeDataService.aClickedEvent
             .subscribe((data: string) => {
-                console.log("edited");
                 this.is_edit=true;
-
                 this.board_type_id = this.board_typeDataService.board_type_id;
                 this.board_type_name = this.board_typeDataService.board_type_name;
                 this.is_student_check = this.board_typeDataService.is_student;

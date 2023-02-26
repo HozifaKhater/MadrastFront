@@ -39,7 +39,7 @@ export class DatepickerComponent implements OnInit {
 	serializedDate = new FormControl((new Date()).toISOString());
 	minDate = new Date(2011, 0, 1);
 	maxDate = new Date(2018, 11, 1);
-
+	is_edit:boolean=false;
     events: string[] = [];
     form1: FormGroup;
 	departments: Departments[];
@@ -183,9 +183,8 @@ export class DatepickerComponent implements OnInit {
             this.SubjectService.updateSubject(val).subscribe(res => {
                 alert(res.toString());
                 this.SubjectService.BClicked("");
-				this.is_edit=false;
                 this.form1.reset();
-                
+				this.is_edit=false;
             },error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -209,7 +208,7 @@ export class DatepickerComponent implements OnInit {
 	anotherideDept: Departments[];
 	priv_info:any=[];
 	dep_check: any;
-	is_edit:boolean=false;
+
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -224,8 +223,7 @@ export class DatepickerComponent implements OnInit {
 		
 		this.SubjectService.aClickedEvent
 			.subscribe((data: string) => {
-			
-this.is_edit=true;
+			    this.is_edit=true;
 				this.subject_id = this.SubjectService.subject_id;
 				this.subject_name = this.SubjectService.subject_name;
 				this.subject_desc = this.SubjectService.subject_desc;

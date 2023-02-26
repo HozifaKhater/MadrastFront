@@ -50,7 +50,7 @@ export class ProgressSpinnerComponent implements OnInit {
 	exampleBasic;
 	exampleWarn;
 	exampleConfig;
-
+    is_edit:boolean=false;
 	color = 'primary';
 	mode = 'determinate';
 	value = 50;
@@ -117,7 +117,7 @@ export class ProgressSpinnerComponent implements OnInit {
 			this.ClassesDataService.updateClasses(val).subscribe(res => {
 				alert("Updated Successfully");
 				this.ClassesDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			})
 				this.form1.reset();
 				this.is_edit=false;

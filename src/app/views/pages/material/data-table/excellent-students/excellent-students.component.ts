@@ -41,7 +41,7 @@ export class ExcellentstudentsComponent implements OnInit {
 	exc_stu_notes: string = "";
 	exc_stu_eff: string = "";
 
-	
+	is_edit:boolean=false;
 	selected_student_id: any;
 	selected_student_name: any;
 	nat: def.nat[];
@@ -190,7 +190,7 @@ this.is_edit=false;
 				this.myControlclass.reset();
 				this.myControllev.reset();
 				this.Excellent_studentsDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			},error => {
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {

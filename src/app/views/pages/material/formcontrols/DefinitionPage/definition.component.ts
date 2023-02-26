@@ -26,7 +26,7 @@ export class DefinitionComponent implements OnInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-
+    is_edit:boolean=false;
     constructor(
         private modalService: NgbModal,
 
@@ -98,7 +98,7 @@ export class DefinitionComponent implements OnInit {
             this.is_edit=false;
             this.DefinitionService.BClicked("test");
             this.form1.reset();
-            
+            this.is_edit=false;
         })
 
     }
@@ -145,7 +145,7 @@ export class DefinitionComponent implements OnInit {
                         return el.def_id == selected_value
                     })];
                 }
-               
+                this.is_edit=true;
                 this.def_id = this.DefinitionService.def_id;
                 this.def_name = this.DefinitionService.def_name;
                 this.s_code = this.DefinitionService.s_code;

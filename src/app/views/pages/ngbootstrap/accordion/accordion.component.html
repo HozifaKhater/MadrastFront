@@ -209,11 +209,11 @@
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="update_lib()" *ngIf="is_edit"  
+        <button type="button" style="border-radius: 20px;" *ngIf="is_edit"  (click)="update_lib()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="add_lib()" *ngIf="!is_edit"  
+        <button type="button" style="border-radius: 20px;"  *ngIf="!is_edit" (click)="add_lib()"
                 class="btn btn-primary">
             اضافة
         </button>

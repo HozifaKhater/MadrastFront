@@ -177,14 +177,10 @@
 												</label>
 												<div class="col-lg-4">
 													<mat-form-field>
-														<mat-select required 
-																	
-																	[(ngModel)]="selectedstudent"
 														<mat-select required name="selectedstudent"
 																	formControlName="selectedstudent"
 																	id="empsdropdown"
 																	placeholder="أختر الطالب"
-																	[ngModelOptions]="{standalone: true}"
 																	multiple>
 
 															<mat-option *ngFor="let student of students" [value]="student">
@@ -192,6 +188,12 @@
 															</mat-option>
 														</mat-select>
 
+														<mat-error *ngIf="
+								form1.controls.selectedstudent.hasError('required') &&
+								(form1.controls.selectedstudent.dirty || form1.controls.selectedstudent.touched)
+							  ">
+															من فضلك اختر الطالب
+														</mat-error>
 
 													</mat-form-field>
 												</div>
@@ -281,8 +283,8 @@
 				data-dismiss="modal">
 				إغلاق
 			</button>
-				<button type="button" style="border-radius: 20px;"   *ngIf="is_edit"  (click)="update_trip()" class="btn btn-primary">تعديل</button>
-				<button type="button" style="border-radius: 20px;"  *ngIf="!is_edit"   (click)="add_trip()" class="btn btn-primary">اضافة</button>
+				<button type="button" style="border-radius: 20px;" *ngIf="is_edit"  (click)="update_trip()" class="btn btn-primary">تعديل</button>
+				<button type="button" style="border-radius: 20px;" *ngIf="!is_edit"  (click)="add_trip()" class="btn btn-primary">اضافة</button>
 
 
 			</div>

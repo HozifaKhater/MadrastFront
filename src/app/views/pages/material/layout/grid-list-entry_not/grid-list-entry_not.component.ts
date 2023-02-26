@@ -44,7 +44,7 @@ export class GridListEntry_notComponent implements OnInit {
     selectedEmp: any=[];
 
 	ezon: ezon[];
-
+	is_edit:boolean=false;
 	employees: Employee[];
 
 	departments: Departments[];
@@ -150,14 +150,14 @@ export class GridListEntry_notComponent implements OnInit {
                 alert("Updated Successfully");
                 this.EzonDataService.BClicked("test");
                 this.form1.reset();
-                this.is_edit=false;
+				this.is_edit=false;
             })
         }
 	}
     cancel_ezon() {
 		this.modalService.dismissAll();
         this.form1.reset();
-		this.is_edit=false;
+		
 	}
 
 	dept: Departments[]=[];
@@ -225,13 +225,11 @@ empValue: any;
 	emp_id_for_dep: any;
 	priv_info:any=[];
 	id: string;
-	is_edit:boolean=false;
 	ngOnInit() {
 		this.id = this.route.snapshot.paramMap.get('id');
 		if (this.id) {
 		
 			//	debugger
-			this.is_edit=true;
 				this.openModal(this.modalContent,"event");
 				this.time_from = this.EzonDataService.time_from;
 				this.time_to = this.EzonDataService.time_to;
@@ -289,6 +287,7 @@ empValue: any;
 		this.EzonDataService.aClickedEvent
 			.subscribe((data: string) => {
 			//	debugger
+			this.is_edit=true;
 				this.openModal(this.modalContent,"event");
 				this.time_from = this.EzonDataService.time_from;
 				this.time_to = this.EzonDataService.time_to;

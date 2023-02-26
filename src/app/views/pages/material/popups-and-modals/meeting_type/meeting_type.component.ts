@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	
 })
 export class meeting_typeComponent implements OnInit {
-
+    is_edit:boolean=false;
 	exampleBasic;
 	exampleCustomPosition;
 	exampleShowHigh;

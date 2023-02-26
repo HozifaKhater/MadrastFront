@@ -77,6 +77,8 @@ export class swotComponent implements OnInit {
 			myControl: [[Validators.required]]
 		      
         });
+		this.DepartmentService.GetAlldepartment().subscribe(data => this.departments = data,
+            error => console.log());
 	}
  
 	add_department() {
@@ -172,7 +174,7 @@ export class swotComponent implements OnInit {
                 
 this.is_edit=false;
                 this.selecteddepartment = '';
-                
+				this.is_edit=false;
             })
         }
 	}
@@ -186,7 +188,7 @@ this.is_edit=false;
     displayFn(selectedoption) {
         return this.selecteddepartment ? this.selecteddepartment.dep_name : undefined;
     }
-
+	is_edit:boolean=false;
 	anotherDepArray:Departments[];
    	priv_info:any=[];
 	   is_edit:boolean=false;
@@ -221,18 +223,12 @@ this.is_edit=false;
 				this.risks	=	this.swotDataService.risks	;
 				this.dep_nameSelected = this.swotDataService.dep_name;
 
+				var selected_dep_status = String(this.swotDataService.dep_id);
+                this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
 
-				var dep_id = this.swotDataService.dep_id;
-				//this.selecteddepartment = this.departments[this.departments.findIndex(x => x.dep_id === selected_value_emp )];//Number(this.DepartmentService.dep_supervisor_id)
+                    return String(el.dep_id) == selected_dep_status;
+                })];
 				
-				this.DepartmentService.GetAlldepartment_with_id(Number(dep_id))
-				.subscribe(data => this.anotherDepArray = data,
-					error => console.log(),
-					() => {
-						
-						this.selecteddepartment = this.anotherDepArray[0];
-					});
-
 				// open modal
 				var ele = document.getElementById('modalOpener');
 				if (ele) { ele.click() }

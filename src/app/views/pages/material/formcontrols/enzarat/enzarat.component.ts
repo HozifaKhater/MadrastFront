@@ -71,7 +71,7 @@ export class EnzaratComponent implements OnInit {
     leave_reason_id: string = "";
     leave_reason: string = "";
     leave_date: string = "";
-
+    is_edit:boolean=false;
     school: School_data[];
     corridors: corridor[];
     jobs: DepartmentMaster[];
@@ -174,7 +174,7 @@ this.modalService.open(content,{backdrop:true,size:"xl",});
             ser:0,
             level_id: this.selectedlevel.lev_id,
             class_id:  this.selectedclass.class_id,
-            alert_type:  this.selectedalert.def_id,
+            alert_type:  this.alert_type,
             student_id:  this.selectedstudent.student_id,
             is_sent:0,
             
@@ -200,7 +200,7 @@ this.modalService.open(content,{backdrop:true,size:"xl",});
             
             level_id: this.selectedlevel.lev_id,
             class_id:  this.selectedclass.class_id,
-            alert_type:  this.selectedalert.def_id,
+            alert_type:  this.alert_type,
             student_id:  this.selectedstudent.student_id,
             is_sent:  this.is_sent,
             
@@ -208,15 +208,15 @@ this.modalService.open(content,{backdrop:true,size:"xl",});
 		};
 
       
-console.log("val",val)
+
             this.enzratDataService.update_enzrat(val).subscribe(res => {
            
             alert("Updated Successfully");
                 this.enzratDataService.BClicked("b2");
-          
+                this.is_edit=false;
 			
 		
-        },error=>console.log(error))
+        })
             this.form1.reset();
         }
 	}
@@ -308,7 +308,6 @@ console.log("val",val)
 
 	priv_info:any=[];
     is_sent_check:boolean=false;
-    is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -332,16 +331,17 @@ console.log("val",val)
 
         this.enzratDataService.aClickedEvent
 			.subscribe((data: string) => {
-				//console.log("alert_Type", this.enzratDataService)
-               
+				
+
                 this.is_edit=true;
-				var selected_alert = String(this.enzratDataService.alert_type);
-                this.selectedalert = this.alert_type[this.alert_type.findIndex(function (el) {
-                    return String(el.def_id) == selected_alert;
-                })];
+                this.alert_type = this.alert_type;
 
                 this.is_sent = this.is_sent;
-                 var selected_level_status = String(this.enzratDataService.level_id);
+
+
+          
+
+                var selected_level_status = String(this.enzratDataService.level_id);
                 this.selectedlevel = this.level[this.level.findIndex(function (el) {
 
                     return String(el.lev_id) == selected_level_status;

@@ -45,6 +45,12 @@ export class Speaking_disorderDataService {
     GetAllSpeaking_disorder_with_id(val: any): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + '/Speaking_disorder/get_speaking_disorder_with_id?id=' + val);
     }
+    get_speaking_details_first_with_speech_dis_id(val: any): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + '/Speaking_disorder/get_speaking_details_first_with_speech_dis_id?id=' + val);
+    }
+    get_speaking_details_second_with_speech_dis_id(val: any): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + '/Speaking_disorder/get_speaking_details_second_with_speech_dis_id?id=' + val);
+    }
     addSpeaking_disorder(val: any) {
         return this.http.post(this.APIUrl + '/Speaking_disorder/save_in_speaking_disorder', val);
     }

@@ -31,7 +31,7 @@ export class TestsmetricComponent implements OnInit {
 	tests_date: string = "";
 	tests_stu_no: number;
 
-
+    is_edit:boolean=false;
 
 	Levels: Levels[];
 	selectedlevel: any;
@@ -111,7 +111,7 @@ export class TestsmetricComponent implements OnInit {
 				this.Tests_metricDataService.BClicked("b2");
 				this.form1.reset();
 				this.is_edit=false;
-				
+
 			},error => {
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -129,7 +129,6 @@ export class TestsmetricComponent implements OnInit {
 	
 	
 	priv_info:any=[];
-	is_edit:boolean=false;
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
 		.subscribe(data =>this.priv_info = data,
@@ -142,6 +141,7 @@ export class TestsmetricComponent implements OnInit {
 		this.Tests_metricDataService.aClickedEvent
 			.subscribe((data: string) => {
 				this.is_edit=true;
+
 				this.tests_id = Number(this.Tests_metricDataService.tests_id);
 				this.tests_type = this.Tests_metricDataService.tests_type;
 				this.tests_date = this.Tests_metricDataService.tests_date;

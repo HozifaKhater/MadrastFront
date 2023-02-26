@@ -151,14 +151,14 @@ export class messagesComponent implements OnInit {
 		this.messagesDataService.save_in_messages(val).subscribe(res => {
             this.returned_id = res;
            
-                var val = {
+                var val2 = {
 					msg_id: String(this.returned_id.data[0].id),
 					to_emp_id: this.messagesDataService.from_emp_id,
                 }
-
-                this.messagesDataService.save_in_messages_to_emp_id(val).subscribe();
+                this.messagesDataService.save_in_messages_to_emp_id(val2).subscribe();
             
             alert("Saved Successfully");
+			this.messagesDataService.BClicked("");
      
 		})
 	}
