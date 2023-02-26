@@ -131,3 +131,5 @@ dist
 *.vsidx
 *.lock
 *.sqlite
+*.sqlite-journal
+.vs/slnx.sqlite-journal
