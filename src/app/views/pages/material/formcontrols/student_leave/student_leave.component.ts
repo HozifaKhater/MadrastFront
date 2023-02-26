@@ -86,7 +86,7 @@ export class Student_leaveComponent implements OnInit {
     myControllev = new FormControl('');
     myControlclass = new FormControl('');
     myControlstudent = new FormControl('');
-    
+    is_edit:boolean=false;
     form1: FormGroup;
 
     constructor(
@@ -182,6 +182,8 @@ openModal(content: any, event: any){
             this.Student_leaveDataService.updateStudentleave(val).subscribe(res => {
                 alert("Updated Succesfully");
                 this.Student_leaveDataService.BClicked("b2");
+                this.is_edit=false;
+
 		    })
 
             this.form1.reset();
@@ -281,7 +283,8 @@ openModal(content: any, event: any){
 
         this.Student_leaveDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+                this.is_edit=true;
+
                 this.leav_stu_id = this.leav_stu_id;
                 this.student_civilian_id = this.Student_leaveDataService.student_civilian_id;
                 this.student_branch_id = this.student_branch_id;

@@ -197,11 +197,11 @@
                 class="btn btn-primary">
             الغاء
         </button>
-        <button id="update_btn" type="button" style="border-radius: 20px;" (click)="udpate_ta7dier_master()"
+        <button id="update_btn" type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="udpate_ta7dier_master()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button id="save_btn" type="button" style="border-radius: 20px;" (click)="add_ta7dier_master()"
+        <button id="save_btn" type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_ta7dier_master()"
                 class="btn btn-primary">
             اضافة
         </button>

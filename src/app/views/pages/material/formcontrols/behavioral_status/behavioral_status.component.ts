@@ -64,6 +64,7 @@ export class BehavestatusComponent implements OnInit {
     behave_stat_rep: string = "";
 
 
+    is_edit:boolean=false;
     class_id_value:number=0;
 
 	level: Levels[]=[];
@@ -155,7 +156,7 @@ export class BehavestatusComponent implements OnInit {
             this.myControllev.reset();
             this.myControlclass.reset();
             this.myControlStudent.reset();
-			
+            this.is_edit=false;
 		})
 
 	}
@@ -278,7 +279,7 @@ export class BehavestatusComponent implements OnInit {
 
         this.Behavioral_statusDataService.aClickedEvent
 			.subscribe((data: string) => {
-                
+                this.is_edit=true;
                 this.behave_stat_id = this.Behavioral_statusDataService.behave_stat_id;
                 this.behave_date = this.Behavioral_statusDataService.behave_date;
                 this.behave_stat_rep = this.Behavioral_statusDataService.behave_stat_rep;

@@ -1,4 +1,5 @@
 <!-- Start Rest To Redo -->
+<div *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
 
 <div class="row" id="printdiv">
     <div class="col-lg-12">
@@ -209,8 +210,8 @@
                     <div class="kt-form__actions kt-form__actions">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button id="save_btn" type="button" (click)="AddSonOfMartyrs()" mat-raised-button color="primary">حفظ</button>&nbsp;
-                                <button id="update_btn" type="button" (click)="UpdateSonOfMartyr()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="save_btn" type="button"  *ngIf="!is_edit" (click)="AddSonOfMartyrs()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" type="button" *ngIf="is_edit" (click)="UpdateSonOfMartyr()" mat-raised-button color="primary">تعديل</button>&nbsp;
                                 <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
                                 <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
 
@@ -224,8 +225,11 @@
     </div>
 
 </div>
+</div>
+
+<div ngIf="priv_info.length > 0 && (priv_info[0].read === 1 || priv_info[0].read_and_write === 1)">
 
 <kt-SonsOfMartyrs-list></kt-SonsOfMartyrs-list>
 
-
+</div>
 <!--End Rest To Redo -->

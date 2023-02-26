@@ -60,7 +60,7 @@ export class class_instructionComponent implements OnInit {
 	labelPosition: string = 'before';
 	dep_name: any;
 	dep_desc: any;
-
+	is_edit:boolean=false;
 	changeLablesPositions() {
 		this.labelPosition = this.labelPosition === 'before' ? 'after' : 'before';
 	}
@@ -153,7 +153,8 @@ export class class_instructionComponent implements OnInit {
 			this.myControllev.reset();
 			this.myControlclass.reset();
 			this.myControlstudent.reset();
-			
+			this.is_edit=false;
+
 			},error => {
 				const errorMessages = [];
 				for (const fieldName in error.error.errors) {
@@ -246,7 +247,8 @@ export class class_instructionComponent implements OnInit {
 		
 		this.instructionsDataService.aClickedEvent
 			.subscribe((data: string) => {
-			
+				this.is_edit=true;
+
                 this.ser = String(this.instructionsDataService.ser);
                 this.topic = this.instructionsDataService.topic;
                 this.group_number = this.instructionsDataService.group_number;

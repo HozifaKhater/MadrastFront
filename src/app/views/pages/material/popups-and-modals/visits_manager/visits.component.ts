@@ -29,7 +29,7 @@ export class VisitManagerComponent implements OnInit {
 
     public Editor = ClassicEditor;
     @ViewChild("myEditor", { static: false }) myEditor: any;
-
+    is_edit:boolean=false;
 	exampleBasic;
 	exampleCustom;
 	exampleDismissal;
@@ -261,6 +261,8 @@ export class VisitManagerComponent implements OnInit {
 
             alert("Updated Successfuly");
             this.VisitsDataService.BClicked("b2");
+            this.is_edit=false;
+
         })
             this.form1.reset();
         }
@@ -283,7 +285,8 @@ export class VisitManagerComponent implements OnInit {
 
         this.VisitsDataService.aClickedEvent
             .subscribe((data: string) => {
-                
+                this.is_edit=true;
+
                 this.visit_id = this.VisitsDataService.visit_id;
                 this.visit_date = this.VisitsDataService.visit_date;
                 this.phone = this.VisitsDataService.phone;

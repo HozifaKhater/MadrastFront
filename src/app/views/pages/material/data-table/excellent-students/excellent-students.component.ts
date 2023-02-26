@@ -41,7 +41,7 @@ export class ExcellentstudentsComponent implements OnInit {
 	exc_stu_notes: string = "";
 	exc_stu_eff: string = "";
 
-	
+	is_edit:boolean=false;
 	selected_student_id: any;
 	selected_student_name: any;
 	nat: def.nat[];
@@ -188,7 +188,7 @@ export class ExcellentstudentsComponent implements OnInit {
 				this.myControlclass.reset();
 				this.myControllev.reset();
 				this.Excellent_studentsDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			},error => {
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -313,7 +313,7 @@ export class ExcellentstudentsComponent implements OnInit {
 
 		this.Excellent_studentsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.exc_stu_id = Number(this.Excellent_studentsDataService.exc_stu_id);
 				this.exc_stu_lev = this.Excellent_studentsDataService.exc_stu_lev;
 				this.exc_stu_clas = this.Excellent_studentsDataService.exc_stu_clas;

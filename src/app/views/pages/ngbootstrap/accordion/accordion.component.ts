@@ -51,7 +51,7 @@ export class AccordionComponent implements OnInit {
 	exampleGlobalConfigurationOfAccordions: any;
     disabled: boolean;
     disabled_emp: boolean;
-	
+	is_edit:boolean=false;
 	classif: def.nat[];
 	form1: FormGroup;
 	constructor(private modalService: NgbModal,
@@ -167,6 +167,7 @@ export class AccordionComponent implements OnInit {
 				this.Add_libDataService.BClicked("b2");
 				this.form1.reset();
 				
+				this.is_edit=false;
 			})
 		}
 	}
@@ -187,6 +188,7 @@ export class AccordionComponent implements OnInit {
 		this.Add_libDataService.aClickedEvent
 			.subscribe((data: string) => {
 				
+				this.is_edit=true;
 				this.lib_id = Number(this.Add_libDataService.lib_id);
 				this.lib_book = String(this.Add_libDataService.lib_book);
 				this.lib_ref = String(this.Add_libDataService.lib_ref);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 //import { PizzaParty1Component } from './pizza-party.component';
 
@@ -105,9 +105,13 @@ export class boardComponent implements OnInit {
     is_notes:any;
     is_vpic:any;
     vpic_label:any;
-    
+
+    is_edit:boolean=false;
+
     visit_types_selection:any;
-    constructor(private router: Router, private user_privDataService: user_privDataService,
+    constructor(
+        private cdRef: ChangeDetectorRef,
+		private router: Router, private user_privDataService: user_privDataService,
         private datePipe: DatePipe,public snackBar: MatSnackBar,
         private board_typeDataService: board_typeDataService,
         private boardDataService: boardDataService,
@@ -115,11 +119,9 @@ export class boardComponent implements OnInit {
         //let d = new Date();
         //this.year_date_from = String( d.getDate());
         this.board_typeDataService.get_board_type().subscribe((data:any) => this.board_type = data.data,
-            error => console.log(error),
-            () => { console.log("board_types dropdown", this.board_type) });
+            error => console.log());
         this.DepartmentDataService.GetAlldepartment().subscribe(data => this.departments = data,
-            error => console.log(error),
-            () => { console.log("DepartmentDataService dropdown", this.departments) });
+            error => console.log());
 
         let d_from = new Date();
         d_from.setDate(d_from.getDate());
@@ -132,11 +134,9 @@ export class boardComponent implements OnInit {
     board_types_selection(event) {
         this.board_type_id = event.board_board_type_id;
         this.board_type_name = event.board_type_name;
-        console.log("board_types dropdown change", event);
         this.board_typeDataService.get_board_type_with_id(event.board_type_id).subscribe((data:any) => this.board_type = data.data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("board_types dropdown change", this.board_type );
                 
                 this.is_student = this.board_type[0].is_student;
                 this.label_student = this.board_type[0].label_student;
@@ -205,10 +205,8 @@ export class boardComponent implements OnInit {
     year_date_to: string;
     year_date_from: string;
     addFieldValue(index) {
-        console.log("field",index)
         if (index != 0) {
             this.fieldArray.push(this.newAttribute);
-            console.log("zzzzz", this.fieldArray, this.newAttribute)
             this.newAttribute = {};
         }
 
@@ -217,7 +215,6 @@ export class boardComponent implements OnInit {
     deleteFieldValue(index) {
         if (index != 0) {
             this.fieldArray.splice(index, 1);
-            console.log("delete", index)
         }
     }
     returned_id: any;
@@ -256,14 +253,12 @@ export class boardComponent implements OnInit {
             
 
         };
-        console.log("asd", val)
         this.boardDataService.save_in_board(val).subscribe(res => {
           
             alert("Added Successfuly");
             this.boardDataService.BClicked("b2");
         })
         
-        console.log(val)
     }
     update_year() {
         if (this.selecteddepartment === undefined) {
@@ -296,50 +291,33 @@ export class boardComponent implements OnInit {
 
 
         };
-        console.log("asd", val)
         this.boardDataService.update_board(val).subscribe(res => {
 
             alert("Added Successfuly");
             this.boardDataService.BClicked("b2");
-   
+            this.is_edit=false;
 
-         
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+
         })
     
         
 
     }
-    cancel_year() {
-        (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-        (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-    }
+
     year_data_id: any;
-    priv_info:any;
+    priv_info:any=[];
 	ngOnInit() {
-        this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}
-	); 
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+			});
 
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        /*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
-
+       
         this.boardDataService.aClickedEvent
             .subscribe((data: string) => {
-                //this.newArray = [];
-                console.log("edited");
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
+                this.is_edit=true;
 
                 this.board_id = this.boardDataService.board_id;
                // this.board_type_name = this.boardDataService.board_type_name;
@@ -378,7 +356,6 @@ export class boardComponent implements OnInit {
                     return String(el.emp_id) == selected_value
                 })];
 
-                console.log("year_date_from", this.board_type_name);
             })
        
 	}

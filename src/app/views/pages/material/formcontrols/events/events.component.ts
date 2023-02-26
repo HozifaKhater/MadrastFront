@@ -44,7 +44,7 @@ export class EventspartyComponent implements OnInit {
     selecteddepartment: any;
 
 	departments: Departments[];
-    
+    is_edit:boolean=false;
     form1: FormGroup;
     constructor(
         private cdRef: ChangeDetectorRef,
@@ -119,7 +119,7 @@ export class EventspartyComponent implements OnInit {
             this.EventsDataService.updateEvents(val).subscribe(res => {
                 alert("Updated Successfully");
                 this.EventsDataService.BClicked("b2");
-                
+                this.is_edit=false;
             })
             this.form1.reset();
         }
@@ -140,7 +140,7 @@ export class EventspartyComponent implements OnInit {
 
         this.EventsDataService.aClickedEvent
             .subscribe((data: string) => {
-             
+                this.is_edit=true;
                 var selected_value = String(this.EventsDataService.dep_id);
 				this.selecteddepartment = this.departments[this.departments.findIndex(function (el) {
 					return el.dep_id == selected_value;})];

@@ -72,7 +72,7 @@ export class SuggestionsComponent implements OnInit {
 			error => console.log());
 
 	}
-
+	is_edit:boolean=false;
 	selectedsuggtype: any =[];
 
 	add_sugg() {
@@ -117,7 +117,7 @@ export class SuggestionsComponent implements OnInit {
 			this.SuggestionsDataService.updateSuggestions(val).subscribe(res => {
 				alert("Updated Successfully");
 				this.SuggestionsDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			})
 			this.form1.reset();
 		}
@@ -159,7 +159,7 @@ export class SuggestionsComponent implements OnInit {
 
 		this.SuggestionsDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
 				this.sugg_id = Number(this.SuggestionsDataService.sugg_id);
 				this.sugg_body = this.SuggestionsDataService.sugg_body;
 				this.sugg_title = this.SuggestionsDataService.sugg_title;

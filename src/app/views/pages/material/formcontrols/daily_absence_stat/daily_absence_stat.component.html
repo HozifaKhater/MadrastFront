@@ -194,8 +194,8 @@
   إغلاق
 </button>
 
-                <button type="button" style="border-radius: 20px;" (click)="update_dailystat()" class="btn btn-primary">تعديل</button>
-                <button type="button" style="border-radius: 20px;" (click)="add_dailystat()" class="btn btn-primary">اضافة</button>
+                <button type="button" style="border-radius: 20px;" *ngIf="is_edit"  (click)="update_dailystat()" class="btn btn-primary">تعديل</button>
+                <button type="button" style="border-radius: 20px;"  *ngIf="!is_edit"  (click)="add_dailystat()" class="btn btn-primary">اضافة</button>
 
 
             </div>

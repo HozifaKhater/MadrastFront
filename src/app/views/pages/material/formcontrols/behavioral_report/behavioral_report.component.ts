@@ -25,6 +25,8 @@ import moment from 'moment';
 import { Observable } from 'rxjs'; 
 import { FormArray, FormBuilder,  FormGroup} from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../Services/user_privDataService ';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -54,16 +56,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class BehavioralreportComponent implements OnInit {
  
-
-   
-  
-
-   
-    //private _filter(value: string): any[] {
-    //    const filterValue = value.toLowerCase();
-
-    //    return this.country.filter(country => country);
-    //}
 	@Input() employee_data: any;
     leav_stu_id: number;
     lev_id: string = "";
@@ -97,14 +89,7 @@ export class BehavioralreportComponent implements OnInit {
     disabled: boolean;
     disabled_emp: boolean;
 
-	exampleBasicInputs;
-	exampleInputWithACustomErrorStateMatcher;
-	exampleAutoResizingTextarea;
-	exampleInputWithAClearButton;
-	exampleInputWithErrorMessages;
-	exampleInputsInAForm;
-	exampleInputWithHints;
-	exampleInputsWithPrefixesAndSuffixes;
+	
     formName: any;
     errorMessage: string;
 
@@ -128,12 +113,10 @@ export class BehavioralreportComponent implements OnInit {
         });
 
         EmployeeService.Getdefinations_with_scode("alert_type").subscribe(data => this.alert_type = data,
-            error => console.log(error),
-            () => console.log("ok"));
+            error => console.log());
 
         this.corridorsDataService.GetAllCorridors().subscribe(data => this.corridors = data,
-            error => console.log(error),
-            () => console.log("emp dropdown", this.corridors));
+            error => console.log());
 }
 
 
@@ -190,14 +173,12 @@ export class BehavioralreportComponent implements OnInit {
             leave_date: this.leave_date
 
             };
-            console.log("asd", val)
             this.Student_leaveDataService.addStudentleave(val).subscribe(res => {
                
                 alert("saved succesfully");
                 this.Student_leaveDataService.BClicked("b2");
                 this.form1.reset();
             })
-            console.log(val)
 
         }
       

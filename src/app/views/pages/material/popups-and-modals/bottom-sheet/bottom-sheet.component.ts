@@ -36,7 +36,7 @@ export class BottomSheetComponent implements OnInit {
 	school_assis3_id	:string="";
 	school_assis4_id	:string="";
 	school_man_id	:string="";
-
+	is_edit:boolean=false;
 	public selectedimage;
 	public event1;
 	imgURL: any;
@@ -285,7 +285,8 @@ export class BottomSheetComponent implements OnInit {
 			this.myControlAss4.reset();
 			this.myControlManager.reset();
 			this.School_dataDataService.BClicked("");
-			
+			this.is_edit=false;
+
 		},error => {console.log();
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
@@ -378,7 +379,8 @@ export class BottomSheetComponent implements OnInit {
 
 		this.School_dataDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
+
 				this.school_id = Number(this.School_dataDataService.school_id);
 				this.school_name = this.School_dataDataService.school_name;
 				this.school_man = this.School_dataDataService.school_man;

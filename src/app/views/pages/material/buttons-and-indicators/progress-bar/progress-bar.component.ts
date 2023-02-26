@@ -40,7 +40,7 @@ export class ProgressBarComponent implements OnInit {
 	mode = 'determinate';
 	value = 50;
 	bufferValue = 75;
-
+	is_edit:boolean=false;
     form1: FormGroup;
     constructor(
 		private modalService: NgbModal,
@@ -93,7 +93,7 @@ export class ProgressBarComponent implements OnInit {
             this.LevelsDataService.updateLevels(val).subscribe(res => {
 				alert("Updated Succesfully");
 				this.LevelsDataService.BClicked("b2");
-                
+				this.is_edit=false;
             })
             this.form1.reset();
         }
@@ -117,7 +117,7 @@ export class ProgressBarComponent implements OnInit {
 
 		this.LevelsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.lev_id = Number(this.LevelsDataService.lev_id);
 				this.lev_name = this.LevelsDataService.lev_name;
 				this.lev_class_no = Number(this.LevelsDataService.lev_class_no);

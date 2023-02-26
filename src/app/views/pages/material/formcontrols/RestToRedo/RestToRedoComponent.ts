@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -63,6 +63,7 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
     selected_student_id: any;
 	selected_student_name: any;
     
+    is_edit:boolean=false;
 
     myControllev = new FormControl('');
     myControlclass = new FormControl('');
@@ -71,6 +72,7 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
     butDisabled: boolean;
 
     constructor(
+        private cdRef: ChangeDetectorRef,
         private router: Router, private user_privDataService: user_privDataService,
         public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
@@ -94,8 +96,7 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
        
         this.DefinitionDataService.Getdefinations_with_scode("followUpSlides")
         .subscribe(data => this.slides = data,
-            error => console.log(error),
-            () => {console.log("slides Data ", this.slides)});
+            error => console.log());
     } 
 
     filteredOptionslev: Observable<any[]>;
@@ -133,44 +134,51 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
     }
 
     change_level(event) {
-        this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-            error => console.log(error),
-            () => {
-                console.log("class dropdown", this.class);
-                this.filteredOptionsclass = this.myControlclass.valueChanges
-                    .pipe(
-                        startWith(''),
-                        map(value => typeof value === 'string' ? value : value.class_name),
-                        map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
-                    );
-            });
+        if(event !== null && event !== undefined && event.length !== 0){
+
+            this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
+                error => console.log(),
+                () => {
+                    this.filteredOptionsclass = this.myControlclass.valueChanges
+                        .pipe(
+                            startWith(''),
+                            map(value => value? typeof value === 'string' ? value : value.class_name : ''),
+                            map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
+                        );
+                });
+        }
     }
 
     change_class(event) {
-        this.ActivityDataService.activity_id = event.class_id;
-        this.ActivityDataService.BClicked("test");
-        this.class_id = event.class_id;
-        console.log(" class id",  event.class_id);
-        this.Change_Student();
+        if(event !== null && event !== undefined && event.length !== 0){
+
+            this.ActivityDataService.activity_id = event.class_id;
+            this.ActivityDataService.BClicked("test");
+            this.class_id = event.class_id;
+            this.Change_Student();
+        }
     }
 
     Change_Student(){
-        this.StudentDataService.GetAllStudent_of_class(Number(this.class_id)).subscribe(data => this.student = data,
-            error => console.log(error),
-            () => {
-                console.log("student dropdown", this.student);
-                
-                this.filteredOptionsStudents = this.myControlStudent.valueChanges
-                    .pipe(
-                        startWith(''),
-                        map(value => typeof value === 'string' ? value : value.student_name),
-                        map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
-                    );
-            });
+        if(this.class_id !== null && this.class_id !== undefined){
 
-            
-        console.log("selected student", this.selectedStudent);
-        this.setData();
+            this.StudentDataService.GetAllStudent_of_class(Number(this.class_id)).subscribe(data => this.student = data,
+                error => console.log(),
+                () => {
+                    
+                    this.filteredOptionsStudents = this.myControlStudent.valueChanges
+                        .pipe(
+                            startWith(''),
+                            map(value => typeof value === 'string' ? value : value.student_name),
+                            map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
+                        );
+                });
+
+                if(this.selectedStudent !== null && this.selectedStudent !== undefined){
+
+                    this.setData();
+                }
+        }
 
     }
 
@@ -192,7 +200,6 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
 
     AddRestToRedo(){
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         }else {
             
@@ -215,7 +222,6 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 results: this.results
             }
 
-            console.log("new Rest To Redo", newRestToRedo);
 
             this.RestToRedoService.SaveRestToRedo(newRestToRedo).subscribe(res => {
                 alert("Added Sucesfully ");
@@ -224,10 +230,6 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
             })
 
         }
@@ -236,7 +238,6 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
     UpdateRetToRedo(){
 
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
 
@@ -261,8 +262,6 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 
             }
 
-            console.log("updated Rest To Redo", updatedRestToRedo);
-
             this.RestToRedoService.UpdateRestToRedo(updatedRestToRedo).subscribe(res => {
                 alert("Updated Sucessfully");
                 this.RestToRedoService.BClicked("");
@@ -270,10 +269,8 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+                this.is_edit=false;
+               
             });
         }
    }
@@ -282,11 +279,10 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
 
    Cancle() {
        this.form1.reset();
-       (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-       (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-       (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-       (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+       this.is_edit=false;
+
    }
+
    updatedClass:any;
    updatedStudent:any;
 
@@ -299,24 +295,26 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
    anotherClassArray:Classes[];
    anotherLevelArray: Levels[];
    
-	priv_info:any;
+	priv_info:any=[];
 	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+
 			}); 
 
         this.butDisabled = true;
         
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-                error => console.log(error),
+                error => console.log(),
                 () => {
-                    console.log("levels dropdown", this.level);
                     this.filteredOptionslev = this.myControllev.valueChanges
                         .pipe(
                             startWith(''),
-                            map(value => typeof value === 'string' ? value : value.lev_name),
+                            map(value => value? typeof value === 'string' ? value : value.lev_name : ''),
                             map(lev_name => lev_name ? this._filterlev(lev_name) : this.level.slice())
                         );
                 });
@@ -328,11 +326,7 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+             this.is_edit=true
     
             this.id = this.RestToRedoService.id;
             this.level_name = this.RestToRedoService.level_name;
@@ -355,17 +349,14 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
 
                 this.StudentDataService.GetAlldepartment()
                 .subscribe(data => this.anotherStuArray = data,
-                    error => console.log(error),
+                    error => console.log(),
                     () => {
                         // Get Student Object 
-                        console.log("stu dropdown", this.anotherStuArray)
                         var id = this.RestToRedoService.student_id;
-                        console.log("id",id);
                         this.studentVar = this.anotherStuArray[this.anotherStuArray.findIndex(function (el) {
                 
                             return el.student_id == id;
                         })];
-                        console.log("studentVar",this.studentVar)
                         this.selectedStudent = this.studentVar;
 
                         this.nationality = this.studentVar.student_nationality;
@@ -381,33 +372,26 @@ export class RestToRedoComponent implements OnInit, AfterViewInit {
 
                         this.ClassesDataService.GetAllClasses_with_id(class_id2)
                         .subscribe(data => this.anotherClassArray = data,
-                            error => console.log(error),
+                            error => console.log(),
                         () => {
-                            console.log("anotherClassArray ", this.anotherClassArray)
                             this.selectedclass = this.anotherClassArray[0];
-                            console.log("selectedclass ", this.selectedclass)
 
                             // Get Level Object with Class Object 
                             var level_id = this.selectedclass.class_level;
 
                             this.LevelsDataService.GetAllLevels_with_id(level_id)
                             .subscribe(data => this.anotherLevelArray = data,
-                                error => console.log(error),
+                                error => console.log(),
                                 () => {
-                                    console.log("anotherLevelArray", this.anotherLevelArray);
                                     this.selectedlevel = this.anotherLevelArray[this.anotherLevelArray.findIndex(function (el) {
                     
                                         return String(el.lev_id) == level_id;
                                     })];
-                                    console.log("selectedlevel ", this.selectedlevel)
                                 });
                         });
                     });		
         });
 
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
-
+        
     }
 }

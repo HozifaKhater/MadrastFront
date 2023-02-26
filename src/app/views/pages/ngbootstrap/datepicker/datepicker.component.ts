@@ -1,4 +1,4 @@
- import { Component, OnInit, Injectable, ChangeDetectionStrategy, Input } from '@angular/core';
+ import { Component,ChangeDetectorRef, OnInit, Injectable, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDatepickerI18n, NgbCalendarIslamicCivil, NgbCalendarIslamicUmalqura } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,8 @@ import { MasterJobsDataService } from '../../../../Services/MasterJobsDataServic
 import { EmployeeMaster, Employee } from '../../../../EmployeeMaster.Model';
 import { divisionsDataService } from '../../../../Services/divisionsDataService';
 
-
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../Services/user_privDataService ';
 /**
  * Example of a Native Date adapter
  */
@@ -152,9 +153,13 @@ export class DatepickerComponent implements OnInit {
 	model1: Date;
 	model2: Date;
 	sixModel;
+	is_edit:boolean=false;
 
-
-	constructor(private EmployeeService: EmployeeDataService, private DepartmentService: DepartmentDataService, MasterJobsDataService: MasterJobsDataService, private divisionsDataService: divisionsDataService,) {
+	constructor(
+		private cdRef: ChangeDetectorRef,
+		private router: Router, private user_privDataService: user_privDataService,
+	
+		private EmployeeService: EmployeeDataService, private DepartmentService: DepartmentDataService, MasterJobsDataService: MasterJobsDataService, private divisionsDataService: divisionsDataService,) {
 		this.DepartmentService.GetAllMasterdepartment().subscribe(data => this.departments = data,
 			error => console.log(error),
 			() => console.log("ok"));
@@ -209,34 +214,27 @@ export class DatepickerComponent implements OnInit {
 
 		this.divisionsDataService.updatedivisions(val).subscribe(res => {
 			alert(res.toString());
-			(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-			(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+			
 		})
 
 	}
 	cancel_div() {
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		
 	}
 
 
+	priv_info: any = [];
 	ngOnInit() {
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
-
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+			.subscribe(data => this.priv_info = data,
+				error => console.log(),
+				() => {
+					this.cdRef.detectChanges();
+				});
+	
 		this.divisionsDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-
+				this.is_edit=true;
 
 				this.div_id = Number(this.divisionsDataService.div_id);
 				this.dep_id = this.divisionsDataService.dep_id;

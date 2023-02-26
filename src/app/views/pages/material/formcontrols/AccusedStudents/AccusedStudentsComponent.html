@@ -1,6 +1,6 @@
 <!-- Start Catch Reciept -->
 
-<div class="row" id="printdiv">
+<div class="row" id="printdiv" *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
     <div class="col-lg-12">
         <div class="kt-portlet">
             <div class="kt-portlet__head">
@@ -214,8 +214,8 @@
                     <div class="kt-form__actions kt-form__actions">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button id="save_btn" type="button" (click)="AddAccusedStudent()" mat-raised-button color="primary">حفظ</button>&nbsp;
-                                <button id="update_btn" type="button" (click)="UpdateAccusedStudent()" mat-raised-button color="primary">تعديل</button>&nbsp;
+                                <button id="save_btn" type="button"  *ngIf="!is_edit" (click)="AddAccusedStudent()" mat-raised-button color="primary">حفظ</button>&nbsp;
+                                <button id="update_btn" type="button" *ngIf="is_edit"  (click)="UpdateAccusedStudent()" mat-raised-button color="primary">تعديل</button>&nbsp;
                                 <button id="cancel_btn" type="button" (click)="Cancle()" mat-raised-button color="primary">الغاء</button>&nbsp;
                                 <button id="reset_btn" mat-raised-button color="primary" type="reset">تراجع</button>&nbsp;
 
@@ -229,9 +229,10 @@
     </div>
 
 </div>
+<div  *ngIf="priv_info.length > 0 && (priv_info[0].write === 1 || priv_info[0].read_and_write === 1)">
 
 <kt-AccusedStudents-list></kt-AccusedStudents-list>
-
+</div>
 
 
 <!--End Catch Reciept -->

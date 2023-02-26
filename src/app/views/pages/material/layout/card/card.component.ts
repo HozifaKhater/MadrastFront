@@ -63,7 +63,7 @@ export class CardComponent implements OnInit {
 	ta7dier_supervision_state_name: string = "";
 	ta7dier_state_name: string = "";
 	ta7dier_file:string="";
-	
+	is_edit:boolean=false;
 	public onChange({ editor }: ChangeEvent) {
 		const data = editor.getData();
 		this.data = data;
@@ -280,7 +280,7 @@ export class CardComponent implements OnInit {
             alert(res.toString());
             this.ta7dier_masterDataService.BClicked("");
             this.form1.reset();
-			
+			this.is_edit=false;
 		})
 			this.form1.reset();
 		}
@@ -352,7 +352,7 @@ export class CardComponent implements OnInit {
 		
 		this.ta7dier_masterDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
 				this.ta7dier_id = Number(this.ta7dier_masterDataService.ta7dier_id);
 				
 				this.emp_id = this.ta7dier_masterDataService.emp_id;

@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	
 })
 export class meeting_typeComponent implements OnInit {
-
+    is_edit:boolean=false;
 	exampleBasic;
 	exampleCustomPosition;
 	exampleShowHigh;
@@ -285,7 +285,7 @@ export class meeting_typeComponent implements OnInit {
         this.meeting_typeDataService.update_meeting_type(val).subscribe(res => {
             alert("Updated Successfully");
             this.meeting_typeDataService.BClicked("");
-            
+            this.is_edit=false;
         })
 
     }
@@ -304,7 +304,7 @@ export class meeting_typeComponent implements OnInit {
 
         this.meeting_typeDataService.aClickedEvent
             .subscribe((data: string) => {
-                
+                this.is_edit=true;
                 this.meeting_type_id = this.meeting_typeDataService.meeting_type_id;
                 this.meeting_type_name = this.meeting_typeDataService.meeting_type_name;
                 this.is_meeting_date_date_check = this.meeting_typeDataService.is_meeting_date;

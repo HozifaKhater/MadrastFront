@@ -23,7 +23,7 @@ export class PopoverComponent implements OnInit {
 	corr_meet_loc: string = "";
 
 
-
+	is_edit:boolean=false;
 	form1: FormGroup;
 	constructor(
 		private modalService: NgbModal,
@@ -83,7 +83,7 @@ export class PopoverComponent implements OnInit {
 			this.Corr_meetingDataService.updateCorr_meeting(val).subscribe(res => {
 				alert(res.toString());
 				this.Corr_meetingDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			},
 			error => {console.log();
                 const errorMessages = [];
@@ -112,7 +112,7 @@ export class PopoverComponent implements OnInit {
 		
 		this.Corr_meetingDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.corr_meet_id = Number(this.Corr_meetingDataService.corr_meet_id);
 				this.corr_meet_date = this.Corr_meetingDataService.corr_meet_date;
 				this.corr_meet_time = this.Corr_meetingDataService.corr_meet_time;

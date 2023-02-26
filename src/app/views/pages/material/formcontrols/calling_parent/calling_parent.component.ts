@@ -151,10 +151,11 @@ behave_stat_rep:any;
            
             alert("Updated Successfully");
             this.calling_parentsDataService.BClicked("b2");
-        
+            this.is_edit=false;
 		})
 
 	}
+    is_edit:boolean=false;
 
     selectedclass: any=[];
     selectedstudent: any=[];
@@ -195,7 +196,7 @@ behave_stat_rep:any;
         if(event !== null && event !== undefined && event.length !== 0){
 
             this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-                error => console.log(error),
+                error => console.log(),
                 () => {
                     var selected_class_status = String(this.calling_parentsDataService.class_id);
                     this.selectedclass = this.class[this.class.findIndex(function (el) {
@@ -252,7 +253,7 @@ behave_stat_rep:any;
 			});	
        
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
                 this.filteredOptionslev = this.myControllev.valueChanges
                     .pipe(
@@ -265,7 +266,7 @@ behave_stat_rep:any;
 
         this.calling_parentsDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+                this.is_edit=true;
                 this.ser = this.calling_parentsDataService.ser;
                 this.date = this.calling_parentsDataService.date;
                 this.lev_name = this.calling_parentsDataService.lev_name;

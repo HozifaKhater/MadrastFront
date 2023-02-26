@@ -164,11 +164,11 @@
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="update_sugg()"
+        <button type="button" style="border-radius: 20px;" *ngIf="is_edit"  (click)="update_sugg()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="add_sugg()"
+        <button type="button" style="border-radius: 20px;" *ngIf="!is_edit"  (click)="add_sugg()"
                 class="btn btn-primary">
             اضافة
         </button>

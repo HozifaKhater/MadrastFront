@@ -171,8 +171,8 @@
                         <div class="row">
 
                             <div class="col-lg-6">
-                                <button id="save_btn" (click)="add_year()" mat-raised-button color="accent">أضافة</button>&nbsp;
-                                <button id="update_btn" (click)="update_year()" mat-raised-button color="accent">تعديل</button>&nbsp;
+                                <button id="save_btn" *ngIf="!is_edit" (click)="add_year()" mat-raised-button color="accent">أضافة</button>&nbsp;
+                                <button id="update_btn" *ngIf="is_edit" (click)="update_year()" mat-raised-button color="accent">تعديل</button>&nbsp;
                                 <button id="cancel_btn" (click)="cancel_year()" mat-raised-button color="accent">الغاء</button>&nbsp;
                                 <!--<button mat-raised-button type="reset">حذف</button>-->
                             </div>

@@ -44,7 +44,7 @@ export class StepperComponent implements OnInit {
 
 	myControlDept = new FormControl('');
     myControlCorr = new FormControl('');
-	
+	is_edit:boolean=false;
 	isLinear = false;
 	firstFormGroup: FormGroup;
 	secondFormGroup: FormGroup;
@@ -161,7 +161,7 @@ export class StepperComponent implements OnInit {
 				this.selectedcorridor = [];
 				this.selecteddepartment = [];
 				this.selectedemployee = [];
-
+				this.is_edit=false;
 			},error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -286,7 +286,7 @@ export class StepperComponent implements OnInit {
 	
 		this.Corridor_supervisionDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.supervision_id = Number(this.Corridor_supervisionDataService.supervision_id);
 				this.basic_emp_name = this.Corridor_supervisionDataService.basic_emp_name;
 				this.spare_emp_id = this.Corridor_supervisionDataService.spare_emp_id;

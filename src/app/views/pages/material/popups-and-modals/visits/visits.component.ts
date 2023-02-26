@@ -29,7 +29,7 @@ export class VisitComponent implements OnInit {
 
     public Editor = ClassicEditor;
     @ViewChild("myEditor", { static: false }) myEditor: any;
-
+    is_edit:boolean=false;
 	exampleBasic;
 	exampleCustom;
 	exampleDismissal;
@@ -288,7 +288,8 @@ export class VisitComponent implements OnInit {
         this.VisitsDataService.updatevisits(val).subscribe(res => {
             alert("Updated Successfuly");
             this.VisitsDataService.BClicked("b2");
-            
+            this.is_edit=false;
+
         })
     
         
@@ -308,7 +309,8 @@ export class VisitComponent implements OnInit {
 
         this.VisitsDataService.aClickedEvent
             .subscribe((data: string) => {
-                
+                this.is_edit=true;
+
                 this.visit_id = this.VisitsDataService.visit_id;
                // this.visit_type_name = this.VisitsDataService.visit_type_name;
               //  this.visit_type_id = this.VisitsDataService.visit_type_id;

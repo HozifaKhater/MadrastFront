@@ -186,6 +186,7 @@ export class Student_transComponent implements OnInit {
             this.Student_transferDataService.updateStudentrans(val).subscribe(res => {
                 alert("Updated Successfully");
                 this.Student_transferDataService.BClicked("b2");
+                this.is_edit=false;
             })
             this.form1.reset();
         }
@@ -260,7 +261,7 @@ export class Student_transComponent implements OnInit {
         }
     }
 
- 
+    is_edit:boolean=false;
     priv_info:any=[];
 	ngOnInit() {
 		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
@@ -285,7 +286,7 @@ export class Student_transComponent implements OnInit {
 
         this.Student_transferDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
                 this.student_trans_id = this.student_trans_id;
                 this.student_civilian_id = this.Student_transferDataService.student_civilian_id;
                 this.student_branch_id = this.student_branch_id;

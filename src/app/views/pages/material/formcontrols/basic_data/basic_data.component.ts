@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -15,7 +15,8 @@ import { basic_data, basic_dataMaster } from '../../../../../basic_dataMaster.Mo
 import { Employee, EmployeeMaster } from '../../../../../EmployeeMaster.Model';
 import { EmployeeDataService } from '../../../../../Services/EmployeeDataService';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../Services/user_privDataService ';
 import { Observable } from 'rxjs';
 
 import { startWith, map } from 'rxjs/operators';
@@ -51,20 +52,8 @@ export class basic_dataComponent implements OnInit {
     subject_id: any;
     emp: any;
     
-
-	exampleBasicDatepicker;
-	exampleDatepickerStartDate;
-	exampleDatepickerSelectedValue;
-	exampleDatepickerWithMinMaxValidation;
-	exampleDatepickerWithFilterValidation;
-	exampleDatepickerInputAndChangeEvents;
-	exampleDisabledDatepicker;
-	exampleDatepickerTouchUI;
-	exampleDatepickerOpenMethod;
-	exampleDatepickerWithDifferentLocale;
-	exampleDatepickerThatUsesMomentJsDates;
-	exampleDatepickerWithCustomFormats;
-	exampleUsesMomentJsDates;
+    is_edit:boolean=false;
+	
 
 	startDate = new Date(1990, 0, 1);
 	date = new FormControl(new Date());
@@ -77,7 +66,10 @@ export class basic_dataComponent implements OnInit {
     events: string[] = [];
     form1: FormGroup;
     Employee:Employee[];
-    constructor(private basic_dataDataService: basic_dataDataService,private EmployeeDataService: EmployeeDataService, public _fb: FormBuilder) {
+    constructor(
+         private cdRef:ChangeDetectorRef,
+		private router: Router, private user_privDataService: user_privDataService,
+       private basic_dataDataService: basic_dataDataService,private EmployeeDataService: EmployeeDataService, public _fb: FormBuilder) {
         this.form1 = this._fb.group({
              id: [''],
             file_number: ['', [Validators.required]],
@@ -97,9 +89,6 @@ export class basic_dataComponent implements OnInit {
                         map(value => typeof value === 'string' ? value : value.emp_name),
                         map(emp_name => emp_name ? this._filter(emp_name) : this.Employee.slice())
                     );
-                console.log("test", this.filteredOptions)
-                //this.filteredList = this.country.slice();
-                //console.log("ok", this.filteredList);
             });
     }
     myControl = new FormControl('');
@@ -113,19 +102,13 @@ export class basic_dataComponent implements OnInit {
         return selectedoption ? selectedoption.emp_name : undefined;
     }
     emp_chage(event) {
-       console.log("emp_id", event.emp_id)
         this.basic_dataDataService.emp_id=event.emp_id
         this.basic_dataDataService.BClicked('Component A is clicked!!');
         this.basic_dataDataService.CClicked('Component A is clicked!!');
     }
 	add_subject() {
-		//var test1
-		//test1 = this.departments[this.selecteddepartment]
-		//var schoolterm
-		//schoolterm = this.activities[this.activity_school_term]
-        
+		
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
             var val = {
@@ -140,12 +123,10 @@ export class basic_dataComponent implements OnInit {
 
 
             };
-            console.log("asd", val)
             this.basic_dataDataService.addbasic_data(val).subscribe(res => {
                 alert(res.toString());
                 this.basic_dataDataService.DClicked("");
             })
-            console.log(val)
            
             this.form1.reset();
         }
@@ -156,7 +137,6 @@ export class basic_dataComponent implements OnInit {
             console.log('Form invalid...');
             this.form1.markAllAsTouched();
         } else {
-            /*console.log("emp", emp, this.employeedepartment );*/
             var val = {
                 id: Number(this.id),
                 name: this.emp.emp_name,
@@ -170,43 +150,38 @@ export class basic_dataComponent implements OnInit {
 
             };
 
-            console.log("val", val);
 
 
             this.basic_dataDataService.updatebasic_data(val).subscribe(res => {
                 alert(res.toString());
                 this.basic_dataDataService.DClicked("");
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+                this.is_edit=false;
             })
            
             this.form1.reset();
         }
 	}
-    
     cancel_subject() {
         this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-	}
-	ngOnInit() {
-		this.butDisabled = true;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-		/*		(<HTMLInputElement>document.getElementById("departmentsdropdown") as ).setv*/
+        this.is_edit=false;
 
+	}
+    priv_info:any=[];
+	ngOnInit() {
+		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+		.subscribe(data =>this.priv_info = data,
+			error => console.log(),
+            () => {
+				this.cdRef.detectChanges();
+
+			});
+            
+		this.butDisabled = true;
+		
 		this.basic_dataDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-			
+                this.is_edit=true;
+
                 this.id = String(this.basic_dataDataService.id);
                 //this.name = this.basic_dataDataService.name;
                 this.file_number = this.basic_dataDataService.file_number;

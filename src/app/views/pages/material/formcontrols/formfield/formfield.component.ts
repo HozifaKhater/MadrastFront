@@ -194,7 +194,7 @@ export class FormfieldComponent implements OnInit {
             this.form1.reset();
             this.MasterJobsDataService.BClicked("");
             
-
+			this.is_edit=false;
 		},error => {
 			const errorMessages = [];
 			for (const fieldName in error.error.errors) {
@@ -209,7 +209,7 @@ export class FormfieldComponent implements OnInit {
 		})
 
 	}
-  
+    is_edit:boolean=false;
 	returned_job_id: any;
 	checkbox_array: any;
 	add_jobs() {
@@ -313,7 +313,7 @@ export class FormfieldComponent implements OnInit {
 		this.MasterJobsDataService.aClickedEvent
 			.subscribe((data: string) => {
 			
-				
+				this.is_edit=true;
 				this.job_id = Number(this.MasterJobsDataService.job_id);
 				this.job_name = this.MasterJobsDataService.job_name;
 				this.job_desc = this.MasterJobsDataService.job_desc;

@@ -35,7 +35,7 @@ export class PaginationComponent implements OnInit {
 	emp_name: string = "";
 	observ_loc: string = "";
 	observe_date: string = "";
-
+    is_edit:boolean=false;
 	Employees: Employee[];
 	employeedepartment: any=[];
 	Levels: Levels[];
@@ -204,7 +204,7 @@ export class PaginationComponent implements OnInit {
                 this.myControlTime.reset();
                 this.myControlclass.reset();
                 this.myControllev.reset();
-
+                this.is_edit=false;
             },error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -272,7 +272,7 @@ export class PaginationComponent implements OnInit {
 		
 		this.ObservationsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+                this.is_edit=true;
 				this.observer_id = Number(this.ObservationsDataService.observer_id);
 				this.observ_ftra = this.ObservationsDataService.observ_ftra;
 				this.class_name = this.ObservationsDataService.class_name;

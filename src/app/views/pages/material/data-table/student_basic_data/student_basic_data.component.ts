@@ -107,7 +107,7 @@ export class student_basic_dataComponent implements OnInit {
 
 	exampleBasic;
 	exampleConfig;
-
+	is_edit:boolean=false;
 	length = 100;
 	pageSize = 10;
 	pageSizeOptions = [5, 10, 25, 100];
@@ -251,19 +251,13 @@ export class student_basic_dataComponent implements OnInit {
 			this.myControlclass.reset();
 			this.myControllev.reset();
 			this.student_basic_dataDataService.BClicked("");
-			(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-			(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-			(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-			(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+			this.is_edit=false;
 		})
 
 	}
 	cancel_failure() {
 		this.form1.reset();
-		(<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-		(<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-		(<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-		(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+		this.is_edit=false;
 	}
 	filteredOptionslev: Observable<any[]>;
 
@@ -303,7 +297,6 @@ export class student_basic_dataComponent implements OnInit {
         this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
             error => console.log(error),
             () => {
-                console.log("class dropdown", this.class);
                 this.filteredOptionsclass = this.myControlclass.valueChanges
                     .pipe(
                         startWith(''),
@@ -317,15 +310,13 @@ export class student_basic_dataComponent implements OnInit {
         this.ActivityDataService.activity_id = event.class_id;
         this.ActivityDataService.BClicked("test");
         this.class_id = event.class_id;
-        console.log(" class id",  event.class_id);
         this.Change_Student();
     }
 
     Change_Student(){
         this.StudentDataService.GetAllStudent_of_class(this.class_id).subscribe(data => this.student = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("student dropdown", this.student);
                 
                 this.filteredOptionsStudents = this.myControlStudent.valueChanges
                     .pipe(
@@ -336,7 +327,6 @@ export class student_basic_dataComponent implements OnInit {
             });
 
             
-        console.log("selected student", this.selectedStudent);
         this.setData();
     }
   
@@ -353,17 +343,18 @@ classVar:any;
 anotherStuArray:Student[];
 anotherClassArray:Classes[];
 anotherLevelArray: Levels[];
-	priv_info:any;
-	ngOnInit() {
-		this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string).subscribe(data =>this.priv_info = data,
-			error => console.log(error),
-            () => {console.log("privvv",this.priv_info);
-			}); 
+priv_info:any=[];
+ngOnInit() {
+	this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+	.subscribe(data =>this.priv_info = data,
+		error => console.log(),
+		() => {
+			this.cdRef.detectChanges();
+		}); 	
 
 		this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-			error => console.log(error),
+			error => console.log(),
 			() => {
-				console.log("emp dropdown", this.level);
 				this.filteredOptionslev = this.myControllev.valueChanges
 					.pipe(
 						startWith(''),
@@ -374,12 +365,7 @@ anotherLevelArray: Levels[];
 		
 		this.student_basic_dataDataService.aClickedEvent
 			.subscribe((data: string) => {
-				console.log("edited");
-				//(<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-				//(<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-				//(<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-				//(<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-
+				this.is_edit=true;
 				this.ser	=	String(this.student_basic_dataDataService.ser)	;
 				this.previous_school	=	this.student_basic_dataDataService.previous_school	;
 				this.address	=	this.student_basic_dataDataService.address	;

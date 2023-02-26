@@ -59,7 +59,7 @@ export class MaterialTabsComponent implements OnInit {
             corridor_desc: ['', [Validators.required]]
         });
     }
-
+    is_edit:boolean=false;
     add_corridors() {
       
         if (this.form1.invalid) {
@@ -106,7 +106,7 @@ export class MaterialTabsComponent implements OnInit {
                 alert(res.toString());
                 this.corridorsDataService.BClicked("b2");
                 this.form1.reset();
-                
+                this.is_edit=false;
             },error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -135,7 +135,7 @@ export class MaterialTabsComponent implements OnInit {
         this.corridorsDataService.aClickedEvent
             .subscribe((data: string) => {
                 
-           
+                this.is_edit=true;
                 this.corridor_id = this.corridorsDataService.corridor_id;
                 this.corridor_name = this.corridorsDataService.corridor_name;
                 this.corridor_desc = this.corridorsDataService.corridor_desc;

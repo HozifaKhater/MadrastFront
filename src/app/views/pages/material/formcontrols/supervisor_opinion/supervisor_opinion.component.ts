@@ -67,7 +67,7 @@ export class SupervisoropinionComponent implements OnInit {
     dep_mang_opin: string = "";
     supervisor_opin: string = ""
 
-
+    is_edit:boolean=false;
 
     departments: Departments[];
   
@@ -172,7 +172,7 @@ export class SupervisoropinionComponent implements OnInit {
            
             alert("Updateed Successfully");
             this.Supervisor_opinionDataService.BClicked("b2");
-          
+            this.is_edit=false;
 		})
             this.form1.reset();
         }
@@ -287,7 +287,7 @@ export class SupervisoropinionComponent implements OnInit {
 
         this.Supervisor_opinionDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
                 this.supervisor_opin_id = this.supervisor_opin_id;
                 this.lev_id = this.lev_id;
                 this.lev_name = this.lev_name;

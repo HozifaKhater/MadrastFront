@@ -38,8 +38,10 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
     public sub_dep_name: string="";
     public excellence_manifestations: string="";
     public suggested_development: string="";
-    public result: string="";    
-    
+    public result: string="";
+        
+    is_edit:boolean=false;
+
     level: Levels[];
     selectedlevel: any;
 
@@ -80,8 +82,7 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
             });
 
         this.DepartmentService.GetAllMasterdepartment().subscribe(data => this.departments = data,
-            error => console.log(error),
-            () => console.log("department Data ", this.departments));
+            error => console.log());
     } 
 
     filteredOptionslev: Observable<any[]>;
@@ -119,52 +120,55 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
     }
 
     change_level(event) {
+
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("class dropdown", this.class);
                 this.filteredOptionsclass = this.myControlclass.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.class_name),
+                        map(value => value? typeof value === 'string' ? value : value.class_name : ''),
                         map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
                     );
             });
+        }
     }
 
     change_class(event) {
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ActivityDataService.activity_id = event.class_id;
         this.ActivityDataService.BClicked("test");
         this.class_id = event.class_id;
-        console.log(" class id",  event.class_id);
         this.Change_Student();
+        }
     }
 
     Change_Student(){
+        if(this.class_id !== null && this.class_id !== undefined && this.class_id !== ""){
+
         this.StudentDataService.GetAllStudent_of_class(this.class_id).subscribe(data => this.student = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("student dropdown", this.student);
                 
                 this.filteredOptionsStudents = this.myControlStudent.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.student_name),
+                        map(value => value? typeof value === 'string' ? value : value.student_name : ''),
                         map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
                     );
             });
 
-            
-        console.log("selected student", this.selectedStudent);
+        }
     }
 
 
     get_side_dep() {
         this.dep_id = this.departments.find(e => e.dep_name == this.selectedDepartment).dep_id;
-        console.log("dept id ", this.dep_id);
         this.DepartmentService.get_department_def_with_master_id(this.dep_id).subscribe(data => this.side_departments = data,
-            error => console.log(error),
-            () => console.log("side_departments", this.side_departments));
+            error => console.log());
     }
 
     ngAfterViewInit() {
@@ -173,17 +177,13 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
    
     AddSpecialStudent(){
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         }else {
             var chck;
             
             if (this.butDisabled == true) {
                 chck = Number(this.id);
-                console.log("check  ", chck);
             };
-            console.log("side dept,dep id ", this.selectedSideDepartment,
-            this.side_departments.find(e => e.dep_name == this.selectedSideDepartment).dep_id);
 
             var newSpecialStudent= {
                 level_id: Number(this.selectedlevel.lev_id),
@@ -206,7 +206,6 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
                 result: this.result
             }
 
-            console.log("new Special Student ", newSpecialStudent);
 
             this.SpecialStudentService.SaveSpecialStudent(newSpecialStudent).subscribe(res => {
                 alert("Added Sucesfully");
@@ -222,7 +221,6 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
 
         if (this.butDisabled == false) {
            chck = Number(this.id);
-           console.log("selected id ", chck );
         };
 
         var updatedSpecialStudent= {
@@ -247,17 +245,14 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
             result: this.result       
        }
 
-       console.log("updated Special Student", updatedSpecialStudent);
 
        this.SpecialStudentService.UpdateSpecialStudent(updatedSpecialStudent).subscribe(res => {
            alert("Updated Sucessfully");
            this.form1.reset();
            this.SpecialStudentService.BClicked("");
+           this.is_edit=false;
 
-           (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-           (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-           (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-           (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+          
        })
    }
    
@@ -265,10 +260,8 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
 
    Cancle() {
        this.form1.reset();
-       (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-       (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-       (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-       (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+       this.is_edit=false;
+
    }
    updatedClass:any;
    updatedStudent:any;
@@ -276,18 +269,14 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
     ngOnInit() {
 
         this.butDisabled = true;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
             error => console.log(error),
             () => {
-                console.log("levels dropdown", this.level);
                 this.filteredOptionslev = this.myControllev.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.lev_name),
+                        map(value => value? typeof value === 'string' ? value : value.lev_name :''),
                         map(lev_name => lev_name ? this._filterlev(lev_name) : this.level.slice())
                     );
         });
@@ -298,12 +287,8 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
-    
+            this.is_edit=true
+
             this.id = this.SpecialStudentService.id;
             this.level_name = this.SpecialStudentService.level_name;
             this.class_id = this.SpecialStudentService.class_id.toString();
@@ -321,8 +306,6 @@ export class SpecialStudentsComponent implements OnInit, AfterViewInit {
             this.result = this.SpecialStudentService.result; 
 
             
-            console.log("class id ", this.class_id);
-            console.log("student id ", this.student_id);
             //this.student_age_day = this.scodes.find(e => e.s_code_arabic == this.selected).s_code,
            
             /*

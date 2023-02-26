@@ -1395,11 +1395,11 @@
                 data-dismiss="modal">
             إغلاق
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="update_failure()"
+        <button type="button" style="border-radius: 20px;" *ngIf="is_edit" (click)="update_failure()"
                 class="btn btn-primary">
             تعديل
         </button>
-        <button type="button" style="border-radius: 20px;" (click)="add_failure()"
+        <button type="button" style="border-radius: 20px;" *ngIf="!is_edit" (click)="add_failure()"
                 class="btn btn-primary">
             اضافة
         </button>

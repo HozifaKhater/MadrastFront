@@ -33,7 +33,7 @@ export class CollapseComponent implements OnInit {
 	emp_id: string = "";
 	emp_name: string = "";
 	trip_loc: string = "";
-
+    is_edit:boolean=false;
 	trip_date: string = "";
 	trip_time: string = "";
 	trip_duration: string = "";
@@ -261,7 +261,7 @@ export class CollapseComponent implements OnInit {
 				this.myControllev.reset();
 				this.myControlclass.reset();
 				this.myControlstudent.reset();
-
+				this.is_edit=false;
 			}, error => {
 				const errorMessages = [];
 				for (const fieldName in error.error.errors) {
@@ -355,7 +355,7 @@ export class CollapseComponent implements OnInit {
 
 		this.TripsDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.trip_id = Number(this.TripsDataService.trip_id);
 				this.trip_loc = this.TripsDataService.trip_loc;
 				this.trip_date = this.TripsDataService.trip_date;

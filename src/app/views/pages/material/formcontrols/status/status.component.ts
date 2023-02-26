@@ -56,7 +56,7 @@ export class statusComponent implements OnInit {
     dob: string = "";
     notes: string = "";
     status_type: def.status_type[];
-
+    is_edit:boolean=false;
 	selecteddepartment: any;
 	exampleBasicRadios;
 	exampleRadiosWithNgModel;
@@ -178,7 +178,7 @@ export class statusComponent implements OnInit {
 			this.myControllev.reset();
 			this.myControlclass.reset();
 			this.myControlstudent.reset();
-			
+			this.is_edit=false;
 		})
 
 	}
@@ -307,6 +307,7 @@ export class statusComponent implements OnInit {
 
 		this.statusDataService.aClickedEvent
 			.subscribe((data: string) => {
+				this.is_edit=true;
                 this.id = String(this.statusDataService.id);
                 this.dob = this.statusDataService.dob;
                 this.notes = this.statusDataService.notes;

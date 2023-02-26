@@ -49,7 +49,7 @@ export class SchoolpartyComponent implements OnInit {
     School_partyMaster: School_partyMaster[];
     favoriteSeason: string;
    
-
+    is_edit:boolean=false;
 	semesters = [
 		{ value: '1', viewValue: 'الأول' },
 		{ value: '2', viewValue: 'الثاني' }
@@ -134,6 +134,7 @@ export class SchoolpartyComponent implements OnInit {
                 alert("Updated Successfully");
                 this.School_partyDataService.BClicked("b2");
                
+                this.is_edit=false;
             })
             this.form1.reset();
         }
@@ -153,7 +154,7 @@ export class SchoolpartyComponent implements OnInit {
 		
         this.School_partyDataService.aClickedEvent
             .subscribe((data: string) => {
-             
+                this.is_edit=true;
                 this.sch_party_id = this.School_partyDataService.sch_party_id;
                 this.dep_id = String(this.School_partyDataService.dep_id);
                 this.dep_name = this.School_partyDataService.dep_name;

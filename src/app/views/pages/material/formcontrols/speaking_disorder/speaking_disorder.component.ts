@@ -282,6 +282,8 @@ export class Speaking_disorderComponent implements OnInit {
                                 this.Speaking_disorderDataService.addSpeaking_disorderDetailsSecond(details2)
                                 .subscribe();
                             });
+                            this.is_edit=false;
+
     
 
 
@@ -395,6 +397,7 @@ export class Speaking_disorderComponent implements OnInit {
     anotherLevelArray: Levels[];
     first:any[];
     second:any[];
+    is_edit:boolean=false;
 
 	priv_info:any=[];
 	ngOnInit() {
@@ -418,7 +421,8 @@ export class Speaking_disorderComponent implements OnInit {
 		
         this.Speaking_disorderDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+                this.is_edit=true
+
                 this.speech_dis_id = this.Speaking_disorderDataService.speech_dis_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality_name = this.Speaking_disorderDataService.nationality_name;

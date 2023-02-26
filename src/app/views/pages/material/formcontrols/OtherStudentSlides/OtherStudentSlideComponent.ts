@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component,ChangeDetectorRef, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
@@ -16,6 +16,8 @@ import { Student } from '../../../../../StudentMaster.Model';
 import { Definition } from '../../../../../Definitions.Model';
 import { DefinitionDataService } from '../../../../../Services/Definition';
 import { OtherStudentSlidesService } from '../../../../../Services/OtherStudentSlidesService';
+import { Router } from '@angular/router';
+import { user_privDataService } from '../../../../../Services/user_privDataService ';
 
 
 @Component({
@@ -39,7 +41,8 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
     public details: string = "";
     public results: string = "";
 
-    
+    is_edit:boolean=false;
+
     date_of_birth:string="";
     nationality:string="";
     
@@ -65,7 +68,10 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
     form1: FormGroup;
     butDisabled: boolean;
 
-    constructor(public _fb: FormBuilder,
+    constructor(
+        private cdRef: ChangeDetectorRef,
+        private router: Router, private user_privDataService: user_privDataService,
+       public _fb: FormBuilder,
         private ActivityDataService: ActivityDataService,
         private StudentDataService: StudentDataService,
         private LevelsDataService: LevelsDataService, 
@@ -87,8 +93,7 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
             });
        
         this.DefinitionDataService.GetFollowedUpSlides().subscribe((data:any) => this.slides = data.data,
-            error => console.log(error),
-            () => {console.log("slides Data ", this.slides)});
+            error => console.log());
     } 
 
     filteredOptionslev: Observable<any[]>;
@@ -126,44 +131,51 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
     }
 
     change_level(event) {
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ClassesDataService.GetAllClasses_with_level_id(event.lev_id).subscribe(data => this.class = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("class dropdown", this.class);
                 this.filteredOptionsclass = this.myControlclass.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.class_name),
+                        map(value => value? typeof value === 'string' ? value : value.class_name : ''),
                         map(class_name => class_name ? this._filterclass(class_name) : this.class.slice())
                     );
             });
+        }
     }
 
     change_class(event) {
+        if(event !== null && event !== undefined && event.length !== 0){
+
         this.ActivityDataService.activity_id = event.class_id;
         this.ActivityDataService.BClicked("test");
         this.class_id = event.class_id;
-        console.log(" class id",  event.class_id);
         this.Change_Student();
+        }
     }
 
     Change_Student(){
+        if(this.class_id !== null && this.class_id !== undefined){
+
         this.StudentDataService.GetAllStudent_of_class(this.class_id).subscribe(data => this.student = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("student dropdown", this.student);
                 
                 this.filteredOptionsStudents = this.myControlStudent.valueChanges
                     .pipe(
                         startWith(''),
-                        map(value => typeof value === 'string' ? value : value.student_name),
+                        map(value =>value?  typeof value === 'string' ? value : value.student_name : ''),
                         map(student_name => student_name ? this._filterStudent(student_name) : this.student.slice())
                     );
             });
 
-            
-        console.log("selected student", this.selectedStudent);
-        this.setData();
+            if(this.selectedStudent !== null && this.selectedStudent !== undefined){
+
+                this.setData();
+            }
+        }
     }
   
     setData(){
@@ -177,14 +189,12 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
 
     AddOtherStudentSlide(){
         if (this.form1.invalid) {
-            console.log('Form invalid...');
             this.form1.markAllAsTouched();
         }else {
             var chck;
             
             if (this.butDisabled == true) {
                 chck = Number(this.id);
-                console.log("check  ", chck);
             };
 
             var newOtherStudentSlide= {
@@ -208,7 +218,6 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
                 results: this.results
             }
 
-            console.log("new Other Student Slide  ", newOtherStudentSlide);
 
             this.OtherStudentSlidesService.SaveOtherStudentSlides(newOtherStudentSlide).subscribe(res => {
                 alert("Added Sucesfully");
@@ -225,7 +234,6 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
 
         if (this.butDisabled == false) {
            chck = Number(this.id);
-           console.log("selected id ", chck );
         };
 
         var updatedOtherStudentSlide = {
@@ -251,16 +259,13 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
             
        }
 
-       console.log("updated Other Student Slide ", updatedOtherStudentSlide);
 
        this.OtherStudentSlidesService.UpdateOtherStudentSlides(updatedOtherStudentSlide).subscribe(res => {
            alert("Updated Sucessfully ");
            this.form1.reset();
            this.OtherStudentSlidesService.BClicked("");
-           (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-           (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-           (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-           (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+           this.is_edit=false;
+
        })
    }
    
@@ -268,25 +273,29 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
 
    Cancle() {
        this.form1.reset();
-       (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-       (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-       (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-       (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+       this.is_edit=false;
+
    }
    updatedClass:any;
    updatedStudent:any;
 
-    ngOnInit() {
+   
+   priv_info:any=[];
+   ngOnInit() {
+       this.user_privDataService.get_emp_user_privliges_menus_route_with_route(this.router.url as string)
+       .subscribe(data =>this.priv_info = data,
+           error => console.log(),
+           () => {
+               this.cdRef.detectChanges();
+
+           }); 
 
         this.butDisabled = true;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("reset_btn")).hidden = false;
+        
 
         this.LevelsDataService.GetAllLevels().subscribe(data => this.level = data,
-            error => console.log(error),
+            error => console.log(),
             () => {
-                console.log("levels dropdown", this.level);
                 this.filteredOptionslev = this.myControllev.valueChanges
                     .pipe(
                         startWith(''),
@@ -301,11 +310,8 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
                 this.butDisabled = false;         
             }
     
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("reset_btn")).hidden = true;
+            this.is_edit=true;
+
     
             this.id = this.OtherStudentSlidesService.id;
             this.level_name = this.OtherStudentSlidesService.level_name;
@@ -321,8 +327,7 @@ export class OtherStudentSlideComponent implements OnInit, AfterViewInit {
             this.details = this.OtherStudentSlidesService.details;
             this.results = this.OtherStudentSlidesService.results;
             
-            console.log("class id ", this.class_id);
-            console.log("student id ", this.student_id);
+            
             //this.student_age_day = this.scodes.find(e => e.s_code_arabic == this.selected).s_code,
            
             /*

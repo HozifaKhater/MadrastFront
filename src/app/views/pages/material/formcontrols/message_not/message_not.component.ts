@@ -139,7 +139,7 @@ export class messages_notComponent implements OnInit {
 			this.messagesDataService.BClicked("");
 		})
 	}
-
+	is_edit:boolean=false;
 	reply_message(){
 		var val = {
 
@@ -157,7 +157,10 @@ export class messages_notComponent implements OnInit {
 					to_emp_id: this.messagesDataService.from_emp_id,
                 }
 
-                this.messagesDataService.save_in_messages_to_emp_id(val).subscribe();
+                this.messagesDataService.save_in_messages_to_emp_id(val).subscribe(
+					res => { this.is_edit=false;}
+
+				);
             
             alert("Saved Successfully");
      
@@ -187,7 +190,6 @@ export class messages_notComponent implements OnInit {
 	ngOnInit() {
 		this.id = this.route.snapshot.paramMap.get('id');
 		if (this.id) {			
-			console.log("mesagedataservice",this.messagesDataService.body)
 				this.title = this.messagesDataService.title;
 				this.body = this.messagesDataService.body;
 				this.openModal(this.modalContent,"event")		
@@ -230,7 +232,8 @@ export class messages_notComponent implements OnInit {
 			.subscribe((data: string) => {
 				
 				
-				
+				this.is_edit=true;
+
 				this.title = this.messagesDataService.title;
 				this.body = this.messagesDataService.body;
 				this.openModal(this.modalContent,"event")

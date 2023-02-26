@@ -244,7 +244,8 @@ export class Health_casesComponent implements OnInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
-                
+                this.is_edit=false;
+
             });
             
         }
@@ -334,6 +335,7 @@ export class Health_casesComponent implements OnInit {
         this.Health_casesDataService.student_id = this.selectedStudent.student_id;
         this.Health_casesDataService.student_name = this.selectedStudent.student_name;
     }
+	is_edit:boolean=false;
 
     classValue: any;
     levelValue:any;
@@ -372,7 +374,8 @@ export class Health_casesComponent implements OnInit {
 
         this.Health_casesDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+                this.is_edit=true;
+
                 this.health_id = this.Health_casesDataService.health_id;
                 this.nationality_id = this.nationality_id;
                 this.nationality = this.Health_casesDataService.nationality;

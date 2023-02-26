@@ -51,7 +51,7 @@ export class board_typeComponent implements OnInit {
     is_dep_check: any;
     is_job_check: any;
     is_emp_check: any;
-   
+    is_edit:boolean=false;
     job_label:any;
     dep_label:any;
     onChildButtonClick() { }
@@ -259,18 +259,12 @@ export class board_typeComponent implements OnInit {
         this.board_typeDataService.update_board_type(val).subscribe(res => {
             alert(res.toString());
             this.board_typeDataService.BClicked("");
-            (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-            (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-            (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-            (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+            this.is_edit=false;
         })
 
     }
     cancel() {
-        (<HTMLInputElement>document.getElementById("save_btn")).disabled = false;
-        (<HTMLInputElement>document.getElementById("save_btn")).hidden = false;
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        
     }
     
     priv_info:any;
@@ -281,16 +275,10 @@ export class board_typeComponent implements OnInit {
 			}
 	); 
 
-        (<HTMLInputElement>document.getElementById("update_btn")).hidden = true;
-        (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = true;
+        
         this.board_typeDataService.aClickedEvent
             .subscribe((data: string) => {
-                console.log("edited");
-                (<HTMLInputElement>document.getElementById("save_btn")).disabled = true;
-                (<HTMLInputElement>document.getElementById("save_btn")).hidden = true;
-                (<HTMLInputElement>document.getElementById("update_btn")).hidden = false;
-                (<HTMLInputElement>document.getElementById("cancel_btn")).hidden = false;
-
+                this.is_edit=true;
                 this.board_type_id = this.board_typeDataService.board_type_id;
                 this.board_type_name = this.board_typeDataService.board_type_name;
                 this.is_student_check = this.board_typeDataService.is_student;

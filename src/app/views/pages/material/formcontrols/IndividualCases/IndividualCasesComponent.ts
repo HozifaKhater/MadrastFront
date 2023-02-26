@@ -44,7 +44,8 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
     date_of_birth:string="";
     nationality:string="";
     
-    
+    is_edit:boolean=false;
+
     level: Levels[];
     selectedlevel: any=[];
 
@@ -224,6 +225,7 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
                 this.myControlStudent.reset();
 				this.myControlclass.reset();
 				this.myControllev.reset();
+
             })
 
         }
@@ -266,6 +268,7 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
                     this.myControlStudent.reset();
                     this.myControlclass.reset();
                     this.myControllev.reset();
+                    this.is_edit=false;
             });
         }
    }
@@ -326,7 +329,7 @@ export class IndividualCasesComponent implements OnInit, AfterViewInit {
             if (Number(this.IndividualCasesService.id) != 0) {
                 this.butDisabled = false;         
             }
-    
+            this.is_edit=true;
             this.id = this.IndividualCasesService.id;
             this.level_name = this.IndividualCasesService.level_name;
             this.class_id = this.IndividualCasesService.class_id.toString();

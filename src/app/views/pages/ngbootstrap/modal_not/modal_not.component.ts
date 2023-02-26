@@ -64,7 +64,7 @@ export class ModalComponent_not implements OnInit {
 	exampleLargeModal;
 	exampleSmallModal;
 	exampleVerticallyCentered;
-
+    is_edit:boolean=false;
 
 	is_meeting_date	:	any;
     	meeting_date_label	:	any;
@@ -306,7 +306,7 @@ export class ModalComponent_not implements OnInit {
 			this.Group_meetingDataService.updateGroup_meeting(val).subscribe(res => {
 				alert(res.toString());
 				this.Group_meetingDataService.BClicked("b2");
-				
+				this.is_edit=false;
 			})
 			this.form1.reset();
 		}
@@ -364,7 +364,7 @@ export class ModalComponent_not implements OnInit {
 
 		this.Group_meetingDataService.aClickedEvent
 			.subscribe((data: string) => {
-
+				this.is_edit=true;
 				this.group_id = Number(this.Group_meetingDataService.group_id);
 				this.group_name = this.Group_meetingDataService.group_name;
 				this.meeting_no = Number(this.Group_meetingDataService.meeting_no);

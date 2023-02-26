@@ -71,7 +71,7 @@ export class EnzaratComponent implements OnInit {
     leave_reason_id: string = "";
     leave_reason: string = "";
     leave_date: string = "";
-
+    is_edit:boolean=false;
     school: School_data[];
     corridors: corridor[];
     jobs: DepartmentMaster[];
@@ -213,7 +213,7 @@ this.modalService.open(content,{backdrop:true,size:"xl",});
            
             alert("Updated Successfully");
                 this.enzratDataService.BClicked("b2");
-          
+                this.is_edit=false;
 			
 		
         })
@@ -333,7 +333,7 @@ this.modalService.open(content,{backdrop:true,size:"xl",});
 			.subscribe((data: string) => {
 				
 
-
+                this.is_edit=true;
                 this.alert_type = this.alert_type;
 
                 this.is_sent = this.is_sent;

@@ -225,6 +225,7 @@ export class MaterialTooltipComponent implements OnInit {
             this.is_takeem = 0;
         }
     }
+    is_edit:boolean=false;
 	position = 'before';
     add() {
         
@@ -311,7 +312,7 @@ export class MaterialTooltipComponent implements OnInit {
         this.Visit_typesDataService.updatevisit_types(val).subscribe(res => {
             alert("Updated Successfully");
             this.Visit_typesDataService.BClicked("");
-            
+            this.is_edit=false;
         })
 
     }
@@ -330,7 +331,7 @@ export class MaterialTooltipComponent implements OnInit {
         
         this.Visit_typesDataService.aClickedEvent
             .subscribe((data: string) => {
-                
+                this.is_edit=true;
                 this.visit_type_id = this.Visit_typesDataService.visit_type_id;
                 this.visit_type_name = this.Visit_typesDataService.visit_type_name;
                 this.is_visit_date_check = this.Visit_typesDataService.is_visit_date;

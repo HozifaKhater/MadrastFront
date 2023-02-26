@@ -39,7 +39,7 @@ export class DatepickerComponent implements OnInit {
 	serializedDate = new FormControl((new Date()).toISOString());
 	minDate = new Date(2011, 0, 1);
 	maxDate = new Date(2018, 11, 1);
-
+	is_edit:boolean=false;
     events: string[] = [];
     form1: FormGroup;
 	departments: Departments[];
@@ -184,7 +184,7 @@ export class DatepickerComponent implements OnInit {
                 alert(res.toString());
                 this.SubjectService.BClicked("");
                 this.form1.reset();
-                
+				this.is_edit=false;
             },error => {console.log();
                 const errorMessages = [];
                 for (const fieldName in error.error.errors) {
@@ -223,7 +223,7 @@ export class DatepickerComponent implements OnInit {
 		
 		this.SubjectService.aClickedEvent
 			.subscribe((data: string) => {
-			
+			    this.is_edit=true;
 				this.subject_id = this.SubjectService.subject_id;
 				this.subject_name = this.SubjectService.subject_name;
 				this.subject_desc = this.SubjectService.subject_desc;

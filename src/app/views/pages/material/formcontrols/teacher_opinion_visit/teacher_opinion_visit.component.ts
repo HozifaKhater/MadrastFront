@@ -126,11 +126,11 @@ export class teacher_opinion_visitComponent implements OnInit {
                 this.teacher_opinion_visitDataService.BClicked("");
                 this.notes="";
 				this.is_agree="1";
-                
+				this.is_edit=false;
             })
         
 	}
-   
+    is_edit:boolean=false;
 	
     priv_info:any=[];
 	ngOnInit() {
@@ -146,7 +146,7 @@ export class teacher_opinion_visitComponent implements OnInit {
 
 		this.teacher_opinion_visitDataService.aClickedEvent
 			.subscribe((data: string) => {
-				
+				this.is_edit=true;
 				this.ser	=	this.teacher_opinion_visitDataService.ser	;
 				this.takeem_id	=	this.teacher_opinion_visitDataService.takeem_id	;
 				this.emp_id	=	this.teacher_opinion_visitDataService.emp_id	;
