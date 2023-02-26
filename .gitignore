@@ -125,3 +125,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+.vs/MadrastFront/FileContentIndex/21adcd74-a464-446d-8325-5cf2b520db3f.vsidx
+.vs/MadrastFront/FileContentIndex/10e2b2b8-9d4f-4b8e-accb-c9448a87463c.vsidx
+.vs/MadrastFront/FileContentIndex/23d848bc-988b-4ec2-9fa7-5ad210ca75a0.vsidx
+*.vsidx
+*.lock
+*.sqlite
